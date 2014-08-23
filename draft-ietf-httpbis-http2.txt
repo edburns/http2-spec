@@ -5,10 +5,10 @@
 HTTPbis Working Group                                          M. Belshe
 Internet-Draft                                                     Twist
 Intended status: Standards Track                                 R. Peon
-Expires: February 23, 2015                                   Google, Inc
+Expires: February 24, 2015                                   Google, Inc
                                                          M. Thomson, Ed.
                                                                  Mozilla
-                                                         August 22, 2014
+                                                         August 23, 2014
 
 
                  Hypertext Transfer Protocol version 2
@@ -53,12 +53,12 @@ Status of This Memo
 
 
 
-Belshe, et al.          Expires February 23, 2015               [Page 1]
+Belshe, et al.          Expires February 24, 2015               [Page 1]
 
 Internet-Draft                   HTTP/2                      August 2014
 
 
-   This Internet-Draft will expire on February 23, 2015.
+   This Internet-Draft will expire on February 24, 2015.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Belshe, et al.          Expires February 23, 2015               [Page 2]
+Belshe, et al.          Expires February 24, 2015               [Page 2]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -120,11 +120,11 @@ Internet-Draft                   HTTP/2                      August 2014
      5.5.  Extending HTTP/2  . . . . . . . . . . . . . . . . . . . .  29
    6.  Frame Definitions . . . . . . . . . . . . . . . . . . . . . .  30
      6.1.  DATA  . . . . . . . . . . . . . . . . . . . . . . . . . .  30
-     6.2.  HEADERS . . . . . . . . . . . . . . . . . . . . . . . . .  31
-     6.3.  PRIORITY  . . . . . . . . . . . . . . . . . . . . . . . .  33
+     6.2.  HEADERS . . . . . . . . . . . . . . . . . . . . . . . . .  32
+     6.3.  PRIORITY  . . . . . . . . . . . . . . . . . . . . . . . .  34
      6.4.  RST_STREAM  . . . . . . . . . . . . . . . . . . . . . . .  35
-     6.5.  SETTINGS  . . . . . . . . . . . . . . . . . . . . . . . .  35
-       6.5.1.  SETTINGS Format . . . . . . . . . . . . . . . . . . .  36
+     6.5.  SETTINGS  . . . . . . . . . . . . . . . . . . . . . . . .  36
+       6.5.1.  SETTINGS Format . . . . . . . . . . . . . . . . . . .  37
        6.5.2.  Defined SETTINGS Parameters . . . . . . . . . . . . .  37
        6.5.3.  Settings Synchronization  . . . . . . . . . . . . . .  38
      6.6.  PUSH_PROMISE  . . . . . . . . . . . . . . . . . . . . . .  39
@@ -165,7 +165,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015               [Page 3]
+Belshe, et al.          Expires February 24, 2015               [Page 3]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -221,7 +221,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015               [Page 4]
+Belshe, et al.          Expires February 24, 2015               [Page 4]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -277,7 +277,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015               [Page 5]
+Belshe, et al.          Expires February 24, 2015               [Page 5]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -333,7 +333,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015               [Page 6]
+Belshe, et al.          Expires February 24, 2015               [Page 6]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -389,7 +389,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015               [Page 7]
+Belshe, et al.          Expires February 24, 2015               [Page 7]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -445,7 +445,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015               [Page 8]
+Belshe, et al.          Expires February 24, 2015               [Page 8]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -501,7 +501,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015               [Page 9]
+Belshe, et al.          Expires February 24, 2015               [Page 9]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -557,7 +557,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 10]
+Belshe, et al.          Expires February 24, 2015              [Page 10]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -613,7 +613,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 11]
+Belshe, et al.          Expires February 24, 2015              [Page 11]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -669,7 +669,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 12]
+Belshe, et al.          Expires February 24, 2015              [Page 12]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -725,7 +725,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 13]
+Belshe, et al.          Expires February 24, 2015              [Page 13]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -781,7 +781,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 14]
+Belshe, et al.          Expires February 24, 2015              [Page 14]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -837,7 +837,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 15]
+Belshe, et al.          Expires February 24, 2015              [Page 15]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -893,7 +893,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 16]
+Belshe, et al.          Expires February 24, 2015              [Page 16]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -949,7 +949,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 17]
+Belshe, et al.          Expires February 24, 2015              [Page 17]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -1005,7 +1005,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 18]
+Belshe, et al.          Expires February 24, 2015              [Page 18]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -1061,7 +1061,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 19]
+Belshe, et al.          Expires February 24, 2015              [Page 19]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -1117,7 +1117,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 20]
+Belshe, et al.          Expires February 24, 2015              [Page 20]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -1173,7 +1173,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 21]
+Belshe, et al.          Expires February 24, 2015              [Page 21]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -1229,7 +1229,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 22]
+Belshe, et al.          Expires February 24, 2015              [Page 22]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -1285,7 +1285,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 23]
+Belshe, et al.          Expires February 24, 2015              [Page 23]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -1341,7 +1341,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 24]
+Belshe, et al.          Expires February 24, 2015              [Page 24]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -1397,7 +1397,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 25]
+Belshe, et al.          Expires February 24, 2015              [Page 25]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -1453,7 +1453,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 26]
+Belshe, et al.          Expires February 24, 2015              [Page 26]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -1509,7 +1509,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 27]
+Belshe, et al.          Expires February 24, 2015              [Page 27]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -1565,7 +1565,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 28]
+Belshe, et al.          Expires February 24, 2015              [Page 28]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -1606,7 +1606,10 @@ Internet-Draft                   HTTP/2                      August 2014
    extensible protocol elements.  Implementations MUST discard frames
    that have unknown or unsupported types.  This means that any of these
    extension points can be safely used by extensions without prior
-   arrangement or negotiation.
+   arrangement or negotiation.  However, extension frames that appear in
+   the middle of a header block (Section 4.3) are not permitted; these
+   MUST be treated as a connection error (Section 5.4.1) of type
+   PROTOCOL_ERROR.
 
    However, extensions that could change the semantics of existing
    protocol components MUST be negotiated before being used.  For
@@ -1614,17 +1617,17 @@ Internet-Draft                   HTTP/2                      August 2014
    cannot be used until the peer has given a positive signal that this
    is acceptable.  In this case, it could also be necessary to
    coordinate when the revised layout comes into effect.  Note that
-   treating any frame other than DATA frames as flow controlled is such
-   a change in semantics, and can only be done through negotiation.
 
 
 
 
-
-Belshe, et al.          Expires February 23, 2015              [Page 29]
+Belshe, et al.          Expires February 24, 2015              [Page 29]
 
 Internet-Draft                   HTTP/2                      August 2014
 
+
+   treating any frame other than DATA frames as flow controlled is such
+   a change in semantics, and can only be done through negotiation.
 
    This document doesn't mandate a specific method for negotiating the
    use of an extension, but notes that a setting (Section 6.5.2) could
@@ -1670,17 +1673,18 @@ Internet-Draft                   HTTP/2                      August 2014
 
    The DATA frame contains the following fields:
 
-   Pad Length:  An 8-bit field containing the length of the frame
-      padding in units of octets.  This field is optional and is only
-      present if the PADDED flag is set.
 
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 30]
+Belshe, et al.          Expires February 24, 2015              [Page 30]
 
 Internet-Draft                   HTTP/2                      August 2014
 
+
+   Pad Length:  An 8-bit field containing the length of the frame
+      padding in units of octets.  This field is optional and is only
+      present if the PADDED flag is set.
 
    Data:  Application data.  The amount of data is the remainder of the
       frame payload after subtracting the length of the other fields
@@ -1723,20 +1727,22 @@ Internet-Draft                   HTTP/2                      August 2014
 
    Padding is a security feature; see Section 10.7.
 
+
+
+
+
+
+
+Belshe, et al.          Expires February 24, 2015              [Page 31]
+
+Internet-Draft                   HTTP/2                      August 2014
+
+
 6.2.  HEADERS
 
    The HEADERS frame (type=0x1) is used to open a stream (Section 5.1),
    and additionally carries a header block fragment.  HEADERS frames can
    be sent on a stream in the "open" or "half closed (remote)" states.
-
-
-
-
-
-Belshe, et al.          Expires February 23, 2015              [Page 31]
-
-Internet-Draft                   HTTP/2                      August 2014
-
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -1780,20 +1786,19 @@ Internet-Draft                   HTTP/2                      August 2014
 
    END_STREAM (0x1):  Bit 1 being set indicates that the header block
       (Section 4.3) is the last that the endpoint will send for the
+
+
+
+Belshe, et al.          Expires February 24, 2015              [Page 32]
+
+Internet-Draft                   HTTP/2                      August 2014
+
+
       identified stream.  Setting this flag causes the stream to enter
       one of "half closed" states (Section 5.1).
 
       A HEADERS frame carries the END_STREAM flag that signals the end
       of a stream.  However, a HEADERS frame with the END_STREAM flag
-
-
-
-
-Belshe, et al.          Expires February 23, 2015              [Page 32]
-
-Internet-Draft                   HTTP/2                      August 2014
-
-
       set can be followed by CONTINUATION frames on the same stream.
       Logically, the CONTINUATION frames are part of the HEADERS frame.
 
@@ -1835,20 +1840,22 @@ Internet-Draft                   HTTP/2                      August 2014
    created.  Priorization fields in HEADERS frames subsequent to the
    first on a stream reprioritize the stream (Section 5.3.3).
 
+
+
+
+
+
+Belshe, et al.          Expires February 24, 2015              [Page 33]
+
+Internet-Draft                   HTTP/2                      August 2014
+
+
 6.3.  PRIORITY
 
    The PRIORITY frame (type=0x2) specifies the sender-advised priority
    of a stream (Section 5.3).  It can be sent at any time for an
    existing stream, including closed streams.  This enables
    reprioritization of existing streams.
-
-
-
-
-Belshe, et al.          Expires February 23, 2015              [Page 33]
-
-Internet-Draft                   HTTP/2                      August 2014
-
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -1891,20 +1898,18 @@ Internet-Draft                   HTTP/2                      August 2014
 
    The PRIORITY frame is the only frame that can be sent for a stream in
    the "closed" state.  This allows for the reprioritization of a group
+
+
+
+Belshe, et al.          Expires February 24, 2015              [Page 34]
+
+Internet-Draft                   HTTP/2                      August 2014
+
+
    of dependent streams by altering the priority of a parent stream,
    which might be closed.  However, a PRIORITY frame sent on a closed
    stream risks being ignored due to the peer having discarded priority
    state information for that stream.
-
-
-
-
-
-
-Belshe, et al.          Expires February 23, 2015              [Page 34]
-
-Internet-Draft                   HTTP/2                      August 2014
-
 
 6.4.  RST_STREAM
 
@@ -1947,6 +1952,16 @@ Internet-Draft                   HTTP/2                      August 2014
    recipient MUST treat this as a connection error (Section 5.4.1) of
    type PROTOCOL_ERROR.
 
+
+
+
+
+
+Belshe, et al.          Expires February 24, 2015              [Page 35]
+
+Internet-Draft                   HTTP/2                      August 2014
+
+
 6.5.  SETTINGS
 
    The SETTINGS frame (type=0x4) conveys configuration parameters that
@@ -1954,13 +1969,6 @@ Internet-Draft                   HTTP/2                      August 2014
    on peer behavior.  The SETTINGS frame is also used to acknowledge the
    receipt of those parameters.  Individually, a SETTINGS parameter can
    also be referred to as a "setting".
-
-
-
-Belshe, et al.          Expires February 23, 2015              [Page 35]
-
-Internet-Draft                   HTTP/2                      August 2014
-
 
    SETTINGS parameters are not negotiated; they describe characteristics
    of the sending peer, which are used by the receiving peer.  Different
@@ -2001,22 +2009,20 @@ Internet-Draft                   HTTP/2                      August 2014
    incomplete SETTINGS frame MUST be treated as a connection error
    (Section 5.4.1) of type PROTOCOL_ERROR.
 
+
+
+
+
+Belshe, et al.          Expires February 24, 2015              [Page 36]
+
+Internet-Draft                   HTTP/2                      August 2014
+
+
 6.5.1.  SETTINGS Format
 
    The payload of a SETTINGS frame consists of zero or more parameters,
    each consisting of an unsigned 16-bit setting identifier and an
    unsigned 32-bit value.
-
-
-
-
-
-
-
-Belshe, et al.          Expires February 23, 2015              [Page 36]
-
-Internet-Draft                   HTTP/2                      August 2014
-
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -2060,19 +2066,17 @@ Internet-Draft                   HTTP/2                      August 2014
       A value of 0 for SETTINGS_MAX_CONCURRENT_STREAMS SHOULD NOT be
       treated as special by endpoints.  A zero value does prevent the
       creation of new streams, however this can also happen for any
-      limit that is exhausted with active streams.  Servers SHOULD only
-      set a zero value for short durations; if a server does not wish to
-      accept requests, closing the connection could be preferable.
 
 
 
-
-
-
-Belshe, et al.          Expires February 23, 2015              [Page 37]
+Belshe, et al.          Expires February 24, 2015              [Page 37]
 
 Internet-Draft                   HTTP/2                      August 2014
 
+
+      limit that is exhausted with active streams.  Servers SHOULD only
+      set a zero value for short durations; if a server does not wish to
+      accept requests, closing the connection could be preferable.
 
    SETTINGS_INITIAL_WINDOW_SIZE (0x4):  Indicates the sender's initial
       window size (in octets) for stream level flow control.  The
@@ -2118,17 +2122,18 @@ Internet-Draft                   HTTP/2                      August 2014
    The values in the SETTINGS frame MUST be processed in the order they
    appear, with no other frame processing between values.  Unsupported
    parameters MUST be ignored.  Once all values have been processed, the
+
+
+
+Belshe, et al.          Expires February 24, 2015              [Page 38]
+
+Internet-Draft                   HTTP/2                      August 2014
+
+
    recipient MUST immediately emit a SETTINGS frame with the ACK flag
    set.  Upon receiving a SETTINGS frame with the ACK flag set, the
    sender of the altered parameters can rely on the setting having been
    applied.
-
-
-
-Belshe, et al.          Expires February 23, 2015              [Page 38]
-
-Internet-Draft                   HTTP/2                      August 2014
-
 
    If the sender of a SETTINGS frame does not receive an acknowledgement
    within a reasonable amount of time, it MAY issue a connection error
@@ -2173,18 +2178,17 @@ Internet-Draft                   HTTP/2                      August 2014
    Header Block Fragment:  A header block fragment (Section 4.3)
       containing request header fields.
 
-   Padding:  Padding octets.
-
-   The PUSH_PROMISE frame defines the following flags:
 
 
 
-
-
-Belshe, et al.          Expires February 23, 2015              [Page 39]
+Belshe, et al.          Expires February 24, 2015              [Page 39]
 
 Internet-Draft                   HTTP/2                      August 2014
 
+
+   Padding:  Padding octets.
+
+   The PUSH_PROMISE frame defines the following flags:
 
    END_HEADERS (0x4):  Bit 3 being set indicates that this frame
       contains an entire header block (Section 4.3) and is not followed
@@ -2229,19 +2233,20 @@ Internet-Draft                   HTTP/2                      August 2014
    new stream identifier (Section 5.1.1) (that is, the promised stream
    MUST be in the "idle" state).
 
+
+
+
+
+Belshe, et al.          Expires February 24, 2015              [Page 40]
+
+Internet-Draft                   HTTP/2                      August 2014
+
+
    Since PUSH_PROMISE reserves a stream, ignoring a PUSH_PROMISE frame
    causes the stream state to become indeterminate.  A receiver MUST
    treat the receipt of a PUSH_PROMISE on a stream that is neither
    "open" nor "half closed (local)" as a connection error
    (Section 5.4.1) of type PROTOCOL_ERROR.  However, an endpoint that
-
-
-
-Belshe, et al.          Expires February 23, 2015              [Page 40]
-
-Internet-Draft                   HTTP/2                      August 2014
-
-
    has sent RST_STREAM on the associated stream MUST handle PUSH_PROMISE
    frames that might have been created before the RST_STREAM frame is
    received and processed.
@@ -2286,17 +2291,17 @@ Internet-Draft                   HTTP/2                      August 2014
       response.  An endpoint MUST set this flag in PING responses.  An
       endpoint MUST NOT respond to PING frames containing this flag.
 
+
+
+Belshe, et al.          Expires February 24, 2015              [Page 41]
+
+Internet-Draft                   HTTP/2                      August 2014
+
+
    PING frames are not associated with any individual stream.  If a PING
    frame is received with a stream identifier field value other than
    0x0, the recipient MUST respond with a connection error
    (Section 5.4.1) of type PROTOCOL_ERROR.
-
-
-
-Belshe, et al.          Expires February 23, 2015              [Page 41]
-
-Internet-Draft                   HTTP/2                      August 2014
-
 
    Receipt of a PING frame with a length field value other than 8 MUST
    be treated as a connection error (Section 5.4.1) of type
@@ -2340,19 +2345,17 @@ Internet-Draft                   HTTP/2                      August 2014
    server does not send a GOAWAY frame to indicate what streams it might
    have acted on.
 
-   An endpoint might choose to close a connection without sending GOAWAY
-   for misbehaving peers.
 
 
 
 
-
-
-
-Belshe, et al.          Expires February 23, 2015              [Page 42]
+Belshe, et al.          Expires February 24, 2015              [Page 42]
 
 Internet-Draft                   HTTP/2                      August 2014
 
+
+   An endpoint might choose to close a connection without sending GOAWAY
+   for misbehaving peers.
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -2400,16 +2403,15 @@ Internet-Draft                   HTTP/2                      August 2014
    frame, maintaining the connection in an open state until all in-
    progress streams complete.
 
-   An endpoint MAY send multiple GOAWAY frames if circumstances change.
-   For instance, an endpoint that sends GOAWAY with NO_ERROR during
 
 
-
-Belshe, et al.          Expires February 23, 2015              [Page 43]
+Belshe, et al.          Expires February 24, 2015              [Page 43]
 
 Internet-Draft                   HTTP/2                      August 2014
 
 
+   An endpoint MAY send multiple GOAWAY frames if circumstances change.
+   For instance, an endpoint that sends GOAWAY with NO_ERROR during
    graceful shutdown could subsequently encounter an condition that
    requires immediate termination of the connection.  The last stream
    identifier from the last GOAWAY frame received indicates which
@@ -2459,9 +2461,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-
-
-Belshe, et al.          Expires February 23, 2015              [Page 44]
+Belshe, et al.          Expires February 24, 2015              [Page 44]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -2517,7 +2517,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 45]
+Belshe, et al.          Expires February 24, 2015              [Page 45]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -2573,7 +2573,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 46]
+Belshe, et al.          Expires February 24, 2015              [Page 46]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -2629,7 +2629,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 47]
+Belshe, et al.          Expires February 24, 2015              [Page 47]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -2685,7 +2685,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 48]
+Belshe, et al.          Expires February 24, 2015              [Page 48]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -2741,7 +2741,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 49]
+Belshe, et al.          Expires February 24, 2015              [Page 49]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -2797,7 +2797,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 50]
+Belshe, et al.          Expires February 24, 2015              [Page 50]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -2853,7 +2853,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 51]
+Belshe, et al.          Expires February 24, 2015              [Page 51]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -2909,7 +2909,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 52]
+Belshe, et al.          Expires February 24, 2015              [Page 52]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -2965,7 +2965,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 53]
+Belshe, et al.          Expires February 24, 2015              [Page 53]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3021,7 +3021,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 54]
+Belshe, et al.          Expires February 24, 2015              [Page 54]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3077,7 +3077,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 55]
+Belshe, et al.          Expires February 24, 2015              [Page 55]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3133,7 +3133,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 56]
+Belshe, et al.          Expires February 24, 2015              [Page 56]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3189,7 +3189,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 57]
+Belshe, et al.          Expires February 24, 2015              [Page 57]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3245,7 +3245,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 58]
+Belshe, et al.          Expires February 24, 2015              [Page 58]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3301,7 +3301,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 59]
+Belshe, et al.          Expires February 24, 2015              [Page 59]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3357,7 +3357,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 60]
+Belshe, et al.          Expires February 24, 2015              [Page 60]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3413,7 +3413,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 61]
+Belshe, et al.          Expires February 24, 2015              [Page 61]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3469,7 +3469,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 62]
+Belshe, et al.          Expires February 24, 2015              [Page 62]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3525,7 +3525,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 63]
+Belshe, et al.          Expires February 24, 2015              [Page 63]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3581,7 +3581,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 64]
+Belshe, et al.          Expires February 24, 2015              [Page 64]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3637,7 +3637,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 65]
+Belshe, et al.          Expires February 24, 2015              [Page 65]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3693,7 +3693,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 66]
+Belshe, et al.          Expires February 24, 2015              [Page 66]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3749,7 +3749,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 67]
+Belshe, et al.          Expires February 24, 2015              [Page 67]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3805,7 +3805,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 68]
+Belshe, et al.          Expires February 24, 2015              [Page 68]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3861,7 +3861,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 69]
+Belshe, et al.          Expires February 24, 2015              [Page 69]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3917,7 +3917,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 70]
+Belshe, et al.          Expires February 24, 2015              [Page 70]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -3973,7 +3973,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 71]
+Belshe, et al.          Expires February 24, 2015              [Page 71]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -4029,7 +4029,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 72]
+Belshe, et al.          Expires February 24, 2015              [Page 72]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -4085,7 +4085,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 73]
+Belshe, et al.          Expires February 24, 2015              [Page 73]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -4141,7 +4141,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 74]
+Belshe, et al.          Expires February 24, 2015              [Page 74]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -4197,7 +4197,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 75]
+Belshe, et al.          Expires February 24, 2015              [Page 75]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -4253,7 +4253,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 76]
+Belshe, et al.          Expires February 24, 2015              [Page 76]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -4309,7 +4309,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 77]
+Belshe, et al.          Expires February 24, 2015              [Page 77]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -4365,7 +4365,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 78]
+Belshe, et al.          Expires February 24, 2015              [Page 78]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -4421,7 +4421,7 @@ A.3.  Since draft-ietf-httpbis-http2-11
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 79]
+Belshe, et al.          Expires February 24, 2015              [Page 79]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -4477,7 +4477,7 @@ A.6.  Since draft-ietf-httpbis-http2-08
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 80]
+Belshe, et al.          Expires February 24, 2015              [Page 80]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -4533,7 +4533,7 @@ A.10.  Since draft-ietf-httpbis-http2-04
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 81]
+Belshe, et al.          Expires February 24, 2015              [Page 81]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -4589,7 +4589,7 @@ A.13.  Since draft-ietf-httpbis-http2-01
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 82]
+Belshe, et al.          Expires February 24, 2015              [Page 82]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -4645,7 +4645,7 @@ Authors' Addresses
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 83]
+Belshe, et al.          Expires February 24, 2015              [Page 83]
 
 Internet-Draft                   HTTP/2                      August 2014
 
@@ -4701,4 +4701,4 @@ Internet-Draft                   HTTP/2                      August 2014
 
 
 
-Belshe, et al.          Expires February 23, 2015              [Page 84]
+Belshe, et al.          Expires February 24, 2015              [Page 84]
