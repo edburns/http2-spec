@@ -448,7 +448,7 @@ samp, tt, code, pre {
        content: "Belshe, et al.";
   }
   @bottom-center {
-       content: "Expires February 24, 2015";
+       content: "Expires February 26, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -569,7 +569,7 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Thomson, M.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-http2-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2014-08-23">
+      <meta name="dct.issued" scheme="ISO8601" content="2014-08-25">
       <meta name="dct.abstract" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
       <meta name="description" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
    </head>
@@ -589,7 +589,7 @@ ul.toc a:first-child {
                <td class="right">R. Peon</td>
             </tr>
             <tr>
-               <td class="left">Expires: February 24, 2015</td>
+               <td class="left">Expires: February 26, 2015</td>
                <td class="right">Google, Inc</td>
             </tr>
             <tr>
@@ -602,7 +602,7 @@ ul.toc a:first-child {
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">August 23, 2014</td>
+               <td class="right">August 25, 2014</td>
             </tr>
          </tbody>
       </table>
@@ -633,7 +633,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on February 24, 2015.</p>
+         <p>This Internet-Draft will expire on February 26, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -3233,9 +3233,9 @@ Upgrade: h2c
          <div id="PushResources">
             <h2 id="rfc.section.8.2"><a href="#rfc.section.8.2">8.2</a>&nbsp;<a href="#PushResources">Server Push</a></h2>
             <div id="rfc.section.8.2.p.1">
-               <p>HTTP/2 allows a server to pre-emptively send (or "push") responses (along with corresponding requests) to a client in association
-                  with a previous client-initiated request. This can be useful when the server knows the client will need to have those responses
-                  available in order to fully process the response to the original request.
+               <p>HTTP/2 allows a server to pre-emptively send (or "push") responses (along with corresponding "promised" requests) to a client
+                  in association with a previous client-initiated request. This can be useful when the server knows the client will need to
+                  have those responses available in order to fully process the response to the original request.
                </p>
             </div>
             <div id="rfc.section.8.2.p.2">
@@ -3243,17 +3243,28 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.8.2.p.3">
+               <p>Promised requests MUST be cacheable (see <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#cacheable.methods" title="Cacheable Methods">Section 4.2.3</a>), MUST be safe (see <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#safe.methods" title="Safe Methods">Section 4.2.1</a>) and MUST NOT include a request body. Clients that receive a promised request that is not cacheable, unsafe or that includes
+                  a request body MUST reset the stream with a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
+               </p>
+            </div>
+            <div id="rfc.section.8.2.p.4">
+               <p>Pushed responses that are cacheable (see <a href="#RFC7234"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Caching">[RFC7234]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7234.html#response.cacheability" title="Storing Responses in Caches">Section 3</a>) SHOULD be stored by the client, if it implements a HTTP cache. Such responses MAY be considered successfully validated on
+                  the origin server (e.g., if the "no-cache" cache response directive <a href="#RFC7234"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Caching">[RFC7234]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7234.html#cache-response-directive" title="Response Cache-Control Directives">Section 5.2.2</a> is present) while the stream identified by the promised stream ID is still open.
+               </p>
+            </div>
+            <div id="rfc.section.8.2.p.5">
+               <p>Pushed responses that are not cacheable MUST NOT be stored by any HTTP cache. They MAY be made available to the application
+                  separately.
+               </p>
+            </div>
+            <div id="rfc.section.8.2.p.6">
                <p>Because server push is effectively hop-by-hop, an intermediary could receive pushes from the server and choose not to forward
                   them on to the client. In other words, how to make use of the pushed information is up to that intermediary. Equally, the
                   intermediary might choose to make additional pushes to the client, without any action taken by the server.
                </p>
             </div>
-            <div id="rfc.section.8.2.p.4">
+            <div id="rfc.section.8.2.p.7">
                <p>A client cannot push. Thus, servers MUST treat the receipt of a <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> frame as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>. Clients MUST reject any attempt to change the <a href="#SETTINGS_ENABLE_PUSH" class="smpl">SETTINGS_ENABLE_PUSH</a> setting to a value other than 0 by treating the message as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
-               </p>
-            </div>
-            <div id="rfc.section.8.2.p.5">
-               <p>A server can only push responses that are cacheable (see <a href="#RFC7234"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Caching">[RFC7234]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7234.html#response.cacheability" title="Storing Responses in Caches">Section 3</a>); promised requests MUST be safe (see <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#safe.methods" title="Safe Methods">Section 4.2.1</a>) and MUST NOT include a request body.
                </p>
             </div>
             <div id="PushRequests">
