@@ -3248,8 +3248,8 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.8.2.p.4">
-               <p>Pushed responses that are cacheable (see <a href="#RFC7234"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Caching">[RFC7234]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7234.html#response.cacheability" title="Storing Responses in Caches">Section 3</a>) SHOULD be stored by the client, if it implements a HTTP cache. Such responses MAY be considered successfully validated on
-                  the origin server (e.g., if the "no-cache" cache response directive <a href="#RFC7234"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Caching">[RFC7234]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7234.html#cache-response-directive" title="Response Cache-Control Directives">Section 5.2.2</a> is present) while the stream identified by the promised stream ID is still open.
+               <p>Pushed responses that are cacheable (see <a href="#RFC7234"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Caching">[RFC7234]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7234.html#response.cacheability" title="Storing Responses in Caches">Section 3</a>) can be stored by the client, if it implements a HTTP cache. Pushed responses are considered successfully validated on the
+                  origin server (e.g., if the "no-cache" cache response directive <a href="#RFC7234"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Caching">[RFC7234]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7234.html#cache-response-directive" title="Response Cache-Control Directives">Section 5.2.2</a> is present) while the stream identified by the promised stream ID is still open.
                </p>
             </div>
             <div id="rfc.section.8.2.p.5">

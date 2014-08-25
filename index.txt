@@ -3286,10 +3286,10 @@ Internet-Draft                   HTTP/2                      August 2014
    cacheable, unsafe or that includes a request body MUST reset the
    stream with a stream error (Section 5.4.2) of type PROTOCOL_ERROR.
 
-   Pushed responses that are cacheable (see [RFC7234], Section 3) SHOULD
-   be stored by the client, if it implements a HTTP cache.  Such
-   responses MAY be considered successfully validated on the origin
-   server (e.g., if the "no-cache" cache response directive [RFC7234],
+   Pushed responses that are cacheable (see [RFC7234], Section 3) can be
+   stored by the client, if it implements a HTTP cache.  Pushed
+   responses are considered successfully validated on the origin server
+   (e.g., if the "no-cache" cache response directive [RFC7234],
    Section 5.2.2 is present) while the stream identified by the promised
    stream ID is still open.
 
