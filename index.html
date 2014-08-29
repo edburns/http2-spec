@@ -1113,9 +1113,8 @@ Upgrade: h2c
                   </p>
                </div>
                <div id="rfc.section.3.2.1.p.5">
-                  <p>A server decodes and interprets these values as it would any other <a href="#SETTINGS" class="smpl">SETTINGS</a> frame. Acknowledgement of the SETTINGS parameters (<a href="#SettingsSync" title="Settings Synchronization">Section&nbsp;6.5.3</a>) is not necessary, since a 101 response serves as implicit acknowledgment. Providing these values in the Upgrade request ensures
-                     that the protocol does not require default values for the above SETTINGS parameters, and gives a client an opportunity to
-                     provide other parameters prior to receiving any frames from the server.
+                  <p>A server decodes and interprets these values as it would any other <a href="#SETTINGS" class="smpl">SETTINGS</a> frame. Acknowledgement of the SETTINGS parameters (<a href="#SettingsSync" title="Settings Synchronization">Section&nbsp;6.5.3</a>) is not necessary, since a 101 response serves as implicit acknowledgment. Providing these values in the Upgrade request gives
+                     a client an opportunity to provide parameters prior to receiving any frames from the server.
                   </p>
                </div>
             </div>
@@ -1123,7 +1122,7 @@ Upgrade: h2c
          <div id="discover-https">
             <h2 id="rfc.section.3.3"><a href="#rfc.section.3.3">3.3</a>&nbsp;<a href="#discover-https">Starting HTTP/2 for "https" URIs</a></h2>
             <div id="rfc.section.3.3.p.1">
-               <p>A client that makes a request to an "https" URI without prior knowledge about support for HTTP/2 uses <a href="#TLS12">TLS</a> <cite title="The Transport Layer Security (TLS) Protocol Version 1.2">[TLS12]</cite> with the <a href="#TLS-ALPN">application layer protocol negotiation extension</a> <cite title="Transport Layer Security (TLS) Application-Layer Protocol Negotiation Extension">[TLS-ALPN]</cite>.
+               <p>A client that makes a request to an "https" URI uses <a href="#TLS12">TLS</a> <cite title="The Transport Layer Security (TLS) Protocol Version 1.2">[TLS12]</cite> with the <a href="#TLS-ALPN">application layer protocol negotiation extension</a> <cite title="Transport Layer Security (TLS) Application-Layer Protocol Negotiation Extension">[TLS-ALPN]</cite>.
                </p>
             </div>
             <div id="rfc.section.3.3.p.2">
@@ -1443,7 +1442,7 @@ Upgrade: h2c
                         <li>Either endpoint can send a <a href="#RST_STREAM" class="smpl">RST_STREAM</a> frame to cause the stream to become "closed". This releases the stream reservation.
                         </li>
                      </ul>
-                     <p>An endpoint MAY send a <a href="#PRIORITY" class="smpl">PRIORITY</a> frame in this state to reprioritize the reserved stream. An endpoint MUST NOT send any type of frame other than <a href="#RST_STREAM" class="smpl">RST_STREAM</a> or <a href="#PRIORITY" class="smpl">PRIORITY</a> in this state.
+                     <p>An endpoint MAY send a <a href="#PRIORITY" class="smpl">PRIORITY</a> frame in this state to reprioritize the reserved stream. An endpoint MUST NOT send any type of frame other than <a href="#RST_STREAM" class="smpl">RST_STREAM</a>, <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a>, or <a href="#PRIORITY" class="smpl">PRIORITY</a> in this state.
                      </p>
                      <p>Receiving any type of frame other than <a href="#HEADERS" class="smpl">HEADERS</a> or <a href="#RST_STREAM" class="smpl">RST_STREAM</a> on a stream in this state MUST be treated as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
                      </p>
@@ -1603,7 +1602,7 @@ Upgrade: h2c
                         ensures that important control frames are not blocked by flow control.
                      </li>
                      <li>Flow control cannot be disabled.</li>
-                     <li>HTTP/2 defines only the format and semantics of the <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a> frame (<a href="#WINDOW_UPDATE" title="WINDOW_UPDATE">Section&nbsp;6.9</a>). This document does not stipulate how a receiver decides when to send this frame or the value that it sends. Nor does it
+                     <li>HTTP/2 defines only the format and semantics of the <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a> frame (<a href="#WINDOW_UPDATE" title="WINDOW_UPDATE">Section&nbsp;6.9</a>). This document does not stipulate how a receiver decides when to send this frame or the value that it sends, nor does it
                         specify how a sender chooses to send packets. Implementations are able to select any algorithm that suits their needs.
                      </li>
                   </ol>
@@ -1729,7 +1728,7 @@ Upgrade: h2c
                <h3 id="rfc.section.5.3.2"><a href="#rfc.section.5.3.2">5.3.2</a>&nbsp;Dependency Weighting
                </h3>
                <div id="rfc.section.5.3.2.p.1">
-                  <p>All dependent streams are allocated an integer weight between 1 to 256 (inclusive).</p>
+                  <p>All dependent streams are allocated an integer weight between 1 and 256 (inclusive).</p>
                </div>
                <div id="rfc.section.5.3.2.p.2">
                   <p>Streams with the same parent SHOULD be allocated resources proportionally based on their weight. Thus, if stream B depends
@@ -2056,7 +2055,9 @@ Upgrade: h2c
                   <dd>A header block fragment (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>).
                   </dd>
                   <dt>Padding:</dt>
-                  <dd>Padding octets.</dd>
+                  <dd>Padding octets that contain no application semantic value. Padding octets MUST be set to zero when sending and ignored when
+                     receiving.
+                  </dd>
                </dl>
             </div>
             <div id="rfc.section.6.2.p.3">

@@ -553,7 +553,7 @@ Internet-Draft                   HTTP/2                      August 2014
    SETTINGS frame.  Acknowledgement of the SETTINGS parameters
    (Section 6.5.3) is not necessary, since a 101 response serves as
    implicit acknowledgment.  Providing these values in the Upgrade
-   request ensures that the protocol does not require default values for
+
 
 
 
@@ -562,15 +562,13 @@ Belshe, et al.            Expires March 2, 2015                [Page 10]
 Internet-Draft                   HTTP/2                      August 2014
 
 
-   the above SETTINGS parameters, and gives a client an opportunity to
-   provide other parameters prior to receiving any frames from the
-   server.
+   request gives a client an opportunity to provide parameters prior to
+   receiving any frames from the server.
 
 3.3.  Starting HTTP/2 for "https" URIs
 
-   A client that makes a request to an "https" URI without prior
-   knowledge about support for HTTP/2 uses TLS [TLS12] with the
-   application layer protocol negotiation extension [TLS-ALPN].
+   A client that makes a request to an "https" URI uses TLS [TLS12] with
+   the application layer protocol negotiation extension [TLS-ALPN].
 
    HTTP/2 over TLS uses the "h2" application token.  The "h2c" token
    MUST NOT be sent by a client or selected by a server.
@@ -610,6 +608,8 @@ Internet-Draft                   HTTP/2                      August 2014
 
      0x505249202a20485454502f322e300d0a0d0a534d0d0a0d0a
 
+   (the string "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n").  This sequence is
+   followed by a SETTINGS frame (Section 6.5).  The SETTINGS frame MAY
 
 
 
@@ -618,8 +618,6 @@ Belshe, et al.            Expires March 2, 2015                [Page 11]
 Internet-Draft                   HTTP/2                      August 2014
 
 
-   (the string "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n").  This sequence is
-   followed by a SETTINGS frame (Section 6.5).  The SETTINGS frame MAY
    be empty.  The client sends the client connection preface immediately
    upon receipt of a 101 Switching Protocols response (indicating a
    successful upgrade), or as the first application data octets of a TLS
@@ -661,6 +659,8 @@ Internet-Draft                   HTTP/2                      August 2014
 
    All frames begin with a fixed 9-octet header followed by a variable-
    length payload.
+
+
 
 
 
@@ -982,7 +982,8 @@ Internet-Draft                   HTTP/2                      August 2014
 
       An endpoint MAY send a PRIORITY frame in this state to
       reprioritize the reserved stream.  An endpoint MUST NOT send any
-      type of frame other than RST_STREAM or PRIORITY in this state.
+      type of frame other than RST_STREAM, WINDOW_UPDATE, or PRIORITY in
+      this state.
 
       Receiving any type of frame other than HEADERS or RST_STREAM on a
       stream in this state MUST be treated as a connection error
@@ -1000,8 +1001,7 @@ Internet-Draft                   HTTP/2                      August 2014
       endpoint receiving an END_STREAM flag causes the stream state to
       become "half closed (remote)".
 
-      Either endpoint can send a RST_STREAM frame from this state,
-      causing it to transition immediately to "closed".
+
 
 
 
@@ -1009,6 +1009,9 @@ Belshe, et al.            Expires March 2, 2015                [Page 18]
 
 Internet-Draft                   HTTP/2                      August 2014
 
+
+      Either endpoint can send a RST_STREAM frame from this state,
+      causing it to transition immediately to "closed".
 
    half closed (local):
       A stream that is in the "half closed (local)" state cannot be used
@@ -1055,9 +1058,6 @@ Internet-Draft                   HTTP/2                      August 2014
       (Section 5.4.2) of type STREAM_CLOSED.  Similarly, an endpoint
       that receives any frames after receiving a frame with the
       END_STREAM flag set MUST treat that as a connection error
-      (Section 5.4.1) of type STREAM_CLOSED, unless the frame is
-      permitted as described below.
-
 
 
 
@@ -1065,6 +1065,9 @@ Belshe, et al.            Expires March 2, 2015                [Page 19]
 
 Internet-Draft                   HTTP/2                      August 2014
 
+
+      (Section 5.4.1) of type STREAM_CLOSED, unless the frame is
+      permitted as described below.
 
       WINDOW_UPDATE or RST_STREAM frames can be received in this state
       for a short period after a DATA or HEADERS frame containing an
@@ -1110,9 +1113,6 @@ Internet-Draft                   HTTP/2                      August 2014
    exchange can be found in Section 8.1.  An example of the state
    transitions for server push can be found in Section 8.2.1 and
    Section 8.2.2.
-
-
-
 
 
 
@@ -1249,7 +1249,7 @@ Internet-Draft                   HTTP/2                      August 2014
    7.  HTTP/2 defines only the format and semantics of the WINDOW_UPDATE
        frame (Section 6.9).  This document does not stipulate how a
        receiver decides when to send this frame or the value that it
-       sends.  Nor does it specify how a sender chooses to send packets.
+       sends, nor does it specify how a sender chooses to send packets.
        Implementations are able to select any algorithm that suits their
        needs.
 
@@ -1384,7 +1384,7 @@ Internet-Draft                   HTTP/2                      August 2014
 
 5.3.2.  Dependency Weighting
 
-   All dependent streams are allocated an integer weight between 1 to
+   All dependent streams are allocated an integer weight between 1 and
    256 (inclusive).
 
    Streams with the same parent SHOULD be allocated resources
@@ -1780,12 +1780,12 @@ Internet-Draft                   HTTP/2                      August 2014
 
    Header Block Fragment:  A header block fragment (Section 4.3).
 
-   Padding:  Padding octets.
+   Padding:  Padding octets that contain no application semantic value.
+      Padding octets MUST be set to zero when sending and ignored when
+      receiving.
 
    The HEADERS frame defines the following flags:
 
-   END_STREAM (0x1):  Bit 1 being set indicates that the header block
-      (Section 4.3) is the last that the endpoint will send for the
 
 
 
@@ -1794,6 +1794,8 @@ Belshe, et al.            Expires March 2, 2015                [Page 32]
 Internet-Draft                   HTTP/2                      August 2014
 
 
+   END_STREAM (0x1):  Bit 1 being set indicates that the header block
+      (Section 4.3) is the last that the endpoint will send for the
       identified stream.  Setting this flag causes the stream to enter
       one of "half closed" states (Section 5.1).
 
@@ -1839,8 +1841,6 @@ Internet-Draft                   HTTP/2                      August 2014
    potential for churn in stream prioritization when new streams are
    created.  Priorization fields in HEADERS frames subsequent to the
    first on a stream reprioritize the stream (Section 5.3.3).
-
-
 
 
 
