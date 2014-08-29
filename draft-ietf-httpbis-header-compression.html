@@ -907,8 +907,7 @@ ul.toc a:first-child {
                <h3 id="rfc.section.2.3.2"><a href="#rfc.section.2.3.2">2.3.2</a>&nbsp;<a href="#header.table">Header Table</a></h3>
                <div id="rfc.section.2.3.2.p.1">
                   <p>The header table consists of a list of header fields maintained in first-in, first-out order. The first and newest entry in
-                     a header table is always at index 1, and the oldest entry of a header table is at the index corresponding to the number of
-                     entries in the header table.
+                     a header table is at the lowest index, and the oldest entry of a header table is at the highest index.
                   </p>
                </div>
                <div id="rfc.section.2.3.2.p.2">
@@ -1038,7 +1037,9 @@ ul.toc a:first-child {
                </p>
                <ul>
                   <li>The header field is appended to the decoded header list.</li>
-                  <li>The header field is inserted at the beginning of the header table.</li>
+                  <li>The header field is inserted at the beginning of the header table. This insertion could result in the eviction of previous
+                     entries in the header table (see <a href="#entry.addition" title="Entry Eviction when Adding New Entries">Section&nbsp;4.3</a>).
+                  </li>
                </ul>
             </div>
          </div>

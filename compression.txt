@@ -321,15 +321,15 @@ Internet-Draft                    HPACK                      August 2014
 
    The header table consists of a list of header fields maintained in
    first-in, first-out order.  The first and newest entry in a header
-   table is always at index 1, and the oldest entry of a header table is
-   at the index corresponding to the number of entries in the header
-   table.
+   table is at the lowest index, and the oldest entry of a header table
+   is at the highest index.
 
    The header table is initially empty.  Entries are added as each
    header block is decompressed.
 
    The header table can contain duplicate entries.  Therefore, duplicate
    entries MUST NOT be treated as an error by a decoder.
+
 
 
 
@@ -461,6 +461,8 @@ Internet-Draft                    HPACK                      August 2014
    o  The header field is appended to the decoded header list.
 
    o  The header field is inserted at the beginning of the header table.
+      This insertion could result in the eviction of previous entries in
+      the header table (see Section 4.3).
 
 4.  Header Table Management
 
@@ -495,8 +497,6 @@ Internet-Draft                    HPACK                      August 2014
    using two encoding context updates.  This ensures that the decoder is
    able to perform eviction based on the decoder table size (see
    Section 4.2).
-
-
 
 
 
