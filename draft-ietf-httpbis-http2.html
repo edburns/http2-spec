@@ -448,7 +448,7 @@ samp, tt, code, pre {
        content: "Belshe, et al.";
   }
   @bottom-center {
-       content: "Expires March 2, 2015";
+       content: "Expires March 4, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -572,7 +572,7 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Thomson, M.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-http2-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2014-08-29">
+      <meta name="dct.issued" scheme="ISO8601" content="2014-08-31">
       <meta name="dct.abstract" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
       <meta name="description" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
    </head>
@@ -592,7 +592,7 @@ ul.toc a:first-child {
                <td class="right">R. Peon</td>
             </tr>
             <tr>
-               <td class="left">Expires: March 2, 2015</td>
+               <td class="left">Expires: March 4, 2015</td>
                <td class="right">Google, Inc</td>
             </tr>
             <tr>
@@ -605,7 +605,7 @@ ul.toc a:first-child {
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">August 29, 2014</td>
+               <td class="right">August 31, 2014</td>
             </tr>
          </tbody>
       </table>
@@ -636,7 +636,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on March 2, 2015.</p>
+         <p>This Internet-Draft will expire on March 4, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -2502,13 +2502,13 @@ Upgrade: h2c
             </div>
             <div id="rfc.section.6.8.p.2">
                <p>The purpose of this frame is to allow an endpoint to gracefully stop accepting new streams, while still finishing processing
-                  of previously established streams. This enables administrative actions, like server maintainence.
+                  of previously established streams. This enables administrative actions, like server maintainance.
                </p>
             </div>
             <div id="rfc.section.6.8.p.3">
                <p>There is an inherent race condition between an endpoint starting new streams and the remote sending a GOAWAY frame. To deal
                   with this case, the GOAWAY contains the stream identifier of the last peer-initiated stream which was or might be processed
-                  on the sending endpoint in this connection. For instance, if the server sends a GOAWAY frame, the identifed stream is the
+                  on the sending endpoint in this connection. For instance, if the server sends a GOAWAY frame, the identified stream is the
                   highest numbered stream initiated by the client.
                </p>
             </div>
@@ -2646,7 +2646,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.6.9.p.8">
-               <p>A receiver MUST treat the recipt of a WINDOW_UPDATE frame with an flow control window increment of 0 as a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>; errors on the connection flow control window MUST be treated as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>).
+               <p>A receiver MUST treat the receipt of a WINDOW_UPDATE frame with an flow control window increment of 0 as a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>; errors on the connection flow control window MUST be treated as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>).
                </p>
             </div>
             <div id="rfc.section.6.9.p.9">
@@ -3017,7 +3017,7 @@ Upgrade: h2c
                            <p>The <samp>:authority</samp> pseudo-header field includes the authority portion of the target URI (<a href="#RFC3986"><cite title="Uniform Resource Identifier (URI): Generic Syntax">[RFC3986]</cite></a>, <a href="https://tools.ietf.org/html/rfc3986#section-3.2">Section 3.2</a>). The authority MUST NOT include the deprecated <samp>userinfo</samp> subcomponent for <samp>http</samp> or <samp>https</samp> schemed URIs.
                            </p>
                            <p>To ensure that the HTTP/1.1 request line can be reproduced accurately, this pseudo-header field MUST be omitted when translating
-                              from an HTTP/1.1 request that has a request target in origin or asterisk form (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#request-target" title="Request Target">Section 5.3</a>). Clients that generate HTTP/2 requests directly SHOULD use the <em>:authority</em> psuedo-header field instead of the <samp>Host</samp> header field. An intermediary that converts an HTTP/2 request to HTTP/1.1 MUST create a <samp>Host</samp> header field if one is not present in a request by copying the value of the <samp>:authority</samp> pseudo-header field.
+                              from an HTTP/1.1 request that has a request target in origin or asterisk form (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#request-target" title="Request Target">Section 5.3</a>). Clients that generate HTTP/2 requests directly SHOULD use the <em>:authority</em> pseudo-header field instead of the <samp>Host</samp> header field. An intermediary that converts an HTTP/2 request to HTTP/1.1 MUST create a <samp>Host</samp> header field if one is not present in a request by copying the value of the <samp>:authority</samp> pseudo-header field.
                            </p>
                         </li>
                         <li>
@@ -3381,7 +3381,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.8.3.p.4">
-               <p>After the initial <a href="#HEADERS" class="smpl">HEADERS</a> frame sent by each peer, all subsequent <a href="#DATA" class="smpl">DATA</a> frames correspond to data sent on the TCP connection. The payload of any <a href="#DATA" class="smpl">DATA</a> frames sent by the client are transmitted by the proxy to the TCP server; data received from the TCP server is assembled into <a href="#DATA" class="smpl">DATA</a> frames by the proxy. Frame types other than <a href="#DATA" class="smpl">DATA</a> or stream management frames (<a href="#RST_STREAM" class="smpl">RST_STREAM</a>, <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a>, and <a href="#PRIORITY" class="smpl">PRIORITY</a>) MUST NOT be sent on a connected stream, and MUST be treated as a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) if received.
+               <p>After the initial <a href="#HEADERS" class="smpl">HEADERS</a> frame sent by each peer, all subsequent <a href="#DATA" class="smpl">DATA</a> frames correspond to data sent on the TCP connection. The payload of any <a href="#DATA" class="smpl">DATA</a> frames sent by the client is transmitted by the proxy to the TCP server; data received from the TCP server is assembled into <a href="#DATA" class="smpl">DATA</a> frames by the proxy. Frame types other than <a href="#DATA" class="smpl">DATA</a> or stream management frames (<a href="#RST_STREAM" class="smpl">RST_STREAM</a>, <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a>, and <a href="#PRIORITY" class="smpl">PRIORITY</a>) MUST NOT be sent on a connected stream, and MUST be treated as a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) if received.
                </p>
             </div>
             <div id="rfc.section.8.3.p.5">
@@ -3832,7 +3832,7 @@ Upgrade: h2c
          <div id="iana-frames">
             <h2 id="rfc.section.11.2"><a href="#rfc.section.11.2">11.2</a>&nbsp;<a href="#iana-frames">Frame Type Registry</a></h2>
             <div id="rfc.section.11.2.p.1">
-               <p>This document establishes a registry for HTTP/2 frame types codes. The "HTTP/2 Frame Type" registry manages an 8-bit space.
+               <p>This document establishes a registry for HTTP/2 frame type codes. The "HTTP/2 Frame Type" registry manages an 8-bit space.
                   The "HTTP/2 Frame Type" registry operates under either of the <a href="#RFC5226">"IETF Review" or "IESG Approval" policies</a> <cite title="Guidelines for Writing an IANA Considerations Section in RFCs">[RFC5226]</cite> for values between 0x00 and 0xef, with values between 0xf0 and 0xff being reserved for experimental use.
                </p>
             </div>
