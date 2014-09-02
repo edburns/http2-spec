@@ -439,7 +439,7 @@ samp, tt, code, pre {
        content: "Internet-Draft";
   }
   @top-right {
-       content: "August 2014";
+       content: "September 2014";
   }
   @top-center {
        content: "HTTP/2";
@@ -448,7 +448,7 @@ samp, tt, code, pre {
        content: "Belshe, et al.";
   }
   @bottom-center {
-       content: "Expires March 4, 2015";
+       content: "Expires March 6, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -572,7 +572,7 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Thomson, M.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-http2-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2014-08-31">
+      <meta name="dct.issued" scheme="ISO8601" content="2014-09-02">
       <meta name="dct.abstract" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
       <meta name="description" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
    </head>
@@ -592,7 +592,7 @@ ul.toc a:first-child {
                <td class="right">R. Peon</td>
             </tr>
             <tr>
-               <td class="left">Expires: March 4, 2015</td>
+               <td class="left">Expires: March 6, 2015</td>
                <td class="right">Google, Inc</td>
             </tr>
             <tr>
@@ -605,7 +605,7 @@ ul.toc a:first-child {
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">August 31, 2014</td>
+               <td class="right">September 2, 2014</td>
             </tr>
          </tbody>
       </table>
@@ -636,7 +636,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on March 4, 2015.</p>
+         <p>This Internet-Draft will expire on March 6, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -1050,8 +1050,8 @@ HTTP2-Settings: &lt;base64url encoding of HTTP/2 SETTINGS payload&gt;
                </p>
             </div>
             <div id="rfc.section.3.2.p.3">
-               <p>If concurrency of an initial request with subsequent requests is important, a small request can be used to perform the upgrade
-                  to HTTP/2, at the cost of an additional round-trip.
+               <p>If concurrency of an initial request with subsequent requests is important, an OPTIONS request can be used to perform the
+                  upgrade to HTTP/2, at the cost of an additional round-trip.
                </p>
             </div>
             <div id="rfc.section.3.2.p.4">
@@ -1093,8 +1093,8 @@ Upgrade: h2c
             <div id="Http2SettingsHeader">
                <h3 id="rfc.section.3.2.1"><a href="#rfc.section.3.2.1">3.2.1</a>&nbsp;<a href="#Http2SettingsHeader">HTTP2-Settings Header Field</a></h3>
                <div id="rfc.section.3.2.1.p.1">
-                  <p>A request that upgrades from HTTP/1.1 to HTTP/2 MUST include exactly one <samp>HTTP2-Settings</samp> header field. The <samp>HTTP2-Settings</samp> header field is a hop-by-hop header field that includes parameters that govern the HTTP/2 connection, provided in anticipation
-                     of the server accepting the request to upgrade.
+                  <p>A request that upgrades from HTTP/1.1 to HTTP/2 MUST include exactly one <samp>HTTP2-Settings</samp> header field. The <samp>HTTP2-Settings</samp> header field is a connection-specific header field that includes parameters that govern the HTTP/2 connection, provided in
+                     anticipation of the server accepting the request to upgrade.
                   </p>
                </div>
                <div id="rfc.figure.u.4"><pre class="inline">HTTP2-Settings    = token68
@@ -1109,7 +1109,7 @@ Upgrade: h2c
                   </p>
                </div>
                <div id="rfc.section.3.2.1.p.4">
-                  <p>The <samp>Connection</samp> header field MUST include a value of <samp>HTTP2-Settings</samp> in addition to <samp>Upgrade</samp> when upgrading to HTTP/2.
+                  <p>Since the upgrade is only intended to apply to the immediate connection, a client sending <samp>HTTP2-Settings</samp> MUST also send <samp>HTTP2-Settings</samp> as a connection option in the <samp>Connection</samp> header field to prevent it from being forwarded downstream.
                   </p>
                </div>
                <div id="rfc.section.3.2.1.p.5">
@@ -2969,12 +2969,12 @@ Upgrade: h2c
                   </div>
                </div>
                <div>
-                  <h4 id="rfc.section.8.1.2.2"><a href="#rfc.section.8.1.2.2">8.1.2.2</a>&nbsp;Hop-by-Hop Header Fields
+                  <h4 id="rfc.section.8.1.2.2"><a href="#rfc.section.8.1.2.2">8.1.2.2</a>&nbsp;Connection-Specific Header Fields
                   </h4>
                   <div id="rfc.section.8.1.2.2.p.1">
-                     <p>HTTP/2 does not use the Connection header field to indicate "hop-by-hop" header fields; in this protocol, connection-specific
-                        metadata is conveyed by other means. An endpoint MUST NOT generate a HTTP/2 message containing connection-specific header
-                        fields; any message containing connection-specific header fields MUST be treated as malformed (<a href="#malformed" title="Malformed Requests and Responses">Section&nbsp;8.1.2.6</a>).
+                     <p>HTTP/2 does not use the <samp>Connection</samp> header field to indicate connection-specific header fields; in this protocol, connection-specific metadata is conveyed by
+                        other means. An endpoint MUST NOT generate a HTTP/2 message containing connection-specific header fields; any message containing
+                        connection-specific header fields MUST be treated as malformed (<a href="#malformed" title="Malformed Requests and Responses">Section&nbsp;8.1.2.6</a>).
                      </p>
                   </div>
                   <div id="rfc.section.8.1.2.2.p.2">
@@ -3262,9 +3262,9 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.8.2.p.6">
-               <p>Because server push is effectively hop-by-hop, an intermediary could receive pushes from the server and choose not to forward
-                  them on to the client. In other words, how to make use of the pushed information is up to that intermediary. Equally, the
-                  intermediary might choose to make additional pushes to the client, without any action taken by the server.
+               <p>An intermediary can receive pushes from the server and choose not to forward them on to the client. In other words, how to
+                  make use of the pushed information is up to that intermediary. Equally, the intermediary might choose to make additional pushes
+                  to the client, without any action taken by the server.
                </p>
             </div>
             <div id="rfc.section.8.2.p.7">
@@ -3698,7 +3698,7 @@ Upgrade: h2c
                <div id="rfc.section.10.5.1.p.2">
                   <p>An endpoint can use the <a href="#SETTINGS_MAX_HEADER_LIST_SIZE" class="smpl">SETTINGS_MAX_HEADER_LIST_SIZE</a> to advise peers of limits that might apply on the size of header blocks. This setting is only advisory, so endpoints MAY choose
                      to send header blocks that exceed this limit and risk having the request or response being treated as malformed. This setting
-                     is advertised hop-by-hop, so any request or response could encounter a hop with a lower, unknown limit. An intermediary can
+                     specific to a connection, so any request or response could encounter a hop with a lower, unknown limit. An intermediary can
                      attempt to avoid this problem by passing on values presented by different peers, but they are not obligated to do so.
                   </p>
                </div>
