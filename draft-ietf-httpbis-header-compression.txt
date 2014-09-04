@@ -2916,7 +2916,11 @@ Internet-Draft                    HPACK                   September 2014
 
 D.1.  Since draft-ietf-httpbis-header-compression-09
 
-   o
+   o  Renamed header table to dynamic table.
+
+   o  Updated integer representation.
+
+   o  Editorial corrections.
 
 D.2.  Since draft-ietf-httpbis-header-compression-08
 
@@ -2959,16 +2963,16 @@ D.4.  Since draft-ietf-httpbis-header-compression-06
 
    o  Updated security considerations.
 
-   o  Moved integer encoding examples to the appendix.
-
-   o  Updated Huffman table.
-
 
 
 Peon & Ruellan            Expires March 8, 2015                [Page 53]
 
 Internet-Draft                    HPACK                   September 2014
 
+
+   o  Moved integer encoding examples to the appendix.
+
+   o  Updated Huffman table.
 
    o  Updated static header table (adding and removing status values).
 
@@ -3013,10 +3017,6 @@ D.7.  Since draft-ietf-httpbis-header-compression-03
 
    o  Merged 'request' and 'response' static headers, as per issue #259
 
-   o  Changed text to indicate that new headers are added at index 0 and
-      expire from the largest index, as per issue #233
-
-
 
 
 
@@ -3025,6 +3025,9 @@ Peon & Ruellan            Expires March 8, 2015                [Page 54]
 
 Internet-Draft                    HPACK                   September 2014
 
+
+   o  Changed text to indicate that new headers are added at index 0 and
+      expire from the largest index, as per issue #233
 
 D.8.  Since draft-ietf-httpbis-header-compression-02
 
@@ -3071,9 +3074,6 @@ D.10.  Since draft-ietf-httpbis-header-compression-00
       Corrected erroneous statement about what index can be contained in
       one octet
 
-      Added descriptions of opcodes
-
-      Removed security claims from introduction.
 
 
 
@@ -3081,6 +3081,10 @@ Peon & Ruellan            Expires March 8, 2015                [Page 55]
 
 Internet-Draft                    HPACK                   September 2014
 
+
+      Added descriptions of opcodes
+
+      Removed security claims from introduction.
 
 Authors' Addresses
 
@@ -3094,10 +3098,6 @@ Authors' Addresses
    Canon CRF
 
    EMail: herve.ruellan@crf.canon.fr
-
-
-
-
 
 
 
