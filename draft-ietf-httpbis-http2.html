@@ -445,7 +445,7 @@ ul p {
        content: "Belshe, et al.";
   }
   @bottom-center {
-       content: "Expires March 8, 2015";
+       content: "Expires March 9, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -569,7 +569,7 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Thomson, M.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-http2-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2014-09-04">
+      <meta name="dct.issued" scheme="ISO8601" content="2014-09-05">
       <meta name="dct.abstract" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
       <meta name="description" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
    </head>
@@ -589,7 +589,7 @@ ul.toc a:first-child {
                <td class="right">R. Peon</td>
             </tr>
             <tr>
-               <td class="left">Expires: March 8, 2015</td>
+               <td class="left">Expires: March 9, 2015</td>
                <td class="right">Google, Inc</td>
             </tr>
             <tr>
@@ -602,7 +602,7 @@ ul.toc a:first-child {
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">September 4, 2014</td>
+               <td class="right">September 5, 2014</td>
             </tr>
          </tbody>
       </table>
@@ -633,7 +633,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on March 8, 2015.</p>
+         <p>This Internet-Draft will expire on March 9, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -746,7 +746,7 @@ ul.toc a:first-child {
                      </ul>
                   </li>
                   <li><a href="#rfc.section.9.2">9.2</a>&nbsp;&nbsp;&nbsp;<a href="#TLSUsage">Use of TLS Features</a><ul>
-                        <li><a href="#rfc.section.9.2.1">9.2.1</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.9.2.1">TLS Features</a></li>
+                        <li><a href="#rfc.section.9.2.1">9.2.1</a>&nbsp;&nbsp;&nbsp;<a href="#TLSFeatures">TLS Features</a></li>
                         <li><a href="#rfc.section.9.2.2">9.2.2</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.9.2.2">TLS Cipher Suites</a></li>
                      </ul>
                   </li>
@@ -3488,9 +3488,8 @@ Upgrade: h2c
                   terminate an HTTP/2 connection that does not meet these minimum requirements with a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#INADEQUATE_SECURITY" class="smpl">INADEQUATE_SECURITY</a>.
                </p>
             </div>
-            <div>
-               <h3 id="rfc.section.9.2.1"><a href="#rfc.section.9.2.1">9.2.1</a>&nbsp;TLS Features
-               </h3>
+            <div id="TLSFeatures">
+               <h3 id="rfc.section.9.2.1"><a href="#rfc.section.9.2.1">9.2.1</a>&nbsp;<a href="#TLSFeatures">TLS Features</a></h3>
                <div id="rfc.section.9.2.1.p.1">
                   <p>The TLS implementation MUST support the <a href="#TLS-EXT">Server Name Indication (SNI)</a> <cite title="Transport Layer Security (TLS) Extensions: Extension Definitions">[TLS-EXT]</cite> extension to TLS. HTTP/2 clients MUST indicate the target domain name when negotiating TLS.
                   </p>
@@ -3723,7 +3722,8 @@ Upgrade: h2c
             <div id="rfc.section.10.6.p.3">
                <p>Implementations communicating on a secure channel MUST NOT compress content that includes both confidential and attacker-controlled
                   data unless separate compression dictionaries are used for each source of data. Compression MUST NOT be used if the source
-                  of data cannot be reliably determined.
+                  of data cannot be reliably determined. Generic stream compression, such as that provided by TLS MUST NOT be used with HTTP/2
+                  (<a href="#TLSFeatures" title="TLS Features">Section&nbsp;9.2.1</a>).
                </p>
             </div>
             <div id="rfc.section.10.6.p.4">
