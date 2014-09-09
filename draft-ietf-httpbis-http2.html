@@ -742,7 +742,7 @@ ul.toc a:first-child {
             <li><a href="#rfc.section.9">9.</a>&nbsp;&nbsp;&nbsp;<a href="#HttpExtra">Additional HTTP Requirements/Considerations</a><ul>
                   <li><a href="#rfc.section.9.1">9.1</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.9.1">Connection Management</a><ul>
                         <li><a href="#rfc.section.9.1.1">9.1.1</a>&nbsp;&nbsp;&nbsp;<a href="#reuse">Connection Reuse</a></li>
-                        <li><a href="#rfc.section.9.1.2">9.1.2</a>&nbsp;&nbsp;&nbsp;<a href="#NotAuthoritative">The 421 (Not Authoritative) Status Code</a></li>
+                        <li><a href="#rfc.section.9.1.2">9.1.2</a>&nbsp;&nbsp;&nbsp;<a href="#MisdirectedRequest">The 421 (Misdirected Request) Status Code</a></li>
                      </ul>
                   </li>
                   <li><a href="#rfc.section.9.2">9.2</a>&nbsp;&nbsp;&nbsp;<a href="#TLSUsage">Use of TLS Features</a><ul>
@@ -773,7 +773,7 @@ ul.toc a:first-child {
                   <li><a href="#rfc.section.11.4">11.4</a>&nbsp;&nbsp;&nbsp;<a href="#iana-errors">Error Code Registry</a></li>
                   <li><a href="#rfc.section.11.5">11.5</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.11.5">HTTP2-Settings Header Field Registration</a></li>
                   <li><a href="#rfc.section.11.6">11.6</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.11.6">PRI Method Registration</a></li>
-                  <li><a href="#rfc.section.11.7">11.7</a>&nbsp;&nbsp;&nbsp;<a href="#iana-NotAuthoritative">The 421 Not Authoritative HTTP Status Code</a></li>
+                  <li><a href="#rfc.section.11.7">11.7</a>&nbsp;&nbsp;&nbsp;<a href="#iana-MisdirectedRequest">The 421 (Misdirected Request) HTTP Status Code</a></li>
                </ul>
             </li>
             <li><a href="#rfc.section.12">12.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.12">Acknowledgements</a></li>
@@ -783,21 +783,22 @@ ul.toc a:first-child {
                </ul>
             </li>
             <li><a href="#rfc.section.A">A.</a>&nbsp;&nbsp;&nbsp;<a href="#change.log">Change Log</a><ul>
-                  <li><a href="#rfc.section.A.1">A.1</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-13">Since draft-ietf-httpbis-http2-13</a></li>
-                  <li><a href="#rfc.section.A.2">A.2</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-12">Since draft-ietf-httpbis-http2-12</a></li>
-                  <li><a href="#rfc.section.A.3">A.3</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-11">Since draft-ietf-httpbis-http2-11</a></li>
-                  <li><a href="#rfc.section.A.4">A.4</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-10">Since draft-ietf-httpbis-http2-10</a></li>
-                  <li><a href="#rfc.section.A.5">A.5</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-09">Since draft-ietf-httpbis-http2-09</a></li>
-                  <li><a href="#rfc.section.A.6">A.6</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-08">Since draft-ietf-httpbis-http2-08</a></li>
-                  <li><a href="#rfc.section.A.7">A.7</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-07">Since draft-ietf-httpbis-http2-07</a></li>
-                  <li><a href="#rfc.section.A.8">A.8</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-06">Since draft-ietf-httpbis-http2-06</a></li>
-                  <li><a href="#rfc.section.A.9">A.9</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-05">Since draft-ietf-httpbis-http2-05</a></li>
-                  <li><a href="#rfc.section.A.10">A.10</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-04">Since draft-ietf-httpbis-http2-04</a></li>
-                  <li><a href="#rfc.section.A.11">A.11</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-03">Since draft-ietf-httpbis-http2-03</a></li>
-                  <li><a href="#rfc.section.A.12">A.12</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-02">Since draft-ietf-httpbis-http2-02</a></li>
-                  <li><a href="#rfc.section.A.13">A.13</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-01">Since draft-ietf-httpbis-http2-01</a></li>
-                  <li><a href="#rfc.section.A.14">A.14</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-00">Since draft-ietf-httpbis-http2-00</a></li>
-                  <li><a href="#rfc.section.A.15">A.15</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-mbelshe-httpbis-spdy-00">Since draft-mbelshe-httpbis-spdy-00</a></li>
+                  <li><a href="#rfc.section.A.1">A.1</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-14">Since draft-ietf-httpbis-http2-14</a></li>
+                  <li><a href="#rfc.section.A.2">A.2</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-13">Since draft-ietf-httpbis-http2-13</a></li>
+                  <li><a href="#rfc.section.A.3">A.3</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-12">Since draft-ietf-httpbis-http2-12</a></li>
+                  <li><a href="#rfc.section.A.4">A.4</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-11">Since draft-ietf-httpbis-http2-11</a></li>
+                  <li><a href="#rfc.section.A.5">A.5</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-10">Since draft-ietf-httpbis-http2-10</a></li>
+                  <li><a href="#rfc.section.A.6">A.6</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-09">Since draft-ietf-httpbis-http2-09</a></li>
+                  <li><a href="#rfc.section.A.7">A.7</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-08">Since draft-ietf-httpbis-http2-08</a></li>
+                  <li><a href="#rfc.section.A.8">A.8</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-07">Since draft-ietf-httpbis-http2-07</a></li>
+                  <li><a href="#rfc.section.A.9">A.9</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-06">Since draft-ietf-httpbis-http2-06</a></li>
+                  <li><a href="#rfc.section.A.10">A.10</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-05">Since draft-ietf-httpbis-http2-05</a></li>
+                  <li><a href="#rfc.section.A.11">A.11</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-04">Since draft-ietf-httpbis-http2-04</a></li>
+                  <li><a href="#rfc.section.A.12">A.12</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-03">Since draft-ietf-httpbis-http2-03</a></li>
+                  <li><a href="#rfc.section.A.13">A.13</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-02">Since draft-ietf-httpbis-http2-02</a></li>
+                  <li><a href="#rfc.section.A.14">A.14</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-01">Since draft-ietf-httpbis-http2-01</a></li>
+                  <li><a href="#rfc.section.A.15">A.15</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-00">Since draft-ietf-httpbis-http2-00</a></li>
+                  <li><a href="#rfc.section.A.16">A.16</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.draft-mbelshe-httpbis-spdy-00">Since draft-mbelshe-httpbis-spdy-00</a></li>
                </ul>
             </li>
             <li><a href="#rfc.authors">Authors' Addresses</a></li>
@@ -3338,7 +3339,8 @@ Upgrade: h2c
                   </p>
                </div>
                <div id="rfc.section.8.2.2.p.5">
-                  <p>Clients receiving a pushed response MUST validate that the server is authoritative for it; see <a href="#authority" title="Server Authority">Section&nbsp;10.1</a>. For example, a server that offers a certificate for only the <samp>example.com</samp> DNS-ID or Common Name is not permitted to push a response for <samp>https://www.example.org/doc</samp>.
+                  <p>Clients receiving a pushed response MUST validate that either the server is authoritative (see <a href="#authority" title="Server Authority">Section&nbsp;10.1</a>), or the proxy that provided the pushed response is configured for the corresponding request. For example, a server that
+                     offers a certificate for only the <samp>example.com</samp> DNS-ID or Common Name is not permitted to push a response for <samp>https://www.example.org/doc</samp>.
                   </p>
                </div>
                <div id="rfc.section.8.2.2.p.6">
@@ -3433,37 +3435,43 @@ Upgrade: h2c
             <div id="reuse">
                <h3 id="rfc.section.9.1.1"><a href="#rfc.section.9.1.1">9.1.1</a>&nbsp;<a href="#reuse">Connection Reuse</a></h3>
                <div id="rfc.section.9.1.1.p.1">
-                  <p>Clients MAY use a single server connection to send requests for URIs with multiple different authority components as long
-                     as the server is authoritative (<a href="#authority" title="Server Authority">Section&nbsp;10.1</a>). For <samp>http</samp> resources, this depends on the host having resolved to the same IP address.
+                  <p>Connections that are made to an origin servers, either directly or through a tunnel created using the CONNECT method (<a href="#CONNECT" title="The CONNECT Method">Section&nbsp;8.3</a>) MAY be reused for requests with multiple different URI authority components. A connection can be reused as long as the origin
+                     server is authoritative (<a href="#authority" title="Server Authority">Section&nbsp;10.1</a>). For <samp>http</samp> resources, this depends on the host having resolved to the same IP address.
                   </p>
                </div>
                <div id="rfc.section.9.1.1.p.2">
-                  <p>For <samp>https</samp> resources, connection reuse additionally depends on having a certificate that is valid for the host in the URI. That is the
-                     use of server certificate with multiple <samp>subjectAltName</samp> attributes, or names with wildcards. For example, a certificate with a <samp>subjectAltName</samp> of <samp>*.example.com</samp> might permit the use of the same connection for <samp>a.example.com</samp> and <samp>b.example.com</samp>.
+                  <p>For <samp>https</samp> resources, connection reuse additionally depends on having a certificate that is valid for the host in the URI. An origin
+                     server might offer a certificate with multiple <samp>subjectAltName</samp> attributes, or names with wildcards, one of which is valid for the authority in the URI. For example, a certificate with a <samp>subjectAltName</samp> of <samp>*.example.com</samp> might permit the use of the same connection for requests to URIs starting with <samp>https://a.example.com/</samp> and <samp>https://b.example.com/</samp>.
                   </p>
                </div>
                <div id="rfc.section.9.1.1.p.3">
                   <p>In some deployments, reusing a connection for multiple origins can result in requests being directed to the wrong origin server.
-                     For example, TLS termination might be performed by a middlebox that uses the TLS <a href="#TLS-EXT">Server Name Indication (SNI)</a> <cite title="Transport Layer Security (TLS) Extensions: Extension Definitions">[TLS-EXT]</cite> extension to select the an origin server. This means that it is possible for clients to send confidential information to servers
-                     that might not be the intended target for the request, even though the server has valid authentication credentials.
+                     For example, TLS termination might be performed by a middlebox that uses the TLS <a href="#TLS-EXT">Server Name Indication (SNI)</a> <cite title="Transport Layer Security (TLS) Extensions: Extension Definitions">[TLS-EXT]</cite> extension to select an origin server. This means that it is possible for clients to send confidential information to servers
+                     that might not be the intended target for the request, even though the server is otherwise authoritative.
                   </p>
                </div>
                <div id="rfc.section.9.1.1.p.4">
                   <p>A server that does not wish clients to reuse connections can indicate that it is not authoritative for a request by sending
-                     a 421 (Not Authoritative) status code in response to the request (see <a href="#NotAuthoritative" title="The 421 (Not Authoritative) Status Code">Section&nbsp;9.1.2</a>).
+                     a 421 (Misdirected Request) status code in response to the request (see <a href="#MisdirectedRequest" title="The 421 (Misdirected Request) Status Code">Section&nbsp;9.1.2</a>).
+                  </p>
+               </div>
+               <div id="rfc.section.9.1.1.p.5">
+                  <p>A client that is configured to use a proxy over HTTP/2 directs requests to that proxy through a single connection. That is,
+                     all requests sent via a proxy reuse the connection to the proxy.
                   </p>
                </div>
             </div>
-            <div id="NotAuthoritative">
-               <h3 id="rfc.section.9.1.2"><a href="#rfc.section.9.1.2">9.1.2</a>&nbsp;<a href="#NotAuthoritative">The 421 (Not Authoritative) Status Code</a></h3>
+            <div id="MisdirectedRequest">
+               <h3 id="rfc.section.9.1.2"><a href="#rfc.section.9.1.2">9.1.2</a>&nbsp;<a href="#MisdirectedRequest">The 421 (Misdirected Request) Status Code</a></h3>
                <div id="rfc.section.9.1.2.p.1">
-                  <p>The 421 (Not Authoritative) status code indicates that the current origin server is not authoritative for the requested resource,
-                     in the sense of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#establishing.authority" title="Establishing Authority">Section 9.1</a> (see also <a href="#authority" title="Server Authority">Section&nbsp;10.1</a>).
+                  <p>The 421 (Misdirected Request) status code indicates that the request was directed at a server that is not able to produce
+                     a response. This can be sent by a server that is not configured to produce responses for the combination of scheme and authority
+                     that are included in the request URI.
                   </p>
                </div>
                <div id="rfc.section.9.1.2.p.2">
-                  <p>Clients receiving a 421 (Not Authoritative) response from a server MAY retry the request - whether the request method is idempotent
-                     or not - over a different connection. This is possible if a connection is reused (<a href="#reuse" title="Connection Reuse">Section&nbsp;9.1.1</a>) or if an alternative service is selected (<a href="#ALT-SVC"><cite title="HTTP Alternative Services">[ALT-SVC]</cite></a>).
+                  <p>Clients receiving a 421 (Misdirected Request) response from a server MAY retry the request - whether the request method is
+                     idempotent or not - over a different connection. This is possible if a connection is reused (<a href="#reuse" title="Connection Reuse">Section&nbsp;9.1.1</a>) or if an alternative service is selected (<a href="#ALT-SVC"><cite title="HTTP Alternative Services">[ALT-SVC]</cite></a>).
                   </p>
                </div>
                <div id="rfc.section.9.1.2.p.3">
@@ -3547,18 +3555,10 @@ Upgrade: h2c
          <div id="authority">
             <h2 id="rfc.section.10.1"><a href="#rfc.section.10.1">10.1</a>&nbsp;<a href="#authority">Server Authority</a></h2>
             <div id="rfc.section.10.1.p.1">
-               <p>A client is only able to accept HTTP/2 responses from servers that are authoritative for those resources. This is particularly
-                  important for server push (<a href="#PushResources" title="Server Push">Section&nbsp;8.2</a>), where the client validates the <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> before accepting the response.
-               </p>
-            </div>
-            <div id="rfc.section.10.1.p.2">
                <p>HTTP/2 relies on the HTTP/1.1 definition of authority for determining whether a server is authoritative in providing a given
                   response, see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#establishing.authority" title="Establishing Authority">Section 9.1</a>. This relies on local name resolution for the "http" URI scheme, and the authenticated server identity for the "https" scheme
                   (see <a href="#RFC2818"><cite title="HTTP Over TLS">[RFC2818]</cite></a>, <a href="https://tools.ietf.org/html/rfc2818#section-3">Section 3</a>).
                </p>
-            </div>
-            <div id="rfc.section.10.1.p.3">
-               <p>A client MUST discard responses provided by a server that is not authoritative for those resources.</p>
             </div>
          </div>
          <div>
@@ -3789,7 +3789,7 @@ Upgrade: h2c
             </p>
          </div>
          <div id="rfc.section.11.p.3">
-            <p>This document registers the <samp>HTTP2-Settings</samp> header field for use in HTTP; and the 421 (Not Authoritative) status code.
+            <p>This document registers the <samp>HTTP2-Settings</samp> header field for use in HTTP; and the 421 (Misdirected Request) status code.
             </p>
          </div>
          <div id="rfc.section.11.p.4">
@@ -4156,10 +4156,10 @@ Upgrade: h2c
                </dl>
             </div>
          </div>
-         <div id="iana-NotAuthoritative">
-            <h2 id="rfc.section.11.7"><a href="#rfc.section.11.7">11.7</a>&nbsp;<a href="#iana-NotAuthoritative">The 421 Not Authoritative HTTP Status Code</a></h2>
+         <div id="iana-MisdirectedRequest">
+            <h2 id="rfc.section.11.7"><a href="#rfc.section.11.7">11.7</a>&nbsp;<a href="#iana-MisdirectedRequest">The 421 (Misdirected Request) HTTP Status Code</a></h2>
             <div id="rfc.section.11.7.p.1">
-               <p>This document registers the 421 (Not Authoritative) HTTP Status code in the Hypertext Transfer Protocol (HTTP) Status Code
+               <p>This document registers the 421 (Misdirected Request) HTTP Status code in the Hypertext Transfer Protocol (HTTP) Status Code
                   Registry (<a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.code.registry" title="Status Code Registry">Section 8.2</a>).
                </p>
             </div>
@@ -4168,9 +4168,9 @@ Upgrade: h2c
                   <dt>Status Code:</dt>
                   <dd>421</dd>
                   <dt>Short Description:</dt>
-                  <dd>Not Authoritative</dd>
+                  <dd>Misdirected Request</dd>
                   <dt>Specification:</dt>
-                  <dd><a href="#NotAuthoritative" title="The 421 (Not Authoritative) Status Code">Section&nbsp;9.1.2</a> of this document
+                  <dd><a href="#MisdirectedRequest" title="The 421 (Misdirected Request) Status Code">Section&nbsp;9.1.2</a> of this document
                   </dd>
                </dl>
             </div>
@@ -4364,336 +4364,342 @@ Upgrade: h2c
          <div id="rfc.section.A.p.1">
             <p>This section is to be removed by RFC Editor before publication.</p>
          </div>
-         <div id="changes.since.draft-ietf-httpbis-http2-13">
-            <h2 id="rfc.section.A.1"><a href="#rfc.section.A.1">A.1</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-13">Since draft-ietf-httpbis-http2-13</a></h2>
+         <div id="changes.since.draft-ietf-httpbis-http2-14">
+            <h2 id="rfc.section.A.1"><a href="#rfc.section.A.1">A.1</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-14">Since draft-ietf-httpbis-http2-14</a></h2>
             <div id="rfc.section.A.1.p.1">
+               <p>Renamed Not Authoritative status code to Misdirected Request.</p>
+            </div>
+         </div>
+         <div id="changes.since.draft-ietf-httpbis-http2-13">
+            <h2 id="rfc.section.A.2"><a href="#rfc.section.A.2">A.2</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-13">Since draft-ietf-httpbis-http2-13</a></h2>
+            <div id="rfc.section.A.2.p.1">
                <p>Pseudo-header fields are now required to appear strictly before regular ones.</p>
             </div>
-            <div id="rfc.section.A.1.p.2">
+            <div id="rfc.section.A.2.p.2">
                <p>Restored 1xx series status codes, except 101.</p>
             </div>
-            <div id="rfc.section.A.1.p.3">
+            <div id="rfc.section.A.2.p.3">
                <p>Changed frame length field 24-bits. Expanded frame header to 9 octets. Added a setting to limit the damage.</p>
             </div>
-            <div id="rfc.section.A.1.p.4">
+            <div id="rfc.section.A.2.p.4">
                <p>Added a setting to advise peers of header set size limits.</p>
             </div>
-            <div id="rfc.section.A.1.p.5">
+            <div id="rfc.section.A.2.p.5">
                <p>Removed segments.</p>
             </div>
-            <div id="rfc.section.A.1.p.6">
+            <div id="rfc.section.A.2.p.6">
                <p>Made non-semantic-bearing <a href="#HEADERS" class="smpl">HEADERS</a> frames illegal in the HTTP mapping.
                </p>
             </div>
          </div>
          <div id="changes.since.draft-ietf-httpbis-http2-12">
-            <h2 id="rfc.section.A.2"><a href="#rfc.section.A.2">A.2</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-12">Since draft-ietf-httpbis-http2-12</a></h2>
-            <div id="rfc.section.A.2.p.1">
+            <h2 id="rfc.section.A.3"><a href="#rfc.section.A.3">A.3</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-12">Since draft-ietf-httpbis-http2-12</a></h2>
+            <div id="rfc.section.A.3.p.1">
                <p>Restored extensibility options.</p>
             </div>
-            <div id="rfc.section.A.2.p.2">
+            <div id="rfc.section.A.3.p.2">
                <p>Restricting TLS cipher suites to AEAD only.</p>
             </div>
-            <div id="rfc.section.A.2.p.3">
+            <div id="rfc.section.A.3.p.3">
                <p>Removing Content-Encoding requirements.</p>
             </div>
-            <div id="rfc.section.A.2.p.4">
+            <div id="rfc.section.A.3.p.4">
                <p>Permitting the use of <a href="#PRIORITY" class="smpl">PRIORITY</a> after stream close.
                </p>
             </div>
-            <div id="rfc.section.A.2.p.5">
+            <div id="rfc.section.A.3.p.5">
                <p>Removed ALTSVC frame.</p>
             </div>
-            <div id="rfc.section.A.2.p.6">
+            <div id="rfc.section.A.3.p.6">
                <p>Removed BLOCKED frame.</p>
             </div>
-            <div id="rfc.section.A.2.p.7">
+            <div id="rfc.section.A.3.p.7">
                <p>Reducing the maximum padding size to 256 octets; removing padding from <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames.
                </p>
             </div>
-            <div id="rfc.section.A.2.p.8">
+            <div id="rfc.section.A.3.p.8">
                <p>Removed per-frame GZIP compression.</p>
             </div>
          </div>
          <div id="changes.since.draft-ietf-httpbis-http2-11">
-            <h2 id="rfc.section.A.3"><a href="#rfc.section.A.3">A.3</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-11">Since draft-ietf-httpbis-http2-11</a></h2>
-            <div id="rfc.section.A.3.p.1">
+            <h2 id="rfc.section.A.4"><a href="#rfc.section.A.4">A.4</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-11">Since draft-ietf-httpbis-http2-11</a></h2>
+            <div id="rfc.section.A.4.p.1">
                <p>Added BLOCKED frame (at risk).</p>
             </div>
-            <div id="rfc.section.A.3.p.2">
+            <div id="rfc.section.A.4.p.2">
                <p>Simplified priority scheme.</p>
             </div>
-            <div id="rfc.section.A.3.p.3">
+            <div id="rfc.section.A.4.p.3">
                <p>Added <a href="#DATA" class="smpl">DATA</a> per-frame GZIP compression.
                </p>
             </div>
          </div>
          <div id="changes.since.draft-ietf-httpbis-http2-10">
-            <h2 id="rfc.section.A.4"><a href="#rfc.section.A.4">A.4</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-10">Since draft-ietf-httpbis-http2-10</a></h2>
-            <div id="rfc.section.A.4.p.1">
+            <h2 id="rfc.section.A.5"><a href="#rfc.section.A.5">A.5</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-10">Since draft-ietf-httpbis-http2-10</a></h2>
+            <div id="rfc.section.A.5.p.1">
                <p>Changed "connection header" to "connection preface" to avoid confusion.</p>
             </div>
-            <div id="rfc.section.A.4.p.2">
+            <div id="rfc.section.A.5.p.2">
                <p>Added dependency-based stream prioritization.</p>
             </div>
-            <div id="rfc.section.A.4.p.3">
+            <div id="rfc.section.A.5.p.3">
                <p>Added "h2c" identifier to distinguish between cleartext and secured HTTP/2.</p>
             </div>
-            <div id="rfc.section.A.4.p.4">
+            <div id="rfc.section.A.5.p.4">
                <p>Adding missing padding to <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a>.
                </p>
             </div>
-            <div id="rfc.section.A.4.p.5">
+            <div id="rfc.section.A.5.p.5">
                <p>Integrate ALTSVC frame and supporting text.</p>
             </div>
-            <div id="rfc.section.A.4.p.6">
+            <div id="rfc.section.A.5.p.6">
                <p>Dropping requirement on "deflate" Content-Encoding.</p>
             </div>
-            <div id="rfc.section.A.4.p.7">
+            <div id="rfc.section.A.5.p.7">
                <p>Improving security considerations around use of compression.</p>
             </div>
          </div>
          <div id="changes.since.draft-ietf-httpbis-http2-09">
-            <h2 id="rfc.section.A.5"><a href="#rfc.section.A.5">A.5</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-09">Since draft-ietf-httpbis-http2-09</a></h2>
-            <div id="rfc.section.A.5.p.1">
+            <h2 id="rfc.section.A.6"><a href="#rfc.section.A.6">A.6</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-09">Since draft-ietf-httpbis-http2-09</a></h2>
+            <div id="rfc.section.A.6.p.1">
                <p>Adding padding for data frames.</p>
             </div>
-            <div id="rfc.section.A.5.p.2">
+            <div id="rfc.section.A.6.p.2">
                <p>Renumbering frame types, error codes, and settings.</p>
             </div>
-            <div id="rfc.section.A.5.p.3">
+            <div id="rfc.section.A.6.p.3">
                <p>Adding INADEQUATE_SECURITY error code.</p>
             </div>
-            <div id="rfc.section.A.5.p.4">
+            <div id="rfc.section.A.6.p.4">
                <p>Updating TLS usage requirements to 1.2; forbidding TLS compression.</p>
             </div>
-            <div id="rfc.section.A.5.p.5">
+            <div id="rfc.section.A.6.p.5">
                <p>Removing extensibility for frames and settings.</p>
             </div>
-            <div id="rfc.section.A.5.p.6">
+            <div id="rfc.section.A.6.p.6">
                <p>Changing setting identifier size.</p>
             </div>
-            <div id="rfc.section.A.5.p.7">
+            <div id="rfc.section.A.6.p.7">
                <p>Removing the ability to disable flow control.</p>
             </div>
-            <div id="rfc.section.A.5.p.8">
+            <div id="rfc.section.A.6.p.8">
                <p>Changing the protocol identification token to "h2".</p>
             </div>
-            <div id="rfc.section.A.5.p.9">
+            <div id="rfc.section.A.6.p.9">
                <p>Changing the use of :authority to make it optional and to allow userinfo in non-HTTP cases.</p>
             </div>
-            <div id="rfc.section.A.5.p.10">
+            <div id="rfc.section.A.6.p.10">
                <p>Allowing split on 0x0 for Cookie.</p>
             </div>
-            <div id="rfc.section.A.5.p.11">
+            <div id="rfc.section.A.6.p.11">
                <p>Reserved PRI method in HTTP/1.1 to avoid possible future collisions.</p>
             </div>
          </div>
          <div id="changes.since.draft-ietf-httpbis-http2-08">
-            <h2 id="rfc.section.A.6"><a href="#rfc.section.A.6">A.6</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-08">Since draft-ietf-httpbis-http2-08</a></h2>
-            <div id="rfc.section.A.6.p.1">
+            <h2 id="rfc.section.A.7"><a href="#rfc.section.A.7">A.7</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-08">Since draft-ietf-httpbis-http2-08</a></h2>
+            <div id="rfc.section.A.7.p.1">
                <p>Added cookie crumbling for more efficient header compression.</p>
             </div>
-            <div id="rfc.section.A.6.p.2">
+            <div id="rfc.section.A.7.p.2">
                <p>Added header field ordering with the value-concatenation mechanism.</p>
             </div>
          </div>
          <div id="changes.since.draft-ietf-httpbis-http2-07">
-            <h2 id="rfc.section.A.7"><a href="#rfc.section.A.7">A.7</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-07">Since draft-ietf-httpbis-http2-07</a></h2>
-            <div id="rfc.section.A.7.p.1">
+            <h2 id="rfc.section.A.8"><a href="#rfc.section.A.8">A.8</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-07">Since draft-ietf-httpbis-http2-07</a></h2>
+            <div id="rfc.section.A.8.p.1">
                <p>Marked draft for implementation.</p>
             </div>
          </div>
          <div id="changes.since.draft-ietf-httpbis-http2-06">
-            <h2 id="rfc.section.A.8"><a href="#rfc.section.A.8">A.8</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-06">Since draft-ietf-httpbis-http2-06</a></h2>
-            <div id="rfc.section.A.8.p.1">
+            <h2 id="rfc.section.A.9"><a href="#rfc.section.A.9">A.9</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-06">Since draft-ietf-httpbis-http2-06</a></h2>
+            <div id="rfc.section.A.9.p.1">
                <p>Adding definition for CONNECT method.</p>
             </div>
-            <div id="rfc.section.A.8.p.2">
+            <div id="rfc.section.A.9.p.2">
                <p>Constraining the use of push to safe, cacheable methods with no request body.</p>
             </div>
-            <div id="rfc.section.A.8.p.3">
+            <div id="rfc.section.A.9.p.3">
                <p>Changing from :host to :authority to remove any potential confusion.</p>
             </div>
-            <div id="rfc.section.A.8.p.4">
+            <div id="rfc.section.A.9.p.4">
                <p>Adding setting for header compression table size.</p>
             </div>
-            <div id="rfc.section.A.8.p.5">
+            <div id="rfc.section.A.9.p.5">
                <p>Adding settings acknowledgement.</p>
             </div>
-            <div id="rfc.section.A.8.p.6">
+            <div id="rfc.section.A.9.p.6">
                <p>Removing unnecessary and potentially problematic flags from CONTINUATION.</p>
             </div>
-            <div id="rfc.section.A.8.p.7">
+            <div id="rfc.section.A.9.p.7">
                <p>Added denial of service considerations.</p>
             </div>
          </div>
          <div id="changes.since.draft-ietf-httpbis-http2-05">
-            <h2 id="rfc.section.A.9"><a href="#rfc.section.A.9">A.9</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-05">Since draft-ietf-httpbis-http2-05</a></h2>
-            <div id="rfc.section.A.9.p.1">
+            <h2 id="rfc.section.A.10"><a href="#rfc.section.A.10">A.10</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-05">Since draft-ietf-httpbis-http2-05</a></h2>
+            <div id="rfc.section.A.10.p.1">
                <p>Marking the draft ready for implementation.</p>
             </div>
-            <div id="rfc.section.A.9.p.2">
+            <div id="rfc.section.A.10.p.2">
                <p>Renumbering END_PUSH_PROMISE flag.</p>
             </div>
-            <div id="rfc.section.A.9.p.3">
+            <div id="rfc.section.A.10.p.3">
                <p>Editorial clarifications and changes.</p>
             </div>
          </div>
          <div id="changes.since.draft-ietf-httpbis-http2-04">
-            <h2 id="rfc.section.A.10"><a href="#rfc.section.A.10">A.10</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-04">Since draft-ietf-httpbis-http2-04</a></h2>
-            <div id="rfc.section.A.10.p.1">
+            <h2 id="rfc.section.A.11"><a href="#rfc.section.A.11">A.11</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-04">Since draft-ietf-httpbis-http2-04</a></h2>
+            <div id="rfc.section.A.11.p.1">
                <p>Added CONTINUATION frame for HEADERS and PUSH_PROMISE.</p>
             </div>
-            <div id="rfc.section.A.10.p.2">
+            <div id="rfc.section.A.11.p.2">
                <p>PUSH_PROMISE is no longer implicitly prohibited if SETTINGS_MAX_CONCURRENT_STREAMS is zero.</p>
             </div>
-            <div id="rfc.section.A.10.p.3">
+            <div id="rfc.section.A.11.p.3">
                <p>Push expanded to allow all safe methods without a request body.</p>
             </div>
-            <div id="rfc.section.A.10.p.4">
+            <div id="rfc.section.A.11.p.4">
                <p>Clarified the use of HTTP header fields in requests and responses. Prohibited HTTP/1.1 hop-by-hop header fields.</p>
             </div>
-            <div id="rfc.section.A.10.p.5">
+            <div id="rfc.section.A.11.p.5">
                <p>Requiring that intermediaries not forward requests with missing or illegal routing :-headers.</p>
             </div>
-            <div id="rfc.section.A.10.p.6">
+            <div id="rfc.section.A.11.p.6">
                <p>Clarified requirements around handling different frames after stream close, stream reset and <a href="#GOAWAY" class="smpl">GOAWAY</a>.
                </p>
             </div>
-            <div id="rfc.section.A.10.p.7">
+            <div id="rfc.section.A.11.p.7">
                <p>Added more specific prohibitions for sending of different frame types in various stream states.</p>
             </div>
-            <div id="rfc.section.A.10.p.8">
+            <div id="rfc.section.A.11.p.8">
                <p>Making the last received setting value the effective value.</p>
             </div>
-            <div id="rfc.section.A.10.p.9">
+            <div id="rfc.section.A.11.p.9">
                <p>Clarified requirements on TLS version, extension and ciphers.</p>
             </div>
          </div>
          <div id="changes.since.draft-ietf-httpbis-http2-03">
-            <h2 id="rfc.section.A.11"><a href="#rfc.section.A.11">A.11</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-03">Since draft-ietf-httpbis-http2-03</a></h2>
-            <div id="rfc.section.A.11.p.1">
+            <h2 id="rfc.section.A.12"><a href="#rfc.section.A.12">A.12</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-03">Since draft-ietf-httpbis-http2-03</a></h2>
+            <div id="rfc.section.A.12.p.1">
                <p>Committed major restructuring atrocities.</p>
             </div>
-            <div id="rfc.section.A.11.p.2">
+            <div id="rfc.section.A.12.p.2">
                <p>Added reference to first header compression draft.</p>
             </div>
-            <div id="rfc.section.A.11.p.3">
+            <div id="rfc.section.A.12.p.3">
                <p>Added more formal description of frame lifecycle.</p>
             </div>
-            <div id="rfc.section.A.11.p.4">
+            <div id="rfc.section.A.12.p.4">
                <p>Moved END_STREAM (renamed from FINAL) back to <a href="#HEADERS" class="smpl">HEADERS</a>/<a href="#DATA" class="smpl">DATA</a>.
                </p>
             </div>
-            <div id="rfc.section.A.11.p.5">
+            <div id="rfc.section.A.12.p.5">
                <p>Removed HEADERS+PRIORITY, added optional priority to <a href="#HEADERS" class="smpl">HEADERS</a> frame.
                </p>
             </div>
-            <div id="rfc.section.A.11.p.6">
+            <div id="rfc.section.A.12.p.6">
                <p>Added <a href="#PRIORITY" class="smpl">PRIORITY</a> frame.
                </p>
             </div>
          </div>
          <div id="changes.since.draft-ietf-httpbis-http2-02">
-            <h2 id="rfc.section.A.12"><a href="#rfc.section.A.12">A.12</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-02">Since draft-ietf-httpbis-http2-02</a></h2>
-            <div id="rfc.section.A.12.p.1">
+            <h2 id="rfc.section.A.13"><a href="#rfc.section.A.13">A.13</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-02">Since draft-ietf-httpbis-http2-02</a></h2>
+            <div id="rfc.section.A.13.p.1">
                <p>Added continuations to frames carrying header blocks.</p>
             </div>
-            <div id="rfc.section.A.12.p.2">
+            <div id="rfc.section.A.13.p.2">
                <p>Replaced use of "session" with "connection" to avoid confusion with other HTTP stateful concepts, like cookies.</p>
             </div>
-            <div id="rfc.section.A.12.p.3">
+            <div id="rfc.section.A.13.p.3">
                <p>Removed "message".</p>
             </div>
-            <div id="rfc.section.A.12.p.4">
+            <div id="rfc.section.A.13.p.4">
                <p>Switched to TLS ALPN from NPN.</p>
             </div>
-            <div id="rfc.section.A.12.p.5">
+            <div id="rfc.section.A.13.p.5">
                <p>Editorial changes.</p>
             </div>
          </div>
          <div id="changes.since.draft-ietf-httpbis-http2-01">
-            <h2 id="rfc.section.A.13"><a href="#rfc.section.A.13">A.13</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-01">Since draft-ietf-httpbis-http2-01</a></h2>
-            <div id="rfc.section.A.13.p.1">
+            <h2 id="rfc.section.A.14"><a href="#rfc.section.A.14">A.14</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-01">Since draft-ietf-httpbis-http2-01</a></h2>
+            <div id="rfc.section.A.14.p.1">
                <p>Added IANA considerations section for frame types, error codes and settings.</p>
             </div>
-            <div id="rfc.section.A.13.p.2">
+            <div id="rfc.section.A.14.p.2">
                <p>Removed data frame compression.</p>
             </div>
-            <div id="rfc.section.A.13.p.3">
+            <div id="rfc.section.A.14.p.3">
                <p>Added <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a>.
                </p>
             </div>
-            <div id="rfc.section.A.13.p.4">
+            <div id="rfc.section.A.14.p.4">
                <p>Added globally applicable flags to framing.</p>
             </div>
-            <div id="rfc.section.A.13.p.5">
+            <div id="rfc.section.A.14.p.5">
                <p>Removed zlib-based header compression mechanism.</p>
             </div>
-            <div id="rfc.section.A.13.p.6">
+            <div id="rfc.section.A.14.p.6">
                <p>Updated references.</p>
             </div>
-            <div id="rfc.section.A.13.p.7">
+            <div id="rfc.section.A.14.p.7">
                <p>Clarified stream identifier reuse.</p>
             </div>
-            <div id="rfc.section.A.13.p.8">
+            <div id="rfc.section.A.14.p.8">
                <p>Removed CREDENTIALS frame and associated mechanisms.</p>
             </div>
-            <div id="rfc.section.A.13.p.9">
+            <div id="rfc.section.A.14.p.9">
                <p>Added advice against naive implementation of flow control.</p>
             </div>
-            <div id="rfc.section.A.13.p.10">
+            <div id="rfc.section.A.14.p.10">
                <p>Added session header section.</p>
             </div>
-            <div id="rfc.section.A.13.p.11">
+            <div id="rfc.section.A.14.p.11">
                <p>Restructured frame header. Removed distinction between data and control frames.</p>
             </div>
-            <div id="rfc.section.A.13.p.12">
+            <div id="rfc.section.A.14.p.12">
                <p>Altered flow control properties to include session-level limits.</p>
             </div>
-            <div id="rfc.section.A.13.p.13">
+            <div id="rfc.section.A.14.p.13">
                <p>Added note on cacheability of pushed resources and multiple tenant servers.</p>
             </div>
-            <div id="rfc.section.A.13.p.14">
+            <div id="rfc.section.A.14.p.14">
                <p>Changed protocol label form based on discussions.</p>
             </div>
          </div>
          <div id="changes.since.draft-ietf-httpbis-http2-00">
-            <h2 id="rfc.section.A.14"><a href="#rfc.section.A.14">A.14</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-00">Since draft-ietf-httpbis-http2-00</a></h2>
-            <div id="rfc.section.A.14.p.1">
+            <h2 id="rfc.section.A.15"><a href="#rfc.section.A.15">A.15</a>&nbsp;<a href="#changes.since.draft-ietf-httpbis-http2-00">Since draft-ietf-httpbis-http2-00</a></h2>
+            <div id="rfc.section.A.15.p.1">
                <p>Changed title throughout.</p>
             </div>
-            <div id="rfc.section.A.14.p.2">
+            <div id="rfc.section.A.15.p.2">
                <p>Removed section on Incompatibilities with SPDY draft#2.</p>
             </div>
-            <div id="rfc.section.A.14.p.3">
+            <div id="rfc.section.A.15.p.3">
                <p>Changed <a href="#INTERNAL_ERROR" class="smpl">INTERNAL_ERROR</a> on <a href="#GOAWAY" class="smpl">GOAWAY</a> to have a value of 2 &lt;<a href="https://groups.google.com/forum/?fromgroups#!topic/spdy-dev/cfUef2gL3iU">https://groups.google.com/forum/?fromgroups#!topic/spdy-dev/cfUef2gL3iU</a>&gt;.
                </p>
             </div>
-            <div id="rfc.section.A.14.p.4">
+            <div id="rfc.section.A.15.p.4">
                <p>Replaced abstract and introduction.</p>
             </div>
-            <div id="rfc.section.A.14.p.5">
+            <div id="rfc.section.A.15.p.5">
                <p>Added section on starting HTTP/2.0, including upgrade mechanism.</p>
             </div>
-            <div id="rfc.section.A.14.p.6">
+            <div id="rfc.section.A.15.p.6">
                <p>Removed unused references.</p>
             </div>
-            <div id="rfc.section.A.14.p.7">
+            <div id="rfc.section.A.15.p.7">
                <p>Added flow control principles (<a href="#fc-principles" title="Flow Control Principles">Section&nbsp;5.2.1</a>) based on &lt;<a href="https://tools.ietf.org/html/draft-montenegro-httpbis-http2-fc-principles-01">https://tools.ietf.org/html/draft-montenegro-httpbis-http2-fc-principles-01</a>&gt;.
                </p>
             </div>
          </div>
          <div id="changes.since.draft-mbelshe-httpbis-spdy-00">
-            <h2 id="rfc.section.A.15"><a href="#rfc.section.A.15">A.15</a>&nbsp;<a href="#changes.since.draft-mbelshe-httpbis-spdy-00">Since draft-mbelshe-httpbis-spdy-00</a></h2>
-            <div id="rfc.section.A.15.p.1">
+            <h2 id="rfc.section.A.16"><a href="#rfc.section.A.16">A.16</a>&nbsp;<a href="#changes.since.draft-mbelshe-httpbis-spdy-00">Since draft-mbelshe-httpbis-spdy-00</a></h2>
+            <div id="rfc.section.A.16.p.1">
                <p>Adopted as base for draft-ietf-httpbis-http2.</p>
             </div>
-            <div id="rfc.section.A.15.p.2">
+            <div id="rfc.section.A.16.p.2">
                <p>Updated authors/editors list.</p>
             </div>
-            <div id="rfc.section.A.15.p.3">
+            <div id="rfc.section.A.16.p.3">
                <p>Added status note.</p>
             </div>
          </div>
