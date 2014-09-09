@@ -636,6 +636,10 @@ Internet-Draft                   HTTP/2                   September 2014
    SETTINGS frame (Section 6.5) that MUST be the first frame the server
    sends in the HTTP/2 connection.
 
+   The SETTINGS frames received from a peer as part of the connection
+   preface MUST be acknowledged (see Section 6.5.3) after sending the
+   connection preface.
+
    To avoid unnecessary latency, clients are permitted to send
    additional frames to the server immediately after sending the client
    connection preface, without waiting to receive the server connection
@@ -661,10 +665,6 @@ Internet-Draft                   HTTP/2                   September 2014
 
    All frames begin with a fixed 9-octet header followed by a variable-
    length payload.
-
-
-
-
 
 
 

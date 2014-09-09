@@ -1180,6 +1180,10 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.3.5.p.6">
+               <p>The <a href="#SETTINGS" class="smpl">SETTINGS</a> frames received from a peer as part of the connection preface MUST be acknowledged (see <a href="#SettingsSync" title="Settings Synchronization">Section&nbsp;6.5.3</a>) after sending the connection preface.
+               </p>
+            </div>
+            <div id="rfc.section.3.5.p.7">
                <p>To avoid unnecessary latency, clients are permitted to send additional frames to the server immediately after sending the
                   client connection preface, without waiting to receive the server connection preface. It is important to note, however, that
                   the server connection preface <a href="#SETTINGS" class="smpl">SETTINGS</a> frame might include parameters that necessarily alter how a client is expected to communicate with the server. Upon receiving
@@ -1187,7 +1191,7 @@ Upgrade: h2c
                   transmit <a href="#SETTINGS" class="smpl">SETTINGS</a> before the client sends additional frames, providing an opportunity to avoid this issue.
                </p>
             </div>
-            <div id="rfc.section.3.5.p.7">
+            <div id="rfc.section.3.5.p.8">
                <p>Clients and servers MUST treat an invalid connection preface as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>. A <a href="#GOAWAY" class="smpl">GOAWAY</a> frame (<a href="#GOAWAY" title="GOAWAY">Section&nbsp;6.8</a>) MAY be omitted in this case, since an invalid preface indicates that the peer is not using HTTP/2.
                </p>
             </div>
