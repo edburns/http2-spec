@@ -2003,8 +2003,8 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.6.1.p.7">
-               <p>The total number of padding octets is determined by the value of the Pad Length field. If the length of the padding is greater
-                  than the length of the frame payload, the recipient MUST treat this as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>. 
+               <p>The total number of padding octets is determined by the value of the Pad Length field. If the length of the padding is the
+                  length of the frame payload or greater, the recipient MUST treat this as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>. 
                </p>
                <dl>
                   <dt>Note:</dt>

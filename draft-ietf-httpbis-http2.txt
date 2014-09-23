@@ -1718,8 +1718,8 @@ Internet-Draft                   HTTP/2                   September 2014
    STREAM_CLOSED.
 
    The total number of padding octets is determined by the value of the
-   Pad Length field.  If the length of the padding is greater than the
-   length of the frame payload, the recipient MUST treat this as a
+   Pad Length field.  If the length of the padding is the length of the
+   frame payload or greater, the recipient MUST treat this as a
    connection error (Section 5.4.1) of type PROTOCOL_ERROR.
 
    Note:  A frame can be increased in size by one octet by including a
