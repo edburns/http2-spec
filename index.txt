@@ -1357,7 +1357,7 @@ Internet-Draft                   HTTP/2                   September 2014
       / \      ==>      /|\
      B   C             B D C
 
-                  Example of Default Dependency Creation
+             Figure 3: Example of Default Dependency Creation
 
    An exclusive flag allows for the insertion of a new level of
    dependencies.  The exclusive flag causes the stream to become the
@@ -1372,7 +1372,7 @@ Internet-Draft                   HTTP/2                   September 2014
      B   C              / \
                        B   C
 
-                 Example of Exclusive Dependency Creation
+            Figure 4: Example of Exclusive Dependency Creation
 
    Inside the dependency tree, a dependent stream SHOULD only be
    allocated resources if all of the streams that it depends on (the
@@ -1435,7 +1435,7 @@ Internet-Draft                   HTTP/2                   September 2014
        F                                     E             E
                   (intermediate)   (non-exclusive)    (exclusive)
 
-                     Example of Dependency Reordering
+                Figure 5: Example of Dependency Reordering
 
 5.3.4.  Prioritization State Management
 
@@ -1669,7 +1669,7 @@ Internet-Draft                   HTTP/2                   September 2014
     |                           Padding (*)                       ...
     +---------------------------------------------------------------+
 
-                            DATA Frame Payload
+                       Figure 6: DATA Frame Payload
 
    The DATA frame contains the following fields:
 
@@ -1758,7 +1758,7 @@ Internet-Draft                   HTTP/2                   September 2014
     |                           Padding (*)                       ...
     +---------------------------------------------------------------+
 
-                           HEADERS Frame Payload
+                      Figure 7: HEADERS Frame Payload
 
    The HEADERS frame payload has the following fields:
 
@@ -1865,7 +1865,7 @@ Internet-Draft                   HTTP/2                   September 2014
     |   Weight (8)  |
     +-+-------------+
 
-                          PRIORITY Frame Payload
+                     Figure 8: PRIORITY Frame Payload
 
    The payload of a PRIORITY frame contains the following fields:
 
@@ -1926,7 +1926,7 @@ Internet-Draft                   HTTP/2                   September 2014
     |                        Error Code (32)                        |
     +---------------------------------------------------------------+
 
-                         RST_STREAM Frame Payload
+                    Figure 9: RST_STREAM Frame Payload
 
    The RST_STREAM frame contains a single unsigned, 32-bit integer
    identifying the error code (Section 7).  The error code indicates why
@@ -2032,7 +2032,7 @@ Internet-Draft                   HTTP/2                   September 2014
     |                        Value (32)                             |
     +---------------------------------------------------------------+
 
-                              Setting Format
+                         Figure 10: Setting Format
 
 6.5.2.  Defined SETTINGS Parameters
 
@@ -2160,7 +2160,7 @@ Internet-Draft                   HTTP/2                   September 2014
     |                           Padding (*)                       ...
     +---------------------------------------------------------------+
 
-                        PUSH_PROMISE Payload Format
+                  Figure 11: PUSH_PROMISE Payload Format
 
    The PUSH_PROMISE frame payload has the following fields:
 
@@ -2274,7 +2274,7 @@ Internet-Draft                   HTTP/2                   September 2014
     |                                                               |
     +---------------------------------------------------------------+
 
-                            PING Payload Format
+                      Figure 12: PING Payload Format
 
    In addition to the frame header, PING frames MUST contain 8 octets of
    data in the payload.  A sender can include any value it chooses and
@@ -2367,7 +2367,7 @@ Internet-Draft                   HTTP/2                   September 2014
     |                  Additional Debug Data (*)                    |
     +---------------------------------------------------------------+
 
-                           GOAWAY Payload Format
+                     Figure 13: GOAWAY Payload Format
 
    The GOAWAY frame does not define any flags.
 
@@ -2487,7 +2487,7 @@ Internet-Draft                   HTTP/2                   September 2014
     |R|              Window Size Increment (31)                     |
     +-+-------------------------------------------------------------+
 
-                       WINDOW_UPDATE Payload Format
+                  Figure 14: WINDOW_UPDATE Payload Format
 
    The payload of a WINDOW_UPDATE frame is one reserved bit, plus an
    unsigned 31-bit integer indicating the number of octets that the
@@ -2659,7 +2659,7 @@ Internet-Draft                   HTTP/2                   September 2014
     |                   Header Block Fragment (*)                 ...
     +---------------------------------------------------------------+
 
-                        CONTINUATION Frame Payload
+                   Figure 15: CONTINUATION Frame Payload
 
    The CONTINUATION frame payload contains a header block fragment
    (Section 4.3).
