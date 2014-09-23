@@ -2817,6 +2817,10 @@ Internet-Draft                   HTTP/2                   September 2014
    Other frames (from any stream) MUST NOT occur between either HEADERS
    frame and any CONTINUATION frames that might follow.
 
+   HTTP/2 uses DATA frames to carry message payloads.  The "chunked"
+   transfer encoding defined in Section 4.1 of [RFC7230] MUST NOT be
+   used in HTTP/2.
+
    Trailing header fields are carried in a header block that also
    terminates the stream.  That is, a sequence starting with a HEADERS
    frame, followed by zero or more CONTINUATION frames, where the
@@ -2846,10 +2850,6 @@ Internet-Draft                   HTTP/2                   September 2014
    The semantics of 101 (Switching Protocols) aren't applicable to a
    multiplexed protocol.  Alternative protocols are able to use the same
    mechanisms that HTTP/2 uses to negotiate their use (see Section 3).
-
-
-
-
 
 
 

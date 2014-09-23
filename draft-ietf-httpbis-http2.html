@@ -2907,16 +2907,20 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.8.1.p.4">
+               <p>HTTP/2 uses DATA frames to carry message payloads. The <samp>chunked</samp> transfer encoding defined in <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#chunked.encoding" title="Chunked Transfer Coding">Section 4.1</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a> MUST NOT be used in HTTP/2.
+               </p>
+            </div>
+            <div id="rfc.section.8.1.p.5">
                <p>Trailing header fields are carried in a header block that also terminates the stream. That is, a sequence starting with a <a href="#HEADERS" class="smpl">HEADERS</a> frame, followed by zero or more <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames, where the <a href="#HEADERS" class="smpl">HEADERS</a> frame bears an END_STREAM flag. Header blocks after the first that do not terminate the stream are not part of an HTTP request
                   or response.
                </p>
             </div>
-            <div id="rfc.section.8.1.p.5">
+            <div id="rfc.section.8.1.p.6">
                <p>A <a href="#HEADERS" class="smpl">HEADERS</a> frame (and associated <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames) can only appear at the start or end of a stream. An endpoint that receives a <a href="#HEADERS" class="smpl">HEADERS</a> frame without the END_STREAM flag set after receiving a final (non-informational) status code MUST treat the corresponding
                   request or response as malformed (<a href="#malformed" title="Malformed Requests and Responses">Section&nbsp;8.1.2.6</a>).
                </p>
             </div>
-            <div id="rfc.section.8.1.p.6">
+            <div id="rfc.section.8.1.p.7">
                <p>An HTTP request/response exchange fully consumes a single stream. A request starts with the <a href="#HEADERS" class="smpl">HEADERS</a> frame that puts the stream into an "open" state. The request ends with a frame bearing END_STREAM, which causes the stream
                   to become "half closed (local)" for the client and "half closed (remote)" for the server. A response starts with a <a href="#HEADERS" class="smpl">HEADERS</a> frame and ends with a frame bearing END_STREAM, which places the stream in the "closed" state.  
                </p>
