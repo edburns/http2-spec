@@ -686,7 +686,7 @@ Internet-Draft                   HTTP/2                   September 2014
     |                   Frame Payload (0...)                      ...
     +---------------------------------------------------------------+
 
-                               Frame Layout
+                          Figure 1: Frame Layout
 
    The fields of the frame header are defined as:
 
@@ -852,7 +852,7 @@ Internet-Draft                   HTTP/2                   September 2014
 
 5.1.  Stream States
 
-   The lifecycle of a stream is shown in Figure 1.
+   The lifecycle of a stream is shown in Figure 2.
 
 
                               +--------+
@@ -887,7 +887,7 @@ Internet-Draft                   HTTP/2                   September 2014
           R:  RST_STREAM frame
 
 
-                          Figure 1: Stream States
+                          Figure 2: Stream States
 
 
 

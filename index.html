@@ -1207,7 +1207,8 @@ Upgrade: h2c
             <div id="rfc.section.4.1.p.1">
                <p>All frames begin with a fixed 9-octet header followed by a variable-length payload.</p>
             </div>
-            <div id="rfc.figure.u.6"><pre class="inline">  0                   1                   2                   3
+            <div id="FrameLayout"></div>
+            <div id="rfc.figure.1"><pre class="inline">  0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                 Length (24)                   |
@@ -1219,7 +1220,7 @@ Upgrade: h2c
  |                   Frame Payload (0...)                      ...
  +---------------------------------------------------------------+
 </pre></div>
-            <p class="figure">Frame Layout</p>
+            <p class="figure">Figure 1: Frame Layout</p>
             <div id="rfc.section.4.1.p.2">
                <p>The fields of the frame header are defined as: </p>
                <dl>
@@ -1349,11 +1350,11 @@ Upgrade: h2c
          <div id="StreamStates">
             <h2 id="rfc.section.5.1"><a href="#rfc.section.5.1">5.1</a>&nbsp;<a href="#StreamStates">Stream States</a></h2>
             <div id="rfc.section.5.1.p.1">
-               <p>The lifecycle of a stream is shown in <a href="#StreamStatesFigure">Figure&nbsp;1</a>.
+               <p>The lifecycle of a stream is shown in <a href="#StreamStatesFigure">Figure&nbsp;2</a>.
                </p>
             </div>
             <div id="StreamStatesFigure"></div>
-            <div id="rfc.figure.1"><pre class="drawing">            
+            <div id="rfc.figure.2"><pre class="drawing">            
                            +--------+
                      PP    |        |    PP
                   ,--------|  idle  |--------.
@@ -1386,7 +1387,7 @@ Upgrade: h2c
        R:  RST_STREAM frame
 
           </pre></div>
-            <p class="figure">Figure 1: Stream States</p>
+            <p class="figure">Figure 2: Stream States</p>
             <div id="rfc.section.5.1.p.2">
                <p>Note that this diagram shows stream state transitions and the frames and flags that affect those transitions only. In this
                   regard, <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames do not result in state transitions; they are effectively part of the <a href="#HEADERS" class="smpl">HEADERS</a> or <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> that they follow. For this purpose, the END_STREAM flag is processed as a separate event to the frame that bears it; a <a href="#HEADERS" class="smpl">HEADERS</a> frame with the END_STREAM flag set can cause two state transitions.
@@ -1697,7 +1698,7 @@ Upgrade: h2c
                      D in any order.
                   </p>
                </div>
-               <div id="rfc.figure.u.7"><pre class="inline">    A                 A
+               <div id="rfc.figure.u.6"><pre class="inline">    A                 A
    / \      ==&gt;      /|\
   B   C             B D C
 </pre></div>
@@ -1709,7 +1710,7 @@ Upgrade: h2c
                      of B and C.
                   </p>
                </div>
-               <div id="rfc.figure.u.8"><pre class="inline">                      A
+               <div id="rfc.figure.u.7"><pre class="inline">                      A
     A                 |
    / \      ==&gt;       D
   B   C              / \
@@ -1755,7 +1756,7 @@ Upgrade: h2c
                      on the reprioritized stream's previous parent. The moved dependency retains its weight.
                   </p>
                </div>
-               <div id="rfc.figure.u.9">
+               <div id="rfc.figure.u.8">
                   <p>For example, consider an original dependency tree where B and C depend on A, D and E depend on C, and F depends on D. If A
                      is made dependent on D, then D takes the place of A. All other dependency relationships stay the same, except for F, which
                      becomes dependent on A if the reprioritization is exclusive.
@@ -1951,7 +1952,7 @@ Upgrade: h2c
             <div id="rfc.section.6.1.p.2">
                <p>DATA frames MAY also contain arbitrary padding. Padding can be added to DATA frames to obscure the size of messages.</p>
             </div>
-            <div id="rfc.figure.u.10"><pre class="inline">  0                   1                   2                   3
+            <div id="rfc.figure.u.9"><pre class="inline">  0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |Pad Length? (8)|
@@ -2022,7 +2023,7 @@ Upgrade: h2c
                   states.
                </p>
             </div>
-            <div id="rfc.figure.u.11"><pre class="inline">  0                   1                   2                   3
+            <div id="rfc.figure.u.10"><pre class="inline">  0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |Pad Length? (8)|
@@ -2121,7 +2122,7 @@ Upgrade: h2c
                <p>The PRIORITY frame (type=0x2) specifies the sender-advised priority of a stream (<a href="#StreamPriority" title="Stream priority">Section&nbsp;5.3</a>). It can be sent at any time for an existing stream, including closed streams. This enables reprioritization of existing streams.
                </p>
             </div>
-            <div id="rfc.figure.u.12"><pre class="inline">  0                   1                   2                   3
+            <div id="rfc.figure.u.11"><pre class="inline">  0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |E|                  Stream Dependency (31)                     |
@@ -2175,7 +2176,7 @@ Upgrade: h2c
                   occurred.
                </p>
             </div>
-            <div id="rfc.figure.u.13"><pre class="inline">  0                   1                   2                   3
+            <div id="rfc.figure.u.12"><pre class="inline">  0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        Error Code (32)                        |
@@ -2258,7 +2259,7 @@ Upgrade: h2c
                      and an unsigned 32-bit value.
                   </p>
                </div>
-               <div id="rfc.figure.u.14"><pre class="inline">  0                   1                   2                   3
+               <div id="rfc.figure.u.13"><pre class="inline">  0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |       Identifier (16)         |
@@ -2358,7 +2359,7 @@ Upgrade: h2c
                   of headers that provide additional context for the stream. <a href="#PushResources" title="Server Push">Section&nbsp;8.2</a> contains a thorough description of the use of PUSH_PROMISE frames.
                </p>
             </div>
-            <div id="rfc.figure.u.15"><pre class="inline">  0                   1                   2                   3
+            <div id="rfc.figure.u.14"><pre class="inline">  0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |Pad Length? (8)|
@@ -2455,7 +2456,7 @@ Upgrade: h2c
                   an idle connection is still functional. PING frames can be sent from any endpoint.
                </p>
             </div>
-            <div id="rfc.figure.u.16"><pre class="inline">  0                   1                   2                   3
+            <div id="rfc.figure.u.15"><pre class="inline">  0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                                                               |
@@ -2530,7 +2531,7 @@ Upgrade: h2c
             <div id="rfc.section.6.8.p.6">
                <p>An endpoint might choose to close a connection without sending GOAWAY for misbehaving peers.</p>
             </div>
-            <div id="rfc.figure.u.17"><pre class="inline">  0                   1                   2                   3
+            <div id="rfc.figure.u.16"><pre class="inline">  0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |R|                  Last-Stream-ID (31)                        |
@@ -2626,7 +2627,7 @@ Upgrade: h2c
                   to handling the frame. A receiver MAY respond with a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) or connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#FLOW_CONTROL_ERROR" class="smpl">FLOW_CONTROL_ERROR</a> if it is unable to accept a frame.
                </p>
             </div>
-            <div id="rfc.figure.u.18"><pre class="inline">  0                   1                   2                   3
+            <div id="rfc.figure.u.17"><pre class="inline">  0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |R|              Window Size Increment (31)                     |
@@ -2774,7 +2775,7 @@ Upgrade: h2c
                   and is a <a href="#HEADERS" class="smpl">HEADERS</a>, <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> or CONTINUATION frame without the END_HEADERS flag set.
                </p>
             </div>
-            <div id="rfc.figure.u.19"><pre class="inline">  0                   1                   2                   3
+            <div id="rfc.figure.u.18"><pre class="inline">  0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                   Header Block Fragment (*)                 ...
@@ -3068,7 +3069,7 @@ Upgrade: h2c
                         such as an HTTP/1.1 connection, or a generic HTTP server application.
                      </p>
                   </div>
-                  <div id="rfc.figure.u.20">
+                  <div id="rfc.figure.u.19">
                      <p>Therefore, the following two lists of Cookie header fields are semantically equivalent.</p><pre class="inline">  cookie: a=b; c=d; e=f
 
   cookie: a=b
@@ -3111,7 +3112,7 @@ Upgrade: h2c
                   <p>An HTTP GET request includes request header fields and no body and is therefore transmitted as a single <a href="#HEADERS" class="smpl">HEADERS</a> frame, followed by zero or more <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames containing the serialized block of request header fields. The <a href="#HEADERS" class="smpl">HEADERS</a> frame in the following has both the END_HEADERS and END_STREAM flags set; no <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames are sent:
                   </p>
                </div>
-               <div id="rfc.figure.u.21"><pre class="inline">  GET /resource HTTP/1.1           HEADERS
+               <div id="rfc.figure.u.20"><pre class="inline">  GET /resource HTTP/1.1           HEADERS
   Host: example.org          ==&gt;     + END_STREAM
   Accept: image/jpeg                 + END_HEADERS
                                        :method = GET
@@ -3124,7 +3125,7 @@ Upgrade: h2c
                   <p>Similarly, a response that includes only response header fields is transmitted as a <a href="#HEADERS" class="smpl">HEADERS</a> frame (again, followed by zero or more <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames) containing the serialized block of response header fields.
                   </p>
                </div>
-               <div id="rfc.figure.u.22"><pre class="inline">  HTTP/1.1 304 Not Modified        HEADERS
+               <div id="rfc.figure.u.21"><pre class="inline">  HTTP/1.1 304 Not Modified        HEADERS
   ETag: "xyzzy"              ==&gt;     + END_STREAM
   Expires: Thu, 23 Jan ...           + END_HEADERS
                                        :status = 304
@@ -3135,7 +3136,7 @@ Upgrade: h2c
                   <p>An HTTP POST request that includes request header fields and payload data is transmitted as one <a href="#HEADERS" class="smpl">HEADERS</a> frame, followed by zero or more <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames containing the request header fields, followed by one or more <a href="#DATA" class="smpl">DATA</a> frames, with the last <a href="#CONTINUATION" class="smpl">CONTINUATION</a> (or <a href="#HEADERS" class="smpl">HEADERS</a>) frame having the END_HEADERS flag set and the final <a href="#DATA" class="smpl">DATA</a> frame having the END_STREAM flag set:
                   </p>
                </div>
-               <div id="rfc.figure.u.23"><pre class="inline">  POST /resource HTTP/1.1          HEADERS
+               <div id="rfc.figure.u.22"><pre class="inline">  POST /resource HTTP/1.1          HEADERS
   Host: example.org          ==&gt;     - END_STREAM
   Content-Type: image/jpeg           - END_HEADERS
   Content-Length: 123                  :method = POST
@@ -3159,7 +3160,7 @@ Upgrade: h2c
                   <p>A response that includes header fields and payload data is transmitted as a <a href="#HEADERS" class="smpl">HEADERS</a> frame, followed by zero or more <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames, followed by one or more <a href="#DATA" class="smpl">DATA</a> frames, with the last <a href="#DATA" class="smpl">DATA</a> frame in the sequence having the END_STREAM flag set:
                   </p>
                </div>
-               <div id="rfc.figure.u.24"><pre class="inline">  HTTP/1.1 200 OK                  HEADERS
+               <div id="rfc.figure.u.23"><pre class="inline">  HTTP/1.1 200 OK                  HEADERS
   Content-Type: image/jpeg   ==&gt;     - END_STREAM
   Content-Length: 123                + END_HEADERS
                                        :status = 200
@@ -3174,7 +3175,7 @@ Upgrade: h2c
                   <p>Trailing header fields are sent as a header block after both the request or response header block and all the <a href="#DATA" class="smpl">DATA</a> frames have been sent. The <a href="#HEADERS" class="smpl">HEADERS</a> frame starting the trailers header block has the END_STREAM flag set.
                   </p>
                </div>
-               <div id="rfc.figure.u.25"><pre class="inline">  HTTP/1.1 200 OK                  HEADERS
+               <div id="rfc.figure.u.24"><pre class="inline">  HTTP/1.1 200 OK                  HEADERS
   Content-Type: image/jpeg   ==&gt;     - END_STREAM
   Transfer-Encoding: chunked         + END_HEADERS
   Trailer: Foo                         :status = 200
@@ -3191,7 +3192,7 @@ Upgrade: h2c
                                      + END_HEADERS
                                        foo = bar
 </pre></div>
-               <div id="rfc.figure.u.26">
+               <div id="rfc.figure.u.25">
                   <p>An informational response using a 1xx status code other than 101 is transmitted as a <a href="#HEADERS" class="smpl">HEADERS</a> frame, followed by zero or more <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames:
                   </p><pre class="inline">  HTTP/1.1 103 BAR                 HEADERS
   Extension-Field: bar       ==&gt;     - END_STREAM
