@@ -445,7 +445,7 @@ ul p {
        content: "Belshe, et al.";
   }
   @bottom-center {
-       content: "Expires March 27, 2015";
+       content: "Expires March 30, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -569,7 +569,7 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Thomson, M.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-http2-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2014-09-23">
+      <meta name="dct.issued" scheme="ISO8601" content="2014-09-26">
       <meta name="dct.abstract" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
       <meta name="description" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
    </head>
@@ -589,7 +589,7 @@ ul.toc a:first-child {
                <td class="right">R. Peon</td>
             </tr>
             <tr>
-               <td class="left">Expires: March 27, 2015</td>
+               <td class="left">Expires: March 30, 2015</td>
                <td class="right">Google, Inc</td>
             </tr>
             <tr>
@@ -602,7 +602,7 @@ ul.toc a:first-child {
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">September 23, 2014</td>
+               <td class="right">September 26, 2014</td>
             </tr>
          </tbody>
       </table>
@@ -633,7 +633,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on March 27, 2015.</p>
+         <p>This Internet-Draft will expire on March 30, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -3210,11 +3210,12 @@ Upgrade: h2c
                                        foo = bar
 </pre></div>
                <div id="rfc.figure.u.12">
-                  <p>An informational response using a 1xx status code other than 101 is transmitted as a <a href="#HEADERS" class="smpl">HEADERS</a> frame, followed by zero or more <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames:
-                  </p><pre class="inline">  HTTP/1.1 103 BAR                 HEADERS
+                  <p>An informational response using a 1xx status code other than 101 is transmitted as a <a href="#HEADERS" class="smpl">HEADERS</a> frame, followed by zero or more <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames. The following example includes a 100 (Continue) status code, which is sent in response to a request containing a "100-continue"
+                     token in the Expect header field.
+                  </p><pre class="inline">  HTTP/1.1 100 Continue              HEADERS
   Extension-Field: bar       ==&gt;     - END_STREAM
                                      + END_HEADERS
-                                       :status = 103
+                                       :status = 100
                                        extension-field = bar
 </pre></div>
             </div>
