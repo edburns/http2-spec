@@ -2172,6 +2172,10 @@ Upgrade: h2c
                   sent on a closed stream risks being ignored due to the peer having discarded priority state information for that stream.
                </p>
             </div>
+            <div id="rfc.section.6.3.p.7">
+               <p>A PRIORITY frame with a length other than 5 octets MUST be treated as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#FRAME_SIZE_ERROR" class="smpl">FRAME_SIZE_ERROR</a>.
+               </p>
+            </div>
          </div>
          <div id="RST_STREAM">
             <h2 id="rfc.section.6.4"><a href="#rfc.section.6.4">6.4</a>&nbsp;<a href="#RST_STREAM">RST_STREAM</a></h2>
@@ -2211,6 +2215,10 @@ Upgrade: h2c
             <div id="rfc.section.6.4.p.6">
                <p>RST_STREAM frames MUST NOT be sent for a stream in the "idle" state. If a RST_STREAM frame identifying an idle stream is received,
                   the recipient MUST treat this as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
+               </p>
+            </div>
+            <div id="rfc.section.6.4.p.7">
+               <p>A RST_STREAM frame with a length other than 4 octets MUST be treated as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#FRAME_SIZE_ERROR" class="smpl">FRAME_SIZE_ERROR</a>.
                </p>
             </div>
          </div>
@@ -2257,6 +2265,10 @@ Upgrade: h2c
             </div>
             <div id="rfc.section.6.5.p.7">
                <p>The SETTINGS frame affects connection state. A badly formed or incomplete SETTINGS frame MUST be treated as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
+               </p>
+            </div>
+            <div id="rfc.section.6.5.p.8">
+               <p>A SETTINGS frame with a length other than a multiple of 6 octets MUST be treated as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#FRAME_SIZE_ERROR" class="smpl">FRAME_SIZE_ERROR</a>.
                </p>
             </div>
             <div id="SettingFormat">
@@ -2673,6 +2685,10 @@ Upgrade: h2c
                <p>A receiver that receives a flow controlled frame MUST always account for its contribution against the connection flow control
                   window, unless the receiver treats this as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>). This is necessary even if the frame is in error. Since the sender counts the frame toward the flow control window, if the
                   receiver does not, the flow control window at sender and receiver can become different.
+               </p>
+            </div>
+            <div id="rfc.section.6.9.p.11">
+               <p>A WINDOW_UPDATE frame with a length other than 4 octets MUST be treated as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#FRAME_SIZE_ERROR" class="smpl">FRAME_SIZE_ERROR</a>.
                </p>
             </div>
             <div>
