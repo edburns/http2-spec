@@ -3735,17 +3735,17 @@ Internet-Draft                   HTTP/2                   September 2014
 
 10.3.  Intermediary Encapsulation Attacks
 
-   HTTP/2 header field names and values are encoded as sequences of
-   octets with a length prefix.  This enables HTTP/2 to carry any string
-   of octets as the name or value of a header field.  An intermediary
-   that translates HTTP/2 requests or responses into HTTP/1.1 directly
-   could permit the creation of corrupted HTTP/1.1 messages.  An
-   attacker might exploit this behavior to cause the intermediary to
-   create HTTP/1.1 messages with illegal header fields, extra header
-   fields, or even new messages that are entirely falsified.
+   The HTTP/2 header field encoding allows the expression of names that
+   are not valid field names in the Internet Message Syntax used by
+   HTTP/1.1.  Requests or responses containing invalid header field
+   names MUST be treated as malformed (Section 8.1.2.6).  An
+   intermediary therefore cannot translate an HTTP/2 request or response
+   containing an invalid field name into an HTTP/1.1 message.
 
-   Header field names or values that contain characters not permitted by
-   HTTP/1.1, including carriage return (ASCII 0xd) or line feed (ASCII
+   Similarly, HTTP/2 allows header field values that are not valid.
+   While most of the values that can be encoded will not alter header
+   field parsing, carriage return (CR, ASCII 0xd), line feed (LF, ASCII
+   0xa), and the zero character (NUL, ASCII 0x0) might be exploited by
 
 
 
@@ -3754,13 +3754,10 @@ Belshe, et al.           Expires March 30, 2015                [Page 67]
 Internet-Draft                   HTTP/2                   September 2014
 
 
-   0xa) MUST NOT be translated verbatim by an intermediary, as
-   stipulated in [RFC7230], Section 3.2.4.
-
-   Translation from HTTP/1.x to HTTP/2 does not produce the same
-   opportunity to an attacker.  Intermediaries that perform translation
-   to HTTP/2 MUST remove any instances of the "obs-fold" production from
-   header field values.
+   an attacker if they are translater verbatim.  Any request or response
+   that contains a character not permitted in a header field value MUST
+   be treated as malformed (Section 8.1.2.6).  Valid characters are
+   defined by the "field-content" ABNF rule in Section 3.2 of [RFC7230].
 
 10.4.  Cacheability of Pushed Responses
 
@@ -3802,6 +3799,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
    The SETTINGS frame can be abused to cause a peer to expend additional
    processing time.  This might be done by pointlessly changing SETTINGS
+   parameters, setting multiple undefined parameters, or changing the
+   same setting multiple times in the same frame.  WINDOW_UPDATE or
+
 
 
 
@@ -3810,8 +3810,6 @@ Belshe, et al.           Expires March 30, 2015                [Page 68]
 Internet-Draft                   HTTP/2                   September 2014
 
 
-   parameters, setting multiple undefined parameters, or changing the
-   same setting multiple times in the same frame.  WINDOW_UPDATE or
    PRIORITY frames can be abused to cause an unnecessary waste of
    resources.
 
@@ -3858,6 +3856,8 @@ Internet-Draft                   HTTP/2                   September 2014
    blocks that exceed this limit and risk having the request or response
    being treated as malformed.  This setting specific to a connection,
    so any request or response could encounter a hop with a lower,
+   unknown limit.  An intermediary can attempt to avoid this problem by
+
 
 
 
@@ -3866,7 +3866,6 @@ Belshe, et al.           Expires March 30, 2015                [Page 69]
 Internet-Draft                   HTTP/2                   September 2014
 
 
-   unknown limit.  An intermediary can attempt to avoid this problem by
    passing on values presented by different peers, but they are not
    obligated to do so.
 
@@ -3913,6 +3912,7 @@ Internet-Draft                   HTTP/2                   September 2014
    is provided to mitigate specific attacks within HTTP.  For example,
    attacks where compressed content includes both attacker-controlled
    plaintext and secret data (see for example, [BREACH]).
+
 
 
 
