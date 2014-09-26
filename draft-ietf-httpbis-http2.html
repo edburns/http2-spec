@@ -1979,8 +1979,8 @@ Upgrade: h2c
                      that are present.
                   </dd>
                   <dt>Padding:</dt>
-                  <dd>Padding octets that contain no application semantic value. Padding octets MUST be set to zero when sending and ignored when
-                     receiving.
+                  <dd>Padding octets that contain no application semantic value. Padding octets MUST be set to zero when sending. A receiver is
+                     not obligated to verify padding, but MAY treat non-zero padding as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
                   </dd>
                </dl>
             </div>

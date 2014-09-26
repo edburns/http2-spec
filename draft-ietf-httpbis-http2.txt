@@ -1691,8 +1691,9 @@ Internet-Draft                   HTTP/2                   September 2014
       that are present.
 
    Padding:  Padding octets that contain no application semantic value.
-      Padding octets MUST be set to zero when sending and ignored when
-      receiving.
+      Padding octets MUST be set to zero when sending.  A receiver is
+      not obligated to verify padding, but MAY treat non-zero padding as
+      a connection error (Section 5.4.1) of type PROTOCOL_ERROR.
 
    The DATA frame defines the following flags:
 
@@ -1726,7 +1727,6 @@ Internet-Draft                   HTTP/2                   September 2014
       Pad Length field with a value of zero.
 
    Padding is a security feature; see Section 10.7.
-
 
 
 
