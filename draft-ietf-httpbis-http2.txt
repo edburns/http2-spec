@@ -1912,7 +1912,7 @@ Internet-Draft                   HTTP/2                   September 2014
    state information for that stream.
 
    A PRIORITY frame with a length other than 5 octets MUST be treated as
-   a connection error (Section 5.4.1) of type FRAME_SIZE_ERROR.
+   a stream error (Section 5.4.2) of type FRAME_SIZE_ERROR.
 
 6.4.  RST_STREAM
 
