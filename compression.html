@@ -445,7 +445,7 @@ ul p {
        content: "Peon & Ruellan";
   }
   @bottom-center {
-       content: "Expires March 30, 2015";
+       content: "Expires April 2, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -567,7 +567,7 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Ruellan, H.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-header-compression-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2014-09-26">
+      <meta name="dct.issued" scheme="ISO8601" content="2014-09-29">
       <meta name="dct.abstract" content="This specification defines HPACK, a compression format for efficiently representing HTTP header fields, to be used in HTTP/2.">
       <meta name="description" content="This specification defines HPACK, a compression format for efficiently representing HTTP header fields, to be used in HTTP/2.">
    </head>
@@ -587,12 +587,12 @@ ul.toc a:first-child {
                <td class="right">H. Ruellan</td>
             </tr>
             <tr>
-               <td class="left">Expires: March 30, 2015</td>
+               <td class="left">Expires: April 2, 2015</td>
                <td class="right">Canon CRF</td>
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">September 26, 2014</td>
+               <td class="right">September 29, 2014</td>
             </tr>
          </tbody>
       </table>
@@ -616,7 +616,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on March 30, 2015.</p>
+         <p>This Internet-Draft will expire on April 2, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -655,9 +655,10 @@ ul.toc a:first-child {
                </ul>
             </li>
             <li><a href="#rfc.section.4">4.</a>&nbsp;&nbsp;&nbsp;<a href="#dynamic.table.management">Dynamic Table Management</a><ul>
-                  <li><a href="#rfc.section.4.1">4.1</a>&nbsp;&nbsp;&nbsp;<a href="#maximum.table.size">Maximum Table Size</a></li>
-                  <li><a href="#rfc.section.4.2">4.2</a>&nbsp;&nbsp;&nbsp;<a href="#entry.eviction">Entry Eviction when Dynamic Table Size Changes</a></li>
-                  <li><a href="#rfc.section.4.3">4.3</a>&nbsp;&nbsp;&nbsp;<a href="#entry.addition">Entry Eviction when Adding New Entries</a></li>
+                  <li><a href="#rfc.section.4.1">4.1</a>&nbsp;&nbsp;&nbsp;<a href="#calculating.table.size">Calculating Table Size</a></li>
+                  <li><a href="#rfc.section.4.2">4.2</a>&nbsp;&nbsp;&nbsp;<a href="#maximum.table.size">Maximum Table Size</a></li>
+                  <li><a href="#rfc.section.4.3">4.3</a>&nbsp;&nbsp;&nbsp;<a href="#entry.eviction">Entry Eviction when Dynamic Table Size Changes</a></li>
+                  <li><a href="#rfc.section.4.4">4.4</a>&nbsp;&nbsp;&nbsp;<a href="#entry.addition">Entry Eviction when Adding New Entries</a></li>
                </ul>
             </li>
             <li><a href="#rfc.section.5">5.</a>&nbsp;&nbsp;&nbsp;<a href="#low-level.representation">Primitive Type Representations</a><ul>
@@ -920,7 +921,7 @@ ul.toc a:first-child {
                </div>
                <div id="rfc.section.2.3.2.p.4">
                   <p>The encoder decides how to update the dynamic table and as such can control how much memory is used by the dynamic table.
-                     To limit the memory requirements of the decoder, the dynamic table size is strictly bounded (see <a href="#maximum.table.size" title="Maximum Table Size">Section&nbsp;4.1</a>).
+                     To limit the memory requirements of the decoder, the dynamic table size is strictly bounded (see <a href="#maximum.table.size" title="Maximum Table Size">Section&nbsp;4.2</a>).
                   </p>
                </div>
                <div id="rfc.section.2.3.2.p.5">
@@ -1041,7 +1042,7 @@ ul.toc a:first-child {
                <ul>
                   <li>The header field is appended to the decoded header list.</li>
                   <li>The header field is inserted at the beginning of the dynamic table. This insertion could result in the eviction of previous
-                     entries in the dynamic table (see <a href="#entry.addition" title="Entry Eviction when Adding New Entries">Section&nbsp;4.3</a>).
+                     entries in the dynamic table (see <a href="#entry.addition" title="Entry Eviction when Adding New Entries">Section&nbsp;4.4</a>).
                   </li>
                </ul>
             </div>
@@ -1049,77 +1050,80 @@ ul.toc a:first-child {
       </div>
       <div id="dynamic.table.management">
          <h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a>&nbsp;<a href="#dynamic.table.management">Dynamic Table Management</a></h1>
-         <div id="maximum.table.size">
-            <h2 id="rfc.section.4.1"><a href="#rfc.section.4.1">4.1</a>&nbsp;<a href="#maximum.table.size">Maximum Table Size</a></h2>
+         <div id="rfc.section.4.p.1">
+            <p>To limit the memory requirements on the decoder side, the dynamic table is constrained in size.</p>
+         </div>
+         <div id="calculating.table.size">
+            <h2 id="rfc.section.4.1"><a href="#rfc.section.4.1">4.1</a>&nbsp;<a href="#calculating.table.size">Calculating Table Size</a></h2>
             <div id="rfc.section.4.1.p.1">
-               <p>To limit the memory requirements on the decoder side, the dynamic table is constrained in size.</p>
-            </div>
-            <div id="rfc.section.4.1.p.2">
-               <p>The size of the dynamic table is bounded by a maximum size defined by the encoder. The size of the dynamic table MUST always
-                  be lower than or equal to this maximum size.
-               </p>
-            </div>
-            <div id="rfc.section.4.1.p.3">
-               <p>By default, the maximum size of the dynamic table is equal to the value of the HTTP/2 setting parameter SETTINGS_HEADER_TABLE_SIZE
-                  defined by the decoder (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-14#section-6.5.2" title="Defined SETTINGS Parameters">Section 6.5.2</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>). The encoder can change this maximum size (see <a href="#encoding.context.update" title="Dynamic Table Size Update">Section&nbsp;6.3</a>), but it MUST stay lower than or equal to the value of SETTINGS_HEADER_TABLE_SIZE.
-               </p>
-            </div>
-            <div id="rfc.section.4.1.p.4">
-               <p>After applying an updated value of the SETTINGS_HEADER_TABLE_SIZE parameter that changes the maximum size of the dynamic table
-                  used by the encoder, the encoder MUST signal this change via an encoding context update (see <a href="#encoding.context.update" title="Dynamic Table Size Update">Section&nbsp;6.3</a>). This encoding context update MUST occur at the beginning of the first header block following the SETTINGS frame sent to
-                  acknowledge the application of the updated settings (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-14#section-6.5.3" title="Settings Synchronization">Section 6.5.3</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
-               </p>
-            </div>
-            <div id="rfc.section.4.1.p.5">
-               <p>Several updates to the value of the SETTINGS_HEADER_TABLE_SIZE parameter can occur between the sending of two header blocks.
-                  In the case that the value of this parameter is changed more than once, if one of its value is smaller than the new maximum
-                  size, the smallest value for the parameter MUST be sent before the new maximum size, using two encoding context updates. This
-                  ensures that the decoder is able to perform eviction based on the decoder table size (see <a href="#entry.eviction" title="Entry Eviction when Dynamic Table Size Changes">Section&nbsp;4.2</a>).
-               </p>
-            </div>
-            <div id="rfc.section.4.1.p.6">
-               <p>This mechanism can be used with a SETTINGS_HEADER_TABLE_SIZE parameter value of 0 to completely clear entries from the dynamic
-                  table.
-               </p>
-            </div>
-            <div id="rfc.section.4.1.p.7">
                <p>The size of the dynamic table is the sum of the size of its entries.</p>
             </div>
-            <div id="rfc.section.4.1.p.8">
+            <div id="rfc.section.4.1.p.2">
                <p>The size of an entry is the sum of its name's length in octets (as defined in <a href="#string.literal.representation" title="String Literal Representation">Section&nbsp;5.2</a>), its value's length in octets (see <a href="#string.literal.representation" title="String Literal Representation">Section&nbsp;5.2</a>), plus 32.
                </p>
             </div>
-            <div id="rfc.section.4.1.p.9">
+            <div id="rfc.section.4.1.p.3">
                <p>The size of an entry is calculated using the length of the name and value without any Huffman encoding applied.</p>
             </div>
-            <div id="rfc.section.4.1.p.10">
+            <div id="rfc.section.4.1.p.4">
                <p>NOTE: The additional 32 octets account for the overhead associated with an entry. For example, an entry structure using two
                   64-bit pointers to reference the name and the value of the entry, and two 64-bit integers for counting the number of references
                   to the name and value would have 32 octets of overhead.
                </p>
             </div>
          </div>
-         <div id="entry.eviction">
-            <h2 id="rfc.section.4.2"><a href="#rfc.section.4.2">4.2</a>&nbsp;<a href="#entry.eviction">Entry Eviction when Dynamic Table Size Changes</a></h2>
+         <div id="maximum.table.size">
+            <h2 id="rfc.section.4.2"><a href="#rfc.section.4.2">4.2</a>&nbsp;<a href="#maximum.table.size">Maximum Table Size</a></h2>
             <div id="rfc.section.4.2.p.1">
+               <p>Protocols that use HPACK determine the maximum size that the encoder is permitted to use for the dynamic table. In HTTP/2,
+                  this value is determined by the SETTINGS_HEADER_TABLE_SIZE setting (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-14#section-6.5.2" title="Defined SETTINGS Parameters">Section 6.5.2</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
+               </p>
+            </div>
+            <div id="rfc.section.4.2.p.2">
+               <p>An encoder can choose to use less capacity than this maximum size (see <a href="#encoding.context.update" title="Dynamic Table Size Update">Section&nbsp;6.3</a>), but the chosen size MUST stay lower than or equal to the maximum set by the protocol.
+               </p>
+            </div>
+            <div id="rfc.section.4.2.p.3">
+               <p>The maximum size of the dynamic table can be changed by the protocol at any time other than during the encoding of a header
+                  block. After changing the maximum size of the dynamic table used by the encoder, the encoder MUST signal this change via an
+                  encoding context update (see <a href="#encoding.context.update" title="Dynamic Table Size Update">Section&nbsp;6.3</a>). This encoding context update MUST occur at the beginning of the first header block following the change to the header table
+                  size. In HTTP/2, this follows a settings acknowledgement (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-14#section-6.5.3" title="Settings Synchronization">Section 6.5.3</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
+               </p>
+            </div>
+            <div id="rfc.section.4.2.p.4">
+               <p>Multiple updates to the maximum table size can occur between the sending of two header blocks. In the case that the value
+                  of this parameter is changed more than once, if any changed value is smaller than the new maximum size, the smallest value
+                  for the parameter MUST be sent in an encoding context update. The altered maximum size is always sent, resulting in at most
+                  two encoding context updates. This ensures that the decoder is able to perform eviction based on the decoder table size (see <a href="#entry.eviction" title="Entry Eviction when Dynamic Table Size Changes">Section&nbsp;4.3</a>).
+               </p>
+            </div>
+            <div id="rfc.section.4.2.p.5">
+               <p>This mechanism can be used to completely clear entries from the dynamic table by setting a maximum size of 0, which can subsequently
+                  be restored.
+               </p>
+            </div>
+         </div>
+         <div id="entry.eviction">
+            <h2 id="rfc.section.4.3"><a href="#rfc.section.4.3">4.3</a>&nbsp;<a href="#entry.eviction">Entry Eviction when Dynamic Table Size Changes</a></h2>
+            <div id="rfc.section.4.3.p.1">
                <p>Whenever the maximum size for the dynamic table is reduced, entries are evicted from the end of the dynamic table until the
                   size of the dynamic table is less than or equal to the maximum size.
                </p>
             </div>
          </div>
          <div id="entry.addition">
-            <h2 id="rfc.section.4.3"><a href="#rfc.section.4.3">4.3</a>&nbsp;<a href="#entry.addition">Entry Eviction when Adding New Entries</a></h2>
-            <div id="rfc.section.4.3.p.1">
+            <h2 id="rfc.section.4.4"><a href="#rfc.section.4.4">4.4</a>&nbsp;<a href="#entry.addition">Entry Eviction when Adding New Entries</a></h2>
+            <div id="rfc.section.4.4.p.1">
                <p>Whenever a new entry is to be added to the dynamic table, entries are evicted from the end of the dynamic table until the
                   size of the dynamic table is less than or equal to (maximum size - new entry size), or until the table is empty.
                </p>
             </div>
-            <div id="rfc.section.4.3.p.2">
+            <div id="rfc.section.4.4.p.2">
                <p>If the representation of the added entry references the name of an entry in the dynamic table, the referenced name is cached
                   prior to performing eviction to avoid having the name inadvertently evicted.
                </p>
             </div>
-            <div id="rfc.section.4.3.p.3">
+            <div id="rfc.section.4.4.p.3">
                <p>If the size of the new entry is less than or equal to the maximum size, that entry is added to the table. It is not an error
                   to attempt to add an entry that is larger than the maximum size; an attempt to add an entry larger than the entire table causes
                   the table to be emptied of all existing entries, and results in an empty table.
@@ -1488,7 +1492,7 @@ else
                </p>
             </div>
             <div id="rfc.section.6.3.p.4">
-               <p>Reducing the maximum size of the dynamic table can cause entries to be evicted (see <a href="#entry.eviction" title="Entry Eviction when Dynamic Table Size Changes">Section&nbsp;4.2</a>).
+               <p>Reducing the maximum size of the dynamic table can cause entries to be evicted (see <a href="#entry.eviction" title="Entry Eviction when Dynamic Table Size Changes">Section&nbsp;4.3</a>).
                </p>
             </div>
          </div>
