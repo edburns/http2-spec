@@ -745,13 +745,14 @@ Internet-Draft                   HTTP/2                   September 2014
    Note:  Certain frame types, such as PING (Section 6.7), impose
       additional limits on the amount of payload data allowed.
 
-   If a frame size exceeds any defined limit, or is too small to contain
-   mandatory frame data, the endpoint MUST send a FRAME_SIZE_ERROR
-   error.  A frame size error in a frame that could alter the state of
-   the entire connection MUST be treated as a connection error
-   (Section 5.4.1); this includes any frame carrying a header block
-   (Section 4.3) (that is, HEADERS, PUSH_PROMISE, and CONTINUATION),
-   SETTINGS, and any WINDOW_UPDATE frame with a stream identifier of 0.
+   An endpoint MUST send a FRAME_SIZE_ERROR error if a frame exceeds the
+   size defined in SETTINGS_MAX_FRAME_SIZE, any limit defined for the
+   frame type, or it is too small to contain mandatory frame data.  A
+   frame size error in a frame that could alter the state of the entire
+   connection MUST be treated as a connection error (Section 5.4.1);
+   this includes any frame carrying a header block (Section 4.3) (that
+   is, HEADERS, PUSH_PROMISE, and CONTINUATION), SETTINGS, and any frame
+   with a stream identifier of 0.
 
    Endpoints are not obligated to use all available space in a frame.
    Responsiveness can be improved by using frames that are smaller than
@@ -777,7 +778,6 @@ Internet-Draft                   HTTP/2                   September 2014
 
    The Cookie header field [COOKIE] is treated specially by the HTTP
    mapping (see Section 8.1.2.5).
-
 
 
 
@@ -1534,8 +1534,8 @@ Internet-Draft                   HTTP/2                   September 2014
    GOAWAY frame (Section 6.8) with the stream identifier of the last
    stream that it successfully received from its peer.  The GOAWAY frame
    includes an error code that indicates why the connection is
-   terminating.  After sending the GOAWAY frame, the endpoint MUST close
-   the TCP connection.
+   terminating.  After sending the GOAWAY frame for an error condition,
+   the endpoint MUST close the TCP connection.
 
    It is possible that the GOAWAY will not be reliably received by the
    receiving endpoint (see [RFC7230], Section 6.6).  In the event of a
@@ -2288,7 +2288,7 @@ Internet-Draft                   HTTP/2                   September 2014
 
    In addition to the frame header, PING frames MUST contain 8 octets of
    data in the payload.  A sender can include any value it chooses and
-   use those bytes in any fashion.
+   use those octets in any fashion.
 
 
 
@@ -2508,7 +2508,7 @@ Internet-Draft                   HTTP/2                   September 2014
    unsigned 31-bit integer indicating the number of octets that the
    sender can transmit in addition to the existing flow control window.
    The legal range for the increment to the flow control window is 1 to
-   2^31-1 (0x7fffffff) octets.
+   2^31-1 (2,147,483,647) octets.
 
    The WINDOW_UPDATE frame does not define any flags.
 

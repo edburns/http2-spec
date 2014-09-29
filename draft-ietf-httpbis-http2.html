@@ -1276,7 +1276,8 @@ Upgrade: h2c
                </dl>
             </div>
             <div id="rfc.section.4.2.p.3">
-               <p>If a frame size exceeds any defined limit, or is too small to contain mandatory frame data, the endpoint MUST send a <a href="#FRAME_SIZE_ERROR" class="smpl">FRAME_SIZE_ERROR</a> error. A frame size error in a frame that could alter the state of the entire connection MUST be treated as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>); this includes any frame carrying a header block (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>) (that is, <a href="#HEADERS" class="smpl">HEADERS</a>, <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a>, and <a href="#CONTINUATION" class="smpl">CONTINUATION</a>), <a href="#SETTINGS" class="smpl">SETTINGS</a>, and any <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a> frame with a stream identifier of 0.
+               <p>An endpoint MUST send a <a href="#FRAME_SIZE_ERROR" class="smpl">FRAME_SIZE_ERROR</a> error if a frame exceeds the size defined in <a href="#SETTINGS_MAX_FRAME_SIZE" class="smpl">SETTINGS_MAX_FRAME_SIZE</a>, any limit defined for the frame type, or it is too small to contain mandatory frame data. A frame size error in a frame
+                  that could alter the state of the entire connection MUST be treated as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>); this includes any frame carrying a header block (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>) (that is, <a href="#HEADERS" class="smpl">HEADERS</a>, <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a>, and <a href="#CONTINUATION" class="smpl">CONTINUATION</a>), <a href="#SETTINGS" class="smpl">SETTINGS</a>, and any frame with a stream identifier of 0.
                </p>
             </div>
             <div id="rfc.section.4.2.p.4">
@@ -1853,7 +1854,7 @@ Upgrade: h2c
                   <p>A connection error is any error which prevents further processing of the framing layer, or which corrupts any connection state.</p>
                </div>
                <div id="rfc.section.5.4.1.p.2">
-                  <p>An endpoint that encounters a connection error SHOULD first send a <a href="#GOAWAY" class="smpl">GOAWAY</a> frame (<a href="#GOAWAY" title="GOAWAY">Section&nbsp;6.8</a>) with the stream identifier of the last stream that it successfully received from its peer. The <a href="#GOAWAY" class="smpl">GOAWAY</a> frame includes an error code that indicates why the connection is terminating. After sending the <a href="#GOAWAY" class="smpl">GOAWAY</a> frame, the endpoint MUST close the TCP connection.
+                  <p>An endpoint that encounters a connection error SHOULD first send a <a href="#GOAWAY" class="smpl">GOAWAY</a> frame (<a href="#GOAWAY" title="GOAWAY">Section&nbsp;6.8</a>) with the stream identifier of the last stream that it successfully received from its peer. The <a href="#GOAWAY" class="smpl">GOAWAY</a> frame includes an error code that indicates why the connection is terminating. After sending the <a href="#GOAWAY" class="smpl">GOAWAY</a> frame for an error condition, the endpoint MUST close the TCP connection.
                   </p>
                </div>
                <div id="rfc.section.5.4.1.p.3">
@@ -2489,7 +2490,7 @@ Upgrade: h2c
             <p class="figure">Figure 12: PING Payload Format</p>
             <div id="rfc.section.6.7.p.2">
                <p>In addition to the frame header, PING frames MUST contain 8 octets of data in the payload. A sender can include any value
-                  it chooses and use those bytes in any fashion.
+                  it chooses and use those octets in any fashion.
                </p>
             </div>
             <div id="rfc.section.6.7.p.3">
@@ -2661,7 +2662,7 @@ Upgrade: h2c
             <div id="rfc.section.6.9.p.5">
                <p>The payload of a WINDOW_UPDATE frame is one reserved bit, plus an unsigned 31-bit integer indicating the number of octets
                   that the sender can transmit in addition to the existing flow control window. The legal range for the increment to the flow
-                  control window is 1 to 2<sup>31</sup>-1 (0x7fffffff) octets.
+                  control window is 1 to 2<sup>31</sup>-1 (2,147,483,647) octets.
                </p>
             </div>
             <div id="rfc.section.6.9.p.6">
