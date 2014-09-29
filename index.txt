@@ -549,7 +549,7 @@ Internet-Draft                   HTTP/2                   September 2014
    Since the upgrade is only intended to apply to the immediate
    connection, a client sending "HTTP2-Settings" MUST also send
    "HTTP2-Settings" as a connection option in the "Connection" header
-   field to prevent it from being forwarded downstream.
+   field to prevent it from being forwarded.
 
    A server decodes and interprets these values as it would any other
    SETTINGS frame.  Acknowledgement of the SETTINGS parameters
