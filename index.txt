@@ -4351,8 +4351,8 @@ Internet-Draft                   HTTP/2                   September 2014
 13.2.  Informative References
 
    [ALT-SVC]  Nottingham, M., McManus, P., and J. Reschke, "HTTP
-              Alternative Services", draft-ietf-httpbis-alt-svc-02 (work
-              in progress), July 2014.
+              Alternative Services", draft-ietf-httpbis-alt-svc-03 (work
+              in progress), September 2014.
 
    [BCP90]    Klyne, G., Nottingham, M., and J. Mogul, "Registration
               Procedures for Message Header Fields", BCP 90, RFC 3864,
