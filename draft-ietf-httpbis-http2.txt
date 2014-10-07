@@ -5,10 +5,10 @@
 HTTPbis Working Group                                          M. Belshe
 Internet-Draft                                                     Twist
 Intended status: Standards Track                                 R. Peon
-Expires: April 3, 2015                                       Google, Inc
+Expires: April 10, 2015                                      Google, Inc
                                                          M. Thomson, Ed.
                                                                  Mozilla
-                                                      September 30, 2014
+                                                         October 7, 2014
 
 
                  Hypertext Transfer Protocol version 2
@@ -53,12 +53,12 @@ Status of This Memo
 
 
 
-Belshe, et al.            Expires April 3, 2015                 [Page 1]
+Belshe, et al.           Expires April 10, 2015                 [Page 1]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
-   This Internet-Draft will expire on April 3, 2015.
+   This Internet-Draft will expire on April 10, 2015.
 
 Copyright Notice
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Belshe, et al.            Expires April 3, 2015                 [Page 2]
+Belshe, et al.           Expires April 10, 2015                 [Page 2]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
        5.4.1.  Connection Error Handling . . . . . . . . . . . . . .  28
@@ -165,9 +165,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                 [Page 3]
+Belshe, et al.           Expires April 10, 2015                 [Page 3]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
      10.8.  Privacy Considerations . . . . . . . . . . . . . . . . .  71
@@ -221,9 +221,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                 [Page 4]
+Belshe, et al.           Expires April 10, 2015                 [Page 4]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    TCP [TCP] congestion window to quickly fill.  This can result in
@@ -277,9 +277,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                 [Page 5]
+Belshe, et al.           Expires April 10, 2015                 [Page 5]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    latency gain.  The server does this by synthesizing a request, which
@@ -333,9 +333,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                 [Page 6]
+Belshe, et al.           Expires April 10, 2015                 [Page 6]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    connection error:  An error that affects the entire HTTP/2
@@ -389,9 +389,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                 [Page 7]
+Belshe, et al.           Expires April 10, 2015                 [Page 7]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 3.1.  HTTP/2 Version Identification
@@ -445,9 +445,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                 [Page 8]
+Belshe, et al.           Expires April 10, 2015                 [Page 8]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 3.2.  Starting HTTP/2 for "http" URIs
@@ -501,9 +501,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                 [Page 9]
+Belshe, et al.           Expires April 10, 2015                 [Page 9]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    For example:
@@ -549,19 +549,20 @@ Internet-Draft                   HTTP/2                   September 2014
    Since the upgrade is only intended to apply to the immediate
    connection, a client sending "HTTP2-Settings" MUST also send
    "HTTP2-Settings" as a connection option in the "Connection" header
-   field to prevent it from being forwarded.
+   field to prevent it from being forwarded (see Section 6.1 of
+   [RFC7230]).
 
    A server decodes and interprets these values as it would any other
    SETTINGS frame.  Acknowledgement of the SETTINGS parameters
-   (Section 6.5.3) is not necessary, since a 101 response serves as
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 10]
+Belshe, et al.           Expires April 10, 2015                [Page 10]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
+   (Section 6.5.3) is not necessary, since a 101 response serves as
    implicit acknowledgment.  Providing these values in the Upgrade
    request gives a client an opportunity to provide parameters prior to
    receiving any frames from the server.
@@ -612,10 +613,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-
-Belshe, et al.            Expires April 3, 2015                [Page 11]
+Belshe, et al.           Expires April 10, 2015                [Page 11]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    (the string "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n").  This sequence is
@@ -669,9 +669,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 12]
+Belshe, et al.           Expires April 10, 2015                [Page 12]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
      0                   1                   2                   3
@@ -725,9 +725,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 13]
+Belshe, et al.           Expires April 10, 2015                [Page 13]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 4.2.  Frame Size
@@ -781,9 +781,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 14]
+Belshe, et al.           Expires April 10, 2015                [Page 14]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    A receiving endpoint reassembles the header block by concatenating
@@ -837,9 +837,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 15]
+Belshe, et al.           Expires April 10, 2015                [Page 15]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    o  The order in which frames are sent on a stream is significant.
@@ -893,9 +893,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 16]
+Belshe, et al.           Expires April 10, 2015                [Page 16]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    Note that this diagram shows stream state transitions and the frames
@@ -949,9 +949,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 17]
+Belshe, et al.           Expires April 10, 2015                [Page 17]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
       *  The endpoint can send a HEADERS frame.  This causes the stream
@@ -1005,9 +1005,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 18]
+Belshe, et al.           Expires April 10, 2015                [Page 18]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
       Either endpoint can send a RST_STREAM frame from this state,
@@ -1061,9 +1061,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 19]
+Belshe, et al.           Expires April 10, 2015                [Page 19]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
       (Section 5.4.1) of type STREAM_CLOSED, unless the frame is
@@ -1117,9 +1117,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 20]
+Belshe, et al.           Expires April 10, 2015                [Page 20]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 5.1.1.  Stream Identifiers
@@ -1173,9 +1173,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 21]
+Belshe, et al.           Expires April 10, 2015                [Page 21]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    Streams that are in the "open" state, or either of the "half closed"
@@ -1229,9 +1229,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 22]
+Belshe, et al.           Expires April 10, 2015                [Page 22]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    4.  The initial value for the flow control window is 65,535 octets
@@ -1285,9 +1285,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 23]
+Belshe, et al.           Expires April 10, 2015                [Page 23]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    control, the receiver MUST read from the TCP receive buffer in a
@@ -1341,9 +1341,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 24]
+Belshe, et al.           Expires April 10, 2015                [Page 24]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    When assigning a dependency on another stream, the stream is added as
@@ -1397,9 +1397,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 25]
+Belshe, et al.           Expires April 10, 2015                [Page 25]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 5.3.3.  Reprioritization
@@ -1453,9 +1453,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 26]
+Belshe, et al.           Expires April 10, 2015                [Page 26]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    However, if the common dependency is removed from the tree, those
@@ -1509,9 +1509,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 27]
+Belshe, et al.           Expires April 10, 2015                [Page 27]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 5.4.  Error Handling
@@ -1565,9 +1565,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 28]
+Belshe, et al.           Expires April 10, 2015                [Page 28]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    state (such as the state maintained for header compression
@@ -1621,9 +1621,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 29]
+Belshe, et al.           Expires April 10, 2015                [Page 29]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    treating any frame other than DATA frames as flow controlled is such
@@ -1677,9 +1677,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 30]
+Belshe, et al.           Expires April 10, 2015                [Page 30]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    Pad Length:  An 8-bit field containing the length of the frame
@@ -1733,9 +1733,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 31]
+Belshe, et al.           Expires April 10, 2015                [Page 31]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 6.2.  HEADERS
@@ -1789,9 +1789,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 32]
+Belshe, et al.           Expires April 10, 2015                [Page 32]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    END_STREAM (0x1):  Bit 1 being set indicates that the header block
@@ -1845,9 +1845,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 33]
+Belshe, et al.           Expires April 10, 2015                [Page 33]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 6.3.  PRIORITY
@@ -1901,9 +1901,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 34]
+Belshe, et al.           Expires April 10, 2015                [Page 34]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    of dependent streams by altering the priority of a parent stream,
@@ -1957,9 +1957,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 35]
+Belshe, et al.           Expires April 10, 2015                [Page 35]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    A RST_STREAM frame with a length other than 4 octets MUST be treated
@@ -2013,9 +2013,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 36]
+Belshe, et al.           Expires April 10, 2015                [Page 36]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    The SETTINGS frame affects connection state.  A badly formed or
@@ -2069,9 +2069,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 37]
+Belshe, et al.           Expires April 10, 2015                [Page 37]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
       directional: it applies to the number of streams that the sender
@@ -2125,9 +2125,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 38]
+Belshe, et al.           Expires April 10, 2015                [Page 38]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 6.5.3.  Settings Synchronization
@@ -2181,9 +2181,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 39]
+Belshe, et al.           Expires April 10, 2015                [Page 39]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    R: A single reserved bit.
@@ -2237,9 +2237,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 40]
+Belshe, et al.           Expires April 10, 2015                [Page 40]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    A PUSH_PROMISE frame modifies the connection state in two ways.  The
@@ -2293,9 +2293,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 41]
+Belshe, et al.           Expires April 10, 2015                [Page 41]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    Receivers of a PING frame that does not include an ACK flag MUST send
@@ -2349,9 +2349,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 42]
+Belshe, et al.           Expires April 10, 2015                [Page 42]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    all, thereby allowing those streams to be retried later on a new
@@ -2405,9 +2405,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 43]
+Belshe, et al.           Expires April 10, 2015                [Page 43]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    On streams with lower or equal numbered identifiers that were not
@@ -2461,9 +2461,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 44]
+Belshe, et al.           Expires April 10, 2015                [Page 44]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    Endpoints MAY append opaque data to the payload of any GOAWAY frame.
@@ -2517,9 +2517,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 45]
+Belshe, et al.           Expires April 10, 2015                [Page 45]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    indicates the affected stream; in the latter, the value "0" indicates
@@ -2573,9 +2573,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 46]
+Belshe, et al.           Expires April 10, 2015                [Page 46]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    The receiver of a frame sends a WINDOW_UPDATE frame as it consumes
@@ -2629,9 +2629,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 47]
+Belshe, et al.           Expires April 10, 2015                [Page 47]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    For example, if the client sends 60KB immediately on connection
@@ -2685,9 +2685,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 48]
+Belshe, et al.           Expires April 10, 2015                [Page 48]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    The CONTINUATION frame payload contains a header block fragment
@@ -2741,9 +2741,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 49]
+Belshe, et al.           Expires April 10, 2015                [Page 49]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    FLOW_CONTROL_ERROR (0x3):  The endpoint detected that its peer
@@ -2797,9 +2797,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 50]
+Belshe, et al.           Expires April 10, 2015                [Page 50]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    and Routing [RFC7230], such as the HTTP and HTTPS URI schemes, are
@@ -2853,9 +2853,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 51]
+Belshe, et al.           Expires April 10, 2015                [Page 51]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    frame without the END_STREAM flag set after receiving a final (non-
@@ -2909,9 +2909,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 52]
+Belshe, et al.           Expires April 10, 2015                [Page 52]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    header field names MUST be converted to lowercase prior to their
@@ -2965,9 +2965,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 53]
+Belshe, et al.           Expires April 10, 2015                [Page 53]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    o  The ":authority" pseudo-header field includes the authority
@@ -3021,9 +3021,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 54]
+Belshe, et al.           Expires April 10, 2015                [Page 54]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 8.1.2.5.  Compressing the Cookie Header Field
@@ -3077,9 +3077,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 55]
+Belshe, et al.           Expires April 10, 2015                [Page 55]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    detected MUST be treated as a stream error (Section 5.4.2) of type
@@ -3133,9 +3133,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 56]
+Belshe, et al.           Expires April 10, 2015                [Page 56]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    frame having the END_HEADERS flag set and the final DATA frame having
@@ -3189,9 +3189,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 57]
+Belshe, et al.           Expires April 10, 2015                [Page 57]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
      HTTP/1.1 200 OK                  HEADERS
@@ -3245,9 +3245,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 58]
+Belshe, et al.           Expires April 10, 2015                [Page 58]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    Requests that have not been processed have not failed; clients MAY
@@ -3301,9 +3301,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 59]
+Belshe, et al.           Expires April 10, 2015                [Page 59]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    An intermediary can receive pushes from the server and choose not to
@@ -3357,9 +3357,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 60]
+Belshe, et al.           Expires April 10, 2015                [Page 60]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    embedded links.  Similarly, if the server pushes responses referenced
@@ -3413,9 +3413,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 61]
+Belshe, et al.           Expires April 10, 2015                [Page 61]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    provided the pushed response is configured for the corresponding
@@ -3469,9 +3469,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 62]
+Belshe, et al.           Expires April 10, 2015                [Page 62]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    MUST NOT be sent on a connected stream, and MUST be treated as a
@@ -3525,9 +3525,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 63]
+Belshe, et al.           Expires April 10, 2015                [Page 63]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    Servers are encouraged to maintain open connections for as long as
@@ -3581,9 +3581,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 64]
+Belshe, et al.           Expires April 10, 2015                [Page 64]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 9.1.2.  The 421 (Misdirected Request) Status Code
@@ -3637,9 +3637,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 65]
+Belshe, et al.           Expires April 10, 2015                [Page 65]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    The TLS implementation MUST disable renegotiation.  An endpoint MUST
@@ -3693,9 +3693,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 66]
+Belshe, et al.           Expires April 10, 2015                [Page 66]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 10.1.  Server Authority
@@ -3749,9 +3749,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 67]
+Belshe, et al.           Expires April 10, 2015                [Page 67]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    an attacker if they are translater verbatim.  Any request or response
@@ -3805,9 +3805,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 68]
+Belshe, et al.           Expires April 10, 2015                [Page 68]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    PRIORITY frames can be abused to cause an unnecessary waste of
@@ -3815,8 +3815,8 @@ Internet-Draft                   HTTP/2                   September 2014
 
    Large numbers of small or empty frames can be abused to cause a peer
    to expend time processing frame headers.  Note however that some uses
-   are entirely legitimate, such as the sending of an empty DATA frame
-   to end a stream.
+   are entirely legitimate, such as the sending of an empty DATA or
+   CONTINUATION frame at the end of a stream.
 
    Header compression also offers some opportunities to waste processing
    resources; see Section 8 of [COMPRESSION] for more details on
@@ -3861,9 +3861,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 69]
+Belshe, et al.           Expires April 10, 2015                [Page 69]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    passing on values presented by different peers, but they are not
@@ -3917,9 +3917,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 70]
+Belshe, et al.           Expires April 10, 2015                [Page 70]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    Use of padding can result in less protection than might seem
@@ -3973,9 +3973,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 71]
+Belshe, et al.           Expires April 10, 2015                [Page 71]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 11.1.  Registration of HTTP/2 Identification Strings
@@ -4029,9 +4029,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 72]
+Belshe, et al.           Expires April 10, 2015                [Page 72]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    +---------------+------+--------------+
@@ -4085,9 +4085,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 73]
+Belshe, et al.           Expires April 10, 2015                [Page 73]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 11.4.  Error Code Registry
@@ -4141,9 +4141,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 74]
+Belshe, et al.           Expires April 10, 2015                [Page 74]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    +---------------------+------+----------------------+---------------+
@@ -4197,9 +4197,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 75]
+Belshe, et al.           Expires April 10, 2015                [Page 75]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 11.6.  PRI Method Registration
@@ -4253,9 +4253,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 76]
+Belshe, et al.           Expires April 10, 2015                [Page 76]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    o  Kari Hurtta, Tatsuhiro Tsujikawa, Greg Wilkins, Poul-Henning Kamp.
@@ -4309,9 +4309,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 77]
+Belshe, et al.           Expires April 10, 2015                [Page 77]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    [RFC7232]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
@@ -4365,9 +4365,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 78]
+Belshe, et al.           Expires April 10, 2015                [Page 78]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    [HTML5]    Berjon, R., Faulkner, S., Leithead, T., Doyle Navara, E.,
@@ -4421,9 +4421,9 @@ Internet-Draft                   HTTP/2                   September 2014
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 79]
+Belshe, et al.           Expires April 10, 2015                [Page 79]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 Appendix A.  Change Log
@@ -4477,9 +4477,9 @@ A.4.  Since draft-ietf-httpbis-http2-11
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 80]
+Belshe, et al.           Expires April 10, 2015                [Page 80]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    Added DATA per-frame GZIP compression.
@@ -4533,9 +4533,9 @@ A.6.  Since draft-ietf-httpbis-http2-09
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 81]
+Belshe, et al.           Expires April 10, 2015                [Page 81]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 A.7.  Since draft-ietf-httpbis-http2-08
@@ -4589,9 +4589,9 @@ A.11.  Since draft-ietf-httpbis-http2-04
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 82]
+Belshe, et al.           Expires April 10, 2015                [Page 82]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    Requiring that intermediaries not forward requests with missing or
@@ -4645,9 +4645,9 @@ A.14.  Since draft-ietf-httpbis-http2-01
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 83]
+Belshe, et al.           Expires April 10, 2015                [Page 83]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
    Added globally applicable flags to framing.
@@ -4701,9 +4701,9 @@ A.16.  Since draft-mbelshe-httpbis-spdy-00
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 84]
+Belshe, et al.           Expires April 10, 2015                [Page 84]
 
-Internet-Draft                   HTTP/2                   September 2014
+Internet-Draft                   HTTP/2                     October 2014
 
 
 Authors' Addresses
@@ -4757,4 +4757,4 @@ Authors' Addresses
 
 
 
-Belshe, et al.            Expires April 3, 2015                [Page 85]
+Belshe, et al.           Expires April 10, 2015                [Page 85]
