@@ -3178,6 +3178,10 @@ Internet-Draft                   HTTP/2                     October 2014
                                         + END_STREAM
                                       {binary data}
 
+   An informational response using a 1xx status code other than 101 is
+   transmitted as a HEADERS frame, followed by zero or more CONTINUATION
+   frames.
+
    Trailing header fields are sent as a header block after both the
    request or response header block and all the DATA frames have been
    sent.  The HEADERS frame starting the trailers header block has the
@@ -3185,14 +3189,20 @@ Internet-Draft                   HTTP/2                     October 2014
 
 
 
-
-
-
-
 Belshe, et al.           Expires April 10, 2015                [Page 57]
 
 Internet-Draft                   HTTP/2                     October 2014
 
+
+   The following example includes both a 100 (Continue) status code,
+   which is sent in response to a request containing a "100-continue"
+   token in the Expect header field, and trailing header fields:
+
+     HTTP/1.1 100 Continue              HEADERS
+     Extension-Field: bar       ==>     - END_STREAM
+                                        + END_HEADERS
+                                          :status = 100
+                                          extension-field = bar
 
      HTTP/1.1 200 OK                  HEADERS
      Content-Type: image/jpeg   ==>     - END_STREAM
@@ -3210,18 +3220,6 @@ Internet-Draft                   HTTP/2                     October 2014
                                         + END_STREAM
                                         + END_HEADERS
                                           foo = bar
-
-   An informational response using a 1xx status code other than 101 is
-   transmitted as a HEADERS frame, followed by zero or more CONTINUATION
-   frames.  The following example includes a 100 (Continue) status code,
-   which is sent in response to a request containing a "100-continue"
-   token in the Expect header field.
-
-     HTTP/1.1 100 Continue              HEADERS
-     Extension-Field: bar       ==>     - END_STREAM
-                                        + END_HEADERS
-                                          :status = 100
-                                          extension-field = bar
 
 8.1.4.  Request Reliability Mechanisms in HTTP/2
 
@@ -3242,6 +3240,8 @@ Internet-Draft                   HTTP/2                     October 2014
       frame to indicate that the stream is being closed prior to any
       processing having occurred.  Any request that was sent on the
       reset stream can be safely retried.
+
+
 
 
 
