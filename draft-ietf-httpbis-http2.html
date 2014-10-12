@@ -445,7 +445,7 @@ ul p {
        content: "Belshe, et al.";
   }
   @bottom-center {
-       content: "Expires April 10, 2015";
+       content: "Expires April 15, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -569,7 +569,7 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Thomson, M.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-http2-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2014-10-07">
+      <meta name="dct.issued" scheme="ISO8601" content="2014-10-12">
       <meta name="dct.abstract" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
       <meta name="description" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
    </head>
@@ -589,7 +589,7 @@ ul.toc a:first-child {
                <td class="right">R. Peon</td>
             </tr>
             <tr>
-               <td class="left">Expires: April 10, 2015</td>
+               <td class="left">Expires: April 15, 2015</td>
                <td class="right">Google, Inc</td>
             </tr>
             <tr>
@@ -602,7 +602,7 @@ ul.toc a:first-child {
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">October 7, 2014</td>
+               <td class="right">October 12, 2014</td>
             </tr>
          </tbody>
       </table>
@@ -633,7 +633,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on April 10, 2015.</p>
+         <p>This Internet-Draft will expire on April 15, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -2890,6 +2890,8 @@ Upgrade: h2c
                <dt id="INADEQUATE_SECURITY">INADEQUATE_SECURITY (0xc):</dt>
                <dd>The underlying transport has properties that do not meet minimum security requirements (see <a href="#TLSUsage" title="Use of TLS Features">Section&nbsp;9.2</a>).
                </dd>
+               <dt id="HTTP_1_1_REQUIRED">HTTP_1_1_REQUIRED (0xd):</dt>
+               <dd>The endpoint requires that HTTP/1.1 be used instead of HTTP/2.</dd>
             </dl>
          </div>
          <div id="rfc.section.7.p.4">
@@ -3565,7 +3567,7 @@ Upgrade: h2c
                </div>
                <div id="rfc.section.9.2.1.p.5">
                   <p>This effectively prevents the use of renegotiation in response to a request for a specific protected resource. A future specification
-                     might provide a way to support this use case.  
+                     might provide a way to support this use case. Alternatively, a server might use a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#">HTTP_1_1_REQUIRED</a> to request the client use a protocol which supports renegotiation.
                   </p>
                </div>
             </div>
@@ -4143,6 +4145,12 @@ Upgrade: h2c
                         <td class="left">INADEQUATE_SECURITY</td>
                         <td class="left">0xc</td>
                         <td class="left">Negotiated TLS parameters not acceptable</td>
+                        <td class="left"><a href="#ErrorCodes" title="Error Codes">Section&nbsp;7</a></td>
+                     </tr>
+                     <tr>
+                        <td class="left">HTTP_1_1_REQUIRED</td>
+                        <td class="left">0xc</td>
+                        <td class="left">Use HTTP/1.1 for the request</td>
                         <td class="left"><a href="#ErrorCodes" title="Error Codes">Section&nbsp;7</a></td>
                      </tr>
                   </tbody>
