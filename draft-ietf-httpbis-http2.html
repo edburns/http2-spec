@@ -445,7 +445,7 @@ ul p {
        content: "Belshe, et al.";
   }
   @bottom-center {
-       content: "Expires April 15, 2015";
+       content: "Expires April 17, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -569,7 +569,7 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Thomson, M.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-http2-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2014-10-12">
+      <meta name="dct.issued" scheme="ISO8601" content="2014-10-14">
       <meta name="dct.abstract" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
       <meta name="description" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
    </head>
@@ -589,7 +589,7 @@ ul.toc a:first-child {
                <td class="right">R. Peon</td>
             </tr>
             <tr>
-               <td class="left">Expires: April 15, 2015</td>
+               <td class="left">Expires: April 17, 2015</td>
                <td class="right">Google, Inc</td>
             </tr>
             <tr>
@@ -602,7 +602,7 @@ ul.toc a:first-child {
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">October 12, 2014</td>
+               <td class="right">October 14, 2014</td>
             </tr>
          </tbody>
       </table>
@@ -633,7 +633,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on April 15, 2015.</p>
+         <p>This Internet-Draft will expire on April 17, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -3012,7 +3012,7 @@ Upgrade: h2c
                   </h4>
                   <div id="rfc.section.8.1.2.2.p.1">
                      <p>HTTP/2 does not use the <samp>Connection</samp> header field to indicate connection-specific header fields; in this protocol, connection-specific metadata is conveyed by
-                        other means. An endpoint MUST NOT generate a HTTP/2 message containing connection-specific header fields; any message containing
+                        other means. An endpoint MUST NOT generate an HTTP/2 message containing connection-specific header fields; any message containing
                         connection-specific header fields MUST be treated as malformed (<a href="#malformed" title="Malformed Requests and Responses">Section&nbsp;8.1.2.6</a>).
                      </p>
                   </div>
@@ -3296,7 +3296,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.8.2.p.4">
-               <p>Pushed responses that are cacheable (see <a href="#RFC7234"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Caching">[RFC7234]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7234.html#response.cacheability" title="Storing Responses in Caches">Section 3</a>) can be stored by the client, if it implements a HTTP cache. Pushed responses are considered successfully validated on the
+               <p>Pushed responses that are cacheable (see <a href="#RFC7234"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Caching">[RFC7234]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7234.html#response.cacheability" title="Storing Responses in Caches">Section 3</a>) can be stored by the client, if it implements an HTTP cache. Pushed responses are considered successfully validated on the
                   origin server (e.g., if the "no-cache" cache response directive <a href="#RFC7234"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Caching">[RFC7234]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7234.html#cache-response-directive" title="Response Cache-Control Directives">Section 5.2.2</a> is present) while the stream identified by the promised stream ID is still open.
                </p>
             </div>
