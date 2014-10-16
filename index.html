@@ -445,7 +445,7 @@ ul p {
        content: "Belshe, et al.";
   }
   @bottom-center {
-       content: "Expires April 18, 2015";
+       content: "Expires April 19, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -569,7 +569,7 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Thomson, M.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-http2-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2014-10-15">
+      <meta name="dct.issued" scheme="ISO8601" content="2014-10-16">
       <meta name="dct.abstract" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
       <meta name="description" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
    </head>
@@ -589,7 +589,7 @@ ul.toc a:first-child {
                <td class="right">R. Peon</td>
             </tr>
             <tr>
-               <td class="left">Expires: April 18, 2015</td>
+               <td class="left">Expires: April 19, 2015</td>
                <td class="right">Google, Inc</td>
             </tr>
             <tr>
@@ -602,7 +602,7 @@ ul.toc a:first-child {
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">October 15, 2014</td>
+               <td class="right">October 16, 2014</td>
             </tr>
          </tbody>
       </table>
@@ -633,7 +633,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on April 18, 2015.</p>
+         <p>This Internet-Draft will expire on April 19, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -882,7 +882,7 @@ ul.toc a:first-child {
             </p>
          </div>
          <div id="rfc.section.2.p.5">
-            <p>HTTP/2 adds a new interaction mode, whereby a server can push responses to a client (<a href="#PushResources" title="Server Push">Section&nbsp;8.2</a>). Server push allows a server to speculatively send a client data that the server anticipates the client will need, trading
+            <p>HTTP/2 adds a new interaction mode, whereby a server can push responses to a client (<a href="#PushResources" title="Server Push">Section&nbsp;8.2</a>). Server push allows a server to speculatively send data to a client that the server anticipates the client will need, trading
                off some network usage against a potential latency gain. The server does this by synthesizing a request, which it sends as
                a <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> frame. The server is then able to send a response to the synthetic request on a separate stream.
             </p>
@@ -986,13 +986,13 @@ ul.toc a:first-child {
                <p>The protocol defined in this document has two identifiers. </p>
                <ul>
                   <li>
-                     <p>The string "h2" identifies the protocol where HTTP/2 uses <a href="#TLS12">TLS</a> <cite title="The Transport Layer Security (TLS) Protocol Version 1.2">[TLS12]</cite>. This identifier is used in the <a href="#TLS-ALPN">TLS application layer protocol negotiation extension (ALPN)</a> <cite title="Transport Layer Security (TLS) Application-Layer Protocol Negotiation Extension">[TLS-ALPN]</cite> field and any place that HTTP/2 over TLS is identified.
+                     <p>The string "h2" identifies the protocol where HTTP/2 uses <a href="#TLS12">TLS</a> <cite title="The Transport Layer Security (TLS) Protocol Version 1.2">[TLS12]</cite>. This identifier is used in the <a href="#TLS-ALPN">TLS application layer protocol negotiation extension (ALPN)</a> <cite title="Transport Layer Security (TLS) Application-Layer Protocol Negotiation Extension">[TLS-ALPN]</cite> field and in any place where HTTP/2 over TLS is identified.
                      </p>
                      <p>The "h2" string is serialized into an ALPN protocol identifier as the two octet sequence: 0x68, 0x32.</p>
                   </li>
                   <li>
                      <p>The string "h2c" identifies the protocol where HTTP/2 is run over cleartext TCP. This identifier is used in the HTTP/1.1 Upgrade
-                        header field and any place that HTTP/2 over TCP is identified.
+                        header field and in any place where HTTP/2 over TCP is identified.
                      </p>
                   </li>
                </ul>
@@ -1927,8 +1927,8 @@ Upgrade: h2c
             </div>
             <div id="rfc.section.5.5.p.5">
                <p>This document doesn't mandate a specific method for negotiating the use of an extension, but notes that a setting (<a href="#SettingValues" title="Defined SETTINGS Parameters">Section&nbsp;6.5.2</a>) could be used for that purpose. If both peers set a value that indicates willingness to use the extension, then the extension
-                  can be used. If a setting is used for extension negotiation, the initial value MUST be defined so that the extension is initially
-                  disabled.
+                  can be used. If a setting is used for extension negotiation, the initial value MUST be defined in such a fashion that the
+                  extension is initially disabled.
                </p>
             </div>
          </div>
@@ -2943,7 +2943,8 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.8.1.p.5">
-               <p>Trailing header fields are carried in a header block that also terminates the stream. That is, a sequence starting with a <a href="#HEADERS" class="smpl">HEADERS</a> frame, followed by zero or more <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames, where the <a href="#HEADERS" class="smpl">HEADERS</a> frame bears an END_STREAM flag. Header blocks after the first that do not terminate the stream are not part of an HTTP request
+               <p>Trailing header fields are carried in a header block that also terminates the stream. Such a header block is a sequence starting
+                  with a <a href="#HEADERS" class="smpl">HEADERS</a> frame, followed by zero or more <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames, where the <a href="#HEADERS" class="smpl">HEADERS</a> frame bears an END_STREAM flag. Header blocks after the first that do not terminate the stream are not part of an HTTP request
                   or response.
                </p>
             </div>
@@ -3024,8 +3025,8 @@ Upgrade: h2c
                      </p>
                   </div>
                   <div id="rfc.section.8.1.2.2.p.3">
-                     <p>One exception to this is the TE header field, which MAY be present in an HTTP/2 request, but when it is MUST NOT contain any
-                        value other than "trailers".
+                     <p>One exception to this is the TE header field, which MAY be present in an HTTP/2 request, but when it is, it MUST NOT contain
+                        any value other than "trailers".
                      </p>
                   </div>
                   <div id="rfc.section.8.1.2.2.p.4">
