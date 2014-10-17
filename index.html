@@ -445,7 +445,7 @@ ul p {
        content: "Belshe, et al.";
   }
   @bottom-center {
-       content: "Expires April 19, 2015";
+       content: "Expires April 20, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -569,7 +569,7 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Thomson, M.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-http2-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2014-10-16">
+      <meta name="dct.issued" scheme="ISO8601" content="2014-10-17">
       <meta name="dct.abstract" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
       <meta name="description" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
    </head>
@@ -589,7 +589,7 @@ ul.toc a:first-child {
                <td class="right">R. Peon</td>
             </tr>
             <tr>
-               <td class="left">Expires: April 19, 2015</td>
+               <td class="left">Expires: April 20, 2015</td>
                <td class="right">Google, Inc</td>
             </tr>
             <tr>
@@ -602,7 +602,7 @@ ul.toc a:first-child {
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">October 16, 2014</td>
+               <td class="right">October 17, 2014</td>
             </tr>
          </tbody>
       </table>
@@ -633,7 +633,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on April 19, 2015.</p>
+         <p>This Internet-Draft will expire on April 20, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -1498,7 +1498,7 @@ Upgrade: h2c
                      <p><a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a> or <a href="#RST_STREAM" class="smpl">RST_STREAM</a> frames can be received in this state for a short period after a <a href="#DATA" class="smpl">DATA</a> or <a href="#HEADERS" class="smpl">HEADERS</a> frame containing an END_STREAM flag is sent. Until the remote peer receives and processes <a href="#RST_STREAM" class="smpl">RST_STREAM</a> or the frame bearing the END_STREAM flag, it might send frames of these types. Endpoints MUST ignore <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a> or <a href="#RST_STREAM" class="smpl">RST_STREAM</a> frames received in this state, though endpoints MAY choose to treat frames that arrive a significant time after sending END_STREAM
                         as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
                      </p>
-                     <p><a href="#PRIORITY" class="smpl">PRIORITY</a> frames can be sent on closed streams to prioritize streams that are dependent on the closed stream. Endpoints SHOULD process <a href="#PRIORITY" class="smpl">PRIORITY</a> frame, though they can be ignored if the stream has been removed from the dependency tree (see <a href="#priority-gc" title="Prioritization State Management">Section&nbsp;5.3.4</a>).
+                     <p><a href="#PRIORITY" class="smpl">PRIORITY</a> frames can be sent on closed streams to prioritize streams that are dependent on the closed stream. Endpoints SHOULD process <a href="#PRIORITY" class="smpl">PRIORITY</a> frames, though they can be ignored if the stream has been removed from the dependency tree (see <a href="#priority-gc" title="Prioritization State Management">Section&nbsp;5.3.4</a>).
                      </p>
                      <p>If this state is reached as a result of sending a <a href="#RST_STREAM" class="smpl">RST_STREAM</a> frame, the peer that receives the <a href="#RST_STREAM" class="smpl">RST_STREAM</a> might have already sent - or enqueued for sending - frames on the stream that cannot be withdrawn. An endpoint MUST ignore
                         frames that it receives on closed streams after it has sent a <a href="#RST_STREAM" class="smpl">RST_STREAM</a> frame. An endpoint MAY choose to limit the period over which it ignores frames and treat frames that arrive after this time
@@ -1623,8 +1623,8 @@ Upgrade: h2c
                <div id="rfc.section.5.2.2.p.1">
                   <p>Flow control is defined to protect endpoints that are operating under resource constraints. For example, a proxy needs to
                      share memory between many connections, and also might have a slow upstream connection and a fast downstream one. Flow control
-                     addresses cases where the receiver is unable process data on one stream, yet wants to continue to process other streams in
-                     the same connection.
+                     addresses cases where the receiver is unable to process data on one stream, yet wants to continue to process other streams
+                     in the same connection.
                   </p>
                </div>
                <div id="rfc.section.5.2.2.p.2">
@@ -3883,7 +3883,7 @@ Upgrade: h2c
                   <dt>Code:</dt>
                   <dd>The 8-bit code assigned to the frame type.</dd>
                   <dt>Specification:</dt>
-                  <dd>A reference to a specification that includes a description of the frame layout, it's semantics and flags that the frame type
+                  <dd>A reference to a specification that includes a description of the frame layout, its semantics, and flags that the frame type
                      uses, including any parts of the frame that are conditionally present based on the value of flags.
                   </dd>
                </dl>
