@@ -445,7 +445,7 @@ ul p {
        content: "Belshe, et al.";
   }
   @bottom-center {
-       content: "Expires April 20, 2015";
+       content: "Expires April 24, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -569,7 +569,7 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Thomson, M.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-http2-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2014-10-17">
+      <meta name="dct.issued" scheme="ISO8601" content="2014-10-21">
       <meta name="dct.abstract" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
       <meta name="description" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
    </head>
@@ -589,7 +589,7 @@ ul.toc a:first-child {
                <td class="right">R. Peon</td>
             </tr>
             <tr>
-               <td class="left">Expires: April 20, 2015</td>
+               <td class="left">Expires: April 24, 2015</td>
                <td class="right">Google, Inc</td>
             </tr>
             <tr>
@@ -602,7 +602,7 @@ ul.toc a:first-child {
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">October 17, 2014</td>
+               <td class="right">October 21, 2014</td>
             </tr>
          </tbody>
       </table>
@@ -633,7 +633,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on April 20, 2015.</p>
+         <p>This Internet-Draft will expire on April 24, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -1989,11 +1989,11 @@ Upgrade: h2c
                <p>The DATA frame defines the following flags: </p>
                <dl>
                   <dt>END_STREAM (0x1):</dt>
-                  <dd>Bit 1 being set indicates that this frame is the last that the endpoint will send for the identified stream. Setting this
+                  <dd>Bit 0 being set indicates that this frame is the last that the endpoint will send for the identified stream. Setting this
                      flag causes the stream to enter one of the "half closed" states or the "closed" state (<a href="#StreamStates" title="Stream States">Section&nbsp;5.1</a>).
                   </dd>
                   <dt>PADDED (0x8):</dt>
-                  <dd>Bit 4 being set indicates that the Pad Length field and any padding that it describes is present.</dd>
+                  <dd>Bit 3 being set indicates that the Pad Length field and any padding that it describes is present.</dd>
                </dl>
             </div>
             <div id="rfc.section.6.1.p.5">
@@ -2074,7 +2074,7 @@ Upgrade: h2c
                <dl>
                   <dt>END_STREAM (0x1):</dt>
                   <dd>
-                     <p>Bit 1 being set indicates that the header block (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>) is the last that the endpoint will send for the identified stream. Setting this flag causes the stream to enter one of "half closed" states (<a href="#StreamStates" title="Stream States">Section&nbsp;5.1</a>).
+                     <p>Bit 0 being set indicates that the header block (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>) is the last that the endpoint will send for the identified stream. Setting this flag causes the stream to enter one of "half closed" states (<a href="#StreamStates" title="Stream States">Section&nbsp;5.1</a>).
                      </p>
                      <p>A HEADERS frame carries the END_STREAM flag that signals the end of a stream. However, a HEADERS frame with the END_STREAM
                         flag set can be followed by <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames on the same stream. Logically, the <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames are part of the HEADERS frame.
@@ -2082,7 +2082,7 @@ Upgrade: h2c
                   </dd>
                   <dt>END_HEADERS (0x4):</dt>
                   <dd>
-                     <p>Bit 3 being set indicates that this frame contains an entire header block (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>) and is not followed by any <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames.
+                     <p>Bit 2 being set indicates that this frame contains an entire header block (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>) and is not followed by any <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames.
                      </p>
                      <p>A HEADERS frame without the END_HEADERS flag set MUST be followed by a <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frame for the same stream. A receiver MUST treat the receipt of any other type of frame or a frame on a different stream as
                         a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
@@ -2090,11 +2090,11 @@ Upgrade: h2c
                   </dd>
                   <dt>PADDED (0x8):</dt>
                   <dd>
-                     <p>Bit 4 being set indicates that the Pad Length field and any padding that it describes is present.</p>
+                     <p>Bit 3 being set indicates that the Pad Length field and any padding that it describes is present.</p>
                   </dd>
                   <dt>PRIORITY (0x20):</dt>
                   <dd>
-                     <p>Bit 6 being set indicates that the Exclusive Flag (E), Stream Dependency, and Weight fields are present; see <a href="#StreamPriority" title="Stream priority">Section&nbsp;5.3</a>.
+                     <p>Bit 5 being set indicates that the Exclusive Flag (E), Stream Dependency, and Weight fields are present; see <a href="#StreamPriority" title="Stream priority">Section&nbsp;5.3</a>.
                      </p>
                   </dd>
                </dl>
@@ -2252,7 +2252,7 @@ Upgrade: h2c
                <p>SETTINGS parameters are acknowledged by the receiving peer. To enable this, the SETTINGS frame defines the following flag: </p>
                <dl>
                   <dt>ACK (0x1):</dt>
-                  <dd>Bit 1 being set indicates that this frame acknowledges receipt and application of the peer's SETTINGS frame. When this bit
+                  <dd>Bit 0 being set indicates that this frame acknowledges receipt and application of the peer's SETTINGS frame. When this bit
                      is set, the payload of the SETTINGS frame MUST be empty. Receipt of a SETTINGS frame with the ACK flag set and a length field
                      value other than 0 MUST be treated as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#FRAME_SIZE_ERROR" class="smpl">FRAME_SIZE_ERROR</a>. For more info, see Settings Synchronization (<a href="#SettingsSync" title="Settings Synchronization">Section&nbsp;6.5.3</a>).
                   </dd>
@@ -2419,7 +2419,7 @@ Upgrade: h2c
                <dl>
                   <dt>END_HEADERS (0x4):</dt>
                   <dd>
-                     <p>Bit 3 being set indicates that this frame contains an entire header block (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>) and is not followed by any <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames.
+                     <p>Bit 2 being set indicates that this frame contains an entire header block (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>) and is not followed by any <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames.
                      </p>
                      <p>A PUSH_PROMISE frame without the END_HEADERS flag set MUST be followed by a CONTINUATION frame for the same stream. A receiver
                         MUST treat the receipt of any other type of frame or a frame on a different stream as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
@@ -2427,7 +2427,7 @@ Upgrade: h2c
                   </dd>
                   <dt>PADDED (0x8):</dt>
                   <dd>
-                     <p>Bit 4 being set indicates that the Pad Length field and any padding that it describes is present.</p>
+                     <p>Bit 3 being set indicates that the Pad Length field and any padding that it describes is present.</p>
                   </dd>
                </dl>
             </div>
@@ -2502,7 +2502,7 @@ Upgrade: h2c
                <p>The PING frame defines the following flags: </p>
                <dl>
                   <dt>ACK (0x1):</dt>
-                  <dd>Bit 1 being set indicates that this PING frame is a PING response. An endpoint MUST set this flag in PING responses. An endpoint
+                  <dd>Bit 0 being set indicates that this PING frame is a PING response. An endpoint MUST set this flag in PING responses. An endpoint
                      MUST NOT respond to PING frames containing this flag.
                   </dd>
                </dl>
@@ -2821,7 +2821,7 @@ Upgrade: h2c
                <dl>
                   <dt>END_HEADERS (0x4):</dt>
                   <dd>
-                     <p>Bit 3 being set indicates that this frame ends a header block (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>).
+                     <p>Bit 2 being set indicates that this frame ends a header block (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>).
                      </p>
                      <p>If the END_HEADERS bit is not set, this frame MUST be followed by another CONTINUATION frame. A receiver MUST treat the receipt
                         of any other type of frame or a frame on a different stream as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
