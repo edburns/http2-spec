@@ -2181,10 +2181,8 @@ Upgrade: h2c
          <div id="RST_STREAM">
             <h2 id="rfc.section.6.4"><a href="#rfc.section.6.4">6.4</a>&nbsp;<a href="#RST_STREAM">RST_STREAM</a></h2>
             <div id="rfc.section.6.4.p.1">
-               <p>The RST_STREAM frame (type=0x3) allows for abnormal termination of a stream. When sent by the initiator of a stream, it indicates
-                  that they wish to cancel the stream or that an error condition has occurred. When sent by the receiver of a stream, it indicates
-                  that either the receiver is rejecting the stream, requesting that the stream be cancelled, or that an error condition has
-                  occurred.
+               <p>The RST_STREAM frame (type=0x3) allows for immediate termination of a stream. RST_STREAM is sent to request cancellation of
+                  a stream, or to indicate that an error condition has occurred.
                </p>
             </div>
             <div id="RST_STREAMFramePayload"></div>
@@ -2955,7 +2953,15 @@ Upgrade: h2c
             </div>
             <div id="rfc.section.8.1.p.7">
                <p>An HTTP request/response exchange fully consumes a single stream. A request starts with the <a href="#HEADERS" class="smpl">HEADERS</a> frame that puts the stream into an "open" state. The request ends with a frame bearing END_STREAM, which causes the stream
-                  to become "half closed (local)" for the client and "half closed (remote)" for the server. A response starts with a <a href="#HEADERS" class="smpl">HEADERS</a> frame and ends with a frame bearing END_STREAM, which places the stream in the "closed" state.  
+                  to become "half closed (local)" for the client and "half closed (remote)" for the server. A response starts with a <a href="#HEADERS" class="smpl">HEADERS</a> frame and ends with a frame bearing END_STREAM, which places the stream in the "closed" state.
+               </p>
+            </div>
+            <div id="rfc.section.8.1.p.8">
+               <p>An HTTP response is complete after the server sends - or the client receives - a frame with the END_STREAM flag set (including
+                  any <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames needed to complete a header block). A server can send a complete response prior to the client sending an entire request
+                  if the response does not depend on any portion of the request that has not been sent and received. When this is true, a server
+                  MAY request that the client abort transmission of a request without error by sending a <a href="#RST_STREAM" class="smpl">RST_STREAM</a> with an error code of <a href="#NO_ERROR" class="smpl">NO_ERROR</a> after sending a complete response (i.e., a frame with the END_STREAM flag). Clients MUST NOT discard responses as a result
+                  of receiving such a <a href="#RST_STREAM" class="smpl">RST_STREAM</a>, though clients can always discard responses at their discretion for other reasons.
                </p>
             </div>
             <div id="informational-responses">
