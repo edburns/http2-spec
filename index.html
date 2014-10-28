@@ -3546,7 +3546,7 @@ Upgrade: h2c
             <div id="rfc.section.9.2.p.2">
                <p>An implementation of HTTP/2 over TLS MUST use TLS 1.2 or higher with the restrictions on feature set and cipher suite described
                   in this section. Due to implementation limitations, it might not be possible to fail TLS negotiation. An endpoint MUST immediately
-                  terminate an HTTP/2 connection that does not meet these minimum requirements with a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#INADEQUATE_SECURITY" class="smpl">INADEQUATE_SECURITY</a>.
+                  terminate an HTTP/2 connection that does not meet the TLS requirements described in this section with a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#INADEQUATE_SECURITY" class="smpl">INADEQUATE_SECURITY</a>.
                </p>
             </div>
             <div id="TLSFeatures">
