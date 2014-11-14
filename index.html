@@ -372,6 +372,9 @@ ul p {
   border-radius: 5px;
   background: #a00000;
   border: 1px solid silver;
+  -webkit-user-select: none; 
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 .fbbutton {
   margin-left: 1em;
@@ -445,7 +448,7 @@ ul p {
        content: "Belshe, et al.";
   }
   @bottom-center {
-       content: "Expires May 9, 2015";
+       content: "Expires May 18, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -562,14 +565,14 @@ ul.toc a:first-child {
       <link rel="Chapter" title="12 Acknowledgements" href="#rfc.section.12">
       <link rel="Chapter" href="#rfc.section.13" title="13 References">
       <link rel="Appendix" title="A Change Log" href="#rfc.section.A">
-      <meta name="generator" content="http://greenbytes.de/tech/webdav/rfc2629.xslt, Revision 1.672, 2014/10/24 16:12:41, XSLT vendor: SAXON 9.1.0.8 from Saxonica http://www.saxonica.com/">
+      <meta name="generator" content="http://greenbytes.de/tech/webdav/rfc2629.xslt, Revision 1.690, 2014/11/12 21:37:29, XSLT vendor: SAXON 9.1.0.8 from Saxonica http://www.saxonica.com/">
       <meta name="keywords" content="HTTP, SPDY, Web">
       <link rel="schema.dct" href="http://purl.org/dc/terms/">
       <meta name="dct.creator" content="Belshe, M.">
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Thomson, M.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-http2-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2014-11-05">
+      <meta name="dct.issued" scheme="ISO8601" content="2014-11-14">
       <meta name="dct.abstract" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
       <meta name="description" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
    </head>
@@ -589,7 +592,7 @@ ul.toc a:first-child {
                <td class="right">R. Peon</td>
             </tr>
             <tr>
-               <td class="left">Expires: May 9, 2015</td>
+               <td class="left">Expires: May 18, 2015</td>
                <td class="right">Google, Inc</td>
             </tr>
             <tr>
@@ -602,7 +605,7 @@ ul.toc a:first-child {
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">November 5, 2014</td>
+               <td class="right">November 14, 2014</td>
             </tr>
          </tbody>
       </table>
@@ -633,7 +636,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on May 9, 2015.</p>
+         <p>This Internet-Draft will expire on May 18, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -923,7 +926,7 @@ ul.toc a:first-child {
             </div>
             <div id="rfc.section.2.2.p.2">
                <p>All numeric values are in network byte order. Values are unsigned unless otherwise indicated. Literal values are provided
-                  in decimal or hexadecimal as appropriate. Hexadecimal literals are prefixed with <samp>0x</samp> to distinguish them from decimal literals.
+                  in decimal or hexadecimal as appropriate. Hexadecimal literals are prefixed with <tt>0x</tt> to distinguish them from decimal literals.
                </p>
             </div>
             <div id="rfc.section.2.2.p.3">
@@ -971,7 +974,7 @@ ul.toc a:first-child {
          </div>
          <div id="rfc.section.3.p.2">
             <p>HTTP/2 uses the same "http" and "https" URI schemes used by HTTP/1.1. HTTP/2 shares the same default port numbers: 80 for
-               "http" URIs and 443 for "https" URIs. As a result, implementations processing requests for target resource URIs like <samp>http://example.org/foo</samp> or <samp>https://example.com/bar</samp> are required to first discover whether the upstream server (the immediate peer to which the client wishes to establish a connection)
+               "http" URIs and 443 for "https" URIs. As a result, implementations processing requests for target resource URIs like <tt>http://example.org/foo</tt> or <tt>https://example.com/bar</tt> are required to first discover whether the upstream server (the immediate peer to which the client wishes to establish a connection)
                supports HTTP/2.
             </p>
          </div>
@@ -1091,7 +1094,7 @@ Upgrade: h2c
             <div id="Http2SettingsHeader">
                <h3 id="rfc.section.3.2.1"><a href="#rfc.section.3.2.1">3.2.1</a>&nbsp;<a href="#Http2SettingsHeader">HTTP2-Settings Header Field</a></h3>
                <div id="rfc.section.3.2.1.p.1">
-                  <p>A request that upgrades from HTTP/1.1 to HTTP/2 MUST include exactly one <samp>HTTP2-Settings</samp> header field. The <samp>HTTP2-Settings</samp> header field is a connection-specific header field that includes parameters that govern the HTTP/2 connection, provided in
+                  <p>A request that upgrades from HTTP/1.1 to HTTP/2 MUST include exactly one <tt>HTTP2-Settings</tt> header field. The <tt>HTTP2-Settings</tt> header field is a connection-specific header field that includes parameters that govern the HTTP/2 connection, provided in
                      anticipation of the server accepting the request to upgrade.
                   </p>
                </div>
@@ -1103,11 +1106,11 @@ Upgrade: h2c
                   </p>
                </div>
                <div id="rfc.section.3.2.1.p.3">
-                  <p>The content of the <samp>HTTP2-Settings</samp> header field is the payload of a <a href="#SETTINGS" class="smpl">SETTINGS</a> frame (<a href="#SETTINGS" title="SETTINGS">Section&nbsp;6.5</a>), encoded as a base64url string (that is, the URL- and filename-safe Base64 encoding described in <a href="https://tools.ietf.org/html/rfc4648#section-5">Section 5</a> of <a href="#RFC4648"><cite title="The Base16, Base32, and Base64 Data Encodings">[RFC4648]</cite></a>, with any trailing '=' characters omitted). The <a href="#RFC5234">ABNF</a> <cite title="Augmented BNF for Syntax Specifications: ABNF">[RFC5234]</cite> production for <samp>token68</samp> is defined in <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7235.html#challenge.and.response" title="Challenge and Response">Section 2.1</a> of <a href="#RFC7235"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Authentication">[RFC7235]</cite></a>.
+                  <p>The content of the <tt>HTTP2-Settings</tt> header field is the payload of a <a href="#SETTINGS" class="smpl">SETTINGS</a> frame (<a href="#SETTINGS" title="SETTINGS">Section&nbsp;6.5</a>), encoded as a base64url string (that is, the URL- and filename-safe Base64 encoding described in <a href="https://tools.ietf.org/html/rfc4648#section-5">Section 5</a> of <a href="#RFC4648"><cite title="The Base16, Base32, and Base64 Data Encodings">[RFC4648]</cite></a>, with any trailing '=' characters omitted). The <a href="#RFC5234">ABNF</a> <cite title="Augmented BNF for Syntax Specifications: ABNF">[RFC5234]</cite> production for <tt>token68</tt> is defined in <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7235.html#challenge.and.response" title="Challenge and Response">Section 2.1</a> of <a href="#RFC7235"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Authentication">[RFC7235]</cite></a>.
                   </p>
                </div>
                <div id="rfc.section.3.2.1.p.4">
-                  <p>Since the upgrade is only intended to apply to the immediate connection, a client sending <samp>HTTP2-Settings</samp> MUST also send <samp>HTTP2-Settings</samp> as a connection option in the <samp>Connection</samp> header field to prevent it from being forwarded (see <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#header.connection" title="Connection">Section 6.1</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>).
+                  <p>Since the upgrade is only intended to apply to the immediate connection, a client sending <tt>HTTP2-Settings</tt> MUST also send <tt>HTTP2-Settings</tt> as a connection option in the <tt>Connection</tt> header field to prevent it from being forwarded (see <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#header.connection" title="Connection">Section 6.1</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>).
                   </p>
                </div>
                <div id="rfc.section.3.2.1.p.5">
@@ -1163,7 +1166,7 @@ Upgrade: h2c
             <div id="rfc.figure.u.5"><pre class="inline">0x505249202a20485454502f322e300d0a0d0a534d0d0a0d0a
 </pre></div>
             <div id="rfc.section.3.5.p.3">
-               <p>(the string <samp>PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n</samp>). This sequence is followed by a <a href="#SETTINGS" class="smpl">SETTINGS</a> frame (<a href="#SETTINGS" title="SETTINGS">Section&nbsp;6.5</a>). The <a href="#SETTINGS" class="smpl">SETTINGS</a> frame MAY be empty. The client sends the client connection preface immediately upon receipt of a 101 Switching Protocols response
+               <p>(the string <tt>PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n</tt>). This sequence is followed by a <a href="#SETTINGS" class="smpl">SETTINGS</a> frame (<a href="#SETTINGS" title="SETTINGS">Section&nbsp;6.5</a>). The <a href="#SETTINGS" class="smpl">SETTINGS</a> frame MAY be empty. The client sends the client connection preface immediately upon receipt of a 101 Switching Protocols response
                   (indicating a successful upgrade), or as the first application data octets of a TLS connection. If starting an HTTP/2 connection
                   with prior knowledge of server support for the protocol, the client connection preface is sent upon connection establishment.
                </p>
@@ -2936,7 +2939,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.8.1.p.4">
-               <p>HTTP/2 uses DATA frames to carry message payloads. The <samp>chunked</samp> transfer encoding defined in <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#chunked.encoding" title="Chunked Transfer Coding">Section 4.1</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a> MUST NOT be used in HTTP/2.
+               <p>HTTP/2 uses DATA frames to carry message payloads. The <tt>chunked</tt> transfer encoding defined in <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#chunked.encoding" title="Chunked Transfer Coding">Section 4.1</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a> MUST NOT be used in HTTP/2.
                </p>
             </div>
             <div id="rfc.section.8.1.p.5">
@@ -3017,7 +3020,7 @@ Upgrade: h2c
                   <h4 id="rfc.section.8.1.2.2"><a href="#rfc.section.8.1.2.2">8.1.2.2</a>&nbsp;Connection-Specific Header Fields
                   </h4>
                   <div id="rfc.section.8.1.2.2.p.1">
-                     <p>HTTP/2 does not use the <samp>Connection</samp> header field to indicate connection-specific header fields; in this protocol, connection-specific metadata is conveyed by
+                     <p>HTTP/2 does not use the <tt>Connection</tt> header field to indicate connection-specific header fields; in this protocol, connection-specific metadata is conveyed by
                         other means. An endpoint MUST NOT generate an HTTP/2 message containing connection-specific header fields; any message containing
                         connection-specific header fields MUST be treated as malformed (<a href="#malformed" title="Malformed Requests and Responses">Section&nbsp;8.1.2.6</a>).
                      </p>
@@ -3048,34 +3051,34 @@ Upgrade: h2c
                      <p>The following pseudo-header fields are defined for HTTP/2 requests: </p>
                      <ul>
                         <li>
-                           <p>The <samp>:method</samp> pseudo-header field includes the HTTP method (<a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#methods" title="Request Methods">Section 4</a>).
+                           <p>The <tt>:method</tt> pseudo-header field includes the HTTP method (<a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#methods" title="Request Methods">Section 4</a>).
                            </p>
                         </li>
                         <li>
-                           <p>The <samp>:scheme</samp> pseudo-header field includes the scheme portion of the target URI (<a href="#RFC3986"><cite title="Uniform Resource Identifier (URI): Generic Syntax">[RFC3986]</cite></a>, <a href="https://tools.ietf.org/html/rfc3986#section-3.1">Section 3.1</a>).
+                           <p>The <tt>:scheme</tt> pseudo-header field includes the scheme portion of the target URI (<a href="#RFC3986"><cite title="Uniform Resource Identifier (URI): Generic Syntax">[RFC3986]</cite></a>, <a href="https://tools.ietf.org/html/rfc3986#section-3.1">Section 3.1</a>).
                            </p>
-                           <p><samp>:scheme</samp> is not restricted to <samp>http</samp> and <samp>https</samp> schemed URIs. A proxy or gateway can translate requests for non-HTTP schemes, enabling the use of HTTP to interact with non-HTTP
+                           <p><tt>:scheme</tt> is not restricted to <tt>http</tt> and <tt>https</tt> schemed URIs. A proxy or gateway can translate requests for non-HTTP schemes, enabling the use of HTTP to interact with non-HTTP
                               services.
                            </p>
                         </li>
                         <li>
-                           <p>The <samp>:authority</samp> pseudo-header field includes the authority portion of the target URI (<a href="#RFC3986"><cite title="Uniform Resource Identifier (URI): Generic Syntax">[RFC3986]</cite></a>, <a href="https://tools.ietf.org/html/rfc3986#section-3.2">Section 3.2</a>). The authority MUST NOT include the deprecated <samp>userinfo</samp> subcomponent for <samp>http</samp> or <samp>https</samp> schemed URIs.
+                           <p>The <tt>:authority</tt> pseudo-header field includes the authority portion of the target URI (<a href="#RFC3986"><cite title="Uniform Resource Identifier (URI): Generic Syntax">[RFC3986]</cite></a>, <a href="https://tools.ietf.org/html/rfc3986#section-3.2">Section 3.2</a>). The authority MUST NOT include the deprecated <tt>userinfo</tt> subcomponent for <tt>http</tt> or <tt>https</tt> schemed URIs.
                            </p>
                            <p>To ensure that the HTTP/1.1 request line can be reproduced accurately, this pseudo-header field MUST be omitted when translating
-                              from an HTTP/1.1 request that has a request target in origin or asterisk form (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#request-target" title="Request Target">Section 5.3</a>). Clients that generate HTTP/2 requests directly SHOULD use the <em>:authority</em> pseudo-header field instead of the <samp>Host</samp> header field. An intermediary that converts an HTTP/2 request to HTTP/1.1 MUST create a <samp>Host</samp> header field if one is not present in a request by copying the value of the <samp>:authority</samp> pseudo-header field.
+                              from an HTTP/1.1 request that has a request target in origin or asterisk form (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#request-target" title="Request Target">Section 5.3</a>). Clients that generate HTTP/2 requests directly SHOULD use the <em>:authority</em> pseudo-header field instead of the <tt>Host</tt> header field. An intermediary that converts an HTTP/2 request to HTTP/1.1 MUST create a <tt>Host</tt> header field if one is not present in a request by copying the value of the <tt>:authority</tt> pseudo-header field.
                            </p>
                         </li>
                         <li>
-                           <p>The <samp>:path</samp> pseudo-header field includes the path and query parts of the target URI (the <samp>path-absolute</samp> production from <a href="#RFC3986"><cite title="Uniform Resource Identifier (URI): Generic Syntax">[RFC3986]</cite></a> and optionally a '?' character followed by the <samp>query</samp> production, see <a href="#RFC3986"><cite title="Uniform Resource Identifier (URI): Generic Syntax">[RFC3986]</cite></a>, <a href="https://tools.ietf.org/html/rfc3986#section-3.3">Section 3.3</a> and <a href="#RFC3986"><cite title="Uniform Resource Identifier (URI): Generic Syntax">[RFC3986]</cite></a>, <a href="https://tools.ietf.org/html/rfc3986#section-3.4">Section 3.4</a>). A request in asterisk form includes the value '*' for the <samp>:path</samp> pseudo-header field.
+                           <p>The <tt>:path</tt> pseudo-header field includes the path and query parts of the target URI (the <tt>path-absolute</tt> production from <a href="#RFC3986"><cite title="Uniform Resource Identifier (URI): Generic Syntax">[RFC3986]</cite></a> and optionally a '?' character followed by the <tt>query</tt> production, see <a href="#RFC3986"><cite title="Uniform Resource Identifier (URI): Generic Syntax">[RFC3986]</cite></a>, <a href="https://tools.ietf.org/html/rfc3986#section-3.3">Section 3.3</a> and <a href="#RFC3986"><cite title="Uniform Resource Identifier (URI): Generic Syntax">[RFC3986]</cite></a>, <a href="https://tools.ietf.org/html/rfc3986#section-3.4">Section 3.4</a>). A request in asterisk form includes the value '*' for the <tt>:path</tt> pseudo-header field.
                            </p>
-                           <p>This pseudo-header field MUST NOT be empty for <samp>http</samp> or <samp>https</samp> URIs; <samp>http</samp> or <samp>https</samp> URIs that do not contain a path component MUST include a value of '/'. The exception to this rule is an OPTIONS request for
-                              an <samp>http</samp> or <samp>https</samp> URI that does not include a path component; these MUST include a <samp>:path</samp> pseudo-header field with a value of '*' (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#asterisk-form" title="asterisk-form">Section 5.3.4</a>).
+                           <p>This pseudo-header field MUST NOT be empty for <tt>http</tt> or <tt>https</tt> URIs; <tt>http</tt> or <tt>https</tt> URIs that do not contain a path component MUST include a value of '/'. The exception to this rule is an OPTIONS request for
+                              an <tt>http</tt> or <tt>https</tt> URI that does not include a path component; these MUST include a <tt>:path</tt> pseudo-header field with a value of '*' (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#asterisk-form" title="asterisk-form">Section 5.3.4</a>).
                            </p>
                         </li>
                      </ul>
                   </div>
                   <div id="rfc.section.8.1.2.3.p.2">
-                     <p>All HTTP/2 requests MUST include exactly one valid value for the <samp>:method</samp>, <samp>:scheme</samp>, and <samp>:path</samp> pseudo-header fields, unless it is a CONNECT request (<a href="#CONNECT" title="The CONNECT Method">Section&nbsp;8.3</a>). An HTTP request that omits mandatory pseudo-header fields is malformed (<a href="#malformed" title="Malformed Requests and Responses">Section&nbsp;8.1.2.6</a>).
+                     <p>All HTTP/2 requests MUST include exactly one valid value for the <tt>:method</tt>, <tt>:scheme</tt>, and <tt>:path</tt> pseudo-header fields, unless it is a CONNECT request (<a href="#CONNECT" title="The CONNECT Method">Section&nbsp;8.3</a>). An HTTP request that omits mandatory pseudo-header fields is malformed (<a href="#malformed" title="Malformed Requests and Responses">Section&nbsp;8.1.2.6</a>).
                      </p>
                   </div>
                   <div id="rfc.section.8.1.2.3.p.3">
@@ -3085,7 +3088,7 @@ Upgrade: h2c
                <div id="HttpResponse">
                   <h4 id="rfc.section.8.1.2.4"><a href="#rfc.section.8.1.2.4">8.1.2.4</a>&nbsp;<a href="#HttpResponse">Response Pseudo-Header Fields</a></h4>
                   <div id="rfc.section.8.1.2.4.p.1">
-                     <p>For HTTP/2 responses, a single <samp>:status</samp> pseudo-header field is defined that carries the HTTP status code field (see <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.codes" title="Response Status Codes">Section 6</a>). This pseudo-header field MUST be included in all responses, otherwise the response is malformed (<a href="#malformed" title="Malformed Requests and Responses">Section&nbsp;8.1.2.6</a>).
+                     <p>For HTTP/2 responses, a single <tt>:status</tt> pseudo-header field is defined that carries the HTTP status code field (see <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.codes" title="Response Status Codes">Section 6</a>). This pseudo-header field MUST be included in all responses, otherwise the response is malformed (<a href="#malformed" title="Malformed Requests and Responses">Section&nbsp;8.1.2.6</a>).
                      </p>
                   </div>
                   <div id="rfc.section.8.1.2.4.p.2">
@@ -3128,7 +3131,7 @@ Upgrade: h2c
                      </p>
                   </div>
                   <div id="rfc.section.8.1.2.6.p.2">
-                     <p>A request or response that includes an entity body can include a <samp>content-length</samp> header field. A request or response is also malformed if the value of a <samp>content-length</samp> header field does not equal the sum of the <a href="#DATA" class="smpl">DATA</a> frame payload lengths that form the body. A response that is defined to have no payload, as described in <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#header.content-length" title="Content-Length">Section 3.3.2</a>, can have a non-zero <samp>content-length</samp> header field, even though no content is included in <a href="#DATA" class="smpl">DATA</a> frames.
+                     <p>A request or response that includes an entity body can include a <tt>content-length</tt> header field. A request or response is also malformed if the value of a <tt>content-length</tt> header field does not equal the sum of the <a href="#DATA" class="smpl">DATA</a> frame payload lengths that form the body. A response that is defined to have no payload, as described in <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#header.content-length" title="Content-Length">Section 3.3.2</a>, can have a non-zero <tt>content-length</tt> header field, even though no content is included in <a href="#DATA" class="smpl">DATA</a> frames.
                      </p>
                   </div>
                   <div id="rfc.section.8.1.2.6.p.3">
@@ -3338,7 +3341,7 @@ Upgrade: h2c
                   </p>
                </div>
                <div id="rfc.section.8.2.1.p.4">
-                  <p>The header fields in <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> and any subsequent <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames MUST be a valid and complete set of request header fields (<a href="#HttpRequest" title="Request Pseudo-Header Fields">Section&nbsp;8.1.2.3</a>). The server MUST include a method in the <samp>:method</samp> header field that is safe and cacheable. If a client receives a <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> that does not include a complete and valid set of header fields, or the <samp>:method</samp> header field identifies a method that is not safe, it MUST respond with a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
+                  <p>The header fields in <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> and any subsequent <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames MUST be a valid and complete set of request header fields (<a href="#HttpRequest" title="Request Pseudo-Header Fields">Section&nbsp;8.1.2.3</a>). The server MUST include a method in the <tt>:method</tt> header field that is safe and cacheable. If a client receives a <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> that does not include a complete and valid set of header fields, or the <tt>:method</tt> header field identifies a method that is not safe, it MUST respond with a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
                   </p>
                </div>
                <div id="rfc.section.8.2.1.p.5">
@@ -3392,7 +3395,7 @@ Upgrade: h2c
                </div>
                <div id="rfc.section.8.2.2.p.5">
                   <p>Clients receiving a pushed response MUST validate that either the server is authoritative (see <a href="#authority" title="Server Authority">Section&nbsp;10.1</a>), or the proxy that provided the pushed response is configured for the corresponding request. For example, a server that
-                     offers a certificate for only the <samp>example.com</samp> DNS-ID or Common Name is not permitted to push a response for <samp>https://www.example.org/doc</samp>.
+                     offers a certificate for only the <tt>example.com</tt> DNS-ID or Common Name is not permitted to push a response for <tt>https://www.example.org/doc</tt>.
                   </p>
                </div>
                <div id="rfc.section.8.2.2.p.6">
@@ -3410,7 +3413,7 @@ Upgrade: h2c
             <h2 id="rfc.section.8.3"><a href="#rfc.section.8.3">8.3</a>&nbsp;<a href="#CONNECT">The CONNECT Method</a></h2>
             <div id="rfc.section.8.3.p.1">
                <p>In HTTP/1.x, the pseudo-method CONNECT (<a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#CONNECT" title="CONNECT">Section 4.3.6</a>) is used to convert an HTTP connection into a tunnel to a remote host. CONNECT is primarily used with HTTP proxies to establish
-                  a TLS session with an origin server for the purposes of interacting with <samp>https</samp> resources.
+                  a TLS session with an origin server for the purposes of interacting with <tt>https</tt> resources.
                </p>
             </div>
             <div id="rfc.section.8.3.p.2">
@@ -3418,17 +3421,17 @@ Upgrade: h2c
                   The HTTP header field mapping works as defined in Request Header Fields (<a href="#HttpRequest" title="Request Pseudo-Header Fields">Section&nbsp;8.1.2.3</a>), with a few differences. Specifically: 
                </p>
                <ul>
-                  <li>The <samp>:method</samp> header field is set to <samp>CONNECT</samp>.
+                  <li>The <tt>:method</tt> header field is set to <tt>CONNECT</tt>.
                   </li>
-                  <li>The <samp>:scheme</samp> and <samp>:path</samp> header fields MUST be omitted.
+                  <li>The <tt>:scheme</tt> and <tt>:path</tt> header fields MUST be omitted.
                   </li>
-                  <li>The <samp>:authority</samp> header field contains the host and port to connect to (equivalent to the authority-form of the request-target of CONNECT requests,
+                  <li>The <tt>:authority</tt> header field contains the host and port to connect to (equivalent to the authority-form of the request-target of CONNECT requests,
                      see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#request-target" title="Request Target">Section 5.3</a>).
                   </li>
                </ul>
             </div>
             <div id="rfc.section.8.3.p.3">
-               <p>A proxy that supports CONNECT establishes a <a href="#TCP">TCP connection</a> <cite title="Transmission Control Protocol">[TCP]</cite> to the server identified in the <samp>:authority</samp> header field. Once this connection is successfully established, the proxy sends a <a href="#HEADERS" class="smpl">HEADERS</a> frame containing a 2xx series status code to the client, as defined in <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#CONNECT" title="CONNECT">Section 4.3.6</a>.
+               <p>A proxy that supports CONNECT establishes a <a href="#TCP">TCP connection</a> <cite title="Transmission Control Protocol">[TCP]</cite> to the server identified in the <tt>:authority</tt> header field. Once this connection is successfully established, the proxy sends a <a href="#HEADERS" class="smpl">HEADERS</a> frame containing a 2xx series status code to the client, as defined in <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#CONNECT" title="CONNECT">Section 4.3.6</a>.
                </p>
             </div>
             <div id="rfc.section.8.3.p.4">
@@ -3488,12 +3491,12 @@ Upgrade: h2c
                <h3 id="rfc.section.9.1.1"><a href="#rfc.section.9.1.1">9.1.1</a>&nbsp;<a href="#reuse">Connection Reuse</a></h3>
                <div id="rfc.section.9.1.1.p.1">
                   <p>Connections that are made to an origin servers, either directly or through a tunnel created using the CONNECT method (<a href="#CONNECT" title="The CONNECT Method">Section&nbsp;8.3</a>) MAY be reused for requests with multiple different URI authority components. A connection can be reused as long as the origin
-                     server is authoritative (<a href="#authority" title="Server Authority">Section&nbsp;10.1</a>). For <samp>http</samp> resources, this depends on the host having resolved to the same IP address.
+                     server is authoritative (<a href="#authority" title="Server Authority">Section&nbsp;10.1</a>). For <tt>http</tt> resources, this depends on the host having resolved to the same IP address.
                   </p>
                </div>
                <div id="rfc.section.9.1.1.p.2">
-                  <p>For <samp>https</samp> resources, connection reuse additionally depends on having a certificate that is valid for the host in the URI. An origin
-                     server might offer a certificate with multiple <samp>subjectAltName</samp> attributes, or names with wildcards, one of which is valid for the authority in the URI. For example, a certificate with a <samp>subjectAltName</samp> of <samp>*.example.com</samp> might permit the use of the same connection for requests to URIs starting with <samp>https://a.example.com/</samp> and <samp>https://b.example.com/</samp>.
+                  <p>For <tt>https</tt> resources, connection reuse additionally depends on having a certificate that is valid for the host in the URI. An origin
+                     server might offer a certificate with multiple <tt>subjectAltName</tt> attributes, or names with wildcards, one of which is valid for the authority in the URI. For example, a certificate with a <tt>subjectAltName</tt> of <tt>*.example.com</tt> might permit the use of the same connection for requests to URIs starting with <tt>https://a.example.com/</tt> and <tt>https://b.example.com/</tt>.
                   </p>
                </div>
                <div id="rfc.section.9.1.1.p.3">
@@ -3654,7 +3657,7 @@ Upgrade: h2c
                <p>Similarly, HTTP/2 allows header field values that are not valid. While most of the values that can be encoded will not alter
                   header field parsing, carriage return (CR, ASCII 0xd), line feed (LF, ASCII 0xa), and the zero character (NUL, ASCII 0x0)
                   might be exploited by an attacker if they are translater verbatim. Any request or response that contains a character not permitted
-                  in a header field value MUST be treated as malformed (<a href="#malformed" title="Malformed Requests and Responses">Section&nbsp;8.1.2.6</a>). Valid characters are defined by the <samp>field-content</samp> ABNF rule in <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#header.fields" title="Header Fields">Section 3.2</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>.
+                  in a header field value MUST be treated as malformed (<a href="#malformed" title="Malformed Requests and Responses">Section&nbsp;8.1.2.6</a>). Valid characters are defined by the <tt>field-content</tt> ABNF rule in <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#header.fields" title="Header Fields">Section 3.2</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>.
                </p>
             </div>
          </div>
@@ -3836,11 +3839,11 @@ Upgrade: h2c
             </p>
          </div>
          <div id="rfc.section.11.p.3">
-            <p>This document registers the <samp>HTTP2-Settings</samp> header field for use in HTTP; and the 421 (Misdirected Request) status code.
+            <p>This document registers the <tt>HTTP2-Settings</tt> header field for use in HTTP; and the 421 (Misdirected Request) status code.
             </p>
          </div>
          <div id="rfc.section.11.p.4">
-            <p>This document registers the <samp>PRI</samp> method for use in HTTP, to avoid collisions with the connection preface (<a href="#ConnectionHeader" title="HTTP/2 Connection Preface">Section&nbsp;3.5</a>).
+            <p>This document registers the <tt>PRI</tt> method for use in HTTP, to avoid collisions with the connection preface (<a href="#ConnectionHeader" title="HTTP/2 Connection Preface">Section&nbsp;3.5</a>).
             </p>
          </div>
          <div id="iana-alpn">
@@ -4167,7 +4170,7 @@ Upgrade: h2c
             <h2 id="rfc.section.11.5"><a href="#rfc.section.11.5">11.5</a>&nbsp;HTTP2-Settings Header Field Registration
             </h2>
             <div id="rfc.section.11.5.p.1">
-               <p>This section registers the <samp>HTTP2-Settings</samp> header field in the <a href="#BCP90">Permanent Message Header Field Registry</a> <cite title="Registration Procedures for Message Header Fields">[BCP90]</cite>. 
+               <p>This section registers the <tt>HTTP2-Settings</tt> header field in the <a href="#BCP90">Permanent Message Header Field Registry</a> <cite title="Registration Procedures for Message Header Fields">[BCP90]</cite>. 
                </p>
                <dl>
                   <dt>Header field name:</dt>
@@ -4190,7 +4193,7 @@ Upgrade: h2c
             <h2 id="rfc.section.11.6"><a href="#rfc.section.11.6">11.6</a>&nbsp;PRI Method Registration
             </h2>
             <div id="rfc.section.11.6.p.1">
-               <p>This section registers the <samp>PRI</samp> method in the HTTP Method Registry (<a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#method.registry" title="Method Registry">Section 8.1</a>). 
+               <p>This section registers the <tt>PRI</tt> method in the HTTP Method Registry (<a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#method.registry" title="Method Registry">Section 8.1</a>). 
                </p>
                <dl>
                   <dt>Method Name:</dt>
