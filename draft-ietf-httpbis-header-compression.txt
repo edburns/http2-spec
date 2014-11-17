@@ -1198,8 +1198,8 @@ Internet-Draft                    HPACK                    November 2014
 9.1.  Normative References
 
    [HTTP2]    Belshe, M., Peon, R., and M. Thomson, Ed., "Hypertext
-              Transfer Protocol version 2", draft-ietf-httpbis-http2-14
-              (work in progress), July 2014.
+              Transfer Protocol version 2", draft-ietf-httpbis-http2-15
+              (work in progress), October 2014.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
