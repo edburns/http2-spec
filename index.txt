@@ -4401,7 +4401,7 @@ Internet-Draft                   HTTP/2                    November 2014
 
    [TLSBCP]   Sheffer, Y., Holz, R., and P. Saint-Andre,
               "Recommendations for Secure Use of TLS and DTLS", draft-
-              ietf-uta-tls-bcp-01 (work in progress), June 2014.
+              ietf-uta-tls-bcp-07 (work in progress), November 2014.
 
 13.3.  URIs
 
