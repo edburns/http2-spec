@@ -4426,9 +4426,9 @@ Belshe, et al.            Expires May 26, 2015                 [Page 79]
 Internet-Draft                   HTTP/2                    November 2014
 
 
-   [HTML5]    Berjon, R., Faulkner, S., Leithead, T., Doyle Navara, E.,
-              O'Connor, E., and S. Pfeiffer, "HTML5", W3C Recommendation
-              REC-html5-20141028, October 2014,
+   [HTML5]    Hickson, I., Berjon, R., Faulkner, S., Leithead, T., Doyle
+              Navara, E., O'Connor, E., and S. Pfeiffer, "HTML5", W3C
+              Recommendation REC-html5-20141028, October 2014,
               <http://www.w3.org/TR/2014/REC-html5-20141028/>.
 
               Latest version available at [5].
