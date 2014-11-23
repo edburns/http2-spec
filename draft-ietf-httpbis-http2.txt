@@ -4321,6 +4321,10 @@ Internet-Draft                   HTTP/2                    November 2014
    o  A substantial proportion of Martin's contribution was supported by
       Microsoft during his employment there.
 
+   o  The Japanese HTTP/2 community provided an invaluable contribution,
+      including a number of implementations, plus numerous technical and
+      editorial contributions.
+
 13.  References
 
 13.1.  Normative References
@@ -4359,16 +4363,16 @@ Internet-Draft                   HTTP/2                    November 2014
               Protocol (HTTP/1.1): Message Syntax and Routing", RFC
               7230, June 2014.
 
-   [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
-              Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
-              June 2014.
-
 
 
 Belshe, et al.            Expires May 27, 2015                 [Page 78]
 
 Internet-Draft                   HTTP/2                    November 2014
 
+
+   [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
+              Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
+              June 2014.
 
    [RFC7232]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Conditional Requests", RFC 7232, June
@@ -4414,10 +4418,6 @@ Internet-Draft                   HTTP/2                    November 2014
               Procedures for Message Header Fields", BCP 90, RFC 3864,
               September 2004.
 
-   [BREACH]   Gluck, Y., Harris, N., and A. Prado, "BREACH: Reviving the
-              CRIME Attack", July 2013,
-              <http://breachattack.com/resources/
-              BREACH%20-%20SSL,%20gone%20in%2030%20seconds.pdf>.
 
 
 
@@ -4425,6 +4425,11 @@ Belshe, et al.            Expires May 27, 2015                 [Page 79]
 
 Internet-Draft                   HTTP/2                    November 2014
 
+
+   [BREACH]   Gluck, Y., Harris, N., and A. Prado, "BREACH: Reviving the
+              CRIME Attack", July 2013,
+              <http://breachattack.com/resources/
+              BREACH%20-%20SSL,%20gone%20in%2030%20seconds.pdf>.
 
    [HTML5]    Hickson, I., Berjon, R., Faulkner, S., Leithead, T., Doyle
               Navara, E., O'Connor, E., and S. Pfeiffer, "HTML5", W3C
@@ -4468,11 +4473,6 @@ Internet-Draft                   HTTP/2                    November 2014
 
    [3] https://tools.ietf.org/html/draft-montenegro-httpbis-http2-fc-
        principles-01
-
-
-
-
-
 
 
 
