@@ -2327,7 +2327,7 @@ Upgrade: h2c
                         </p>
                         <p>A value of 0 for SETTINGS_MAX_CONCURRENT_STREAMS SHOULD NOT be treated as special by endpoints. A zero value does prevent
                            the creation of new streams, however this can also happen for any limit that is exhausted with active streams. Servers SHOULD
-                           only set a zero value for short durations; if a server does not wish to accept requests, closing the connection could be preferable.
+                           only set a zero value for short durations; if a server does not wish to accept requests, closing the connection is more appropriate.
                         </p>
                      </dd>
                      <dt id="SETTINGS_INITIAL_WINDOW_SIZE">SETTINGS_INITIAL_WINDOW_SIZE (0x4):</dt>
