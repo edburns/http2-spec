@@ -34,7 +34,7 @@ Editorial Note (To be removed by RFC Editor)
    Working Group information can be found at [2]; that specific to
    HTTP/2 are at [3].
 
-   The changes in this draft are summarized in Appendix A.
+   The changes in this draft are summarized in Appendix B.
 
 Status of This Memo
 
@@ -151,17 +151,17 @@ Internet-Draft                   HTTP/2                    November 2014
        9.1.1.  Connection Reuse  . . . . . . . . . . . . . . . . . .  65
        9.1.2.  The 421 (Misdirected Request) Status Code . . . . . .  66
      9.2.  Use of TLS Features . . . . . . . . . . . . . . . . . . .  66
-       9.2.1.  TLS Features  . . . . . . . . . . . . . . . . . . . .  66
-       9.2.2.  TLS Cipher Suites . . . . . . . . . . . . . . . . . .  67
+       9.2.1.  TLS 1.2 Features  . . . . . . . . . . . . . . . . . .  66
+       9.2.2.  TLS 1.2 Cipher Suites . . . . . . . . . . . . . . . .  67
    10. Security Considerations . . . . . . . . . . . . . . . . . . .  68
      10.1.  Server Authority . . . . . . . . . . . . . . . . . . . .  68
      10.2.  Cross-Protocol Attacks . . . . . . . . . . . . . . . . .  68
-     10.3.  Intermediary Encapsulation Attacks . . . . . . . . . . .  68
+     10.3.  Intermediary Encapsulation Attacks . . . . . . . . . . .  69
      10.4.  Cacheability of Pushed Responses . . . . . . . . . . . .  69
      10.5.  Denial of Service Considerations . . . . . . . . . . . .  69
-       10.5.1.  Limits on Header Block Size  . . . . . . . . . . . .  70
+       10.5.1.  Limits on Header Block Size  . . . . . . . . . . . .  71
      10.6.  Use of Compression . . . . . . . . . . . . . . . . . . .  71
-     10.7.  Use of Padding . . . . . . . . . . . . . . . . . . . . .  71
+     10.7.  Use of Padding . . . . . . . . . . . . . . . . . . . . .  72
 
 
 
@@ -171,7 +171,7 @@ Internet-Draft                   HTTP/2                    November 2014
 
 
      10.8.  Privacy Considerations . . . . . . . . . . . . . . . . .  72
-   11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  72
+   11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  73
      11.1.  Registration of HTTP/2 Identification Strings  . . . . .  73
      11.2.  Frame Type Registry  . . . . . . . . . . . . . . . . . .  73
      11.3.  Settings Registry  . . . . . . . . . . . . . . . . . . .  74
@@ -184,24 +184,25 @@ Internet-Draft                   HTTP/2                    November 2014
      13.1.  Normative References . . . . . . . . . . . . . . . . . .  78
      13.2.  Informative References . . . . . . . . . . . . . . . . .  79
      13.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  80
-   Appendix A.  Change Log . . . . . . . . . . . . . . . . . . . . .  81
-     A.1.  Since draft-ietf-httpbis-http2-15 . . . . . . . . . . . .  81
-     A.2.  Since draft-ietf-httpbis-http2-14 . . . . . . . . . . . .  81
-     A.3.  Since draft-ietf-httpbis-http2-13 . . . . . . . . . . . .  81
-     A.4.  Since draft-ietf-httpbis-http2-12 . . . . . . . . . . . .  81
-     A.5.  Since draft-ietf-httpbis-http2-11 . . . . . . . . . . . .  82
-     A.6.  Since draft-ietf-httpbis-http2-10 . . . . . . . . . . . .  82
-     A.7.  Since draft-ietf-httpbis-http2-09 . . . . . . . . . . . .  82
-     A.8.  Since draft-ietf-httpbis-http2-08 . . . . . . . . . . . .  83
-     A.9.  Since draft-ietf-httpbis-http2-07 . . . . . . . . . . . .  83
-     A.10. Since draft-ietf-httpbis-http2-06 . . . . . . . . . . . .  83
-     A.11. Since draft-ietf-httpbis-http2-05 . . . . . . . . . . . .  83
-     A.12. Since draft-ietf-httpbis-http2-04 . . . . . . . . . . . .  83
-     A.13. Since draft-ietf-httpbis-http2-03 . . . . . . . . . . . .  84
-     A.14. Since draft-ietf-httpbis-http2-02 . . . . . . . . . . . .  84
-     A.15. Since draft-ietf-httpbis-http2-01 . . . . . . . . . . . .  84
-     A.16. Since draft-ietf-httpbis-http2-00 . . . . . . . . . . . .  85
-     A.17. Since draft-mbelshe-httpbis-spdy-00 . . . . . . . . . . .  86
+   Appendix A.  Prohibited TLS 1.2 Cipher Suites . . . . . . . . . .  81
+   Appendix B.  Change Log . . . . . . . . . . . . . . . . . . . . .  85
+     B.1.  Since draft-ietf-httpbis-http2-15 . . . . . . . . . . . .  85
+     B.2.  Since draft-ietf-httpbis-http2-14 . . . . . . . . . . . .  85
+     B.3.  Since draft-ietf-httpbis-http2-13 . . . . . . . . . . . .  86
+     B.4.  Since draft-ietf-httpbis-http2-12 . . . . . . . . . . . .  86
+     B.5.  Since draft-ietf-httpbis-http2-11 . . . . . . . . . . . .  86
+     B.6.  Since draft-ietf-httpbis-http2-10 . . . . . . . . . . . .  86
+     B.7.  Since draft-ietf-httpbis-http2-09 . . . . . . . . . . . .  87
+     B.8.  Since draft-ietf-httpbis-http2-08 . . . . . . . . . . . .  87
+     B.9.  Since draft-ietf-httpbis-http2-07 . . . . . . . . . . . .  88
+     B.10. Since draft-ietf-httpbis-http2-06 . . . . . . . . . . . .  88
+     B.11. Since draft-ietf-httpbis-http2-05 . . . . . . . . . . . .  88
+     B.12. Since draft-ietf-httpbis-http2-04 . . . . . . . . . . . .  88
+     B.13. Since draft-ietf-httpbis-http2-03 . . . . . . . . . . . .  89
+     B.14. Since draft-ietf-httpbis-http2-02 . . . . . . . . . . . .  89
+     B.15. Since draft-ietf-httpbis-http2-01 . . . . . . . . . . . .  89
+     B.16. Since draft-ietf-httpbis-http2-00 . . . . . . . . . . . .  90
+     B.17. Since draft-mbelshe-httpbis-spdy-00 . . . . . . . . . . .  90
 
 1.  Introduction
 
@@ -216,7 +217,6 @@ Internet-Draft                   HTTP/2                    November 2014
    suffers from head-of-line blocking.  Therefore, HTTP/1.1 clients that
    need to make many requests typically use multiple connections to a
    server in order to achieve concurrency and thereby reduce latency.
-
 
 
 
@@ -3664,32 +3664,32 @@ Internet-Draft                   HTTP/2                    November 2014
 
 9.2.  Use of TLS Features
 
-   Implementations of HTTP/2 MUST support TLS 1.2 [TLS12] for HTTP/2
-   over TLS.  The general TLS usage guidance in [TLSBCP] SHOULD be
-   followed, with some additional restrictions that are specific to
-   HTTP/2.
-
-   An implementation of HTTP/2 over TLS MUST use TLS 1.2 or higher with
-   the restrictions on feature set and cipher suite described in this
-   section.  Due to implementation limitations, it might not be possible
-   to fail TLS negotiation.  An endpoint MUST immediately terminate an
-   HTTP/2 connection that does not meet the TLS requirements described
-   in this section with a connection error (Section 5.4.1) of type
-   INADEQUATE_SECURITY.
-
-9.2.1.  TLS Features
+   Implementations of HTTP/2 MUST use TLS [TLS12] version 1.2 or higher
+   for HTTP/2 over TLS.  The general TLS usage guidance in [TLSBCP]
+   SHOULD be followed, with some additional restrictions that are
+   specific to HTTP/2.
 
    The TLS implementation MUST support the Server Name Indication (SNI)
    [TLS-EXT] extension to TLS.  HTTP/2 clients MUST indicate the target
    domain name when negotiating TLS.
 
-   The TLS implementation MUST disable compression.  TLS compression can
-   lead to the exposure of information that would not otherwise be
-   revealed [RFC3749].  Generic compression is unnecessary since HTTP/2
-   provides compression features that are more aware of context and
-   therefore likely to be more appropriate for use for performance,
-   security or other reasons.
+   Deployments of HTTP/2 that negotiate TLS 1.3 or higher need only
+   support and use the SNI extension; deployments of TLS 1.2 are subject
+   to the requirements in the following sections.  Implementations are
+   encouraged to provide defaults that comply, but it is recognized that
+   deployments are ultimately responsible for compliance.
 
+9.2.1.  TLS 1.2 Features
+
+   This section describes restrictions on the TLS 1.2 feature set that
+   can be used with HTTP/2.  Due to deployment limitations, it might not
+   be possible to fail TLS negotiation when these restrictions are not
+   met.  An endpoint MAY immediately terminate an HTTP/2 connection that
+   does not meet these TLS requirements with a connection error
+   (Section 5.4.1) of type INADEQUATE_SECURITY.
+
+   A deployment of HTTP/2 over TLS 1.2 MUST disable compression.  TLS
+   compression can lead to the exposure of information that would not
 
 
 
@@ -3698,11 +3698,17 @@ Belshe, et al.            Expires May 29, 2015                 [Page 66]
 Internet-Draft                   HTTP/2                    November 2014
 
 
-   The TLS implementation MUST disable renegotiation.  An endpoint MUST
-   treat a TLS renegotiation as a connection error (Section 5.4.1) of
-   type PROTOCOL_ERROR.  Note that disabling renegotiation can result in
-   long-lived connections becoming unusable due to limits on the number
-   of messages the underlying cipher suite can encipher.
+   otherwise be revealed [RFC3749].  Generic compression is unnecessary
+   since HTTP/2 provides compression features that are more aware of
+   context and therefore likely to be more appropriate for use for
+   performance, security or other reasons.
+
+   A deployment of HTTP/2 over TLS 1.2 MUST disable renegotiation.  An
+   endpoint MUST treat a TLS renegotiation as a connection error
+   (Section 5.4.1) of type PROTOCOL_ERROR.  Note that disabling
+   renegotiation can result in long-lived connections becoming unusable
+   due to limits on the number of messages the underlying cipher suite
+   can encipher.
 
    An endpoint MAY use renegotiation to provide confidentiality
    protection for client credentials offered in the handshake, but any
@@ -3716,36 +3722,30 @@ Internet-Draft                   HTTP/2                    November 2014
    server might use an error (Section 5.4) of type HTTP_1_1_REQUIRED to
    request the client use a protocol which supports renegotiation.
 
-9.2.2.  TLS Cipher Suites
+   Implementations MUST support ephemeral key exchange sizes of at least
+   2048 bits for cipher suites that use ephemeral finite field Diffie-
+   Hellman (DHE) ([TLS12] and 224 bits for cipher suites that use
+   ephemeral elliptic curve Diffie-Hellman (ECDHE) ([RFC4492].  Clients
+   MUST accept DHE sizes of up to 4096 bits.  Endpoints MAY treat
+   negotiation of key sizes smaller than the lower limits as a
+   connection error (Section 5.4.1) of type INADEQUATE_SECURITY.
 
-   The set of TLS cipher suites that are permitted in HTTP/2 is
-   restricted.  HTTP/2 MUST only be used with cipher suites that have
-   ephemeral key exchange, such as the ephemeral Diffie-Hellman (DHE)
-   [TLS12] or the elliptic curve variant (ECDHE) [RFC4492].  Ephemeral
-   key exchange MUST have a minimum size of 2048 bits for DHE or
-   security level of 128 bits for ECDHE.  Clients MUST accept DHE sizes
-   of up to 4096 bits.  HTTP MUST NOT be used with cipher suites that
-   use stream or block ciphers.  Authenticated Encryption with
-   Additional Data (AEAD) modes, such as the Galois Counter Model (GCM)
-   mode for AES [RFC5288] are acceptable.
+9.2.2.  TLS 1.2 Cipher Suites
 
-   The effect of these restrictions is that TLS 1.2 implementations
-   could have non-intersecting sets of available cipher suites, since
-   these prevent the use of the cipher suite that TLS 1.2 makes
-   mandatory.  To avoid this problem, implementations of HTTP/2 that use
-   TLS 1.2 MUST support TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-   [TLS-ECDHE] with P256 [FIPS186].
+   A deployment of HTTP/2 over TLS 1.2 SHOULD NOT use any of the cipher
+   suites that are listed in Appendix A.
 
-   Clients MAY advertise support of cipher suites that are prohibited by
-   the above restrictions in order to allow for connection to servers
-   that do not support HTTP/2.  This enables a fallback to protocols
-   without these constraints without the additional latency imposed by
-   using a separate connection for fallback.
+   Endpoints MAY choose to generate a connection error (Section 5.4.1)
+   of type INADEQUATE_SECURITY if one of the prohibited cipher suites
+   are negotiated.  Thus, if a deployment chooses to use a prohibited
+   cipher suite, that risks of triggering a connection error, unless the
+   set of potential peers is known to accept that cipher suite.
 
-
-
-
-
+   Implementations MUST NOT generate this error in reaction to the
+   negotiation of a cipher suite that is not in the prohibited list.
+   Consequently, when clients offer a cipher suite that is not
+   prohibited, they have to be prepared to use that cipher suite with
+   HTTP/2.
 
 
 
@@ -3753,6 +3753,21 @@ Belshe, et al.            Expires May 29, 2015                 [Page 67]
 
 Internet-Draft                   HTTP/2                    November 2014
 
+
+   The effect of prohibiting these cipher suites is that TLS 1.2
+   deployments could have non-intersecting sets of available cipher
+   suites, since the prohibited set includes the cipher suite that TLS
+   1.2 makes mandatory.  To avoid this problem, deployments of HTTP/2
+   that use TLS 1.2 MUST support TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+   [TLS-ECDHE] with the P256 elliptic curve [FIPS186].
+
+   Note that clients might advertise support of cipher suites that are
+   prohibited by the above restrictions in order to allow for connection
+   to servers that do not support HTTP/2 and support only prohibited
+   cipher suites.  This allows servers to select HTTP/1.1 with a cipher
+   suite that is prohibited for HTTP/2.  However, this can result in
+   HTTP/2 being negotiated with a prohibited cipher suite if the
+   application protocol and cipher suite are independently selected.
 
 10.  Security Considerations
 
@@ -3787,6 +3802,14 @@ Internet-Draft                   HTTP/2                    November 2014
    protocol attacks.  The connection preface (Section 3.5) contains a
    string that is designed to confuse HTTP/1.1 servers, but no special
    protection is offered for other protocols.  A server that is willing
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 68]
+
+Internet-Draft                   HTTP/2                    November 2014
+
+
    to ignore parts of an HTTP/1.1 request containing an Upgrade header
    field in addition to the client connection preface could be exposed
    to a cross-protocol attack.
@@ -3802,14 +3825,6 @@ Internet-Draft                   HTTP/2                    November 2014
 
    Similarly, HTTP/2 allows header field values that are not valid.
    While most of the values that can be encoded will not alter header
-
-
-
-Belshe, et al.            Expires May 29, 2015                 [Page 68]
-
-Internet-Draft                   HTTP/2                    November 2014
-
-
    field parsing, carriage return (CR, ASCII 0xd), line feed (LF, ASCII
    0xa), and the zero character (NUL, ASCII 0x0) might be exploited by
    an attacker if they are translater verbatim.  Any request or response
@@ -3843,6 +3858,14 @@ Internet-Draft                   HTTP/2                    November 2014
    An HTTP/2 connection can demand a greater commitment of resources to
    operate than a HTTP/1.1 connection.  The use of header compression
    and flow control depend on a commitment of resources for storing a
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 69]
+
+Internet-Draft                   HTTP/2                    November 2014
+
+
    greater amount of state.  Settings for these features ensure that
    memory commitments for these features are strictly bounded.
 
@@ -3858,14 +3881,6 @@ Internet-Draft                   HTTP/2                    November 2014
    The SETTINGS frame can be abused to cause a peer to expend additional
    processing time.  This might be done by pointlessly changing SETTINGS
    parameters, setting multiple undefined parameters, or changing the
-
-
-
-Belshe, et al.            Expires May 29, 2015                 [Page 69]
-
-Internet-Draft                   HTTP/2                    November 2014
-
-
    same setting multiple times in the same frame.  WINDOW_UPDATE or
    PRIORITY frames can be abused to cause an unnecessary waste of
    resources.
@@ -3895,6 +3910,18 @@ Internet-Draft                   HTTP/2                    November 2014
    treat activity that is suspicious as a connection error
    (Section 5.4.1) of type ENHANCE_YOUR_CALM.
 
+
+
+
+
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 70]
+
+Internet-Draft                   HTTP/2                    November 2014
+
+
 10.5.1.  Limits on Header Block Size
 
    A large header block (Section 4.3) can cause an implementation to
@@ -3914,14 +3941,6 @@ Internet-Draft                   HTTP/2                    November 2014
    being treated as malformed.  This setting specific to a connection,
    so any request or response could encounter a hop with a lower,
    unknown limit.  An intermediary can attempt to avoid this problem by
-
-
-
-Belshe, et al.            Expires May 29, 2015                 [Page 70]
-
-Internet-Draft                   HTTP/2                    November 2014
-
-
    passing on values presented by different peers, but they are not
    obligated to do so.
 
@@ -3949,7 +3968,15 @@ Internet-Draft                   HTTP/2                    November 2014
    unless separate compression dictionaries are used for each source of
    data.  Compression MUST NOT be used if the source of data cannot be
    reliably determined.  Generic stream compression, such as that
-   provided by TLS MUST NOT be used with HTTP/2 (Section 9.2.1).
+   provided by TLS MUST NOT be used with HTTP/2 (Section 9.2).
+
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 71]
+
+Internet-Draft                   HTTP/2                    November 2014
+
 
    Further considerations regarding the compression of header fields are
    described in [COMPRESSION].
@@ -3968,15 +3995,6 @@ Internet-Draft                   HTTP/2                    November 2014
    is provided to mitigate specific attacks within HTTP.  For example,
    attacks where compressed content includes both attacker-controlled
    plaintext and secret data (see for example, [BREACH]).
-
-
-
-
-
-Belshe, et al.            Expires May 29, 2015                 [Page 71]
-
-Internet-Draft                   HTTP/2                    November 2014
-
 
    Use of padding can result in less protection than might seem
    immediately obvious.  At best, padding only makes it more difficult
@@ -4006,6 +4024,16 @@ Internet-Draft                   HTTP/2                    November 2014
    be used as a basis for fingerprinting a specific client, as defined
    in Section 1.8 of [HTML5].
 
+
+
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 72]
+
+Internet-Draft                   HTTP/2                    November 2014
+
+
 11.  IANA Considerations
 
    A string for identifying HTTP/2 is entered into the "Application
@@ -4021,18 +4049,6 @@ Internet-Draft                   HTTP/2                    November 2014
 
    This document registers the "PRI" method for use in HTTP, to avoid
    collisions with the connection preface (Section 3.5).
-
-
-
-
-
-
-
-
-Belshe, et al.            Expires May 29, 2015                 [Page 72]
-
-Internet-Draft                   HTTP/2                    November 2014
-
 
 11.1.  Registration of HTTP/2 Identification Strings
 
@@ -4067,6 +4083,13 @@ Internet-Draft                   HTTP/2                    November 2014
 
    New entries in this registry require the following information:
 
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 73]
+
+Internet-Draft                   HTTP/2                    November 2014
+
+
    Frame Type:  A name or label for the frame type.
 
    Code:  The 8-bit code assigned to the frame type.
@@ -4077,18 +4100,6 @@ Internet-Draft                   HTTP/2                    November 2014
       conditionally present based on the value of flags.
 
    The entries in the following table are registered by this document.
-
-
-
-
-
-
-
-
-Belshe, et al.            Expires May 29, 2015                 [Page 73]
-
-Internet-Draft                   HTTP/2                    November 2014
-
 
    +---------------+------+--------------+
    | Frame Type    | Code | Section      |
@@ -4128,6 +4139,13 @@ Internet-Draft                   HTTP/2                    November 2014
    An initial set of setting registrations can be found in
    Section 6.5.2.
 
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 74]
+
+Internet-Draft                   HTTP/2                    November 2014
+
+
    +------------------------+------+---------------+---------------+
    | Name                   | Code | Initial Value | Specification |
    +------------------------+------+---------------+---------------+
@@ -4138,13 +4156,6 @@ Internet-Draft                   HTTP/2                    November 2014
    | MAX_FRAME_SIZE         | 0x5  | 16384         | Section 6.5.2 |
    | MAX_HEADER_LIST_SIZE   | 0x6  | (infinite)    | Section 6.5.2 |
    +------------------------+------+---------------+---------------+
-
-
-
-Belshe, et al.            Expires May 29, 2015                 [Page 74]
-
-Internet-Draft                   HTTP/2                    November 2014
-
 
 11.4.  Error Code Registry
 
@@ -4172,17 +4183,6 @@ Internet-Draft                   HTTP/2                    November 2014
       defines the error code.
 
    The entries in the following table are registered by this document.
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -4482,21 +4482,287 @@ Belshe, et al.            Expires May 29, 2015                 [Page 80]
 Internet-Draft                   HTTP/2                    November 2014
 
 
-Appendix A.  Change Log
+Appendix A.  Prohibited TLS 1.2 Cipher Suites
+
+   The following cipher suites are prohibited for use in HTTP/2 over TLS
+   1.2: TLS_NULL_WITH_NULL_NULL, TLS_RSA_WITH_NULL_MD5,
+   TLS_RSA_WITH_NULL_SHA, TLS_RSA_EXPORT_WITH_RC4_40_MD5,
+   TLS_RSA_WITH_RC4_128_MD5, TLS_RSA_WITH_RC4_128_SHA,
+   TLS_RSA_EXPORT_WITH_RC2_CBC_40_MD5, TLS_RSA_WITH_IDEA_CBC_SHA,
+   TLS_RSA_EXPORT_WITH_DES40_CBC_SHA, TLS_RSA_WITH_DES_CBC_SHA,
+   TLS_RSA_WITH_3DES_EDE_CBC_SHA, TLS_DH_DSS_EXPORT_WITH_DES40_CBC_SHA,
+   TLS_DH_DSS_WITH_DES_CBC_SHA, TLS_DH_DSS_WITH_3DES_EDE_CBC_SHA,
+   TLS_DH_RSA_EXPORT_WITH_DES40_CBC_SHA, TLS_DH_RSA_WITH_DES_CBC_SHA,
+   TLS_DH_RSA_WITH_3DES_EDE_CBC_SHA,
+   TLS_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA, TLS_DHE_DSS_WITH_DES_CBC_SHA,
+   TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA,
+   TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA, TLS_DHE_RSA_WITH_DES_CBC_SHA,
+   TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA,
+   TLS_DH_anon_EXPORT_WITH_RC4_40_MD5, TLS_DH_anon_WITH_RC4_128_MD5,
+   TLS_DH_anon_EXPORT_WITH_DES40_CBC_SHA, TLS_DH_anon_WITH_DES_CBC_SHA,
+   TLS_DH_anon_WITH_3DES_EDE_CBC_SHA, TLS_KRB5_WITH_DES_CBC_SHA,
+   TLS_KRB5_WITH_3DES_EDE_CBC_SHA, TLS_KRB5_WITH_RC4_128_SHA,
+   TLS_KRB5_WITH_IDEA_CBC_SHA, TLS_KRB5_WITH_DES_CBC_MD5,
+   TLS_KRB5_WITH_3DES_EDE_CBC_MD5, TLS_KRB5_WITH_RC4_128_MD5,
+   TLS_KRB5_WITH_IDEA_CBC_MD5, TLS_KRB5_EXPORT_WITH_DES_CBC_40_SHA,
+   TLS_KRB5_EXPORT_WITH_RC2_CBC_40_SHA, TLS_KRB5_EXPORT_WITH_RC4_40_SHA,
+   TLS_KRB5_EXPORT_WITH_DES_CBC_40_MD5,
+   TLS_KRB5_EXPORT_WITH_RC2_CBC_40_MD5, TLS_KRB5_EXPORT_WITH_RC4_40_MD5,
+   TLS_PSK_WITH_NULL_SHA, TLS_DHE_PSK_WITH_NULL_SHA,
+   TLS_RSA_PSK_WITH_NULL_SHA, TLS_RSA_WITH_AES_128_CBC_SHA,
+   TLS_DH_DSS_WITH_AES_128_CBC_SHA, TLS_DH_RSA_WITH_AES_128_CBC_SHA,
+   TLS_DHE_DSS_WITH_AES_128_CBC_SHA, TLS_DHE_RSA_WITH_AES_128_CBC_SHA,
+   TLS_DH_anon_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_256_CBC_SHA,
+   TLS_DH_DSS_WITH_AES_256_CBC_SHA, TLS_DH_RSA_WITH_AES_256_CBC_SHA,
+   TLS_DHE_DSS_WITH_AES_256_CBC_SHA, TLS_DHE_RSA_WITH_AES_256_CBC_SHA,
+   TLS_DH_anon_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_NULL_SHA256,
+   TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA256,
+   TLS_DH_DSS_WITH_AES_128_CBC_SHA256,
+   TLS_DH_RSA_WITH_AES_128_CBC_SHA256,
+   TLS_DHE_DSS_WITH_AES_128_CBC_SHA256,
+   TLS_RSA_WITH_CAMELLIA_128_CBC_SHA,
+   TLS_DH_DSS_WITH_CAMELLIA_128_CBC_SHA,
+   TLS_DH_RSA_WITH_CAMELLIA_128_CBC_SHA,
+   TLS_DHE_DSS_WITH_CAMELLIA_128_CBC_SHA,
+   TLS_DHE_RSA_WITH_CAMELLIA_128_CBC_SHA,
+   TLS_DH_anon_WITH_CAMELLIA_128_CBC_SHA,
+   TLS_DHE_RSA_WITH_AES_128_CBC_SHA256,
+   TLS_DH_DSS_WITH_AES_256_CBC_SHA256,
+   TLS_DH_RSA_WITH_AES_256_CBC_SHA256,
+   TLS_DHE_DSS_WITH_AES_256_CBC_SHA256,
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 81]
+
+Internet-Draft                   HTTP/2                    November 2014
+
+
+   TLS_DHE_RSA_WITH_AES_256_CBC_SHA256,
+   TLS_DH_anon_WITH_AES_128_CBC_SHA256,
+   TLS_DH_anon_WITH_AES_256_CBC_SHA256,
+   TLS_RSA_WITH_CAMELLIA_256_CBC_SHA,
+   TLS_DH_DSS_WITH_CAMELLIA_256_CBC_SHA,
+   TLS_DH_RSA_WITH_CAMELLIA_256_CBC_SHA,
+   TLS_DHE_DSS_WITH_CAMELLIA_256_CBC_SHA,
+   TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA,
+   TLS_DH_anon_WITH_CAMELLIA_256_CBC_SHA, TLS_PSK_WITH_RC4_128_SHA,
+   TLS_PSK_WITH_3DES_EDE_CBC_SHA, TLS_PSK_WITH_AES_128_CBC_SHA,
+   TLS_PSK_WITH_AES_256_CBC_SHA, TLS_DHE_PSK_WITH_RC4_128_SHA,
+   TLS_DHE_PSK_WITH_3DES_EDE_CBC_SHA, TLS_DHE_PSK_WITH_AES_128_CBC_SHA,
+   TLS_DHE_PSK_WITH_AES_256_CBC_SHA, TLS_RSA_PSK_WITH_RC4_128_SHA,
+   TLS_RSA_PSK_WITH_3DES_EDE_CBC_SHA, TLS_RSA_PSK_WITH_AES_128_CBC_SHA,
+   TLS_RSA_PSK_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_SEED_CBC_SHA,
+   TLS_DH_DSS_WITH_SEED_CBC_SHA, TLS_DH_RSA_WITH_SEED_CBC_SHA,
+   TLS_DHE_DSS_WITH_SEED_CBC_SHA, TLS_DHE_RSA_WITH_SEED_CBC_SHA,
+   TLS_DH_anon_WITH_SEED_CBC_SHA, TLS_RSA_WITH_AES_128_GCM_SHA256,
+   TLS_RSA_WITH_AES_256_GCM_SHA384, TLS_DH_RSA_WITH_AES_128_GCM_SHA256,
+   TLS_DH_RSA_WITH_AES_256_GCM_SHA384,
+   TLS_DH_DSS_WITH_AES_128_GCM_SHA256,
+   TLS_DH_DSS_WITH_AES_256_GCM_SHA384,
+   TLS_DH_anon_WITH_AES_128_GCM_SHA256,
+   TLS_DH_anon_WITH_AES_256_GCM_SHA384, TLS_PSK_WITH_AES_128_GCM_SHA256,
+   TLS_PSK_WITH_AES_256_GCM_SHA384, TLS_RSA_PSK_WITH_AES_128_GCM_SHA256,
+   TLS_RSA_PSK_WITH_AES_256_GCM_SHA384, TLS_PSK_WITH_AES_128_CBC_SHA256,
+   TLS_PSK_WITH_AES_256_CBC_SHA384, TLS_PSK_WITH_NULL_SHA256,
+   TLS_PSK_WITH_NULL_SHA384, TLS_DHE_PSK_WITH_AES_128_CBC_SHA256,
+   TLS_DHE_PSK_WITH_AES_256_CBC_SHA384, TLS_DHE_PSK_WITH_NULL_SHA256,
+   TLS_DHE_PSK_WITH_NULL_SHA384, TLS_RSA_PSK_WITH_AES_128_CBC_SHA256,
+   TLS_RSA_PSK_WITH_AES_256_CBC_SHA384, TLS_RSA_PSK_WITH_NULL_SHA256,
+   TLS_RSA_PSK_WITH_NULL_SHA384, TLS_RSA_WITH_CAMELLIA_128_CBC_SHA256,
+   TLS_DH_DSS_WITH_CAMELLIA_128_CBC_SHA256,
+   TLS_DH_RSA_WITH_CAMELLIA_128_CBC_SHA256,
+   TLS_DHE_DSS_WITH_CAMELLIA_128_CBC_SHA256,
+   TLS_DHE_RSA_WITH_CAMELLIA_128_CBC_SHA256,
+   TLS_DH_anon_WITH_CAMELLIA_128_CBC_SHA256,
+   TLS_RSA_WITH_CAMELLIA_256_CBC_SHA256,
+   TLS_DH_DSS_WITH_CAMELLIA_256_CBC_SHA256,
+   TLS_DH_RSA_WITH_CAMELLIA_256_CBC_SHA256,
+   TLS_DHE_DSS_WITH_CAMELLIA_256_CBC_SHA256,
+   TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA256,
+   TLS_DH_anon_WITH_CAMELLIA_256_CBC_SHA256,
+   TLS_EMPTY_RENEGOTIATION_INFO_SCSV, TLS_ECDH_ECDSA_WITH_NULL_SHA,
+   TLS_ECDH_ECDSA_WITH_RC4_128_SHA,
+   TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA,
+   TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,
+   TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_NULL_SHA,
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 82]
+
+Internet-Draft                   HTTP/2                    November 2014
+
+
+   TLS_ECDHE_ECDSA_WITH_RC4_128_SHA,
+   TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA,
+   TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,
+   TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDH_RSA_WITH_NULL_SHA,
+   TLS_ECDH_RSA_WITH_RC4_128_SHA, TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA,
+   TLS_ECDH_RSA_WITH_AES_128_CBC_SHA, TLS_ECDH_RSA_WITH_AES_256_CBC_SHA,
+   TLS_ECDHE_RSA_WITH_NULL_SHA, TLS_ECDHE_RSA_WITH_RC4_128_SHA,
+   TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,
+   TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,
+   TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDH_anon_WITH_NULL_SHA,
+   TLS_ECDH_anon_WITH_RC4_128_SHA, TLS_ECDH_anon_WITH_3DES_EDE_CBC_SHA,
+   TLS_ECDH_anon_WITH_AES_128_CBC_SHA,
+   TLS_ECDH_anon_WITH_AES_256_CBC_SHA,
+   TLS_SRP_SHA_WITH_3DES_EDE_CBC_SHA,
+   TLS_SRP_SHA_RSA_WITH_3DES_EDE_CBC_SHA,
+   TLS_SRP_SHA_DSS_WITH_3DES_EDE_CBC_SHA,
+   TLS_SRP_SHA_WITH_AES_128_CBC_SHA,
+   TLS_SRP_SHA_RSA_WITH_AES_128_CBC_SHA,
+   TLS_SRP_SHA_DSS_WITH_AES_128_CBC_SHA,
+   TLS_SRP_SHA_WITH_AES_256_CBC_SHA,
+   TLS_SRP_SHA_RSA_WITH_AES_256_CBC_SHA,
+   TLS_SRP_SHA_DSS_WITH_AES_256_CBC_SHA,
+   TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,
+   TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,
+   TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256,
+   TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384,
+   TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,
+   TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,
+   TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256,
+   TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384,
+   TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256,
+   TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384,
+   TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256,
+   TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_PSK_WITH_RC4_128_SHA,
+   TLS_ECDHE_PSK_WITH_3DES_EDE_CBC_SHA,
+   TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA,
+   TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA,
+   TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA256,
+   TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA384, TLS_ECDHE_PSK_WITH_NULL_SHA,
+   TLS_ECDHE_PSK_WITH_NULL_SHA256, TLS_ECDHE_PSK_WITH_NULL_SHA384,
+   TLS_RSA_WITH_ARIA_128_CBC_SHA256, TLS_RSA_WITH_ARIA_256_CBC_SHA384,
+   TLS_DH_DSS_WITH_ARIA_128_CBC_SHA256,
+   TLS_DH_DSS_WITH_ARIA_256_CBC_SHA384,
+   TLS_DH_RSA_WITH_ARIA_128_CBC_SHA256,
+   TLS_DH_RSA_WITH_ARIA_256_CBC_SHA384,
+   TLS_DHE_DSS_WITH_ARIA_128_CBC_SHA256,
+   TLS_DHE_DSS_WITH_ARIA_256_CBC_SHA384,
+   TLS_DHE_RSA_WITH_ARIA_128_CBC_SHA256,
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 83]
+
+Internet-Draft                   HTTP/2                    November 2014
+
+
+   TLS_DHE_RSA_WITH_ARIA_256_CBC_SHA384,
+   TLS_DH_anon_WITH_ARIA_128_CBC_SHA256,
+   TLS_DH_anon_WITH_ARIA_256_CBC_SHA384,
+   TLS_ECDHE_ECDSA_WITH_ARIA_128_CBC_SHA256,
+   TLS_ECDHE_ECDSA_WITH_ARIA_256_CBC_SHA384,
+   TLS_ECDH_ECDSA_WITH_ARIA_128_CBC_SHA256,
+   TLS_ECDH_ECDSA_WITH_ARIA_256_CBC_SHA384,
+   TLS_ECDHE_RSA_WITH_ARIA_128_CBC_SHA256,
+   TLS_ECDHE_RSA_WITH_ARIA_256_CBC_SHA384,
+   TLS_ECDH_RSA_WITH_ARIA_128_CBC_SHA256,
+   TLS_ECDH_RSA_WITH_ARIA_256_CBC_SHA384,
+   TLS_RSA_WITH_ARIA_128_GCM_SHA256, TLS_RSA_WITH_ARIA_256_GCM_SHA384,
+   TLS_DH_RSA_WITH_ARIA_128_GCM_SHA256,
+   TLS_DH_RSA_WITH_ARIA_256_GCM_SHA384,
+   TLS_DH_DSS_WITH_ARIA_128_GCM_SHA256,
+   TLS_DH_DSS_WITH_ARIA_256_GCM_SHA384,
+   TLS_DH_anon_WITH_ARIA_128_GCM_SHA256,
+   TLS_DH_anon_WITH_ARIA_256_GCM_SHA384,
+   TLS_ECDH_ECDSA_WITH_ARIA_128_GCM_SHA256,
+   TLS_ECDH_ECDSA_WITH_ARIA_256_GCM_SHA384,
+   TLS_ECDH_RSA_WITH_ARIA_128_GCM_SHA256,
+   TLS_ECDH_RSA_WITH_ARIA_256_GCM_SHA384,
+   TLS_PSK_WITH_ARIA_128_CBC_SHA256, TLS_PSK_WITH_ARIA_256_CBC_SHA384,
+   TLS_DHE_PSK_WITH_ARIA_128_CBC_SHA256,
+   TLS_DHE_PSK_WITH_ARIA_256_CBC_SHA384,
+   TLS_RSA_PSK_WITH_ARIA_128_CBC_SHA256,
+   TLS_RSA_PSK_WITH_ARIA_256_CBC_SHA384,
+   TLS_PSK_WITH_ARIA_128_GCM_SHA256, TLS_PSK_WITH_ARIA_256_GCM_SHA384,
+   TLS_RSA_PSK_WITH_ARIA_128_GCM_SHA256,
+   TLS_RSA_PSK_WITH_ARIA_256_GCM_SHA384,
+   TLS_ECDHE_PSK_WITH_ARIA_128_CBC_SHA256,
+   TLS_ECDHE_PSK_WITH_ARIA_256_CBC_SHA384,
+   TLS_ECDHE_ECDSA_WITH_CAMELLIA_128_CBC_SHA256,
+   TLS_ECDHE_ECDSA_WITH_CAMELLIA_256_CBC_SHA384,
+   TLS_ECDH_ECDSA_WITH_CAMELLIA_128_CBC_SHA256,
+   TLS_ECDH_ECDSA_WITH_CAMELLIA_256_CBC_SHA384,
+   TLS_ECDHE_RSA_WITH_CAMELLIA_128_CBC_SHA256,
+   TLS_ECDHE_RSA_WITH_CAMELLIA_256_CBC_SHA384,
+   TLS_ECDH_RSA_WITH_CAMELLIA_128_CBC_SHA256,
+   TLS_ECDH_RSA_WITH_CAMELLIA_256_CBC_SHA384,
+   TLS_RSA_WITH_CAMELLIA_128_GCM_SHA256,
+   TLS_RSA_WITH_CAMELLIA_256_GCM_SHA384,
+   TLS_DH_RSA_WITH_CAMELLIA_128_GCM_SHA256,
+   TLS_DH_RSA_WITH_CAMELLIA_256_GCM_SHA384,
+   TLS_DH_DSS_WITH_CAMELLIA_128_GCM_SHA256,
+   TLS_DH_DSS_WITH_CAMELLIA_256_GCM_SHA384,
+   TLS_DH_anon_WITH_CAMELLIA_128_GCM_SHA256,
+   TLS_DH_anon_WITH_CAMELLIA_256_GCM_SHA384,
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 84]
+
+Internet-Draft                   HTTP/2                    November 2014
+
+
+   TLS_ECDH_ECDSA_WITH_CAMELLIA_128_GCM_SHA256,
+   TLS_ECDH_ECDSA_WITH_CAMELLIA_256_GCM_SHA384,
+   TLS_ECDH_RSA_WITH_CAMELLIA_128_GCM_SHA256,
+   TLS_ECDH_RSA_WITH_CAMELLIA_256_GCM_SHA384,
+   TLS_PSK_WITH_CAMELLIA_128_GCM_SHA256,
+   TLS_PSK_WITH_CAMELLIA_256_GCM_SHA384,
+   TLS_RSA_PSK_WITH_CAMELLIA_128_GCM_SHA256,
+   TLS_RSA_PSK_WITH_CAMELLIA_256_GCM_SHA384,
+   TLS_PSK_WITH_CAMELLIA_128_CBC_SHA256,
+   TLS_PSK_WITH_CAMELLIA_256_CBC_SHA384,
+   TLS_DHE_PSK_WITH_CAMELLIA_128_CBC_SHA256,
+   TLS_DHE_PSK_WITH_CAMELLIA_256_CBC_SHA384,
+   TLS_RSA_PSK_WITH_CAMELLIA_128_CBC_SHA256,
+   TLS_RSA_PSK_WITH_CAMELLIA_256_CBC_SHA384,
+   TLS_ECDHE_PSK_WITH_CAMELLIA_128_CBC_SHA256,
+   TLS_ECDHE_PSK_WITH_CAMELLIA_256_CBC_SHA384, TLS_RSA_WITH_AES_128_CCM,
+   TLS_RSA_WITH_AES_256_CCM, TLS_RSA_WITH_AES_128_CCM_8,
+   TLS_RSA_WITH_AES_256_CCM_8, TLS_PSK_WITH_AES_128_CCM,
+   TLS_PSK_WITH_AES_256_CCM, TLS_PSK_WITH_AES_128_CCM_8,
+   TLS_PSK_WITH_AES_256_CCM_8.
+
+   Note:  This list was assembled from the set of registered TLS cipher
+      suites at the time of writing.  This list includes those cipher
+      suites that do not offer an ephemeral key exchange and those that
+      are based on the TLS null, stream or block cipher type (as defined
+      in Section 6.2.3 of [TLS12]).  Additional cipher suites with these
+      properties could be defined; these would not be explicitly
+      prohibited.
+
+Appendix B.  Change Log
 
    This section is to be removed by RFC Editor before publication.
 
-A.1.  Since draft-ietf-httpbis-http2-15
+B.1.  Since draft-ietf-httpbis-http2-15
 
    Enabled the sending of PRIORITY for any stream state.
 
-A.2.  Since draft-ietf-httpbis-http2-14
+   Added a cipher suite blacklist and made several changes to the TLS
+   usage section.
+
+B.2.  Since draft-ietf-httpbis-http2-14
 
    Renamed Not Authoritative status code to Misdirected Request.
 
    Added HTTP_1_1_REQUIRED error code.
 
-A.3.  Since draft-ietf-httpbis-http2-13
+
+
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 85]
+
+Internet-Draft                   HTTP/2                    November 2014
+
+
+B.3.  Since draft-ietf-httpbis-http2-13
 
    Pseudo-header fields are now required to appear strictly before
    regular ones.
@@ -4512,7 +4778,7 @@ A.3.  Since draft-ietf-httpbis-http2-13
 
    Made non-semantic-bearing HEADERS frames illegal in the HTTP mapping.
 
-A.4.  Since draft-ietf-httpbis-http2-12
+B.4.  Since draft-ietf-httpbis-http2-12
 
    Restored extensibility options.
 
@@ -4531,14 +4797,7 @@ A.4.  Since draft-ietf-httpbis-http2-12
 
    Removed per-frame GZIP compression.
 
-
-
-Belshe, et al.            Expires May 29, 2015                 [Page 81]
-
-Internet-Draft                   HTTP/2                    November 2014
-
-
-A.5.  Since draft-ietf-httpbis-http2-11
+B.5.  Since draft-ietf-httpbis-http2-11
 
    Added BLOCKED frame (at risk).
 
@@ -4546,10 +4805,18 @@ A.5.  Since draft-ietf-httpbis-http2-11
 
    Added DATA per-frame GZIP compression.
 
-A.6.  Since draft-ietf-httpbis-http2-10
+B.6.  Since draft-ietf-httpbis-http2-10
 
    Changed "connection header" to "connection preface" to avoid
    confusion.
+
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 86]
+
+Internet-Draft                   HTTP/2                    November 2014
+
 
    Added dependency-based stream prioritization.
 
@@ -4564,7 +4831,7 @@ A.6.  Since draft-ietf-httpbis-http2-10
 
    Improving security considerations around use of compression.
 
-A.7.  Since draft-ietf-httpbis-http2-09
+B.7.  Since draft-ietf-httpbis-http2-09
 
    Adding padding for data frames.
 
@@ -4587,26 +4854,31 @@ A.7.  Since draft-ietf-httpbis-http2-09
 
    Allowing split on 0x0 for Cookie.
 
-
-
-Belshe, et al.            Expires May 29, 2015                 [Page 82]
-
-Internet-Draft                   HTTP/2                    November 2014
-
-
    Reserved PRI method in HTTP/1.1 to avoid possible future collisions.
 
-A.8.  Since draft-ietf-httpbis-http2-08
+B.8.  Since draft-ietf-httpbis-http2-08
 
    Added cookie crumbling for more efficient header compression.
 
    Added header field ordering with the value-concatenation mechanism.
 
-A.9.  Since draft-ietf-httpbis-http2-07
+
+
+
+
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 87]
+
+Internet-Draft                   HTTP/2                    November 2014
+
+
+B.9.  Since draft-ietf-httpbis-http2-07
 
    Marked draft for implementation.
 
-A.10.  Since draft-ietf-httpbis-http2-06
+B.10.  Since draft-ietf-httpbis-http2-06
 
    Adding definition for CONNECT method.
 
@@ -4624,7 +4896,7 @@ A.10.  Since draft-ietf-httpbis-http2-06
 
    Added denial of service considerations.
 
-A.11.  Since draft-ietf-httpbis-http2-05
+B.11.  Since draft-ietf-httpbis-http2-05
 
    Marking the draft ready for implementation.
 
@@ -4632,7 +4904,7 @@ A.11.  Since draft-ietf-httpbis-http2-05
 
    Editorial clarifications and changes.
 
-A.12.  Since draft-ietf-httpbis-http2-04
+B.12.  Since draft-ietf-httpbis-http2-04
 
    Added CONTINUATION frame for HEADERS and PUSH_PROMISE.
 
@@ -4640,15 +4912,6 @@ A.12.  Since draft-ietf-httpbis-http2-04
    SETTINGS_MAX_CONCURRENT_STREAMS is zero.
 
    Push expanded to allow all safe methods without a request body.
-
-
-
-
-
-Belshe, et al.            Expires May 29, 2015                 [Page 83]
-
-Internet-Draft                   HTTP/2                    November 2014
-
 
    Clarified the use of HTTP header fields in requests and responses.
    Prohibited HTTP/1.1 hop-by-hop header fields.
@@ -4659,6 +4922,14 @@ Internet-Draft                   HTTP/2                    November 2014
    Clarified requirements around handling different frames after stream
    close, stream reset and GOAWAY.
 
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 88]
+
+Internet-Draft                   HTTP/2                    November 2014
+
+
    Added more specific prohibitions for sending of different frame types
    in various stream states.
 
@@ -4666,7 +4937,7 @@ Internet-Draft                   HTTP/2                    November 2014
 
    Clarified requirements on TLS version, extension and ciphers.
 
-A.13.  Since draft-ietf-httpbis-http2-03
+B.13.  Since draft-ietf-httpbis-http2-03
 
    Committed major restructuring atrocities.
 
@@ -4680,7 +4951,7 @@ A.13.  Since draft-ietf-httpbis-http2-03
 
    Added PRIORITY frame.
 
-A.14.  Since draft-ietf-httpbis-http2-02
+B.14.  Since draft-ietf-httpbis-http2-02
 
    Added continuations to frames carrying header blocks.
 
@@ -4693,18 +4964,10 @@ A.14.  Since draft-ietf-httpbis-http2-02
 
    Editorial changes.
 
-A.15.  Since draft-ietf-httpbis-http2-01
+B.15.  Since draft-ietf-httpbis-http2-01
 
    Added IANA considerations section for frame types, error codes and
    settings.
-
-
-
-
-Belshe, et al.            Expires May 29, 2015                 [Page 84]
-
-Internet-Draft                   HTTP/2                    November 2014
-
 
    Removed data frame compression.
 
@@ -4715,6 +4978,13 @@ Internet-Draft                   HTTP/2                    November 2014
    Removed zlib-based header compression mechanism.
 
    Updated references.
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 89]
+
+Internet-Draft                   HTTP/2                    November 2014
+
 
    Clarified stream identifier reuse.
 
@@ -4734,7 +5004,7 @@ Internet-Draft                   HTTP/2                    November 2014
 
    Changed protocol label form based on discussions.
 
-A.16.  Since draft-ietf-httpbis-http2-00
+B.16.  Since draft-ietf-httpbis-http2-00
 
    Changed title throughout.
 
@@ -4750,19 +5020,7 @@ A.16.  Since draft-ietf-httpbis-http2-00
 
    Added flow control principles (Section 5.2.1) based on [7].
 
-
-
-
-
-
-
-
-Belshe, et al.            Expires May 29, 2015                 [Page 85]
-
-Internet-Draft                   HTTP/2                    November 2014
-
-
-A.17.  Since draft-mbelshe-httpbis-spdy-00
+B.17.  Since draft-mbelshe-httpbis-spdy-00
 
    Adopted as base for draft-ietf-httpbis-http2.
 
@@ -4776,6 +5034,12 @@ Authors' Addresses
    Twist
 
    EMail: mbelshe@chromium.org
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 90]
+
+Internet-Draft                   HTTP/2                    November 2014
 
 
    Roberto Peon
@@ -4813,4 +5077,20 @@ Authors' Addresses
 
 
 
-Belshe, et al.            Expires May 29, 2015                 [Page 86]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 91]
