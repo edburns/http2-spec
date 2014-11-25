@@ -3858,6 +3858,16 @@ Upgrade: h2c
                   as defined in <a href="http://www.w3.org/TR/2014/REC-html5-20141028/introduction.html#fingerprint">Section 1.8</a> of <a href="#HTML5"><cite title="HTML5">[HTML5]</cite></a>.
                </p>
             </div>
+            <div id="rfc.section.10.8.p.3">
+               <p>HTTP/2's preference for using a single TCP connection allows correlation of a user's activity on a site. If connections are
+                  reused for different origins, this allows tracking across those origins.
+               </p>
+            </div>
+            <div id="rfc.section.10.8.p.4">
+               <p>Because the PING and SETTINGS frames solicit immediate responses, they can be used by an endpoint to measure latency to their
+                  peer. This might have privacy implications in certain scenarios.
+               </p>
+            </div>
          </div>
       </div>
       <div id="iana">

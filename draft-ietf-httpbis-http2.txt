@@ -173,7 +173,7 @@ Internet-Draft                   HTTP/2                    November 2014
      10.8.  Privacy Considerations . . . . . . . . . . . . . . . . .  72
    11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  73
      11.1.  Registration of HTTP/2 Identification Strings  . . . . .  73
-     11.2.  Frame Type Registry  . . . . . . . . . . . . . . . . . .  73
+     11.2.  Frame Type Registry  . . . . . . . . . . . . . . . . . .  74
      11.3.  Settings Registry  . . . . . . . . . . . . . . . . . . .  74
      11.4.  Error Code Registry  . . . . . . . . . . . . . . . . . .  75
      11.5.  HTTP2-Settings Header Field Registration . . . . . . . .  76
@@ -4024,8 +4024,8 @@ Internet-Draft                   HTTP/2                    November 2014
    be used as a basis for fingerprinting a specific client, as defined
    in Section 1.8 of [HTML5].
 
-
-
+   HTTP/2's preference for using a single TCP connection allows
+   correlation of a user's activity on a site.  If connections are
 
 
 
@@ -4033,6 +4033,13 @@ Belshe, et al.            Expires May 29, 2015                 [Page 72]
 
 Internet-Draft                   HTTP/2                    November 2014
 
+
+   reused for different origins, this allows tracking across those
+   origins.
+
+   Because the PING and SETTINGS frames solicit immediate responses,
+   they can be used by an endpoint to measure latency to their peer.
+   This might have privacy implications in certain scenarios.
 
 11.  IANA Considerations
 
@@ -4072,6 +4079,17 @@ Internet-Draft                   HTTP/2                    November 2014
 
    Specification:  This document
 
+
+
+
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 73]
+
+Internet-Draft                   HTTP/2                    November 2014
+
+
 11.2.  Frame Type Registry
 
    This document establishes a registry for HTTP/2 frame type codes.
@@ -4082,13 +4100,6 @@ Internet-Draft                   HTTP/2                    November 2014
    use.
 
    New entries in this registry require the following information:
-
-
-
-Belshe, et al.            Expires May 29, 2015                 [Page 73]
-
-Internet-Draft                   HTTP/2                    November 2014
-
 
    Frame Type:  A name or label for the frame type.
 
@@ -4126,6 +4137,15 @@ Internet-Draft                   HTTP/2                    November 2014
 
    New registrations are advised to provide the following information:
 
+
+
+
+
+Belshe, et al.            Expires May 29, 2015                 [Page 74]
+
+Internet-Draft                   HTTP/2                    November 2014
+
+
    Name:  A symbolic name for the setting.  Specifying a setting name is
       optional.
 
@@ -4138,13 +4158,6 @@ Internet-Draft                   HTTP/2                    November 2014
 
    An initial set of setting registrations can be found in
    Section 6.5.2.
-
-
-
-Belshe, et al.            Expires May 29, 2015                 [Page 74]
-
-Internet-Draft                   HTTP/2                    November 2014
-
 
    +------------------------+------+---------------+---------------+
    | Name                   | Code | Initial Value | Specification |
@@ -4182,25 +4195,14 @@ Internet-Draft                   HTTP/2                    November 2014
    Specification:  An optional reference for a specification that
       defines the error code.
 
-   The entries in the following table are registered by this document.
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 Belshe, et al.            Expires May 29, 2015                 [Page 75]
 
 Internet-Draft                   HTTP/2                    November 2014
 
+
+   The entries in the following table are registered by this document.
 
    +---------------------+------+----------------------+---------------+
    | Name                | Code | Description          | Specification |
@@ -4248,8 +4250,6 @@ Internet-Draft                   HTTP/2                    November 2014
 
    Related information:  This header field is only used by an HTTP/2
       client for Upgrade-based negotiation.
-
-
 
 
 
