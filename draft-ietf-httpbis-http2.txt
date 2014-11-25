@@ -3509,6 +3509,9 @@ Internet-Draft                   HTTP/2                    November 2014
       connect to (equivalent to the authority-form of the request-target
       of CONNECT requests, see [RFC7230], Section 5.3).
 
+   A CONNECT request that does not conform to these restrictions is
+   malformed (Section 8.1.2.6).
+
    A proxy that supports CONNECT establishes a TCP connection [TCP] to
    the server identified in the ":authority" header field.  Once this
    connection is successfully established, the proxy sends a HEADERS
@@ -3519,9 +3522,6 @@ Internet-Draft                   HTTP/2                    November 2014
    DATA frames correspond to data sent on the TCP connection.  The
    payload of any DATA frames sent by the client is transmitted by the
    proxy to the TCP server; data received from the TCP server is
-   assembled into DATA frames by the proxy.  Frame types other than DATA
-   or stream management frames (RST_STREAM, WINDOW_UPDATE, and PRIORITY)
-
 
 
 
@@ -3530,6 +3530,8 @@ Belshe, et al.            Expires May 29, 2015                 [Page 63]
 Internet-Draft                   HTTP/2                    November 2014
 
 
+   assembled into DATA frames by the proxy.  Frame types other than DATA
+   or stream management frames (RST_STREAM, WINDOW_UPDATE, and PRIORITY)
    MUST NOT be sent on a connected stream, and MUST be treated as a
    stream error (Section 5.4.2) if received.
 
@@ -3576,8 +3578,6 @@ Internet-Draft                   HTTP/2                    November 2014
 
    A client MAY open multiple connections to the same IP address and TCP
    port using different Server Name Indication [TLS-EXT] values or to
-   provide different TLS client certificates, but SHOULD avoid creating
-   multiple connections with the same configuration.
 
 
 
@@ -3585,6 +3585,9 @@ Belshe, et al.            Expires May 29, 2015                 [Page 64]
 
 Internet-Draft                   HTTP/2                    November 2014
 
+
+   provide different TLS client certificates, but SHOULD avoid creating
+   multiple connections with the same configuration.
 
    Servers are encouraged to maintain open connections for as long as
    possible, but are permitted to terminate idle connections if
@@ -3629,9 +3632,6 @@ Internet-Draft                   HTTP/2                    November 2014
    A client that is configured to use a proxy over HTTP/2 directs
    requests to that proxy through a single connection.  That is, all
    requests sent via a proxy reuse the connection to the proxy.
-
-
-
 
 
 

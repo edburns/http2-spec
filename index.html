@@ -3443,19 +3443,23 @@ Upgrade: h2c
                </ul>
             </div>
             <div id="rfc.section.8.3.p.3">
-               <p>A proxy that supports CONNECT establishes a <a href="#TCP">TCP connection</a> <cite title="Transmission Control Protocol">[TCP]</cite> to the server identified in the <tt>:authority</tt> header field. Once this connection is successfully established, the proxy sends a <a href="#HEADERS" class="smpl">HEADERS</a> frame containing a 2xx series status code to the client, as defined in <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#CONNECT" title="CONNECT">Section 4.3.6</a>.
+               <p>A CONNECT request that does not conform to these restrictions is malformed (<a href="#malformed" title="Malformed Requests and Responses">Section&nbsp;8.1.2.6</a>).
                </p>
             </div>
             <div id="rfc.section.8.3.p.4">
-               <p>After the initial <a href="#HEADERS" class="smpl">HEADERS</a> frame sent by each peer, all subsequent <a href="#DATA" class="smpl">DATA</a> frames correspond to data sent on the TCP connection. The payload of any <a href="#DATA" class="smpl">DATA</a> frames sent by the client is transmitted by the proxy to the TCP server; data received from the TCP server is assembled into <a href="#DATA" class="smpl">DATA</a> frames by the proxy. Frame types other than <a href="#DATA" class="smpl">DATA</a> or stream management frames (<a href="#RST_STREAM" class="smpl">RST_STREAM</a>, <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a>, and <a href="#PRIORITY" class="smpl">PRIORITY</a>) MUST NOT be sent on a connected stream, and MUST be treated as a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) if received.
+               <p>A proxy that supports CONNECT establishes a <a href="#TCP">TCP connection</a> <cite title="Transmission Control Protocol">[TCP]</cite> to the server identified in the <tt>:authority</tt> header field. Once this connection is successfully established, the proxy sends a <a href="#HEADERS" class="smpl">HEADERS</a> frame containing a 2xx series status code to the client, as defined in <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#CONNECT" title="CONNECT">Section 4.3.6</a>.
                </p>
             </div>
             <div id="rfc.section.8.3.p.5">
+               <p>After the initial <a href="#HEADERS" class="smpl">HEADERS</a> frame sent by each peer, all subsequent <a href="#DATA" class="smpl">DATA</a> frames correspond to data sent on the TCP connection. The payload of any <a href="#DATA" class="smpl">DATA</a> frames sent by the client is transmitted by the proxy to the TCP server; data received from the TCP server is assembled into <a href="#DATA" class="smpl">DATA</a> frames by the proxy. Frame types other than <a href="#DATA" class="smpl">DATA</a> or stream management frames (<a href="#RST_STREAM" class="smpl">RST_STREAM</a>, <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a>, and <a href="#PRIORITY" class="smpl">PRIORITY</a>) MUST NOT be sent on a connected stream, and MUST be treated as a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) if received.
+               </p>
+            </div>
+            <div id="rfc.section.8.3.p.6">
                <p>The TCP connection can be closed by either peer. The END_STREAM flag on a <a href="#DATA" class="smpl">DATA</a> frame is treated as being equivalent to the TCP FIN bit. A client is expected to send a <a href="#DATA" class="smpl">DATA</a> frame with the END_STREAM flag set after receiving a frame bearing the END_STREAM flag. A proxy that receives a <a href="#DATA" class="smpl">DATA</a> frame with the END_STREAM flag set sends the attached data with the FIN bit set on the last TCP segment. A proxy that receives
                   a TCP segment with the FIN bit set sends a <a href="#DATA" class="smpl">DATA</a> frame with the END_STREAM flag set. Note that the final TCP segment or <a href="#DATA" class="smpl">DATA</a> frame could be empty.
                </p>
             </div>
-            <div id="rfc.section.8.3.p.6">
+            <div id="rfc.section.8.3.p.7">
                <p>A TCP connection error is signaled with <a href="#RST_STREAM" class="smpl">RST_STREAM</a>. A proxy treats any error in the TCP connection, which includes receiving a TCP segment with the RST bit set, as a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) of type <a href="#CONNECT_ERROR" class="smpl">CONNECT_ERROR</a>. Correspondingly, a proxy MUST send a TCP segment with the RST bit set if it detects an error with the stream or the HTTP/2
                   connection.
                </p>
