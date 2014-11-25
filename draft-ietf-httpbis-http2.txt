@@ -3737,9 +3737,9 @@ Internet-Draft                   HTTP/2                    November 2014
 
    Endpoints MAY choose to generate a connection error (Section 5.4.1)
    of type INADEQUATE_SECURITY if one of the prohibited cipher suites
-   are negotiated.  Thus, if a deployment chooses to use a prohibited
-   cipher suite, that risks of triggering a connection error, unless the
-   set of potential peers is known to accept that cipher suite.
+   are negotiated.  A deployment that chooses to use a prohibited cipher
+   suite risks triggering a connection error unless the set of potential
+   peers is known to accept that cipher suite.
 
    Implementations MUST NOT generate this error in reaction to the
    negotiation of a cipher suite that is not in the prohibited list.

@@ -3613,8 +3613,8 @@ Upgrade: h2c
                   </p>
                </div>
                <div id="rfc.section.9.2.2.p.2">
-                  <p>Endpoints MAY choose to generate a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#INADEQUATE_SECURITY" class="smpl">INADEQUATE_SECURITY</a> if one of the prohibited cipher suites are negotiated. Thus, if a deployment chooses to use a prohibited cipher suite, that
-                     risks of triggering a connection error, unless the set of potential peers is known to accept that cipher suite.
+                  <p>Endpoints MAY choose to generate a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#INADEQUATE_SECURITY" class="smpl">INADEQUATE_SECURITY</a> if one of the prohibited cipher suites are negotiated. A deployment that chooses to use a prohibited cipher suite risks triggering
+                     a connection error unless the set of potential peers is known to accept that cipher suite.
                   </p>
                </div>
                <div id="rfc.section.9.2.2.p.3">
