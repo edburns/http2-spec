@@ -1286,7 +1286,8 @@ Upgrade: h2c
             </div>
             <div id="rfc.section.4.2.p.4">
                <p>Endpoints are not obligated to use all available space in a frame. Responsiveness can be improved by using frames that are
-                  smaller than the permitted maximum size. Sending large frames can result in delays in sending time-sensitive frames (such <a href="#RST_STREAM" class="smpl">RST_STREAM</a>, <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a>, or <a href="#PRIORITY" class="smpl">PRIORITY</a>) which if blocked by the transmission of a large frame, could affect performance.
+                  smaller than the permitted maximum size. Sending large frames can result in delays in sending time-sensitive frames (such
+                  as <a href="#RST_STREAM" class="smpl">RST_STREAM</a>, <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a>, or <a href="#PRIORITY" class="smpl">PRIORITY</a>) which if blocked by the transmission of a large frame, could affect performance.
                </p>
             </div>
          </div>
@@ -1899,7 +1900,7 @@ Upgrade: h2c
                   </p>
                </div>
                <div id="rfc.section.5.4.2.p.5">
-                  <p>An endpoint MUST NOT send a <a href="#RST_STREAM" class="smpl">RST_STREAM</a> in response to an <a href="#RST_STREAM" class="smpl">RST_STREAM</a> frame, to avoid looping.
+                  <p>An endpoint MUST NOT send a <a href="#RST_STREAM" class="smpl">RST_STREAM</a> in response to a <a href="#RST_STREAM" class="smpl">RST_STREAM</a> frame, to avoid looping.
                   </p>
                </div>
             </div>

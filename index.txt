@@ -757,7 +757,7 @@ Internet-Draft                   HTTP/2                    November 2014
    Endpoints are not obligated to use all available space in a frame.
    Responsiveness can be improved by using frames that are smaller than
    the permitted maximum size.  Sending large frames can result in
-   delays in sending time-sensitive frames (such RST_STREAM,
+   delays in sending time-sensitive frames (such as RST_STREAM,
    WINDOW_UPDATE, or PRIORITY) which if blocked by the transmission of a
    large frame, could affect performance.
 
@@ -1593,7 +1593,7 @@ Internet-Draft                   HTTP/2                    November 2014
    round-trip time.  This behavior is permitted to deal with misbehaving
    implementations.
 
-   An endpoint MUST NOT send a RST_STREAM in response to an RST_STREAM
+   An endpoint MUST NOT send a RST_STREAM in response to a RST_STREAM
    frame, to avoid looping.
 
 5.4.3.  Connection Termination
