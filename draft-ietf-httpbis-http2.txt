@@ -3254,7 +3254,7 @@ Internet-Draft                   HTTP/2                    November 2014
    which is sent in response to a request containing a "100-continue"
    token in the Expect header field, and trailing header fields:
 
-     HTTP/1.1 100 Continue              HEADERS
+     HTTP/1.1 100 Continue            HEADERS
      Extension-Field: bar       ==>     - END_STREAM
                                         + END_HEADERS
                                           :status = 100
