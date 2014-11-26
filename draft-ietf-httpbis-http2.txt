@@ -207,9 +207,9 @@ Internet-Draft                   HTTP/2                    November 2014
 1.  Introduction
 
    The Hypertext Transfer Protocol (HTTP) is a wildly successful
-   protocol.  However, the HTTP/1.1 message format ([RFC7230],
-   Section 3) has several characteristics that have a negative overall
-   effect on application performance today.
+   protocol.  However, how HTTP/1.1 uses the underlying transport
+   ([RFC7230], Section 6) has several characteristics that have a
+   negative overall effect on application performance today.
 
    In particular, HTTP/1.0 allowed only one request to be outstanding at
    a time on a given TCP connection.  HTTP/1.1 added request pipelining,
@@ -288,9 +288,11 @@ Internet-Draft                   HTTP/2                    November 2014
    it sends as a PUSH_PROMISE frame.  The server is then able to send a
    response to the synthetic request on a separate stream.
 
-   Frames that contain HTTP header fields are compressed (Section 4.3).
-   HTTP requests can be highly redundant, so compression can reduce the
-   size of requests and responses significantly.
+   Because HTTP header fields used in a connection can contain large
+   amounts of redundant data, frames that contain them are compressed
+   (Section 4.3).  This has especially advantageous impact upon request
+   sizes in the common case, allowing many requests to be compressed
+   into one TCP packet.
 
 2.1.  Document Organization
 
@@ -328,8 +330,6 @@ Internet-Draft                   HTTP/2                    November 2014
 
    The following terms are used:
 
-   client:  The endpoint initiating the HTTP/2 connection.
-
 
 
 
@@ -337,6 +337,8 @@ Belshe, et al.            Expires May 30, 2015                  [Page 6]
 
 Internet-Draft                   HTTP/2                    November 2014
 
+
+   client:  The endpoint initiating the HTTP/2 connection.
 
    connection:  A transport-layer connection between two endpoints.
 
@@ -384,8 +386,6 @@ Internet-Draft                   HTTP/2                    November 2014
    The means by which support for HTTP/2 is determined is different for
    "http" and "https" URIs.  Discovery for "http" URIs is described in
    Section 3.2.  Discovery for "https" URIs is described in Section 3.3.
-
-
 
 
 
@@ -453,10 +453,10 @@ Internet-Draft                   HTTP/2                    November 2014
 3.2.  Starting HTTP/2 for "http" URIs
 
    A client that makes a request for an "http" URI without prior
-   knowledge about support for HTTP/2 uses the HTTP Upgrade mechanism
-   (Section 6.7 of [RFC7230]).  The client makes an HTTP/1.1 request
-   that includes an Upgrade header field identifying HTTP/2 with the
-   "h2c" token.  The HTTP/1.1 request MUST include exactly one
+   knowledge about support for HTTP/2 on the next hop uses the HTTP
+   Upgrade mechanism (Section 6.7 of [RFC7230]).  The client does so by
+   making an HTTP/1.1 request that includes an Upgrade header field with
+   the "h2c" token.  Such an HTTP/1.1 request MUST include exactly one
    HTTP2-Settings (Section 3.2.1) header field.
 
    For example:
@@ -514,9 +514,9 @@ Internet-Draft                   HTTP/2                    November 2014
 
      [ HTTP/2 connection ...
 
-   The first HTTP/2 frame sent by the server is a SETTINGS frame
+   The first HTTP/2 frame sent by the server MUST be a SETTINGS frame
    (Section 6.5) as the server connection preface (Section 3.5).  Upon
-   receiving the 101 response, the client sends a connection preface
+   receiving the 101 response, the client MUST send a connection preface
    (Section 3.5), which includes a SETTINGS frame.
 
    The HTTP/1.1 request that is sent prior to upgrade is assigned stream
@@ -553,7 +553,7 @@ Internet-Draft                   HTTP/2                    November 2014
    [RFC7230]).
 
    A server decodes and interprets these values as it would any other
-   SETTINGS frame.  Acknowledgement of the SETTINGS parameters
+   SETTINGS frame.  Explicit acknowledgement of these settings
 
 
 
@@ -575,8 +575,8 @@ Internet-Draft                   HTTP/2                    November 2014
    HTTP/2 over TLS uses the "h2" application token.  The "h2c" token
    MUST NOT be sent by a client or selected by a server.
 
-   Once TLS negotiation is complete, both the client and the server send
-   a connection preface (Section 3.5).
+   Once TLS negotiation is complete, both the client and the server MUST
+   send a connection preface (Section 3.5).
 
 3.4.  Starting HTTP/2 with Prior Knowledge
 
@@ -584,12 +584,14 @@ Internet-Draft                   HTTP/2                    November 2014
    means.  For example, [ALT-SVC] describes a mechanism for advertising
    this capability.
 
-   A client MAY immediately send HTTP/2 frames to a server that is known
-   to support HTTP/2, after the connection preface (Section 3.5); a
-   server can identify such a connection by the presence of the
-   connection preface.  This only affects the establishment of HTTP/2
-   connections over cleartext TCP; implementations that support HTTP/2
-   over TLS MUST use protocol negotiation in TLS [TLS-ALPN].
+   A client MUST send the connection preface (Section 3.5), and then MAY
+   immediately send HTTP/2 frames to such a server; servers can identify
+   these connections by the presence of the connection preface.  This
+   only affects the establishment of HTTP/2 connections over cleartext
+   TCP; implementations that support HTTP/2 over TLS MUST use protocol
+   negotiation in TLS [TLS-ALPN].
+
+   Likewise, the sever MUST send a connection preface (Section 3.5).
 
    Without additional information, prior support for HTTP/2 is not a
    strong signal that a given server will support HTTP/2 for future
@@ -599,11 +601,10 @@ Internet-Draft                   HTTP/2                    November 2014
 
 3.5.  HTTP/2 Connection Preface
 
-   Upon establishment of a TCP connection and determination that HTTP/2
-   will be used by both peers, each endpoint MUST send a connection
-   preface as a final confirmation and to establish the initial SETTINGS
-   parameters for the HTTP/2 connection.  The client and server each
-   send a different connection preface.
+   In HTTP/2, each endpoint is required to send a connection preface as
+   a final confirmation of the protocol in use, and to establish the
+   initial settings for the HTTP/2 connection.  The client and server
+   each send a different connection preface.
 
    The client connection preface starts with a sequence of 24 octets,
    which in hex notation are:
@@ -612,16 +613,15 @@ Internet-Draft                   HTTP/2                    November 2014
 
 
 
-
 Belshe, et al.            Expires May 30, 2015                 [Page 11]
 
 Internet-Draft                   HTTP/2                    November 2014
 
 
-   (the string "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n").  This sequence is
-   followed by a SETTINGS frame (Section 6.5).  The SETTINGS frame MAY
-   be empty.  The client sends the client connection preface immediately
-   upon receipt of a 101 Switching Protocols response (indicating a
+   (the string "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n").  This sequence MUST
+   be followed by a SETTINGS frame (Section 6.5), which MAY be empty.
+   The client sends the client connection preface immediately upon
+   receipt of a 101 Switching Protocols response (indicating a
    successful upgrade), or as the first application data octets of a TLS
    connection.  If starting an HTTP/2 connection with prior knowledge of
    server support for the protocol, the client connection preface is
@@ -2903,9 +2903,9 @@ Internet-Draft                   HTTP/2                    November 2014
    For a listing of registered HTTP headers, see the Message Header
    Field Registry maintained at [4].
 
-
-
-
+   Just as in HTTP/1.x, header field names are strings of ASCII
+   characters that are compared in a case-insensitive fashion.  However,
+   header field names MUST be converted to lowercase prior to their
 
 
 
@@ -2913,6 +2913,9 @@ Belshe, et al.            Expires May 30, 2015                 [Page 52]
 
 Internet-Draft                   HTTP/2                    November 2014
 
+
+   encoding in HTTP/2.  A request or response containing uppercase
+   header field names MUST be treated as malformed (Section 8.1.2.6).
 
 8.1.2.1.  Pseudo-Header Fields
 
@@ -2933,12 +2936,6 @@ Internet-Draft                   HTTP/2                    November 2014
    undefined or invalid pseudo-header fields as malformed
    (Section 8.1.2.6).
 
-   Just as in HTTP/1.x, header field names are strings of ASCII
-   characters that are compared in a case-insensitive fashion.  However,
-   header field names MUST be converted to lowercase prior to their
-   encoding in HTTP/2.  A request or response containing uppercase
-   header field names MUST be treated as malformed (Section 8.1.2.6).
-
    All pseudo-header fields MUST appear in the header block before
    regular header fields.  Any request or response that contains a
    pseudo-header field that appears in a header block after a regular
@@ -2953,6 +2950,10 @@ Internet-Draft                   HTTP/2                    November 2014
    fields; any message containing connection-specific header fields MUST
    be treated as malformed (Section 8.1.2.6).
 
+   The only exception to this is the TE header field, which MAY be
+   present in an HTTP/2 request; when it is, it MUST NOT contain any
+   value other than "trailers".
+
    This means that an intermediary transforming an HTTP/1.x message to
    HTTP/2 will need to remove any header fields nominated by the
    Connection header field, along with the Connection header field
@@ -2964,15 +2965,10 @@ Internet-Draft                   HTTP/2                    November 2014
 
 
 
-
 Belshe, et al.            Expires May 30, 2015                 [Page 53]
 
 Internet-Draft                   HTTP/2                    November 2014
 
-
-   One exception to this is the TE header field, which MAY be present in
-   an HTTP/2 request, but when it is, it MUST NOT contain any value
-   other than "trailers".
 
    Note:  HTTP/2 purposefully does not support upgrade to another
       protocol.  The handshake methods described in Section 3 are
@@ -3018,6 +3014,10 @@ Internet-Draft                   HTTP/2                    November 2014
       URIs; "http" or "https" URIs that do not contain a path component
       MUST include a value of '/'.  The exception to this rule is an
       OPTIONS request for an "http" or "https" URI that does not include
+      a path component; these MUST include a ":path" pseudo-header field
+      with a value of '*' (see [RFC7230], Section 5.3.4).
+
+
 
 
 
@@ -3025,9 +3025,6 @@ Belshe, et al.            Expires May 30, 2015                 [Page 54]
 
 Internet-Draft                   HTTP/2                    November 2014
 
-
-      a path component; these MUST include a ":path" pseudo-header field
-      with a value of '*' (see [RFC7230], Section 5.3.4).
 
    All HTTP/2 requests MUST include exactly one valid value for the
    ":method", ":scheme", and ":path" pseudo-header fields, unless it is
@@ -3049,12 +3046,9 @@ Internet-Draft                   HTTP/2                    November 2014
 
 8.1.2.5.  Compressing the Cookie Header Field
 
-   The Cookie header field [COOKIE] can carry a significant amount of
-   redundant data.
-
-   The Cookie header field uses a semi-colon (";") to delimit cookie-
-   pairs (or "crumbs").  This header field doesn't follow the list
-   construction rules in HTTP (see [RFC7230], Section 3.2.2), which
+   The Cookie header field [COOKIE] uses a semi-colon (";") to delimit
+   cookie-pairs (or "crumbs").  This header field doesn't follow the
+   list construction rules in HTTP (see [RFC7230], Section 3.2.2), which
    prevents cookie-pairs from being separated into different name-value
    pairs.  This can significantly reduce compression efficiency as
    individual cookie-pairs are updated.
@@ -3067,8 +3061,14 @@ Internet-Draft                   HTTP/2                    November 2014
    before being passed into a non-HTTP/2 context, such as an HTTP/1.1
    connection, or a generic HTTP server application.
 
+   Therefore, the following two lists of Cookie header fields are
+   semantically equivalent.
 
+     cookie: a=b; c=d; e=f
 
+     cookie: a=b
+     cookie: c=d
+     cookie: e=f
 
 
 
@@ -3081,15 +3081,6 @@ Belshe, et al.            Expires May 30, 2015                 [Page 55]
 
 Internet-Draft                   HTTP/2                    November 2014
 
-
-   Therefore, the following two lists of Cookie header fields are
-   semantically equivalent.
-
-     cookie: a=b; c=d; e=f
-
-     cookie: a=b
-     cookie: c=d
-     cookie: e=f
 
 8.1.2.6.  Malformed Requests and Responses
 
@@ -3129,6 +3120,15 @@ Internet-Draft                   HTTP/2                    November 2014
    therefore transmitted as a single HEADERS frame, followed by zero or
    more CONTINUATION frames containing the serialized block of request
    header fields.  The HEADERS frame in the following has both the
+   END_HEADERS and END_STREAM flags set; no CONTINUATION frames are
+   sent:
+
+
+
+
+
+
+
 
 
 
@@ -3137,9 +3137,6 @@ Belshe, et al.            Expires May 30, 2015                 [Page 56]
 
 Internet-Draft                   HTTP/2                    November 2014
 
-
-   END_HEADERS and END_STREAM flags set; no CONTINUATION frames are
-   sent:
 
      GET /resource HTTP/1.1           HEADERS
      Host: example.org          ==>     + END_STREAM
@@ -3169,31 +3166,6 @@ Internet-Draft                   HTTP/2                    November 2014
    frame having the END_HEADERS flag set and the final DATA frame having
    the END_STREAM flag set:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Belshe, et al.            Expires May 30, 2015                 [Page 57]
-
-Internet-Draft                   HTTP/2                    November 2014
-
-
      POST /resource HTTP/1.1          HEADERS
      Host: example.org          ==>     - END_STREAM
      Content-Type: image/jpeg           - END_HEADERS
@@ -3214,6 +3186,13 @@ Internet-Draft                   HTTP/2                    November 2014
    Note that data contributing to any given header field could be spread
    between header block fragments.  The allocation of header fields to
    frames in this example is illustrative only.
+
+
+
+Belshe, et al.            Expires May 30, 2015                 [Page 57]
+
+Internet-Draft                   HTTP/2                    November 2014
+
 
    A response that includes header fields and payload data is
    transmitted as a HEADERS frame, followed by zero or more CONTINUATION
@@ -3239,6 +3218,27 @@ Internet-Draft                   HTTP/2                    November 2014
    request or response header block and all the DATA frames have been
    sent.  The HEADERS frame starting the trailers header block has the
    END_STREAM flag set.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

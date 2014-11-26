@@ -835,7 +835,8 @@ ul.toc a:first-child {
       <div id="intro">
          <h1 id="rfc.section.1" class="np"><a href="#rfc.section.1">1.</a>&nbsp;<a href="#intro">Introduction</a></h1>
          <div id="rfc.section.1.p.1">
-            <p>The Hypertext Transfer Protocol (HTTP) is a wildly successful protocol. However, the HTTP/1.1 message format (<a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#http.message" title="Message Format">Section 3</a>) has several characteristics that have a negative overall effect on application performance today.
+            <p>The Hypertext Transfer Protocol (HTTP) is a wildly successful protocol. However, how HTTP/1.1 uses the underlying transport
+               (<a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#connection.management" title="Connection Management">Section 6</a>) has several characteristics that have a negative overall effect on application performance today.
             </p>
          </div>
          <div id="rfc.section.1.p.2">
@@ -894,7 +895,8 @@ ul.toc a:first-child {
             </p>
          </div>
          <div id="rfc.section.2.p.6">
-            <p>Frames that contain HTTP header fields are compressed (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>). HTTP requests can be highly redundant, so compression can reduce the size of requests and responses significantly.
+            <p>Because HTTP header fields used in a connection can contain large amounts of redundant data, frames that contain them are compressed (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>). This has especially advantageous impact upon request sizes in the common case, allowing many requests to be compressed into
+               one TCP packet.
             </p>
          </div>
          <div>
@@ -1035,9 +1037,9 @@ ul.toc a:first-child {
          <div id="discover-http">
             <h2 id="rfc.section.3.2"><a href="#rfc.section.3.2">3.2</a>&nbsp;<a href="#discover-http">Starting HTTP/2 for "http" URIs</a></h2>
             <div id="rfc.section.3.2.p.1">
-               <p>A client that makes a request for an "http" URI without prior knowledge about support for HTTP/2 uses the HTTP Upgrade mechanism
-                  (<a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#header.upgrade" title="Upgrade">Section 6.7</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>). The client makes an HTTP/1.1 request that includes an Upgrade header field identifying HTTP/2 with the "h2c" token. The
-                  HTTP/1.1 request MUST include exactly one HTTP2-Settings (<a href="#Http2SettingsHeader" title="HTTP2-Settings Header Field">Section&nbsp;3.2.1</a>) header field.
+               <p>A client that makes a request for an "http" URI without prior knowledge about support for HTTP/2 on the next hop uses the
+                  HTTP Upgrade mechanism (<a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#header.upgrade" title="Upgrade">Section 6.7</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>). The client does so by making an HTTP/1.1 request that includes an Upgrade header field with the "h2c" token. Such an HTTP/1.1
+                  request MUST include exactly one HTTP2-Settings (<a href="#Http2SettingsHeader" title="HTTP2-Settings Header Field">Section&nbsp;3.2.1</a>) header field.
                </p>
             </div>
             <div id="rfc.figure.u.1">
@@ -1086,7 +1088,7 @@ Upgrade: h2c
 [ HTTP/2 connection ...
 </pre></div>
             <div id="rfc.section.3.2.p.7">
-               <p>The first HTTP/2 frame sent by the server is a <a href="#SETTINGS" class="smpl">SETTINGS</a> frame (<a href="#SETTINGS" title="SETTINGS">Section&nbsp;6.5</a>) as the server connection preface (<a href="#ConnectionHeader" title="HTTP/2 Connection Preface">Section&nbsp;3.5</a>). Upon receiving the 101 response, the client sends a connection preface (<a href="#ConnectionHeader" title="HTTP/2 Connection Preface">Section&nbsp;3.5</a>), which includes a <a href="#SETTINGS" class="smpl">SETTINGS</a> frame.
+               <p>The first HTTP/2 frame sent by the server MUST be a <a href="#SETTINGS" class="smpl">SETTINGS</a> frame (<a href="#SETTINGS" title="SETTINGS">Section&nbsp;6.5</a>) as the server connection preface (<a href="#ConnectionHeader" title="HTTP/2 Connection Preface">Section&nbsp;3.5</a>). Upon receiving the 101 response, the client MUST send a connection preface (<a href="#ConnectionHeader" title="HTTP/2 Connection Preface">Section&nbsp;3.5</a>), which includes a <a href="#SETTINGS" class="smpl">SETTINGS</a> frame.
                </p>
             </div>
             <div id="rfc.section.3.2.p.8">
@@ -1117,7 +1119,7 @@ Upgrade: h2c
                   </p>
                </div>
                <div id="rfc.section.3.2.1.p.5">
-                  <p>A server decodes and interprets these values as it would any other <a href="#SETTINGS" class="smpl">SETTINGS</a> frame. Acknowledgement of the SETTINGS parameters (<a href="#SettingsSync" title="Settings Synchronization">Section&nbsp;6.5.3</a>) is not necessary, since a 101 response serves as implicit acknowledgment. Providing these values in the Upgrade request gives
+                  <p>A server decodes and interprets these values as it would any other <a href="#SETTINGS" class="smpl">SETTINGS</a> frame. Explicit acknowledgement of these settings (<a href="#SettingsSync" title="Settings Synchronization">Section&nbsp;6.5.3</a>) is not necessary, since a 101 response serves as implicit acknowledgment. Providing these values in the Upgrade request gives
                      a client an opportunity to provide parameters prior to receiving any frames from the server.
                   </p>
                </div>
@@ -1133,7 +1135,7 @@ Upgrade: h2c
                <p>HTTP/2 over TLS uses the "h2" application token. The "h2c" token MUST NOT be sent by a client or selected by a server.</p>
             </div>
             <div id="rfc.section.3.3.p.3">
-               <p>Once TLS negotiation is complete, both the client and the server send a connection preface (<a href="#ConnectionHeader" title="HTTP/2 Connection Preface">Section&nbsp;3.5</a>).
+               <p>Once TLS negotiation is complete, both the client and the server MUST send a connection preface (<a href="#ConnectionHeader" title="HTTP/2 Connection Preface">Section&nbsp;3.5</a>).
                </p>
             </div>
          </div>
@@ -1144,11 +1146,16 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.3.4.p.2">
-               <p>A client MAY immediately send HTTP/2 frames to a server that is known to support HTTP/2, after the connection preface (<a href="#ConnectionHeader" title="HTTP/2 Connection Preface">Section&nbsp;3.5</a>); a server can identify such a connection by the presence of the connection preface. This only affects the establishment of
-                  HTTP/2 connections over cleartext TCP; implementations that support HTTP/2 over TLS MUST use <a href="#TLS-ALPN">protocol negotiation in TLS</a> <cite title="Transport Layer Security (TLS) Application-Layer Protocol Negotiation Extension">[TLS-ALPN]</cite>.
+               <p>A client MUST send the connection preface (<a href="#ConnectionHeader" title="HTTP/2 Connection Preface">Section&nbsp;3.5</a>), and then MAY immediately send HTTP/2 frames to such a server; servers can identify these connections by the presence of
+                  the connection preface. This only affects the establishment of HTTP/2 connections over cleartext TCP; implementations that
+                  support HTTP/2 over TLS MUST use <a href="#TLS-ALPN">protocol negotiation in TLS</a> <cite title="Transport Layer Security (TLS) Application-Layer Protocol Negotiation Extension">[TLS-ALPN]</cite>.
                </p>
             </div>
             <div id="rfc.section.3.4.p.3">
+               <p>Likewise, the sever MUST send a connection preface (<a href="#ConnectionHeader" title="HTTP/2 Connection Preface">Section&nbsp;3.5</a>).
+               </p>
+            </div>
+            <div id="rfc.section.3.4.p.4">
                <p>Without additional information, prior support for HTTP/2 is not a strong signal that a given server will support HTTP/2 for
                   future connections. For example, it is possible for server configurations to change, for configurations to differ between
                   instances in clustered servers, or for network conditions to change.
@@ -1158,9 +1165,8 @@ Upgrade: h2c
          <div id="ConnectionHeader">
             <h2 id="rfc.section.3.5"><a href="#rfc.section.3.5">3.5</a>&nbsp;<a href="#ConnectionHeader">HTTP/2 Connection Preface</a></h2>
             <div id="rfc.section.3.5.p.1">
-               <p>Upon establishment of a TCP connection and determination that HTTP/2 will be used by both peers, each endpoint MUST send a
-                  connection preface as a final confirmation and to establish the initial SETTINGS parameters for the HTTP/2 connection. The
-                  client and server each send a different connection preface.
+               <p>In HTTP/2, each endpoint is required to send a connection preface as a final confirmation of the protocol in use, and to establish
+                  the initial settings for the HTTP/2 connection. The client and server each send a different connection preface.
                </p>
             </div>
             <div id="rfc.section.3.5.p.2">
@@ -1169,9 +1175,10 @@ Upgrade: h2c
             <div id="rfc.figure.u.5"><pre class="inline">0x505249202a20485454502f322e300d0a0d0a534d0d0a0d0a
 </pre></div>
             <div id="rfc.section.3.5.p.3">
-               <p>(the string <tt>PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n</tt>). This sequence is followed by a <a href="#SETTINGS" class="smpl">SETTINGS</a> frame (<a href="#SETTINGS" title="SETTINGS">Section&nbsp;6.5</a>). The <a href="#SETTINGS" class="smpl">SETTINGS</a> frame MAY be empty. The client sends the client connection preface immediately upon receipt of a 101 Switching Protocols response
-                  (indicating a successful upgrade), or as the first application data octets of a TLS connection. If starting an HTTP/2 connection
-                  with prior knowledge of server support for the protocol, the client connection preface is sent upon connection establishment.
+               <p>(the string <tt>PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n</tt>). This sequence MUST be followed by a <a href="#SETTINGS" class="smpl">SETTINGS</a> frame (<a href="#SETTINGS" title="SETTINGS">Section&nbsp;6.5</a>), which MAY be empty. The client sends the client connection preface immediately upon receipt of a 101 Switching Protocols
+                  response (indicating a successful upgrade), or as the first application data octets of a TLS connection. If starting an HTTP/2
+                  connection with prior knowledge of server support for the protocol, the client connection preface is sent upon connection
+                  establishment.
                </p>
             </div>
             <div id="rfc.section.3.5.p.4">
@@ -2997,6 +3004,12 @@ Upgrade: h2c
                      Header Field Registry maintained at &lt;<a href="https://www.iana.org/assignments/message-headers">https://www.iana.org/assignments/message-headers</a>&gt;.
                   </p>
                </div>
+               <div id="rfc.section.8.1.2.p.2">
+                  <p>Just as in HTTP/1.x, header field names are strings of ASCII characters that are compared in a case-insensitive fashion. However,
+                     header field names MUST be converted to lowercase prior to their encoding in HTTP/2. A request or response containing uppercase
+                     header field names MUST be treated as malformed (<a href="#malformed" title="Malformed Requests and Responses">Section&nbsp;8.1.2.6</a>).
+                  </p>
+               </div>
                <div id="PseudoHeaderFields">
                   <h4 id="rfc.section.8.1.2.1"><a href="#rfc.section.8.1.2.1">8.1.2.1</a>&nbsp;<a href="#PseudoHeaderFields">Pseudo-Header Fields</a></h4>
                   <div id="rfc.section.8.1.2.1.p.1">
@@ -3017,12 +3030,6 @@ Upgrade: h2c
                      </p>
                   </div>
                   <div id="rfc.section.8.1.2.1.p.4">
-                     <p>Just as in HTTP/1.x, header field names are strings of ASCII characters that are compared in a case-insensitive fashion. However,
-                        header field names MUST be converted to lowercase prior to their encoding in HTTP/2. A request or response containing uppercase
-                        header field names MUST be treated as malformed (<a href="#malformed" title="Malformed Requests and Responses">Section&nbsp;8.1.2.6</a>).
-                     </p>
-                  </div>
-                  <div id="rfc.section.8.1.2.1.p.5">
                      <p>All pseudo-header fields MUST appear in the header block before regular header fields. Any request or response that contains
                         a pseudo-header field that appears in a header block after a regular header field MUST be treated as malformed (<a href="#malformed" title="Malformed Requests and Responses">Section&nbsp;8.1.2.6</a>).
                      </p>
@@ -3038,15 +3045,15 @@ Upgrade: h2c
                      </p>
                   </div>
                   <div id="rfc.section.8.1.2.2.p.2">
+                     <p>The only exception to this is the TE header field, which MAY be present in an HTTP/2 request; when it is, it MUST NOT contain
+                        any value other than "trailers".
+                     </p>
+                  </div>
+                  <div id="rfc.section.8.1.2.2.p.3">
                      <p>This means that an intermediary transforming an HTTP/1.x message to HTTP/2 will need to remove any header fields nominated
                         by the Connection header field, along with the Connection header field itself. Such intermediaries SHOULD also remove other
                         connection-specific header fields, such as Keep-Alive, Proxy-Connection, Transfer-Encoding and Upgrade, even if they are not
                         nominated by Connection.
-                     </p>
-                  </div>
-                  <div id="rfc.section.8.1.2.2.p.3">
-                     <p>One exception to this is the TE header field, which MAY be present in an HTTP/2 request, but when it is, it MUST NOT contain
-                        any value other than "trailers".
                      </p>
                   </div>
                   <div id="rfc.section.8.1.2.2.p.4">
@@ -3110,16 +3117,12 @@ Upgrade: h2c
                <div id="CompressCookie">
                   <h4 id="rfc.section.8.1.2.5"><a href="#rfc.section.8.1.2.5">8.1.2.5</a>&nbsp;<a href="#CompressCookie">Compressing the Cookie Header Field</a></h4>
                   <div id="rfc.section.8.1.2.5.p.1">
-                     <p>The <a href="#COOKIE">Cookie header field</a> <cite title="HTTP State Management Mechanism">[COOKIE]</cite> can carry a significant amount of redundant data.
-                     </p>
-                  </div>
-                  <div id="rfc.section.8.1.2.5.p.2">
-                     <p>The Cookie header field uses a semi-colon (";") to delimit cookie-pairs (or "crumbs"). This header field doesn't follow the
-                        list construction rules in HTTP (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#field.order" title="Field Order">Section 3.2.2</a>), which prevents cookie-pairs from being separated into different name-value pairs. This can significantly reduce compression
+                     <p>The <a href="#COOKIE">Cookie header field</a> <cite title="HTTP State Management Mechanism">[COOKIE]</cite> uses a semi-colon (";") to delimit cookie-pairs (or "crumbs"). This header field doesn't follow the list construction rules
+                        in HTTP (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#field.order" title="Field Order">Section 3.2.2</a>), which prevents cookie-pairs from being separated into different name-value pairs. This can significantly reduce compression
                         efficiency as individual cookie-pairs are updated.
                      </p>
                   </div>
-                  <div id="rfc.section.8.1.2.5.p.3">
+                  <div id="rfc.section.8.1.2.5.p.2">
                      <p>To allow for better compression efficiency, the Cookie header field MAY be split into separate header fields, each with one
                         or more cookie-pairs. If there are multiple Cookie header fields after decompression, these MUST be concatenated into a single
                         octet string using the two octet delimiter of 0x3B, 0x20 (the ASCII string "; ") before being passed into a non-HTTP/2 context,
