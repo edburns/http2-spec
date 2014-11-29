@@ -448,7 +448,7 @@ ul p {
        content: "Belshe, et al.";
   }
   @bottom-center {
-       content: "Expires May 30, 2015";
+       content: "Expires June 2, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -573,7 +573,7 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Thomson, M.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-http2-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2014-11-26">
+      <meta name="dct.issued" scheme="ISO8601" content="2014-11-29">
       <meta name="dct.abstract" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
       <meta name="description" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
    </head>
@@ -593,7 +593,7 @@ ul.toc a:first-child {
                <td class="right">R. Peon</td>
             </tr>
             <tr>
-               <td class="left">Expires: May 30, 2015</td>
+               <td class="left">Expires: June 2, 2015</td>
                <td class="right">Google, Inc</td>
             </tr>
             <tr>
@@ -606,7 +606,7 @@ ul.toc a:first-child {
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">November 26, 2014</td>
+               <td class="right">November 29, 2014</td>
             </tr>
          </tbody>
       </table>
@@ -637,7 +637,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on May 30, 2015.</p>
+         <p>This Internet-Draft will expire on June 2, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -1370,31 +1370,37 @@ Upgrade: h2c
             </div>
             <div id="StreamStatesFigure"></div>
             <div id="rfc.figure.2"><pre class="drawing">            
-                           +--------+
-                     PP    |        |    PP
-                  ,--------|  idle  |--------.
-                 /         |        |         \
-                v          +--------+          v
-         +----------+          |           +----------+
-         |          |          | H         |          |
-     ,---| reserved |          |           | reserved |---.
-     |   | (local)  |          v           | (remote) |   |
-     |   +----------+      +--------+      +----------+   |
-     |      |          ES  |        |  ES          |      |
-     |      | H    ,-------|  open  |-------.      | H    |
-     |      |     /        |        |        \     |      |
-     |      v    v         +--------+         v    v      |
-     |   +----------+          |           +----------+   |
-     |   |   half   |          |           |   half   |   |
-     |   |  closed  |          | R         |  closed  |   |
-     |   | (remote) |          |           | (local)  |   |
-     |   +----------+          |           +----------+   |
-     |        |                v                 |        |
-     |        |  ES / R    +--------+  ES / R    |        |
-     |        `-----------&gt;|        |&lt;-----------'        |
-     |  R                  | closed |                  R  |
-     `--------------------&gt;|        |&lt;--------------------'
-                           +--------+
+                             +--------+
+                     send PP |        | recv PP
+                    ,--------|  idle  |--------.
+                   /         |        |         \
+                  v          +--------+          v
+           +----------+          |           +----------+
+           |          |          | send H/   |          |
+     ,-----| reserved |          | recv H    | reserved |-----.
+     |     | (local)  |          |           | (remote) |     |
+     |     +----------+          v           +----------+     |
+     |         |             +--------+             |         |
+     |         |     recv ES |        | send ES     |         |
+     |  send H |     ,-------|  open  |-------.     | recv H  |
+     |         |    /        |        |        \    |         |
+     |         v   v         +--------+         v   v         |
+     |     +----------+          |           +----------+     |
+     |     |   half   |          |           |   half   |     |
+     |     |  closed  |          | send R/   |  closed  |     |
+     |     | (remote) |          | recv R    | (local)  |     |
+     |     +----------+          |           +----------+     |
+     |          |                |                 |          |
+     |          | send ES/       |        recv ES/ |          |
+     |          | send R/        v         send R/ |          |
+     |          | recv R     +--------+    recv R  |          |
+     | send R/  `-----------&gt;|        |&lt;-----------'  send R/ |
+     | recv R                | closed |               recv R  |
+     `----------------------&gt;|        |&lt;----------------------'
+                             +--------+
+
+       send:   endpoint sends this frame
+       recv:   endpoint receives this frame
 
        H:  HEADERS frame (with implied CONTINUATIONs)
        PP: PUSH_PROMISE frame (with implied CONTINUATIONs)
@@ -1425,9 +1431,9 @@ Upgrade: h2c
                      <ul>
                         <li>Sending or receiving a <a href="#HEADERS" class="smpl">HEADERS</a> frame causes the stream to become "open". The stream identifier is selected as described in <a href="#StreamIdentifiers" title="Stream Identifiers">Section&nbsp;5.1.1</a>. The same <a href="#HEADERS" class="smpl">HEADERS</a> frame can also cause a stream to immediately become "half closed".
                         </li>
-                        <li>Sending a <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> frame marks the associated stream for later use. The stream state for the reserved stream transitions to "reserved (local)".
+                        <li>Sending a <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> frame reserves an idle stream for later use. The stream state for the reserved stream transitions to "reserved (local)".
                         </li>
-                        <li>Receiving a <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> frame marks the associated stream as reserved by the remote peer. The state of the stream becomes "reserved (remote)".
+                        <li>Receiving a <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> frame reserves an idle stream for later use. The stream state for the reserved stream transitions to "reserved (remote)".
                         </li>
                      </ul>
                      <p>Receiving any frames other than <a href="#HEADERS" class="smpl">HEADERS</a>, <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> or <a href="#PRIORITY" class="smpl">PRIORITY</a> on a stream in this state MUST be treated as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
@@ -4296,7 +4302,7 @@ Upgrade: h2c
                <li>William Chan, Salvatore Loreto, Osama Mazahir, Gabriel Montenegro, Jitu Padhye, Roberto Peon, Rob Trace (Flow control).</li>
                <li>Mike Bishop (Extensibility).</li>
                <li>Mark Nottingham, Julian Reschke, James Snell, Jeff Pinner, Mike Bishop, Herve Ruellan (Substantial editorial contributions).</li>
-               <li>Kari Hurtta, Tatsuhiro Tsujikawa, Greg Wilkins, Poul-Henning Kamp.</li>
+               <li>Kari Hurtta, Tatsuhiro Tsujikawa, Greg Wilkins, Poul-Henning Kamp, Jonathan Thackray.</li>
                <li>Alexey Melnikov was an editor of this document during 2013.</li>
                <li>A substantial proportion of Martin's contribution was supported by Microsoft during his employment there.</li>
                <li>The Japanese HTTP/2 community provided an invaluable contribution, including a number of implementations, plus numerous technical
