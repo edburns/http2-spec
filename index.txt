@@ -4471,8 +4471,8 @@ Internet-Draft                   HTTP/2                    December 2014
 13.2.  Informative References
 
    [ALT-SVC]  Nottingham, M., McManus, P., and J. Reschke, "HTTP
-              Alternative Services", draft-ietf-httpbis-alt-svc-04 (work
-              in progress), October 2014.
+              Alternative Services", draft-ietf-httpbis-alt-svc-05 (work
+              in progress), November 2014.
 
 
 
