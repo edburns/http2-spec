@@ -486,7 +486,7 @@ Internet-Draft                   HTTP/2                    December 2014
 
      ...
 
-   A server MUST ignore a "h2" token in an Upgrade header field.
+   A server MUST ignore an "h2" token in an Upgrade header field.
    Presence of a token with "h2" implies HTTP/2 over TLS, which is
    instead negotiated as described in Section 3.3.
 
@@ -1915,7 +1915,7 @@ Internet-Draft                   HTTP/2                    December 2014
    Prioritization information in a HEADERS frame is logically equivalent
    to a separate PRIORITY frame, but inclusion in HEADERS avoids the
    potential for churn in stream prioritization when new streams are
-   created.  Priorization fields in HEADERS frames subsequent to the
+   created.  Prioritization fields in HEADERS frames subsequent to the
    first on a stream reprioritize the stream (Section 5.3.3).
 
 6.3.  PRIORITY
@@ -2387,7 +2387,7 @@ Internet-Draft                   HTTP/2                    December 2014
    The purpose of this frame is to allow an endpoint to gracefully stop
    accepting new streams, while still finishing processing of previously
    established streams.  This enables administrative actions, like
-   server maintainance.
+   server maintenance.
 
    There is an inherent race condition between an endpoint starting new
    streams and the remote sending a GOAWAY frame.  To deal with this
@@ -2481,7 +2481,7 @@ Internet-Draft                   HTTP/2                    December 2014
 
    An endpoint MAY send multiple GOAWAY frames if circumstances change.
    For instance, an endpoint that sends GOAWAY with NO_ERROR during
-   graceful shutdown could subsequently encounter an condition that
+   graceful shutdown could subsequently encounter a condition that
    requires immediate termination of the connection.  The last stream
    identifier from the last GOAWAY frame received indicates which
    streams could have been acted upon.  Endpoints MUST NOT increase the

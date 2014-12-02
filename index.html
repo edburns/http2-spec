@@ -1070,7 +1070,7 @@ Content-Type: text/html
 ...
 </pre></div>
             <div id="rfc.section.3.2.p.5">
-               <p>A server MUST ignore a "h2" token in an Upgrade header field. Presence of a token with "h2" implies HTTP/2 over TLS, which
+               <p>A server MUST ignore an "h2" token in an Upgrade header field. Presence of a token with "h2" implies HTTP/2 over TLS, which
                   is instead negotiated as described in <a href="#discover-https" title="Starting HTTP/2 for &#34;https&#34; URIs">Section&nbsp;3.3</a>.
                </p>
             </div>
@@ -2145,7 +2145,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.6.2.p.8">
-               <p>Prioritization information in a HEADERS frame is logically equivalent to a separate <a href="#PRIORITY" class="smpl">PRIORITY</a> frame, but inclusion in HEADERS avoids the potential for churn in stream prioritization when new streams are created. Priorization
+               <p>Prioritization information in a HEADERS frame is logically equivalent to a separate <a href="#PRIORITY" class="smpl">PRIORITY</a> frame, but inclusion in HEADERS avoids the potential for churn in stream prioritization when new streams are created. Prioritization
                   fields in HEADERS frames subsequent to the first on a stream reprioritize the stream (<a href="#reprioritize" title="Reprioritization">Section&nbsp;5.3.3</a>).
                </p>
             </div>
@@ -2553,7 +2553,7 @@ Upgrade: h2c
             </div>
             <div id="rfc.section.6.8.p.2">
                <p>The purpose of this frame is to allow an endpoint to gracefully stop accepting new streams, while still finishing processing
-                  of previously established streams. This enables administrative actions, like server maintainance.
+                  of previously established streams. This enables administrative actions, like server maintenance.
                </p>
             </div>
             <div id="rfc.section.6.8.p.3">
@@ -2624,10 +2624,10 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.6.8.p.12">
-               <p>An endpoint MAY send multiple GOAWAY frames if circumstances change. For instance, an endpoint that sends GOAWAY with <a href="#NO_ERROR" class="smpl">NO_ERROR</a> during graceful shutdown could subsequently encounter an condition that requires immediate termination of the connection.
-                  The last stream identifier from the last GOAWAY frame received indicates which streams could have been acted upon. Endpoints
-                  MUST NOT increase the value they send in the last stream identifier, since the peers might already have retried unprocessed
-                  requests on another connection.
+               <p>An endpoint MAY send multiple GOAWAY frames if circumstances change. For instance, an endpoint that sends GOAWAY with <a href="#NO_ERROR" class="smpl">NO_ERROR</a> during graceful shutdown could subsequently encounter a condition that requires immediate termination of the connection. The
+                  last stream identifier from the last GOAWAY frame received indicates which streams could have been acted upon. Endpoints MUST
+                  NOT increase the value they send in the last stream identifier, since the peers might already have retried unprocessed requests
+                  on another connection.
                </p>
             </div>
             <div id="rfc.section.6.8.p.13">
