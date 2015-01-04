@@ -439,7 +439,7 @@ ul p {
        content: "Internet-Draft";
   }
   @top-right {
-       content: "December 2014";
+       content: "January 2015";
   }
   @top-center {
        content: "HTTP/2";
@@ -448,7 +448,7 @@ ul p {
        content: "Belshe, et al.";
   }
   @bottom-center {
-       content: "Expires June 18, 2015";
+       content: "Expires July 8, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -573,7 +573,7 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Thomson, M.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-http2-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2014-12-15">
+      <meta name="dct.issued" scheme="ISO8601" content="2015-01-04">
       <meta name="dct.abstract" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
       <meta name="description" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
    </head>
@@ -593,7 +593,7 @@ ul.toc a:first-child {
                <td class="right">R. Peon</td>
             </tr>
             <tr>
-               <td class="left">Expires: June 18, 2015</td>
+               <td class="left">Expires: July 8, 2015</td>
                <td class="right">Google, Inc</td>
             </tr>
             <tr>
@@ -606,7 +606,7 @@ ul.toc a:first-child {
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">December 15, 2014</td>
+               <td class="right">January 4, 2015</td>
             </tr>
          </tbody>
       </table>
@@ -637,11 +637,11 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on June 18, 2015.</p>
+         <p>This Internet-Draft will expire on July 8, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
-         <p>Copyright © 2014 IETF Trust and the persons identified as the document authors. All rights reserved.</p>
+         <p>Copyright © 2015 IETF Trust and the persons identified as the document authors. All rights reserved.</p>
          <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (<a href="http://trustee.ietf.org/license-info">http://trustee.ietf.org/license-info</a>) in effect on the date of publication of this document. Please review these documents carefully, as they describe your rights
             and restrictions with respect to this document. Code Components extracted from this document must include Simplified BSD License
             text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified
@@ -3782,7 +3782,7 @@ Upgrade: h2c
                <h3 id="rfc.section.10.5.1"><a href="#rfc.section.10.5.1">10.5.1</a>&nbsp;<a href="#MaxHeaderBlock">Limits on Header Block Size</a></h3>
                <div id="rfc.section.10.5.1.p.1">
                   <p>A large header block (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>) can cause an implementation to commit a large amount of state. Header fields that are critical for routing can appear toward
-                     the end of a header block, which prevents streaming of header fields to their ultimate destination. For this an other reasons,
+                     the end of a header block, which prevents streaming of header fields to their ultimate destination. For this and other reasons,
                      such as ensuring cache correctness, means that an endpoint might need to buffer the entire header block. Since there is no
                      hard limit to the size of a header block, some endpoints could be forced commit a large amount of available memory for header
                      fields.
