@@ -5,10 +5,10 @@
 HTTPbis Working Group                                          M. Belshe
 Internet-Draft                                                     Twist
 Intended status: Standards Track                                 R. Peon
-Expires: July 8, 2015                                        Google, Inc
+Expires: July 10, 2015                                       Google, Inc
                                                          M. Thomson, Ed.
                                                                  Mozilla
-                                                         January 4, 2015
+                                                         January 6, 2015
 
 
                  Hypertext Transfer Protocol version 2
@@ -53,12 +53,12 @@ Status of This Memo
 
 
 
-Belshe, et al.            Expires July 8, 2015                  [Page 1]
+Belshe, et al.            Expires July 10, 2015                 [Page 1]
 
 Internet-Draft                   HTTP/2                     January 2015
 
 
-   This Internet-Draft will expire on July 8, 2015.
+   This Internet-Draft will expire on July 10, 2015.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Belshe, et al.            Expires July 8, 2015                  [Page 2]
+Belshe, et al.            Expires July 10, 2015                 [Page 2]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -165,7 +165,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                  [Page 3]
+Belshe, et al.            Expires July 10, 2015                 [Page 3]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -221,7 +221,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                  [Page 4]
+Belshe, et al.            Expires July 10, 2015                 [Page 4]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -277,7 +277,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                  [Page 5]
+Belshe, et al.            Expires July 10, 2015                 [Page 5]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -333,7 +333,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                  [Page 6]
+Belshe, et al.            Expires July 10, 2015                 [Page 6]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -389,7 +389,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                  [Page 7]
+Belshe, et al.            Expires July 10, 2015                 [Page 7]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -445,7 +445,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                  [Page 8]
+Belshe, et al.            Expires July 10, 2015                 [Page 8]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -501,7 +501,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                  [Page 9]
+Belshe, et al.            Expires July 10, 2015                 [Page 9]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -557,7 +557,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 10]
+Belshe, et al.            Expires July 10, 2015                [Page 10]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -613,7 +613,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 11]
+Belshe, et al.            Expires July 10, 2015                [Page 11]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -669,7 +669,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 12]
+Belshe, et al.            Expires July 10, 2015                [Page 12]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -725,7 +725,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 13]
+Belshe, et al.            Expires July 10, 2015                [Page 13]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -781,7 +781,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 14]
+Belshe, et al.            Expires July 10, 2015                [Page 14]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -837,7 +837,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 15]
+Belshe, et al.            Expires July 10, 2015                [Page 15]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -893,7 +893,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 16]
+Belshe, et al.            Expires July 10, 2015                [Page 16]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -949,7 +949,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 17]
+Belshe, et al.            Expires July 10, 2015                [Page 17]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1005,7 +1005,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 18]
+Belshe, et al.            Expires July 10, 2015                [Page 18]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1061,7 +1061,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 19]
+Belshe, et al.            Expires July 10, 2015                [Page 19]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1117,7 +1117,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 20]
+Belshe, et al.            Expires July 10, 2015                [Page 20]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1173,7 +1173,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 21]
+Belshe, et al.            Expires July 10, 2015                [Page 21]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1229,7 +1229,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 22]
+Belshe, et al.            Expires July 10, 2015                [Page 22]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1285,7 +1285,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 23]
+Belshe, et al.            Expires July 10, 2015                [Page 23]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1341,7 +1341,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 24]
+Belshe, et al.            Expires July 10, 2015                [Page 24]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1397,7 +1397,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 25]
+Belshe, et al.            Expires July 10, 2015                [Page 25]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1453,7 +1453,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 26]
+Belshe, et al.            Expires July 10, 2015                [Page 26]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1509,7 +1509,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 27]
+Belshe, et al.            Expires July 10, 2015                [Page 27]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1565,7 +1565,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 28]
+Belshe, et al.            Expires July 10, 2015                [Page 28]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1621,7 +1621,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 29]
+Belshe, et al.            Expires July 10, 2015                [Page 29]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1677,7 +1677,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 30]
+Belshe, et al.            Expires July 10, 2015                [Page 30]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1733,7 +1733,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 31]
+Belshe, et al.            Expires July 10, 2015                [Page 31]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1789,7 +1789,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 32]
+Belshe, et al.            Expires July 10, 2015                [Page 32]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1845,7 +1845,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 33]
+Belshe, et al.            Expires July 10, 2015                [Page 33]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1901,7 +1901,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 34]
+Belshe, et al.            Expires July 10, 2015                [Page 34]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -1957,7 +1957,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 35]
+Belshe, et al.            Expires July 10, 2015                [Page 35]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2013,7 +2013,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 36]
+Belshe, et al.            Expires July 10, 2015                [Page 36]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2069,7 +2069,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 37]
+Belshe, et al.            Expires July 10, 2015                [Page 37]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2125,7 +2125,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 38]
+Belshe, et al.            Expires July 10, 2015                [Page 38]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2181,7 +2181,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 39]
+Belshe, et al.            Expires July 10, 2015                [Page 39]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2237,7 +2237,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 40]
+Belshe, et al.            Expires July 10, 2015                [Page 40]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2293,7 +2293,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 41]
+Belshe, et al.            Expires July 10, 2015                [Page 41]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2349,7 +2349,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 42]
+Belshe, et al.            Expires July 10, 2015                [Page 42]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2405,7 +2405,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 43]
+Belshe, et al.            Expires July 10, 2015                [Page 43]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2461,7 +2461,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 44]
+Belshe, et al.            Expires July 10, 2015                [Page 44]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2517,7 +2517,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 45]
+Belshe, et al.            Expires July 10, 2015                [Page 45]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2573,7 +2573,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 46]
+Belshe, et al.            Expires July 10, 2015                [Page 46]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2629,7 +2629,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 47]
+Belshe, et al.            Expires July 10, 2015                [Page 47]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2685,7 +2685,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 48]
+Belshe, et al.            Expires July 10, 2015                [Page 48]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2741,7 +2741,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 49]
+Belshe, et al.            Expires July 10, 2015                [Page 49]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2797,7 +2797,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 50]
+Belshe, et al.            Expires July 10, 2015                [Page 50]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2853,7 +2853,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 51]
+Belshe, et al.            Expires July 10, 2015                [Page 51]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2909,7 +2909,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 52]
+Belshe, et al.            Expires July 10, 2015                [Page 52]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -2965,7 +2965,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 53]
+Belshe, et al.            Expires July 10, 2015                [Page 53]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3021,7 +3021,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 54]
+Belshe, et al.            Expires July 10, 2015                [Page 54]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3077,7 +3077,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 55]
+Belshe, et al.            Expires July 10, 2015                [Page 55]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3133,7 +3133,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 56]
+Belshe, et al.            Expires July 10, 2015                [Page 56]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3189,7 +3189,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 57]
+Belshe, et al.            Expires July 10, 2015                [Page 57]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3245,7 +3245,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 58]
+Belshe, et al.            Expires July 10, 2015                [Page 58]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3301,7 +3301,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 59]
+Belshe, et al.            Expires July 10, 2015                [Page 59]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3357,7 +3357,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 60]
+Belshe, et al.            Expires July 10, 2015                [Page 60]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3413,7 +3413,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 61]
+Belshe, et al.            Expires July 10, 2015                [Page 61]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3469,7 +3469,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 62]
+Belshe, et al.            Expires July 10, 2015                [Page 62]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3525,7 +3525,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 63]
+Belshe, et al.            Expires July 10, 2015                [Page 63]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3581,7 +3581,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 64]
+Belshe, et al.            Expires July 10, 2015                [Page 64]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3637,7 +3637,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 65]
+Belshe, et al.            Expires July 10, 2015                [Page 65]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3693,7 +3693,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 66]
+Belshe, et al.            Expires July 10, 2015                [Page 66]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3749,7 +3749,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 67]
+Belshe, et al.            Expires July 10, 2015                [Page 67]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3805,7 +3805,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 68]
+Belshe, et al.            Expires July 10, 2015                [Page 68]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3861,7 +3861,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 69]
+Belshe, et al.            Expires July 10, 2015                [Page 69]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3917,7 +3917,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 70]
+Belshe, et al.            Expires July 10, 2015                [Page 70]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -3973,7 +3973,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 71]
+Belshe, et al.            Expires July 10, 2015                [Page 71]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4029,7 +4029,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 72]
+Belshe, et al.            Expires July 10, 2015                [Page 72]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4085,7 +4085,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 73]
+Belshe, et al.            Expires July 10, 2015                [Page 73]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4141,7 +4141,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 74]
+Belshe, et al.            Expires July 10, 2015                [Page 74]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4197,7 +4197,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 75]
+Belshe, et al.            Expires July 10, 2015                [Page 75]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4253,7 +4253,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 76]
+Belshe, et al.            Expires July 10, 2015                [Page 76]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4309,7 +4309,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 77]
+Belshe, et al.            Expires July 10, 2015                [Page 77]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4365,7 +4365,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 78]
+Belshe, et al.            Expires July 10, 2015                [Page 78]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4421,7 +4421,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 79]
+Belshe, et al.            Expires July 10, 2015                [Page 79]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4477,7 +4477,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 80]
+Belshe, et al.            Expires July 10, 2015                [Page 80]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4518,7 +4518,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
    [TLSBCP]   Sheffer, Y., Holz, R., and P. Saint-Andre,
               "Recommendations for Secure Use of TLS and DTLS", draft-
-              ietf-uta-tls-bcp-07 (work in progress), November 2014.
+              ietf-uta-tls-bcp-08 (work in progress), December 2014.
 
 13.3.  URIs
 
@@ -4533,7 +4533,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 81]
+Belshe, et al.            Expires July 10, 2015                [Page 81]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4589,7 +4589,7 @@ Appendix A.  Prohibited TLS 1.2 Cipher Suites
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 82]
+Belshe, et al.            Expires July 10, 2015                [Page 82]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4645,7 +4645,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 83]
+Belshe, et al.            Expires July 10, 2015                [Page 83]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4701,7 +4701,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 84]
+Belshe, et al.            Expires July 10, 2015                [Page 84]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4757,7 +4757,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 85]
+Belshe, et al.            Expires July 10, 2015                [Page 85]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4813,7 +4813,7 @@ B.2.  Since draft-ietf-httpbis-http2-14
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 86]
+Belshe, et al.            Expires July 10, 2015                [Page 86]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4869,7 +4869,7 @@ B.6.  Since draft-ietf-httpbis-http2-10
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 87]
+Belshe, et al.            Expires July 10, 2015                [Page 87]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4925,7 +4925,7 @@ B.8.  Since draft-ietf-httpbis-http2-08
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 88]
+Belshe, et al.            Expires July 10, 2015                [Page 88]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -4981,7 +4981,7 @@ B.12.  Since draft-ietf-httpbis-http2-04
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 89]
+Belshe, et al.            Expires July 10, 2015                [Page 89]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -5037,7 +5037,7 @@ B.15.  Since draft-ietf-httpbis-http2-01
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 90]
+Belshe, et al.            Expires July 10, 2015                [Page 90]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -5093,7 +5093,7 @@ Authors' Addresses
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 91]
+Belshe, et al.            Expires July 10, 2015                [Page 91]
 
 Internet-Draft                   HTTP/2                     January 2015
 
@@ -5149,4 +5149,4 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-Belshe, et al.            Expires July 8, 2015                 [Page 92]
+Belshe, et al.            Expires July 10, 2015                [Page 92]
