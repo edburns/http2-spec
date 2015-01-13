@@ -448,7 +448,7 @@ ul p {
        content: "Belshe, et al.";
   }
   @bottom-center {
-       content: "Expires July 15, 2015";
+       content: "Expires July 17, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -573,7 +573,7 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Thomson, M.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-http2-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2015-01-11">
+      <meta name="dct.issued" scheme="ISO8601" content="2015-01-13">
       <meta name="dct.abstract" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
       <meta name="description" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
    </head>
@@ -593,7 +593,7 @@ ul.toc a:first-child {
                <td class="right">R. Peon</td>
             </tr>
             <tr>
-               <td class="left">Expires: July 15, 2015</td>
+               <td class="left">Expires: July 17, 2015</td>
                <td class="right">Google, Inc</td>
             </tr>
             <tr>
@@ -606,7 +606,7 @@ ul.toc a:first-child {
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">January 11, 2015</td>
+               <td class="right">January 13, 2015</td>
             </tr>
          </tbody>
       </table>
@@ -637,7 +637,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on July 15, 2015.</p>
+         <p>This Internet-Draft will expire on July 17, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -3703,7 +3703,7 @@ Upgrade: h2c
             <div id="rfc.section.10.3.p.2">
                <p>Similarly, HTTP/2 allows header field values that are not valid. While most of the values that can be encoded will not alter
                   header field parsing, carriage return (CR, ASCII 0xd), line feed (LF, ASCII 0xa), and the zero character (NUL, ASCII 0x0)
-                  might be exploited by an attacker if they are translater verbatim. Any request or response that contains a character not permitted
+                  might be exploited by an attacker if they are translated verbatim. Any request or response that contains a character not permitted
                   in a header field value MUST be treated as malformed (<a href="#malformed" title="Malformed Requests and Responses">Section&nbsp;8.1.2.6</a>). Valid characters are defined by the <tt>field-content</tt> ABNF rule in <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#header.fields" title="Header Fields">Section 3.2</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>.
                </p>
             </div>
@@ -3784,15 +3784,15 @@ Upgrade: h2c
                   <p>A large header block (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>) can cause an implementation to commit a large amount of state. Header fields that are critical for routing can appear toward
                      the end of a header block, which prevents streaming of header fields to their ultimate destination. For this and other reasons,
                      such as ensuring cache correctness, means that an endpoint might need to buffer the entire header block. Since there is no
-                     hard limit to the size of a header block, some endpoints could be forced commit a large amount of available memory for header
-                     fields.
+                     hard limit to the size of a header block, some endpoints could be forced to commit a large amount of available memory for
+                     header fields.
                   </p>
                </div>
                <div id="rfc.section.10.5.1.p.2">
                   <p>An endpoint can use the <a href="#SETTINGS_MAX_HEADER_LIST_SIZE" class="smpl">SETTINGS_MAX_HEADER_LIST_SIZE</a> to advise peers of limits that might apply on the size of header blocks. This setting is only advisory, so endpoints MAY choose
                      to send header blocks that exceed this limit and risk having the request or response being treated as malformed. This setting
-                     specific to a connection, so any request or response could encounter a hop with a lower, unknown limit. An intermediary can
-                     attempt to avoid this problem by passing on values presented by different peers, but they are not obligated to do so.
+                     is specific to a connection, so any request or response could encounter a hop with a lower, unknown limit. An intermediary
+                     can attempt to avoid this problem by passing on values presented by different peers, but they are not obligated to do so.
                   </p>
                </div>
                <div id="rfc.section.10.5.1.p.3">
