@@ -5,8 +5,8 @@
 HTTPbis Working Group                                            R. Peon
 Internet-Draft                                               Google, Inc
 Intended status: Standards Track                              H. Ruellan
-Expires: July 17, 2015                                         Canon CRF
-                                                        January 13, 2015
+Expires: July 24, 2015                                         Canon CRF
+                                                        January 20, 2015
 
 
                  HPACK - Header Compression for HTTP/2
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 17, 2015.
+   This Internet-Draft will expire on July 24, 2015.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Peon & Ruellan            Expires July 17, 2015                 [Page 1]
+Peon & Ruellan            Expires July 24, 2015                 [Page 1]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Peon & Ruellan            Expires July 17, 2015                 [Page 2]
+Peon & Ruellan            Expires July 24, 2015                 [Page 2]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -165,7 +165,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                 [Page 3]
+Peon & Ruellan            Expires July 24, 2015                 [Page 3]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -173,7 +173,7 @@ Internet-Draft                    HPACK                     January 2015
 1.  Introduction
 
    In HTTP/1.1 (see [RFC7230]), header fields are not compressed.  As
-   Web pages have grown to include dozens to hundreds of requests, the
+   Web pages have grown to require dozens to hundreds of requests, the
    redundant header fields in these requests unnecessarily consume
    bandwidth, measurably increasing latency.
 
@@ -187,6 +187,12 @@ Internet-Draft                    HPACK                     January 2015
    which eliminates redundant header fields, limits vulnerability to
    known security attacks, and which has a bounded memory requirement
    for use in constrained environments.
+
+   The HPACK format is intentionally simple and inflexible.  Both
+   characteristics reduce the risk of interoperability or security
+   issues based by implementation error.  No extensibility mechanisms
+   are defined; changes to the format are only possible by defining a
+   complete replacement.
 
 1.1.  Overview
 
@@ -212,19 +218,16 @@ Internet-Draft                    HPACK                     January 2015
    enables decoders to remain simple and interoperate with a wide
    variety of encoders.
 
-   Examples illustrating the use of these different mechanisms to
-   represent header fields are available in Appendix C.
 
 
 
-
-
-
-
-Peon & Ruellan            Expires July 17, 2015                 [Page 4]
+Peon & Ruellan            Expires July 24, 2015                 [Page 4]
 
 Internet-Draft                    HPACK                     January 2015
 
+
+   Examples illustrating the use of these different mechanisms to
+   represent header fields are available in Appendix C.
 
 1.2.  Conventions
 
@@ -243,14 +246,13 @@ Internet-Draft                    HPACK                     January 2015
    Header Field:  A name-value pair.  Both the name and value are
       treated as opaque sequences of octets.
 
-   Dynamic Table:  The dynamic table (see Section 2.3.2) is a header
-      table used to associate stored header fields to index values.
-      This table is dynamic and specific to an encoding or decoding
-      context.
+   Dynamic Table:  The dynamic table (see Section 2.3.2) is a table that
+      associates stored header fields with index values.  This table is
+      dynamic and specific to an encoding or decoding context.
 
-   Static Table:  The static table (see Section 2.3.1) is a header table
-      used to associate static header fields to index values.  This
-      table is ordered, read-only, always accessible, and may be shared
+   Static Table:  The static table (see Section 2.3.1) is a table that
+      statically associates header fields with index values.  This table
+      is ordered, read-only, always accessible, and may be shared
       amongst all encoding or decoding contexts.
 
    Header List:  A header list is an ordered collection of header fields
@@ -275,9 +277,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-
-
-Peon & Ruellan            Expires July 17, 2015                 [Page 5]
+Peon & Ruellan            Expires July 24, 2015                 [Page 5]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -294,7 +294,7 @@ Internet-Draft                    HPACK                     January 2015
 
    To decompress header blocks, a decoder only needs to maintain a
    dynamic table (see Section 2.3.2) as a decoding context.  No other
-   state is needed.
+   dynamic state is needed.
 
    When used for bidirectional communication, such as in HTTP, the
    encoding and decoding dynamic tables maintained by an endpoint are
@@ -333,7 +333,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                 [Page 6]
+Peon & Ruellan            Expires July 24, 2015                 [Page 6]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -389,7 +389,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                 [Page 7]
+Peon & Ruellan            Expires July 24, 2015                 [Page 7]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -417,7 +417,7 @@ Internet-Draft                    HPACK                     January 2015
    original header list.
 
    Once a header field is decoded and added to the reconstructed header
-   list, it cannot be removed from it.  A header field added to the
+   list, the field cannot be removed.  A header field added to the
    header list can be safely passed to the application.
 
    By passing the resulting header fields to the application, a decoder
@@ -445,7 +445,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                 [Page 8]
+Peon & Ruellan            Expires July 24, 2015                 [Page 8]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -501,7 +501,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                 [Page 9]
+Peon & Ruellan            Expires July 24, 2015                 [Page 9]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -516,13 +516,13 @@ Internet-Draft                    HPACK                     January 2015
    acknowledgement (see Section 6.5.3 of [HTTP2]).
 
    Multiple updates to the maximum table size can occur between the
-   sending of two header blocks.  In the case that the value of this
-   parameter is changed more than once, if any changed value is smaller
-   than the new maximum size, the smallest value for the parameter MUST
-   be sent in an encoding context update.  The altered maximum size is
-   always sent, resulting in at most two encoding context updates.  This
-   ensures that the decoder is able to perform eviction based on the
-   decoder table size (see Section 4.3).
+   sending of two header blocks.  In the case that this size is changed
+   more than once in this interval, the smallest maximum table size that
+   occurs in that interval MUST be sent in an encoding context update.
+   The final maximum size is always sent, resulting in at most two
+   encoding context updates.  This ensures that the decoder is able to
+   perform eviction based on reductions in decoder table size (see
+   Section 4.3).
 
    This mechanism can be used to completely clear entries from the
    dynamic table by setting a maximum size of 0, which can subsequently
@@ -536,10 +536,10 @@ Internet-Draft                    HPACK                     January 2015
 
 4.4.  Entry Eviction when Adding New Entries
 
-   Whenever a new entry is to be added to the dynamic table, entries are
-   evicted from the end of the dynamic table until the size of the
-   dynamic table is less than or equal to (maximum size - new entry
-   size), or until the table is empty.
+   Before a new entry is added to the dynamic table, entries are evicted
+   from the end of the dynamic table until the size of the dynamic table
+   is less than or equal to (maximum size - new entry size), or until
+   the table is empty.
 
    If the representation of the added entry references the name of an
    entry in the dynamic table, the referenced name is cached prior to
@@ -557,7 +557,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 10]
+Peon & Ruellan            Expires July 24, 2015                [Page 10]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -578,28 +578,15 @@ Internet-Draft                    HPACK                     January 2015
    integer value does not fit within the prefix.  The number of bits of
    the prefix (called N) is a parameter of the integer representation.
 
-     0   1   2   3   4   5   6   7
-   +---+---+---+---+---+---+---+---+
-   | ? | ? | ? |     Value (N)     |
-   +---+---+---+-------------------+
-
-    Figure 2: Integer Value Encoded within the Prefix (shown for N = 5)
-
    If the integer value is small enough, i.e. strictly less than 2^N-1,
    it is encoded within the N-bit prefix.
 
      0   1   2   3   4   5   6   7
    +---+---+---+---+---+---+---+---+
-   | ? | ? | ? | 1   1   1   1   1 |
+   | ? | ? | ? |       Value       |
    +---+---+---+-------------------+
-   | 1 |   Value-(2^N-1) LSB (7)   |
-   +---+---------------------------+
-                  ...
-   +---+---------------------------+
-   | 0 |   Value-(2^N-1) MSB (7)   |
-   +---+---------------------------+
 
-    Figure 3: Integer Value Encoded after the Prefix (shown for N = 5)
+    Figure 2: Integer Value Encoded within the Prefix (shown for N = 5)
 
    Otherwise, all the bits of the prefix are set to 1 and the value,
    decreased by 2^N-1, is encoded using a list of one or more octets.
@@ -608,12 +595,25 @@ Internet-Draft                    HPACK                     January 2015
    The remaining bits of the octets are used to encode the decreased
    value.
 
+     0   1   2   3   4   5   6   7
+   +---+---+---+---+---+---+---+---+
+   | ? | ? | ? | 1   1   1   1   1 |
+   +---+---+---+-------------------+
+   | 1 |    Value-(2^N-1) LSB      |
+   +---+---------------------------+
+                  ...
+   +---+---------------------------+
+   | 0 |    Value-(2^N-1) MSB      |
+   +---+---------------------------+
+
+    Figure 3: Integer Value Encoded after the Prefix (shown for N = 5)
+
    Decoding the integer value from the list of octets starts by
    reversing the order of the octets in the list.  Then, for each octet,
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 11]
+Peon & Ruellan            Expires July 24, 2015                [Page 11]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -669,7 +669,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 12]
+Peon & Ruellan            Expires July 24, 2015                [Page 12]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -725,7 +725,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 13]
+Peon & Ruellan            Expires July 24, 2015                [Page 13]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -781,7 +781,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 14]
+Peon & Ruellan            Expires July 24, 2015                [Page 14]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -837,7 +837,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 15]
+Peon & Ruellan            Expires July 24, 2015                [Page 15]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -893,7 +893,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 16]
+Peon & Ruellan            Expires July 24, 2015                [Page 16]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -949,7 +949,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 17]
+Peon & Ruellan            Expires July 24, 2015                [Page 17]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1005,7 +1005,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 18]
+Peon & Ruellan            Expires July 24, 2015                [Page 18]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1061,7 +1061,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 19]
+Peon & Ruellan            Expires July 24, 2015                [Page 19]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1117,7 +1117,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 20]
+Peon & Ruellan            Expires July 24, 2015                [Page 20]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1173,7 +1173,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 21]
+Peon & Ruellan            Expires July 24, 2015                [Page 21]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1229,7 +1229,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 22]
+Peon & Ruellan            Expires July 24, 2015                [Page 22]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1285,7 +1285,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 23]
+Peon & Ruellan            Expires July 24, 2015                [Page 23]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1341,7 +1341,7 @@ Appendix A.  Static Table Definition
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 24]
+Peon & Ruellan            Expires July 24, 2015                [Page 24]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1397,7 +1397,7 @@ Appendix B.  Huffman Code
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 25]
+Peon & Ruellan            Expires July 24, 2015                [Page 25]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1453,7 +1453,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 26]
+Peon & Ruellan            Expires July 24, 2015                [Page 26]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1509,7 +1509,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 27]
+Peon & Ruellan            Expires July 24, 2015                [Page 27]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1565,7 +1565,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 28]
+Peon & Ruellan            Expires July 24, 2015                [Page 28]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1621,7 +1621,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 29]
+Peon & Ruellan            Expires July 24, 2015                [Page 29]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1677,7 +1677,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 30]
+Peon & Ruellan            Expires July 24, 2015                [Page 30]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1733,7 +1733,7 @@ Appendix C.  Examples
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 31]
+Peon & Ruellan            Expires July 24, 2015                [Page 31]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1789,7 +1789,7 @@ C.1.2.  Example 2: Encoding 1337 Using a 5-bit Prefix
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 32]
+Peon & Ruellan            Expires July 24, 2015                [Page 32]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1845,7 +1845,7 @@ C.2.1.  Literal Header Field with Indexing
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 33]
+Peon & Ruellan            Expires July 24, 2015                [Page 33]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1901,7 +1901,7 @@ C.2.2.  Literal Header Field without Indexing
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 34]
+Peon & Ruellan            Expires July 24, 2015                [Page 34]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -1957,7 +1957,7 @@ C.2.4.  Indexed Header Field
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 35]
+Peon & Ruellan            Expires July 24, 2015                [Page 35]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2013,7 +2013,7 @@ C.3.1.  First Request
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 36]
+Peon & Ruellan            Expires July 24, 2015                [Page 36]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2069,7 +2069,7 @@ C.3.2.  Second Request
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 37]
+Peon & Ruellan            Expires July 24, 2015                [Page 37]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2125,7 +2125,7 @@ C.3.3.  Third Request
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 38]
+Peon & Ruellan            Expires July 24, 2015                [Page 38]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2181,7 +2181,7 @@ C.4.1.  First Request
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 39]
+Peon & Ruellan            Expires July 24, 2015                [Page 39]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2237,7 +2237,7 @@ C.4.2.  Second Request
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 40]
+Peon & Ruellan            Expires July 24, 2015                [Page 40]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2293,7 +2293,7 @@ C.4.3.  Third Request
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 41]
+Peon & Ruellan            Expires July 24, 2015                [Page 41]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2349,7 +2349,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 42]
+Peon & Ruellan            Expires July 24, 2015                [Page 42]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2405,7 +2405,7 @@ C.5.1.  First Response
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 43]
+Peon & Ruellan            Expires July 24, 2015                [Page 43]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2461,7 +2461,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 44]
+Peon & Ruellan            Expires July 24, 2015                [Page 44]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2517,7 +2517,7 @@ C.5.2.  Second Response
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 45]
+Peon & Ruellan            Expires July 24, 2015                [Page 45]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2573,7 +2573,7 @@ C.5.3.  Third Response
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 46]
+Peon & Ruellan            Expires July 24, 2015                [Page 46]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2629,7 +2629,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 47]
+Peon & Ruellan            Expires July 24, 2015                [Page 47]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2685,7 +2685,7 @@ C.6.1.  First Response
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 48]
+Peon & Ruellan            Expires July 24, 2015                [Page 48]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2741,7 +2741,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 49]
+Peon & Ruellan            Expires July 24, 2015                [Page 49]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2797,7 +2797,7 @@ C.6.2.  Second Response
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 50]
+Peon & Ruellan            Expires July 24, 2015                [Page 50]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2853,7 +2853,7 @@ C.6.3.  Third Response
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 51]
+Peon & Ruellan            Expires July 24, 2015                [Page 51]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2909,7 +2909,7 @@ Internet-Draft                    HPACK                     January 2015
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 52]
+Peon & Ruellan            Expires July 24, 2015                [Page 52]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -2965,7 +2965,7 @@ Appendix D.  Change Log (to be removed by RFC Editor before publication)
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 53]
+Peon & Ruellan            Expires July 24, 2015                [Page 53]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -3021,7 +3021,7 @@ D.4.  Since draft-ietf-httpbis-header-compression-06
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 54]
+Peon & Ruellan            Expires July 24, 2015                [Page 54]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -3077,7 +3077,7 @@ D.7.  Since draft-ietf-httpbis-header-compression-03
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 55]
+Peon & Ruellan            Expires July 24, 2015                [Page 55]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -3133,7 +3133,7 @@ D.10.  Since draft-ietf-httpbis-header-compression-00
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 56]
+Peon & Ruellan            Expires July 24, 2015                [Page 56]
 
 Internet-Draft                    HPACK                     January 2015
 
@@ -3189,4 +3189,4 @@ Authors' Addresses
 
 
 
-Peon & Ruellan            Expires July 17, 2015                [Page 57]
+Peon & Ruellan            Expires July 24, 2015                [Page 57]

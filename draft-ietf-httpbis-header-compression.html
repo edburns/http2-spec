@@ -448,7 +448,7 @@ ul p {
        content: "Peon & Ruellan";
   }
   @bottom-center {
-       content: "Expires July 17, 2015";
+       content: "Expires July 24, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -570,7 +570,7 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Ruellan, H.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-header-compression-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2015-01-13">
+      <meta name="dct.issued" scheme="ISO8601" content="2015-01-20">
       <meta name="dct.abstract" content="This specification defines HPACK, a compression format for efficiently representing HTTP header fields, to be used in HTTP/2.">
       <meta name="description" content="This specification defines HPACK, a compression format for efficiently representing HTTP header fields, to be used in HTTP/2.">
    </head>
@@ -590,12 +590,12 @@ ul.toc a:first-child {
                <td class="right">H. Ruellan</td>
             </tr>
             <tr>
-               <td class="left">Expires: July 17, 2015</td>
+               <td class="left">Expires: July 24, 2015</td>
                <td class="right">Canon CRF</td>
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">January 13, 2015</td>
+               <td class="right">January 20, 2015</td>
             </tr>
          </tbody>
       </table>
@@ -619,7 +619,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on July 17, 2015.</p>
+         <p>This Internet-Draft will expire on July 24, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -779,7 +779,7 @@ ul.toc a:first-child {
          <h1 id="rfc.section.1" class="np"><a href="#rfc.section.1">1.</a>&nbsp;Introduction
          </h1>
          <div id="rfc.section.1.p.1">
-            <p>In HTTP/1.1 (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>), header fields are not compressed. As Web pages have grown to include dozens to hundreds of requests, the redundant header
+            <p>In HTTP/1.1 (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>), header fields are not compressed. As Web pages have grown to require dozens to hundreds of requests, the redundant header
                fields in these requests unnecessarily consume bandwidth, measurably increasing latency.
             </p>
          </div>
@@ -791,6 +791,12 @@ ul.toc a:first-child {
          <div id="rfc.section.1.p.3">
             <p>This specification defines HPACK, a new compressor for header fields which eliminates redundant header fields, limits vulnerability
                to known security attacks, and which has a bounded memory requirement for use in constrained environments.
+            </p>
+         </div>
+         <div id="rfc.section.1.p.4">
+            <p>The HPACK format is intentionally simple and inflexible. Both characteristics reduce the risk of interoperability or security
+               issues based by implementation error. No extensibility mechanisms are defined; changes to the format are only possible by
+               defining a complete replacement.
             </p>
          </div>
          <div>
@@ -844,11 +850,11 @@ ul.toc a:first-child {
                   <dt>Header Field:</dt>
                   <dd>A name-value pair. Both the name and value are treated as opaque sequences of octets.</dd>
                   <dt>Dynamic Table:</dt>
-                  <dd>The dynamic table (see <a href="#dynamic.table" title="Dynamic Table">Section&nbsp;2.3.2</a>) is a header table used to associate stored header fields to index values. This table is dynamic and specific to an encoding
-                     or decoding context.
+                  <dd>The dynamic table (see <a href="#dynamic.table" title="Dynamic Table">Section&nbsp;2.3.2</a>) is a table that associates stored header fields with index values. This table is dynamic and specific to an encoding or
+                     decoding context.
                   </dd>
                   <dt>Static Table:</dt>
-                  <dd>The static table (see <a href="#static.table" title="Static Table">Section&nbsp;2.3.1</a>) is a header table used to associate static header fields to index values. This table is ordered, read-only, always accessible,
+                  <dd>The static table (see <a href="#static.table" title="Static Table">Section&nbsp;2.3.1</a>) is a table that statically associates header fields with index values. This table is ordered, read-only, always accessible,
                      and may be shared amongst all encoding or decoding contexts.
                   </dd>
                   <dt>Header List:</dt>
@@ -883,7 +889,7 @@ ul.toc a:first-child {
          <div id="encoding.context">
             <h2 id="rfc.section.2.2"><a href="#rfc.section.2.2">2.2</a>&nbsp;<a href="#encoding.context">Encoding and Decoding Contexts</a></h2>
             <div id="rfc.section.2.2.p.1">
-               <p>To decompress header blocks, a decoder only needs to maintain a dynamic table (see <a href="#dynamic.table" title="Dynamic Table">Section&nbsp;2.3.2</a>) as a decoding context. No other state is needed.
+               <p>To decompress header blocks, a decoder only needs to maintain a dynamic table (see <a href="#dynamic.table" title="Dynamic Table">Section&nbsp;2.3.2</a>) as a decoding context. No other dynamic state is needed.
                </p>
             </div>
             <div id="rfc.section.2.2.p.2">
@@ -1000,7 +1006,7 @@ ul.toc a:first-child {
                <p>A decoder processes a header block sequentially to reconstruct the original header list.</p>
             </div>
             <div id="rfc.section.3.1.p.2">
-               <p>Once a header field is decoded and added to the reconstructed header list, it cannot be removed from it. A header field added
+               <p>Once a header field is decoded and added to the reconstructed header list, the field cannot be removed. A header field added
                   to the header list can be safely passed to the application.
                </p>
             </div>
@@ -1094,10 +1100,10 @@ ul.toc a:first-child {
                </p>
             </div>
             <div id="rfc.section.4.2.p.4">
-               <p>Multiple updates to the maximum table size can occur between the sending of two header blocks. In the case that the value
-                  of this parameter is changed more than once, if any changed value is smaller than the new maximum size, the smallest value
-                  for the parameter MUST be sent in an encoding context update. The altered maximum size is always sent, resulting in at most
-                  two encoding context updates. This ensures that the decoder is able to perform eviction based on the decoder table size (see <a href="#entry.eviction" title="Entry Eviction when Dynamic Table Size Changes">Section&nbsp;4.3</a>).
+               <p>Multiple updates to the maximum table size can occur between the sending of two header blocks. In the case that this size
+                  is changed more than once in this interval, the smallest maximum table size that occurs in that interval MUST be sent in an
+                  encoding context update. The final maximum size is always sent, resulting in at most two encoding context updates. This ensures
+                  that the decoder is able to perform eviction based on reductions in decoder table size (see <a href="#entry.eviction" title="Entry Eviction when Dynamic Table Size Changes">Section&nbsp;4.3</a>).
                </p>
             </div>
             <div id="rfc.section.4.2.p.5">
@@ -1117,8 +1123,8 @@ ul.toc a:first-child {
          <div id="entry.addition">
             <h2 id="rfc.section.4.4"><a href="#rfc.section.4.4">4.4</a>&nbsp;<a href="#entry.addition">Entry Eviction when Adding New Entries</a></h2>
             <div id="rfc.section.4.4.p.1">
-               <p>Whenever a new entry is to be added to the dynamic table, entries are evicted from the end of the dynamic table until the
-                  size of the dynamic table is less than or equal to (maximum size - new entry size), or until the table is empty.
+               <p>Before a new entry is added to the dynamic table, entries are evicted from the end of the dynamic table until the size of
+                  the dynamic table is less than or equal to (maximum size - new entry size), or until the table is empty.
                </p>
             </div>
             <div id="rfc.section.4.4.p.2">
@@ -1152,15 +1158,21 @@ ul.toc a:first-child {
                   representation.
                </p>
             </div>
+            <div id="rfc.section.5.1.p.3">
+               <p>If the integer value is small enough, i.e. strictly less than 2<sup>N</sup>-1, it is encoded within the N-bit prefix.
+               </p>
+            </div>
             <div id="Integer.Value.Encoded.within.the.Prefix.shown.for.N.5"></div>
             <div id="rfc.figure.2"><pre class="inline">  0   1   2   3   4   5   6   7
 +---+---+---+---+---+---+---+---+
-| ? | ? | ? |     Value (N)     |
+| ? | ? | ? |       Value       |
 +---+---+---+-------------------+
 </pre></div>
             <p class="figure">Figure 2: Integer Value Encoded within the Prefix (shown for N = 5)</p>
-            <div id="rfc.section.5.1.p.3">
-               <p>If the integer value is small enough, i.e. strictly less than 2<sup>N</sup>-1, it is encoded within the N-bit prefix.
+            <div id="rfc.section.5.1.p.4">
+               <p>Otherwise, all the bits of the prefix are set to 1 and the value, decreased by 2<sup>N</sup>-1, is encoded using a list of one or more octets. The most significant bit of each octet is used as a continuation flag:
+                  its value is set to 1 except for the last octet in the list. The remaining bits of the octets are used to encode the decreased
+                  value.
                </p>
             </div>
             <div id="Integer.Value.Encoded.after.the.Prefix.shown.for.N.5"></div>
@@ -1168,20 +1180,14 @@ ul.toc a:first-child {
 +---+---+---+---+---+---+---+---+
 | ? | ? | ? | 1   1   1   1   1 |
 +---+---+---+-------------------+
-| 1 |   Value-(2^N-1) LSB (7)   |
+| 1 |    Value-(2^N-1) LSB      |
 +---+---------------------------+
                ...
 +---+---------------------------+
-| 0 |   Value-(2^N-1) MSB (7)   |
+| 0 |    Value-(2^N-1) MSB      |
 +---+---------------------------+
 </pre></div>
             <p class="figure">Figure 3: Integer Value Encoded after the Prefix (shown for N = 5)</p>
-            <div id="rfc.section.5.1.p.4">
-               <p>Otherwise, all the bits of the prefix are set to 1 and the value, decreased by 2<sup>N</sup>-1, is encoded using a list of one or more octets. The most significant bit of each octet is used as a continuation flag:
-                  its value is set to 1 except for the last octet in the list. The remaining bits of the octets are used to encode the decreased
-                  value.
-               </p>
-            </div>
             <div id="rfc.section.5.1.p.5">
                <p>Decoding the integer value from the list of octets starts by reversing the order of the octets in the list. Then, for each
                   octet, its most significant bit is removed. The remaining bits of the octets are concatenated and the resulting value is increased
