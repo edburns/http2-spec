@@ -1943,22 +1943,27 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.5.5.p.2">
-               <p>Extensions are permitted to use new frame types (<a href="#FrameHeader" title="Frame Format">Section&nbsp;4.1</a>), new settings (<a href="#SettingValues" title="Defined SETTINGS Parameters">Section&nbsp;6.5.2</a>), or new error codes (<a href="#ErrorCodes" title="Error Codes">Section&nbsp;7</a>). Registries are established for managing these extension points: frame types (<a href="#iana-frames" title="Frame Type Registry">Section&nbsp;11.2</a>), settings (<a href="#iana-settings" title="Settings Registry">Section&nbsp;11.3</a>) and error codes (<a href="#iana-errors" title="Error Code Registry">Section&nbsp;11.4</a>).
+               <p>This applies to the protocol elements defined in this document. This does not affect the existing options for extending HTTP,
+                  such as defining new methods, status codes, or header fields.
                </p>
             </div>
             <div id="rfc.section.5.5.p.3">
+               <p>Extensions are permitted to use new frame types (<a href="#FrameHeader" title="Frame Format">Section&nbsp;4.1</a>), new settings (<a href="#SettingValues" title="Defined SETTINGS Parameters">Section&nbsp;6.5.2</a>), or new error codes (<a href="#ErrorCodes" title="Error Codes">Section&nbsp;7</a>). Registries are established for managing these extension points: frame types (<a href="#iana-frames" title="Frame Type Registry">Section&nbsp;11.2</a>), settings (<a href="#iana-settings" title="Settings Registry">Section&nbsp;11.3</a>) and error codes (<a href="#iana-errors" title="Error Code Registry">Section&nbsp;11.4</a>).
+               </p>
+            </div>
+            <div id="rfc.section.5.5.p.4">
                <p>Implementations MUST ignore unknown or unsupported values in all extensible protocol elements. Implementations MUST discard
                   frames that have unknown or unsupported types. This means that any of these extension points can be safely used by extensions
                   without prior arrangement or negotiation. However, extension frames that appear in the middle of a header block (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>) are not permitted; these MUST be treated as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
                </p>
             </div>
-            <div id="rfc.section.5.5.p.4">
+            <div id="rfc.section.5.5.p.5">
                <p>Extensions that could change the semantics of existing protocol components MUST be negotiated before being used. For example,
                   an extension that changes the layout of the <a href="#HEADERS" class="smpl">HEADERS</a> frame cannot be used until the peer has given a positive signal that this is acceptable. In this case, it could also be necessary
                   to coordinate when the revised layout comes into effect. Note that treating any frame other than <a href="#DATA" class="smpl">DATA</a> frames as flow controlled is such a change in semantics, and can only be done through negotiation.
                </p>
             </div>
-            <div id="rfc.section.5.5.p.5">
+            <div id="rfc.section.5.5.p.6">
                <p>This document doesn't mandate a specific method for negotiating the use of an extension, but notes that a setting (<a href="#SettingValues" title="Defined SETTINGS Parameters">Section&nbsp;6.5.2</a>) could be used for that purpose. If both peers set a value that indicates willingness to use the extension, then the extension
                   can be used. If a setting is used for extension negotiation, the initial value MUST be defined in such a fashion that the
                   extension is initially disabled.
@@ -3326,8 +3331,9 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.8.2.p.3">
-               <p>Promised requests MUST be cacheable (see <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#cacheable.methods" title="Cacheable Methods">Section 4.2.3</a>), MUST be safe (see <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#safe.methods" title="Safe Methods">Section 4.2.1</a>) and MUST NOT include a request body. Clients that receive a promised request that is not cacheable, unsafe or that includes
-                  a request body MUST reset the stream with a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
+               <p>Promised requests MUST be cacheable (see <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#cacheable.methods" title="Cacheable Methods">Section 4.2.3</a>), MUST be safe (see <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#safe.methods" title="Safe Methods">Section 4.2.1</a>) and MUST NOT include a request body. Clients that receive a promised request that is not cacheable, is not known to be safe
+                  or that indicates the presence of a request body MUST reset the promised stream with a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>. Note this could result in the promised stream being reset if the client does not recognize a newly defined method as being
+                  safe.
                </p>
             </div>
             <div id="rfc.section.8.2.p.4">
@@ -3822,8 +3828,8 @@ Upgrade: h2c
             <h2 id="rfc.section.10.6"><a href="#rfc.section.10.6">10.6</a>&nbsp;Use of Compression
             </h2>
             <div id="rfc.section.10.6.p.1">
-               <p>HTTP/2 enables greater use of compression for both header fields (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>) and entity bodies. Compression can allow an attacker to recover secret data when it is compressed in the same context as
-                  data under attacker control.
+               <p>Compression can allow an attacker to recover secret data when it is compressed in the same context as data under attacker
+                  control. HTTP/2 enables compression of header fields (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>); the following concerns also apply to the use of HTTP compressed content-codings (<a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#content.codings" title="Content Codings">Section 3.1.2.1</a>).
                </p>
             </div>
             <div id="rfc.section.10.6.p.2">
@@ -3835,7 +3841,7 @@ Upgrade: h2c
                <p>Implementations communicating on a secure channel MUST NOT compress content that includes both confidential and attacker-controlled
                   data unless separate compression dictionaries are used for each source of data. Compression MUST NOT be used if the source
                   of data cannot be reliably determined. Generic stream compression, such as that provided by TLS MUST NOT be used with HTTP/2
-                  (<a href="#TLSUsage" title="Use of TLS Features">Section&nbsp;9.2</a>).
+                  (see <a href="#TLSUsage" title="Use of TLS Features">Section&nbsp;9.2</a>).
                </p>
             </div>
             <div id="rfc.section.10.6.p.4">
