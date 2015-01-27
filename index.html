@@ -763,6 +763,7 @@ ul.toc a:first-child {
                   <li><a href="#rfc.section.10.4">10.4</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.10.4">Cacheability of Pushed Responses</a></li>
                   <li><a href="#rfc.section.10.5">10.5</a>&nbsp;&nbsp;&nbsp;<a href="#dos">Denial of Service Considerations</a><ul>
                         <li><a href="#rfc.section.10.5.1">10.5.1</a>&nbsp;&nbsp;&nbsp;<a href="#MaxHeaderBlock">Limits on Header Block Size</a></li>
+                        <li><a href="#rfc.section.10.5.2">10.5.2</a>&nbsp;&nbsp;&nbsp;<a href="#connectDos">CONNECT Issues</a></li>
                      </ul>
                   </li>
                   <li><a href="#rfc.section.10.6">10.6</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.10.6">Use of Compression</a></li>
@@ -3801,6 +3802,16 @@ Upgrade: h2c
                   <p>A server that receives a larger header block than it is willing to handle can send an HTTP 431 (Request Header Fields Too
                      Large) status code <a href="#RFC6585"><cite title="Additional HTTP Status Codes">[RFC6585]</cite></a>. A client can discard responses that it cannot process. The header block MUST be processed to ensure a consistent connection
                      state, unless the connection is closed.
+                  </p>
+               </div>
+            </div>
+            <div id="connectDos">
+               <h3 id="rfc.section.10.5.2"><a href="#rfc.section.10.5.2">10.5.2</a>&nbsp;<a href="#connectDos">CONNECT Issues</a></h3>
+               <div id="rfc.section.10.5.2.p.1">
+                  <p>The CONNECT method can be used to create disproportionate load on an proxy, since stream creation is relatively inexpensive
+                     when compared to the creation and maintenance of a TCP connection. A proxy might also maintain some resources for a TCP connection
+                     beyond the closing of the stream that carries the CONNECT request, since the outgoing TCP connection remains in the TIME_WAIT
+                     state. A proxy therefore cannot rely on <a href="#SETTINGS_MAX_CONCURRENT_STREAMS" class="smpl">SETTINGS_MAX_CONCURRENT_STREAMS</a> alone to limit the resources consumed by CONNECT requests.
                   </p>
                </div>
             </div>
