@@ -3331,9 +3331,8 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.8.2.p.3">
-               <p>Promised requests MUST be cacheable (see <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#cacheable.methods" title="Cacheable Methods">Section 4.2.3</a>), MUST be safe (see <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#safe.methods" title="Safe Methods">Section 4.2.1</a>) and MUST NOT include a request body. Clients that receive a promised request that is not cacheable, is not known to be safe
-                  or that indicates the presence of a request body MUST reset the promised stream with a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>. Note this could result in the promised stream being reset if the client does not recognize a newly defined method as being
-                  safe.
+               <p>Promised requests MUST be cacheable (see <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#cacheable.methods" title="Cacheable Methods">Section 4.2.3</a>), MUST be safe (see <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#safe.methods" title="Safe Methods">Section 4.2.1</a>) and MUST NOT include a request body. Clients that receive a promised request that is not cacheable, unsafe or that includes
+                  a request body MUST reset the stream with a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
                </p>
             </div>
             <div id="rfc.section.8.2.p.4">
@@ -3828,8 +3827,8 @@ Upgrade: h2c
             <h2 id="rfc.section.10.6"><a href="#rfc.section.10.6">10.6</a>&nbsp;Use of Compression
             </h2>
             <div id="rfc.section.10.6.p.1">
-               <p>Compression can allow an attacker to recover secret data when it is compressed in the same context as data under attacker
-                  control. HTTP/2 enables compression of header fields (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>); the following concerns also apply to the use of HTTP compressed content-codings (<a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#content.codings" title="Content Codings">Section 3.1.2.1</a>).
+               <p>HTTP/2 enables greater use of compression for both header fields (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>) and entity bodies. Compression can allow an attacker to recover secret data when it is compressed in the same context as
+                  data under attacker control.
                </p>
             </div>
             <div id="rfc.section.10.6.p.2">
@@ -3841,7 +3840,7 @@ Upgrade: h2c
                <p>Implementations communicating on a secure channel MUST NOT compress content that includes both confidential and attacker-controlled
                   data unless separate compression dictionaries are used for each source of data. Compression MUST NOT be used if the source
                   of data cannot be reliably determined. Generic stream compression, such as that provided by TLS MUST NOT be used with HTTP/2
-                  (see <a href="#TLSUsage" title="Use of TLS Features">Section&nbsp;9.2</a>).
+                  (<a href="#TLSUsage" title="Use of TLS Features">Section&nbsp;9.2</a>).
                </p>
             </div>
             <div id="rfc.section.10.6.p.4">
