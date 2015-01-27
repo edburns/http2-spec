@@ -1079,7 +1079,7 @@ Internet-Draft                   HTTP/2                     January 2015
       END_STREAM flag is sent.
 
       PRIORITY frames received in this state are used to reprioritize
-      streams that depend on the current stream.
+      streams that depend on the identified stream.
 
    half closed (remote):
       A stream that is "half closed (remote)" is no longer being used by
@@ -1948,10 +1948,10 @@ Internet-Draft                   HTTP/2                     January 2015
 
    The PRIORITY frame does not define any flags.
 
-   The PRIORITY frame is associated with an existing stream.  If a
-   PRIORITY frame is received with a stream identifier of 0x0, the
-   recipient MUST respond with a connection error (Section 5.4.1) of
-   type PROTOCOL_ERROR.
+   The PRIORITY frame always identifies a stream.  If a PRIORITY frame
+   is received with a stream identifier of 0x0, the recipient MUST
+   respond with a connection error (Section 5.4.1) of type
+   PROTOCOL_ERROR.
 
 
 
@@ -1966,9 +1966,10 @@ Internet-Draft                   HTTP/2                     January 2015
    cannot be sent between consecutive frames that comprise a single
    header block (Section 4.3).  Note that this frame could arrive after
    processing or frame sending has completed, which would cause it to
-   have no effect on the current stream.  For a stream that is in the
+   have no effect on the identified stream.  For a stream that is in the
    "half closed (remote)" or "closed" - state, this frame can only
-   affect processing of the current stream and not frame transmission.
+   affect processing of the identified stream and its dependent streams
+   and not frame transmission on that stream.
 
    The PRIORITY frame can be sent for a stream in the "idle" or "closed"
    states.  This allows for the reprioritization of a group of dependent
@@ -2008,8 +2009,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
    RST_STREAM frames MUST be associated with a stream.  If a RST_STREAM
    frame is received with a stream identifier of 0x0, the recipient MUST
-   treat this as a connection error (Section 5.4.1) of type
-   PROTOCOL_ERROR.
+
 
 
 
@@ -2017,6 +2017,9 @@ Belshe, et al.            Expires July 31, 2015                [Page 36]
 
 Internet-Draft                   HTTP/2                     January 2015
 
+
+   treat this as a connection error (Section 5.4.1) of type
+   PROTOCOL_ERROR.
 
    RST_STREAM frames MUST NOT be sent for a stream in the "idle" state.
    If a RST_STREAM frame identifying an idle stream is received, the
@@ -2063,9 +2066,6 @@ Internet-Draft                   HTTP/2                     January 2015
       (Section 5.4.1) of type FRAME_SIZE_ERROR.  For more info, see
       Settings Synchronization (Section 6.5.3).
 
-   SETTINGS frames always apply to a connection, never a single stream.
-   The stream identifier for a SETTINGS frame MUST be zero (0x0).  If an
-   endpoint receives a SETTINGS frame whose stream identifier field is
 
 
 
@@ -2074,6 +2074,9 @@ Belshe, et al.            Expires July 31, 2015                [Page 37]
 Internet-Draft                   HTTP/2                     January 2015
 
 
+   SETTINGS frames always apply to a connection, never a single stream.
+   The stream identifier for a SETTINGS frame MUST be zero (0x0).  If an
+   endpoint receives a SETTINGS frame whose stream identifier field is
    anything other than 0x0, the endpoint MUST respond with a connection
    error (Section 5.4.1) of type PROTOCOL_ERROR.
 
@@ -2119,9 +2122,6 @@ Internet-Draft                   HTTP/2                     January 2015
       acknowledged MUST treat the receipt of a PUSH_PROMISE frame as a
       connection error (Section 5.4.1) of type PROTOCOL_ERROR.
 
-      The initial value is 1, which indicates that server push is
-      permitted.  Any value other than 0 or 1 MUST be treated as a
-      connection error (Section 5.4.1) of type PROTOCOL_ERROR.
 
 
 
@@ -2129,6 +2129,10 @@ Belshe, et al.            Expires July 31, 2015                [Page 38]
 
 Internet-Draft                   HTTP/2                     January 2015
 
+
+      The initial value is 1, which indicates that server push is
+      permitted.  Any value other than 0 or 1 MUST be treated as a
+      connection error (Section 5.4.1) of type PROTOCOL_ERROR.
 
    SETTINGS_MAX_CONCURRENT_STREAMS (0x3):  Indicates the maximum number
       of concurrent streams that the sender will allow.  This limit is
@@ -2148,8 +2152,8 @@ Internet-Draft                   HTTP/2                     January 2015
       window size (in octets) for stream level flow control.  The
       initial value is 2^16-1 (65,535) octets.
 
-      This setting affects the window size of all streams, including
-      existing streams, see Section 6.9.2.
+      This setting affects the window size of all streams, see
+      Section 6.9.2.
 
       Values above the maximum flow control window size of 2^31-1 MUST
       be treated as a connection error (Section 5.4.1) of type
@@ -2174,10 +2178,6 @@ Internet-Draft                   HTTP/2                     January 2015
       For any given request, a lower limit than what is advertised MAY
       be enforced.  The initial value of this setting is unlimited.
 
-   An endpoint that receives a SETTINGS frame with any unknown or
-   unsupported identifier MUST ignore that setting.
-
-
 
 
 
@@ -2185,6 +2185,9 @@ Belshe, et al.            Expires July 31, 2015                [Page 39]
 
 Internet-Draft                   HTTP/2                     January 2015
 
+
+   An endpoint that receives a SETTINGS frame with any unknown or
+   unsupported identifier MUST ignore that setting.
 
 6.5.3.  Settings Synchronization
 
@@ -2231,9 +2234,6 @@ Internet-Draft                   HTTP/2                     January 2015
 
    The PUSH_PROMISE frame payload has the following fields:
 
-   Pad Length:  An 8-bit field containing the length of the frame
-      padding in units of octets.  This field is only present if the
-      PADDED flag is set.
 
 
 
@@ -2241,6 +2241,10 @@ Belshe, et al.            Expires July 31, 2015                [Page 40]
 
 Internet-Draft                   HTTP/2                     January 2015
 
+
+   Pad Length:  An 8-bit field containing the length of the frame
+      padding in units of octets.  This field is only present if the
+      PADDED flag is set.
 
    R: A single reserved bit.
 
@@ -2269,11 +2273,12 @@ Internet-Draft                   HTTP/2                     January 2015
    PADDED (0x8):  Bit 3 being set indicates that the Pad Length field
       and any padding that it describes is present.
 
-   PUSH_PROMISE frames MUST be associated with an existing, peer-
-   initiated stream.  The stream identifier of a PUSH_PROMISE frame
-   indicates the stream it is associated with.  If the stream identifier
-   field specifies the value 0x0, a recipient MUST respond with a
-   connection error (Section 5.4.1) of type PROTOCOL_ERROR.
+   PUSH_PROMISE frames MUST be associated with a peer-initiated stream
+   that is in either the "open" or "half closed (remote)" state.  The
+   stream identifier of a PUSH_PROMISE frame indicates the stream it is
+   associated with.  If the stream identifier field specifies the value
+   0x0, a recipient MUST respond with a connection error (Section 5.4.1)
+   of type PROTOCOL_ERROR.
 
    Promised streams are not required to be used in the order they are
    promised.  The PUSH_PROMISE only reserves stream identifiers for
@@ -2285,11 +2290,6 @@ Internet-Draft                   HTTP/2                     January 2015
    PUSH_PROMISE frame as a connection error (Section 5.4.1) of type
    PROTOCOL_ERROR.
 
-   Recipients of PUSH_PROMISE frames can choose to reject promised
-   streams by returning a RST_STREAM referencing the promised stream
-   identifier back to the sender of the PUSH_PROMISE.
-
-
 
 
 
@@ -2297,6 +2297,10 @@ Belshe, et al.            Expires July 31, 2015                [Page 41]
 
 Internet-Draft                   HTTP/2                     January 2015
 
+
+   Recipients of PUSH_PROMISE frames can choose to reject promised
+   streams by returning a RST_STREAM referencing the promised stream
+   identifier back to the sender of the PUSH_PROMISE.
 
    A PUSH_PROMISE frame modifies the connection state in two ways.  The
    inclusion of a header block (Section 4.3) potentially modifies the
@@ -2342,10 +2346,6 @@ Internet-Draft                   HTTP/2                     January 2015
 
                       Figure 12: PING Payload Format
 
-   In addition to the frame header, PING frames MUST contain 8 octets of
-   data in the payload.  A sender can include any value it chooses and
-   use those octets in any fashion.
-
 
 
 
@@ -2353,6 +2353,10 @@ Belshe, et al.            Expires July 31, 2015                [Page 42]
 
 Internet-Draft                   HTTP/2                     January 2015
 
+
+   In addition to the frame header, PING frames MUST contain 8 octets of
+   data in the payload.  A sender can include any value it chooses and
+   use those octets in any fashion.
 
    Receivers of a PING frame that does not include an ACK flag MUST send
    a PING frame with the ACK flag set in response, with an identical
@@ -2397,10 +2401,6 @@ Internet-Draft                   HTTP/2                     January 2015
    GOAWAY frame, the identified stream is the highest numbered stream
    initiated by the client.
 
-   If the receiver of the GOAWAY has sent data on streams with a higher
-   stream identifier than what is indicated in the GOAWAY frame, those
-   streams are not or will not be processed.  The receiver of the GOAWAY
-   frame can treat the streams as though they had never been created at
 
 
 
@@ -2410,6 +2410,10 @@ Belshe, et al.            Expires July 31, 2015                [Page 43]
 Internet-Draft                   HTTP/2                     January 2015
 
 
+   If the receiver of the GOAWAY has sent data on streams with a higher
+   stream identifier than what is indicated in the GOAWAY frame, those
+   streams are not or will not be processed.  The receiver of the GOAWAY
+   frame can treat the streams as though they had never been created at
    all, thereby allowing those streams to be retried later on a new
    connection.
 
@@ -2454,10 +2458,6 @@ Internet-Draft                   HTTP/2                     January 2015
       stream was passed to some higher layer of software that might have
       taken some action as a result.
 
-   If a connection terminates without a GOAWAY frame, the last stream
-   identifier is effectively the highest possible stream identifier.
-
-
 
 
 
@@ -2465,6 +2465,9 @@ Belshe, et al.            Expires July 31, 2015                [Page 44]
 
 Internet-Draft                   HTTP/2                     January 2015
 
+
+   If a connection terminates without a GOAWAY frame, the last stream
+   identifier is effectively the highest possible stream identifier.
 
    On streams with lower or equal numbered identifiers that were not
    closed completely prior to the connection being closed, re-attempting
@@ -2510,9 +2513,6 @@ Internet-Draft                   HTTP/2                     January 2015
    to process these frames can cause flow control or header compression
    state to become unsynchronized.
 
-   The GOAWAY frame also contains a 32-bit error code (Section 7) that
-   contains the reason for closing the connection.
-
 
 
 
@@ -2521,6 +2521,9 @@ Belshe, et al.            Expires July 31, 2015                [Page 45]
 
 Internet-Draft                   HTTP/2                     January 2015
 
+
+   The GOAWAY frame also contains a 32-bit error code (Section 7) that
+   contains the reason for closing the connection.
 
    Endpoints MAY append opaque data to the payload of any GOAWAY frame.
    Additional debug data is intended for diagnostic purposes only and
@@ -2568,9 +2571,6 @@ Internet-Draft                   HTTP/2                     January 2015
 
    The WINDOW_UPDATE frame does not define any flags.
 
-   The WINDOW_UPDATE frame can be specific to a stream or to the entire
-   connection.  In the former case, the frame's stream identifier
-
 
 
 Belshe, et al.            Expires July 31, 2015                [Page 46]
@@ -2578,6 +2578,8 @@ Belshe, et al.            Expires July 31, 2015                [Page 46]
 Internet-Draft                   HTTP/2                     January 2015
 
 
+   The WINDOW_UPDATE frame can be specific to a stream or to the entire
+   connection.  In the former case, the frame's stream identifier
    indicates the affected stream; in the latter, the value "0" indicates
    that the entire connection is the subject of the frame.
 
@@ -2627,8 +2629,6 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
 
-
-
 Belshe, et al.            Expires July 31, 2015                [Page 47]
 
 Internet-Draft                   HTTP/2                     January 2015
@@ -2671,10 +2671,10 @@ Internet-Draft                   HTTP/2                     January 2015
    window size until a WINDOW_UPDATE frame is received.
 
    A SETTINGS frame can alter the initial flow control window size for
-   all current streams.  When the value of SETTINGS_INITIAL_WINDOW_SIZE
-   changes, a receiver MUST adjust the size of all stream flow control
-   windows that it maintains by the difference between the new value and
-   the old value.
+   all streams in the "open" or "half closed (remote)" state.  When the
+   value of SETTINGS_INITIAL_WINDOW_SIZE changes, a receiver MUST adjust
+   the size of all stream flow control windows that it maintains by the
+   difference between the new value and the old value.
 
    A change to SETTINGS_INITIAL_WINDOW_SIZE can cause the available
    space in a flow control window to become negative.  A sender MUST
@@ -2726,9 +2726,9 @@ Internet-Draft                   HTTP/2                     January 2015
 
    The CONTINUATION frame (type=0x9) is used to continue a sequence of
    header block fragments (Section 4.3).  Any number of CONTINUATION
-   frames can be sent on an existing stream, as long as the preceding
-   frame is on the same stream and is a HEADERS, PUSH_PROMISE or
-   CONTINUATION frame without the END_HEADERS flag set.
+   frames can be sent, as long as the preceding frame is on the same
+   stream and is a HEADERS, PUSH_PROMISE or CONTINUATION frame without
+   the END_HEADERS flag set.
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1

@@ -1493,7 +1493,7 @@ Upgrade: h2c
                      </p>
                      <p>A receiver can ignore <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a> frames in this state, which might arrive for a short period after a frame bearing the END_STREAM flag is sent.
                      </p>
-                     <p><a href="#PRIORITY" class="smpl">PRIORITY</a> frames received in this state are used to reprioritize streams that depend on the current stream.
+                     <p><a href="#PRIORITY" class="smpl">PRIORITY</a> frames received in this state are used to reprioritize streams that depend on the identified stream.
                      </p>
                   </dd>
                   <dt>half closed (remote):</dt>
@@ -2186,15 +2186,15 @@ Upgrade: h2c
                <p>The PRIORITY frame does not define any flags.</p>
             </div>
             <div id="rfc.section.6.3.p.4">
-               <p>The PRIORITY frame is associated with an existing stream. If a PRIORITY frame is received with a stream identifier of 0x0,
-                  the recipient MUST respond with a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
+               <p>The PRIORITY frame always identifies a stream. If a PRIORITY frame is received with a stream identifier of 0x0, the recipient
+                  MUST respond with a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
                </p>
             </div>
             <div id="rfc.section.6.3.p.5">
                <p>The PRIORITY frame can be sent on a stream in any state, though it cannot be sent between consecutive frames that comprise
                   a single header block (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>). Note that this frame could arrive after processing or frame sending has completed, which would cause it to have no effect
-                  on the current stream. For a stream that is in the "half closed (remote)" or "closed" - state, this frame can only affect
-                  processing of the current stream and not frame transmission.
+                  on the identified stream. For a stream that is in the "half closed (remote)" or "closed" - state, this frame can only affect
+                  processing of the identified stream and its dependent streams and not frame transmission on that stream.
                </p>
             </div>
             <div id="rfc.section.6.3.p.6">
@@ -2352,7 +2352,7 @@ Upgrade: h2c
                      <dd>
                         <p>Indicates the sender's initial window size (in octets) for stream level flow control. The initial value is 2<sup>16</sup>-1 (65,535) octets.
                         </p>
-                        <p>This setting affects the window size of all streams, including existing streams, see <a href="#InitialWindowSize" title="Initial Flow Control Window Size">Section&nbsp;6.9.2</a>.
+                        <p>This setting affects the window size of all streams, see <a href="#InitialWindowSize" title="Initial Flow Control Window Size">Section&nbsp;6.9.2</a>.
                         </p>
                         <p>Values above the maximum flow control window size of 2<sup>31</sup>-1 MUST be treated as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#FLOW_CONTROL_ERROR" class="smpl">FLOW_CONTROL_ERROR</a>.
                         </p>
@@ -2459,9 +2459,9 @@ Upgrade: h2c
                </dl>
             </div>
             <div id="rfc.section.6.6.p.4">
-               <p>PUSH_PROMISE frames MUST be associated with an existing, peer-initiated stream. The stream identifier of a PUSH_PROMISE frame
-                  indicates the stream it is associated with. If the stream identifier field specifies the value 0x0, a recipient MUST respond
-                  with a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
+               <p>PUSH_PROMISE frames MUST be associated with a peer-initiated stream that is in either the "open" or "half closed (remote)"
+                  state. The stream identifier of a PUSH_PROMISE frame indicates the stream it is associated with. If the stream identifier
+                  field specifies the value 0x0, a recipient MUST respond with a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
                </p>
             </div>
             <div id="rfc.section.6.6.p.5">
@@ -2777,7 +2777,8 @@ Upgrade: h2c
                   </p>
                </div>
                <div id="rfc.section.6.9.2.p.3">
-                  <p>A <a href="#SETTINGS" class="smpl">SETTINGS</a> frame can alter the initial flow control window size for all current streams. When the value of <a href="#SETTINGS_INITIAL_WINDOW_SIZE" class="smpl">SETTINGS_INITIAL_WINDOW_SIZE</a> changes, a receiver MUST adjust the size of all stream flow control windows that it maintains by the difference between the
+                  <p>A <a href="#SETTINGS" class="smpl">SETTINGS</a> frame can alter the initial flow control window size for all streams in the "open" or "half closed (remote)" state. When the
+                     value of <a href="#SETTINGS_INITIAL_WINDOW_SIZE" class="smpl">SETTINGS_INITIAL_WINDOW_SIZE</a> changes, a receiver MUST adjust the size of all stream flow control windows that it maintains by the difference between the
                      new value and the old value.
                   </p>
                </div>
@@ -2827,8 +2828,7 @@ Upgrade: h2c
          <div id="CONTINUATION">
             <h2 id="rfc.section.6.10"><a href="#rfc.section.6.10">6.10</a>&nbsp;<a href="#CONTINUATION">CONTINUATION</a></h2>
             <div id="rfc.section.6.10.p.1">
-               <p>The CONTINUATION frame (type=0x9) is used to continue a sequence of header block fragments (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>). Any number of CONTINUATION frames can be sent on an existing stream, as long as the preceding frame is on the same stream
-                  and is a <a href="#HEADERS" class="smpl">HEADERS</a>, <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> or CONTINUATION frame without the END_HEADERS flag set.
+               <p>The CONTINUATION frame (type=0x9) is used to continue a sequence of header block fragments (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>). Any number of CONTINUATION frames can be sent, as long as the preceding frame is on the same stream and is a <a href="#HEADERS" class="smpl">HEADERS</a>, <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> or CONTINUATION frame without the END_HEADERS flag set.
                </p>
             </div>
             <div id="CONTINUATIONFramePayload"></div>
