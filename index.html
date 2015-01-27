@@ -1426,20 +1426,22 @@ Upgrade: h2c
                <dl>
                   <dt>idle:</dt>
                   <dd>
-                     <p><br> All streams start in the "idle" state. In this state, no frames have been exchanged.
+                     <p><br> All streams start in the "idle" state.
                      </p>
                      <p>The following transitions are valid from this state: </p>
                      <ul>
                         <li>Sending or receiving a <a href="#HEADERS" class="smpl">HEADERS</a> frame causes the stream to become "open". The stream identifier is selected as described in <a href="#StreamIdentifiers" title="Stream Identifiers">Section&nbsp;5.1.1</a>. The same <a href="#HEADERS" class="smpl">HEADERS</a> frame can also cause a stream to immediately become "half closed".
                         </li>
-                        <li>Sending a <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> frame reserves an idle stream for later use. The stream state for the reserved stream transitions to "reserved (local)".
+                        <li>Sending a <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> frame on another stream reserves the idle stream that is identified for later use. The stream state for the reserved stream
+                           transitions to "reserved (local)".
                         </li>
-                        <li>Receiving a <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> frame reserves an idle stream for later use. The stream state for the reserved stream transitions to "reserved (remote)".
+                        <li>Receiving a <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> frame on another stream reserves an idle stream that is identified for later use. The stream state for the reserved stream
+                           transitions to "reserved (remote)".
                         </li>
                         <li>Note that the <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> frame is not sent on the idle stream, but references the newly reserved stream in the Promised Stream ID field.
                         </li>
                      </ul>
-                     <p>Receiving any frames other than <a href="#HEADERS" class="smpl">HEADERS</a> or <a href="#PRIORITY" class="smpl">PRIORITY</a> on a stream in this state MUST be treated as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
+                     <p>Receiving any frame other than <a href="#HEADERS" class="smpl">HEADERS</a> or <a href="#PRIORITY" class="smpl">PRIORITY</a> on a stream in this state MUST be treated as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
                      </p>
                   </dd>
                   <dt>reserved (local):</dt>

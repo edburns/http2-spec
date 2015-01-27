@@ -94,7 +94,7 @@ Table of Contents
      4.3.  Header Compression and Decompression  . . . . . . . . . .  14
    5.  Streams and Multiplexing  . . . . . . . . . . . . . . . . . .  15
      5.1.  Stream States . . . . . . . . . . . . . . . . . . . . . .  16
-       5.1.1.  Stream Identifiers  . . . . . . . . . . . . . . . . .  22
+       5.1.1.  Stream Identifiers  . . . . . . . . . . . . . . . . .  21
        5.1.2.  Stream Concurrency  . . . . . . . . . . . . . . . . .  22
      5.2.  Flow Control  . . . . . . . . . . . . . . . . . . . . . .  23
        5.2.1.  Flow Control Principles . . . . . . . . . . . . . . .  23
@@ -102,7 +102,7 @@ Table of Contents
      5.3.  Stream priority . . . . . . . . . . . . . . . . . . . . .  25
        5.3.1.  Stream Dependencies . . . . . . . . . . . . . . . . .  25
        5.3.2.  Dependency Weighting  . . . . . . . . . . . . . . . .  26
-       5.3.3.  Reprioritization  . . . . . . . . . . . . . . . . . .  27
+       5.3.3.  Reprioritization  . . . . . . . . . . . . . . . . . .  26
        5.3.4.  Prioritization State Management . . . . . . . . . . .  27
        5.3.5.  Default Priorities  . . . . . . . . . . . . . . . . .  29
      5.4.  Error Handling  . . . . . . . . . . . . . . . . . . . . .  29
@@ -115,7 +115,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
 
        5.4.1.  Connection Error Handling . . . . . . . . . . . . . .  29
-       5.4.2.  Stream Error Handling . . . . . . . . . . . . . . . .  30
+       5.4.2.  Stream Error Handling . . . . . . . . . . . . . . . .  29
        5.4.3.  Connection Termination  . . . . . . . . . . . . . . .  30
      5.5.  Extending HTTP/2  . . . . . . . . . . . . . . . . . . . .  30
    6.  Frame Definitions . . . . . . . . . . . . . . . . . . . . . .  31
@@ -964,8 +964,7 @@ Internet-Draft                   HTTP/2                     January 2015
    Streams have the following states:
 
    idle:
-      All streams start in the "idle" state.  In this state, no frames
-      have been exchanged.
+      All streams start in the "idle" state.
 
       The following transitions are valid from this state:
 
@@ -974,19 +973,19 @@ Internet-Draft                   HTTP/2                     January 2015
          in Section 5.1.1.  The same HEADERS frame can also cause a
          stream to immediately become "half closed".
 
-      *  Sending a PUSH_PROMISE frame reserves an idle stream for later
-         use.  The stream state for the reserved stream transitions to
-         "reserved (local)".
+      *  Sending a PUSH_PROMISE frame on another stream reserves the
+         idle stream that is identified for later use.  The stream state
+         for the reserved stream transitions to "reserved (local)".
 
-      *  Receiving a PUSH_PROMISE frame reserves an idle stream for
-         later use.  The stream state for the reserved stream
-         transitions to "reserved (remote)".
+      *  Receiving a PUSH_PROMISE frame on another stream reserves an
+         idle stream that is identified for later use.  The stream state
+         for the reserved stream transitions to "reserved (remote)".
 
       *  Note that the PUSH_PROMISE frame is not sent on the idle
          stream, but references the newly reserved stream in the
          Promised Stream ID field.
 
-      Receiving any frames other than HEADERS or PRIORITY on a stream in
+      Receiving any frame other than HEADERS or PRIORITY on a stream in
       this state MUST be treated as a connection error (Section 5.4.1)
       of type PROTOCOL_ERROR.
 
@@ -1001,7 +1000,8 @@ Internet-Draft                   HTTP/2                     January 2015
       *  The endpoint can send a HEADERS frame.  This causes the stream
          to open in a "half closed (remote)" state.
 
-
+      *  Either endpoint can send a RST_STREAM frame to cause the stream
+         to become "closed".  This releases the stream reservation.
 
 
 
@@ -1009,9 +1009,6 @@ Belshe, et al.            Expires July 31, 2015                [Page 18]
 
 Internet-Draft                   HTTP/2                     January 2015
 
-
-      *  Either endpoint can send a RST_STREAM frame to cause the stream
-         to become "closed".  This releases the stream reservation.
 
       An endpoint MUST NOT send any type of frame other than HEADERS,
       RST_STREAM, or PRIORITY in this state.
@@ -1058,6 +1055,9 @@ Internet-Draft                   HTTP/2                     January 2015
       causing it to transition immediately to "closed".
 
    half closed (local):
+      A stream that is in the "half closed (local)" state cannot be used
+      for sending frames.  Only WINDOW_UPDATE, PRIORITY and RST_STREAM
+      frames can be sent in this state.
 
 
 
@@ -1065,10 +1065,6 @@ Belshe, et al.            Expires July 31, 2015                [Page 19]
 
 Internet-Draft                   HTTP/2                     January 2015
 
-
-      A stream that is in the "half closed (local)" state cannot be used
-      for sending frames.  Only WINDOW_UPDATE, PRIORITY and RST_STREAM
-      frames can be sent in this state.
 
       A stream transitions from this state to "closed" when a frame that
       contains an END_STREAM flag is received, or when either peer sends
@@ -1113,7 +1109,11 @@ Internet-Draft                   HTTP/2                     January 2015
       (Section 5.4.1) of type STREAM_CLOSED, unless the frame is
       permitted as described below.
 
-
+      WINDOW_UPDATE or RST_STREAM frames can be received in this state
+      for a short period after a DATA or HEADERS frame containing an
+      END_STREAM flag is sent.  Until the remote peer receives and
+      processes RST_STREAM or the frame bearing the END_STREAM flag, it
+      might send frames of these types.  Endpoints MUST ignore
 
 
 
@@ -1122,11 +1122,6 @@ Belshe, et al.            Expires July 31, 2015                [Page 20]
 Internet-Draft                   HTTP/2                     January 2015
 
 
-      WINDOW_UPDATE or RST_STREAM frames can be received in this state
-      for a short period after a DATA or HEADERS frame containing an
-      END_STREAM flag is sent.  Until the remote peer receives and
-      processes RST_STREAM or the frame bearing the END_STREAM flag, it
-      might send frames of these types.  Endpoints MUST ignore
       WINDOW_UPDATE or RST_STREAM frames received in this state, though
       endpoints MAY choose to treat frames that arrive a significant
       time after sending END_STREAM as a connection error
@@ -1168,7 +1163,12 @@ Internet-Draft                   HTTP/2                     January 2015
    transitions for server push can be found in Section 8.2.1 and
    Section 8.2.2.
 
+5.1.1.  Stream Identifiers
 
+   Streams are identified with an unsigned 31-bit integer.  Streams
+   initiated by a client MUST use odd-numbered stream identifiers; those
+   initiated by the server MUST use even-numbered stream identifiers.  A
+   stream identifier of zero (0x0) is used for connection control
 
 
 
@@ -1178,12 +1178,6 @@ Belshe, et al.            Expires July 31, 2015                [Page 21]
 Internet-Draft                   HTTP/2                     January 2015
 
 
-5.1.1.  Stream Identifiers
-
-   Streams are identified with an unsigned 31-bit integer.  Streams
-   initiated by a client MUST use odd-numbered stream identifiers; those
-   initiated by the server MUST use even-numbered stream identifiers.  A
-   stream identifier of zero (0x0) is used for connection control
    messages; the stream identifier zero cannot be used to establish a
    new stream.
 
@@ -1225,6 +1219,12 @@ Internet-Draft                   HTTP/2                     January 2015
    streams the server can initiate, and servers specify the maximum
    number of concurrent streams the client can initiate.
 
+   Streams that are in the "open" state, or either of the "half closed"
+   states count toward the maximum number of streams that an endpoint is
+   permitted to open.  Streams in any of these three states count toward
+   the limit advertised in the SETTINGS_MAX_CONCURRENT_STREAMS setting.
+   Streams in either of the "reserved" states do not count toward the
+   stream limit.
 
 
 
@@ -1233,13 +1233,6 @@ Belshe, et al.            Expires July 31, 2015                [Page 22]
 
 Internet-Draft                   HTTP/2                     January 2015
 
-
-   Streams that are in the "open" state, or either of the "half closed"
-   states count toward the maximum number of streams that an endpoint is
-   permitted to open.  Streams in any of these three states count toward
-   the limit advertised in the SETTINGS_MAX_CONCURRENT_STREAMS setting.
-   Streams in either of the "reserved" states do not count toward the
-   stream limit.
 
    Endpoints MUST NOT exceed the limit set by their peer.  An endpoint
    that receives a HEADERS frame that causes their advertised concurrent
@@ -1283,6 +1276,13 @@ Internet-Draft                   HTTP/2                     January 2015
        control window as a receiver and abide by the flow control limits
        set by their peer when sending.
 
+   4.  The initial value for the flow control window is 65,535 octets
+       for both new streams and the overall connection.
+
+   5.  The frame type determines whether flow control applies to a
+       frame.  Of the frames specified in this document, only DATA
+       frames are subject to flow control; all other frame types do not
+
 
 
 Belshe, et al.            Expires July 31, 2015                [Page 23]
@@ -1290,12 +1290,6 @@ Belshe, et al.            Expires July 31, 2015                [Page 23]
 Internet-Draft                   HTTP/2                     January 2015
 
 
-   4.  The initial value for the flow control window is 65,535 octets
-       for both new streams and the overall connection.
-
-   5.  The frame type determines whether flow control applies to a
-       frame.  Of the frames specified in this document, only DATA
-       frames are subject to flow control; all other frame types do not
        consume space in the advertised flow control window.  This
        ensures that important control frames are not blocked by flow
        control.
@@ -1338,6 +1332,12 @@ Internet-Draft                   HTTP/2                     January 2015
 
    Even with full awareness of the current bandwidth-delay product,
    implementation of flow control can be difficult.  When using flow
+   control, the receiver MUST read from the TCP receive buffer in a
+   timely fashion.  Failure to do so could lead to a deadlock when
+   critical frames, such as WINDOW_UPDATE, are not read and acted upon.
+
+
+
 
 
 
@@ -1345,10 +1345,6 @@ Belshe, et al.            Expires July 31, 2015                [Page 24]
 
 Internet-Draft                   HTTP/2                     January 2015
 
-
-   control, the receiver MUST read from the TCP receive buffer in a
-   timely fashion.  Failure to do so could lead to a deadlock when
-   critical frames, such as WINDOW_UPDATE, are not read and acted upon.
 
 5.3.  Stream priority
 
@@ -1394,6 +1390,10 @@ Internet-Draft                   HTTP/2                     January 2015
    stream in the "idle" state - results in that stream being given a
    default priority (Section 5.3.5).
 
+   When assigning a dependency on another stream, the stream is added as
+   a new dependency of the parent stream.  Dependent streams that share
+   the same parent are not ordered with respect to each other.  For
+   example, if streams B and C are dependent on stream A, and if stream
 
 
 
@@ -1402,10 +1402,6 @@ Belshe, et al.            Expires July 31, 2015                [Page 25]
 Internet-Draft                   HTTP/2                     January 2015
 
 
-   When assigning a dependency on another stream, the stream is added as
-   a new dependency of the parent stream.  Dependent streams that share
-   the same parent are not ordered with respect to each other.  For
-   example, if streams B and C are dependent on stream A, and if stream
    D is created with a dependency on stream A, this results in a
    dependency order of A followed by B, C, and D in any order.
 
@@ -1449,7 +1445,11 @@ Internet-Draft                   HTTP/2                     January 2015
    if no progress can be made on A, stream B ideally receives one third
    of the resources allocated to stream C.
 
+5.3.3.  Reprioritization
 
+   Stream priorities are changed using the PRIORITY frame.  Setting a
+   dependency causes a stream to become dependent on the identified
+   parent stream.
 
 
 
@@ -1457,12 +1457,6 @@ Belshe, et al.            Expires July 31, 2015                [Page 26]
 
 Internet-Draft                   HTTP/2                     January 2015
 
-
-5.3.3.  Reprioritization
-
-   Stream priorities are changed using the PRIORITY frame.  Setting a
-   dependency causes a stream to become dependent on the identified
-   parent stream.
 
    Dependent streams move with their parent stream if the parent is
    reprioritized.  Setting a dependency with the exclusive flag for a
@@ -1506,6 +1500,12 @@ Internet-Draft                   HTTP/2                     January 2015
    streams with the same parent stream, which means that if a stream in
    that set closes or becomes blocked, any spare capacity allocated to a
    stream is distributed to the immediate neighbors of the stream.
+   However, if the common dependency is removed from the tree, those
+   streams share resources with streams at the next highest level.
+
+   For example, assume streams A and B share a parent, and streams C and
+   D both depend on stream A.  Prior to the removal of stream A, if
+   streams A and D are unable to proceed, then stream C receives all the
 
 
 
@@ -1514,12 +1514,6 @@ Belshe, et al.            Expires July 31, 2015                [Page 27]
 Internet-Draft                   HTTP/2                     January 2015
 
 
-   However, if the common dependency is removed from the tree, those
-   streams share resources with streams at the next highest level.
-
-   For example, assume streams A and B share a parent, and streams C and
-   D both depend on stream A.  Prior to the removal of stream A, if
-   streams A and D are unable to proceed, then stream C receives all the
    resources dedicated to stream A.  If stream A is removed from the
    tree, the weight of stream A is divided between streams C and D.  If
    stream D is still unable to proceed, this results in stream C
@@ -1561,6 +1555,12 @@ Internet-Draft                   HTTP/2                     January 2015
    SHOULD also attempt to retain state for streams that are in active
    use in the priority tree.
 
+   An endpoint receiving a PRIORITY frame that changes the priority of a
+   closed stream SHOULD alter the dependencies of the streams that
+   depend on it, if it has retained enough state to do so.
+
+
+
 
 
 
@@ -1569,10 +1569,6 @@ Belshe, et al.            Expires July 31, 2015                [Page 28]
 
 Internet-Draft                   HTTP/2                     January 2015
 
-
-   An endpoint receiving a PRIORITY frame that changes the priority of a
-   closed stream SHOULD alter the dependencies of the streams that
-   depend on it, if it has retained enough state to do so.
 
 5.3.5.  Default Priorities
 
@@ -1615,9 +1611,13 @@ Internet-Draft                   HTTP/2                     January 2015
    Endpoints SHOULD send a GOAWAY frame when ending a connection,
    providing that circumstances permit it.
 
+5.4.2.  Stream Error Handling
 
+   A stream error is an error related to a specific stream that does not
+   affect processing of other streams.
 
-
+   An endpoint that detects a stream error sends a RST_STREAM frame
+   (Section 6.4) that contains the stream identifier of the stream where
 
 
 
@@ -1626,13 +1626,6 @@ Belshe, et al.            Expires July 31, 2015                [Page 29]
 Internet-Draft                   HTTP/2                     January 2015
 
 
-5.4.2.  Stream Error Handling
-
-   A stream error is an error related to a specific stream that does not
-   affect processing of other streams.
-
-   An endpoint that detects a stream error sends a RST_STREAM frame
-   (Section 6.4) that contains the stream identifier of the stream where
    the error occurred.  The RST_STREAM frame includes an error code that
    indicates the type of error.
 
@@ -1674,6 +1667,13 @@ Internet-Draft                   HTTP/2                     January 2015
 
    Implementations MUST ignore unknown or unsupported values in all
    extensible protocol elements.  Implementations MUST discard frames
+   that have unknown or unsupported types.  This means that any of these
+   extension points can be safely used by extensions without prior
+   arrangement or negotiation.  However, extension frames that appear in
+   the middle of a header block (Section 4.3) are not permitted; these
+   MUST be treated as a connection error (Section 5.4.1) of type
+   PROTOCOL_ERROR.
+
 
 
 
@@ -1681,13 +1681,6 @@ Belshe, et al.            Expires July 31, 2015                [Page 30]
 
 Internet-Draft                   HTTP/2                     January 2015
 
-
-   that have unknown or unsupported types.  This means that any of these
-   extension points can be safely used by extensions without prior
-   arrangement or negotiation.  However, extension frames that appear in
-   the middle of a header block (Section 4.3) are not permitted; these
-   MUST be treated as a connection error (Section 5.4.1) of type
-   PROTOCOL_ERROR.
 
    Extensions that could change the semantics of existing protocol
    components MUST be negotiated before being used.  For example, an
@@ -1728,6 +1721,13 @@ Internet-Draft                   HTTP/2                     January 2015
 
    DATA frames MAY also contain arbitrary padding.  Padding can be added
    to DATA frames to obscure the size of messages.
+
+
+
+
+
+
+
 
 
 
