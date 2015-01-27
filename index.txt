@@ -4332,9 +4332,9 @@ Internet-Draft                   HTTP/2                     January 2015
 
    Method Name:  PRI
 
-   Safe  No
+   Safe  Yes
 
-   Idempotent  No
+   Idempotent  Yes
 
    Specification document(s)  Section 3.5 of this document
 
