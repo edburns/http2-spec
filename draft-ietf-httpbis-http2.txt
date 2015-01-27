@@ -1371,8 +1371,8 @@ Internet-Draft                   HTTP/2                     January 2015
    streams in a particular order using priority.  Expressing priority is
    therefore only ever a suggestion.
 
-   Providing prioritization information is optional, so default values
-   are used if no explicit indicator is provided (Section 5.3.5).
+   Prioritization information can be omitted from messages.  Defaults
+   are used prior to any explicit values being provided (Section 5.3.5).
 
 5.3.1.  Stream Dependencies
 
@@ -1572,10 +1572,10 @@ Internet-Draft                   HTTP/2                     January 2015
 
 5.3.5.  Default Priorities
 
-   Providing priority information is optional.  Streams are assigned a
-   non-exclusive dependency on stream 0x0 by default.  Pushed streams
-   (Section 8.2) initially depend on their associated stream.  In both
-   cases, streams are assigned a default weight of 16.
+   All streams are initially assigned a non-exclusive dependency on
+   stream 0x0.  Pushed streams (Section 8.2) initially depend on their
+   associated stream.  In both cases, streams are assigned a default
+   weight of 16.
 
 5.4.  Error Handling
 
@@ -1753,7 +1753,7 @@ Internet-Draft                   HTTP/2                     January 2015
    The DATA frame contains the following fields:
 
    Pad Length:  An 8-bit field containing the length of the frame
-      padding in units of octets.  This field is optional and is only
+      padding in units of octets.  This field is conditional and is only
       present if the PADDED flag is set.
 
    Data:  Application data.  The amount of data is the remainder of the
@@ -1909,8 +1909,8 @@ Internet-Draft                   HTTP/2                     January 2015
    The HEADERS frame changes the connection state as described in
    Section 4.3.
 
-   The HEADERS frame includes optional padding.  Padding fields and
-   flags are identical to those defined for DATA frames (Section 6.1).
+   The HEADERS frame can include padding.  Padding fields and flags are
+   identical to those defined for DATA frames (Section 6.1).
 
    Prioritization information in a HEADERS frame is logically equivalent
    to a separate PRIORITY frame, but inclusion in HEADERS avoids the
@@ -2326,8 +2326,8 @@ Internet-Draft                   HTTP/2                     January 2015
    a stream that is not currently in the "idle" state) as a connection
    error (Section 5.4.1) of type PROTOCOL_ERROR.
 
-   The PUSH_PROMISE frame includes optional padding.  Padding fields and
-   flags are identical to those defined for DATA frames (Section 6.1).
+   The PUSH_PROMISE frame can include padding.  Padding fields and flags
+   are identical to those defined for DATA frames (Section 6.1).
 
 6.7.  PING
 
@@ -3388,8 +3388,8 @@ Internet-Draft                   HTTP/2                     January 2015
    responses available in order to fully process the response to the
    original request.
 
-   Pushing additional message exchanges in this fashion is optional, and
-   is negotiated between individual endpoints.  The SETTINGS_ENABLE_PUSH
+   A client can request that server push be disabled, though this is
+   negotiated for each hop independently.  The SETTINGS_ENABLE_PUSH
    setting can be set to 0 to indicate that server push is disabled.
 
    Promised requests MUST be cacheable (see [RFC7231], Section 4.2.3),
@@ -4023,9 +4023,9 @@ Internet-Draft                   HTTP/2                     January 2015
 
 10.6.  Use of Compression
 
-   HTTP/2 enables greater use of compression for both header fields
-   (Section 4.3) and entity bodies.  Compression can allow an attacker
-
+   Compression can allow an attacker to recover secret data when it is
+   compressed in the same context as data under attacker control.
+   HTTP/2 enables compression of header fields (Section 4.3); the
 
 
 
@@ -4034,8 +4034,8 @@ Belshe, et al.            Expires July 31, 2015                [Page 72]
 Internet-Draft                   HTTP/2                     January 2015
 
 
-   to recover secret data when it is compressed in the same context as
-   data under attacker control.
+   following concerns also apply to the use of HTTP compressed content-
+   codings ([RFC7231], Section 3.1.2.1).
 
    There are demonstrable attacks on compression that exploit the
    characteristics of the web (e.g., [BREACH]).  The attacker induces
@@ -4048,7 +4048,7 @@ Internet-Draft                   HTTP/2                     January 2015
    unless separate compression dictionaries are used for each source of
    data.  Compression MUST NOT be used if the source of data cannot be
    reliably determined.  Generic stream compression, such as that
-   provided by TLS MUST NOT be used with HTTP/2 (Section 9.2).
+   provided by TLS MUST NOT be used with HTTP/2 (see Section 9.2).
 
    Further considerations regarding the compression of header fields are
    described in [COMPRESSION].
@@ -4096,8 +4096,8 @@ Internet-Draft                   HTTP/2                     January 2015
    to correlate actions of a single client or server over time.  This
    includes the value of settings, the manner in which flow control
    windows are managed, the way priorities are allocated to streams,
-   timing of reactions to stimulus, and handling of any optional
-   features.
+   timing of reactions to stimulus, and handling of any features that
+   are controlled by settings.
 
    As far as this creates observable differences in behavior, they could
    be used as a basis for fingerprinting a specific client, as defined

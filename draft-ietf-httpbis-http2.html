@@ -1696,7 +1696,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.5.3.p.5">
-               <p>Providing prioritization information is optional, so default values are used if no explicit indicator is provided (<a href="#pri-default" title="Default Priorities">Section&nbsp;5.3.5</a>).
+               <p>Prioritization information can be omitted from messages. Defaults are used prior to any explicit values being provided (<a href="#pri-default" title="Default Priorities">Section&nbsp;5.3.5</a>).
                </p>
             </div>
             <div id="pri-depend">
@@ -1863,7 +1863,7 @@ Upgrade: h2c
             <div id="pri-default">
                <h3 id="rfc.section.5.3.5"><a href="#rfc.section.5.3.5">5.3.5</a>&nbsp;<a href="#pri-default">Default Priorities</a></h3>
                <div id="rfc.section.5.3.5.p.1">
-                  <p>Providing priority information is optional. Streams are assigned a non-exclusive dependency on stream 0x0 by default. Pushed streams (<a href="#PushResources" title="Server Push">Section&nbsp;8.2</a>) initially depend on their associated stream. In both cases, streams are assigned a default weight of 16.
+                  <p>All streams are initially assigned a non-exclusive dependency on stream 0x0. Pushed streams (<a href="#PushResources" title="Server Push">Section&nbsp;8.2</a>) initially depend on their associated stream. In both cases, streams are assigned a default weight of 16.
                   </p>
                </div>
             </div>
@@ -2010,8 +2010,8 @@ Upgrade: h2c
                <p>The DATA frame contains the following fields: </p>
                <dl>
                   <dt>Pad Length:</dt>
-                  <dd>An 8-bit field containing the length of the frame padding in units of octets. This field is optional and is only present if
-                     the PADDED flag is set.
+                  <dd>An 8-bit field containing the length of the frame padding in units of octets. This field is conditional and is only present
+                     if the PADDED flag is set.
                   </dd>
                   <dt>Data:</dt>
                   <dd>Application data. The amount of data is the remainder of the frame payload after subtracting the length of the other fields
@@ -2151,7 +2151,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.6.2.p.7">
-               <p>The HEADERS frame includes optional padding. Padding fields and flags are identical to those defined for DATA frames (<a href="#DATA" title="DATA">Section&nbsp;6.1</a>).
+               <p>The HEADERS frame can include padding. Padding fields and flags are identical to those defined for DATA frames (<a href="#DATA" title="DATA">Section&nbsp;6.1</a>).
                </p>
             </div>
             <div id="rfc.section.6.2.p.8">
@@ -2502,7 +2502,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.6.6.p.11">
-               <p>The PUSH_PROMISE frame includes optional padding. Padding fields and flags are identical to those defined for DATA frames (<a href="#DATA" title="DATA">Section&nbsp;6.1</a>).
+               <p>The PUSH_PROMISE frame can include padding. Padding fields and flags are identical to those defined for DATA frames (<a href="#DATA" title="DATA">Section&nbsp;6.1</a>).
                </p>
             </div>
          </div>
@@ -3327,7 +3327,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.8.2.p.2">
-               <p>Pushing additional message exchanges in this fashion is optional, and is negotiated between individual endpoints. The <a href="#SETTINGS_ENABLE_PUSH" class="smpl">SETTINGS_ENABLE_PUSH</a> setting can be set to 0 to indicate that server push is disabled.
+               <p>A client can request that server push be disabled, though this is negotiated for each hop independently. The <a href="#SETTINGS_ENABLE_PUSH" class="smpl">SETTINGS_ENABLE_PUSH</a> setting can be set to 0 to indicate that server push is disabled.
                </p>
             </div>
             <div id="rfc.section.8.2.p.3">
@@ -3828,8 +3828,8 @@ Upgrade: h2c
             <h2 id="rfc.section.10.6"><a href="#rfc.section.10.6">10.6</a>&nbsp;Use of Compression
             </h2>
             <div id="rfc.section.10.6.p.1">
-               <p>HTTP/2 enables greater use of compression for both header fields (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>) and entity bodies. Compression can allow an attacker to recover secret data when it is compressed in the same context as
-                  data under attacker control.
+               <p>Compression can allow an attacker to recover secret data when it is compressed in the same context as data under attacker
+                  control. HTTP/2 enables compression of header fields (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>); the following concerns also apply to the use of HTTP compressed content-codings (<a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#content.codings" title="Content Codings">Section 3.1.2.1</a>).
                </p>
             </div>
             <div id="rfc.section.10.6.p.2">
@@ -3841,7 +3841,7 @@ Upgrade: h2c
                <p>Implementations communicating on a secure channel MUST NOT compress content that includes both confidential and attacker-controlled
                   data unless separate compression dictionaries are used for each source of data. Compression MUST NOT be used if the source
                   of data cannot be reliably determined. Generic stream compression, such as that provided by TLS MUST NOT be used with HTTP/2
-                  (<a href="#TLSUsage" title="Use of TLS Features">Section&nbsp;9.2</a>).
+                  (see <a href="#TLSUsage" title="Use of TLS Features">Section&nbsp;9.2</a>).
                </p>
             </div>
             <div id="rfc.section.10.6.p.4">
@@ -3884,7 +3884,7 @@ Upgrade: h2c
             <div id="rfc.section.10.8.p.1">
                <p>Several characteristics of HTTP/2 provide an observer an opportunity to correlate actions of a single client or server over
                   time. This includes the value of settings, the manner in which flow control windows are managed, the way priorities are allocated
-                  to streams, timing of reactions to stimulus, and handling of any optional features.
+                  to streams, timing of reactions to stimulus, and handling of any features that are controlled by settings.
                </p>
             </div>
             <div id="rfc.section.10.8.p.2">
