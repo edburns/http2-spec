@@ -158,7 +158,7 @@ Internet-Draft                   HTTP/2                     January 2015
      10.2.  Cross-Protocol Attacks . . . . . . . . . . . . . . . . .  69
      10.3.  Intermediary Encapsulation Attacks . . . . . . . . . . .  70
      10.4.  Cacheability of Pushed Responses . . . . . . . . . . . .  70
-     10.5.  Denial of Service Considerations . . . . . . . . . . . .  70
+     10.5.  Denial of Service Considerations . . . . . . . . . . . .  71
        10.5.1.  Limits on Header Block Size  . . . . . . . . . . . .  72
        10.5.2.  CONNECT Issues . . . . . . . . . . . . . . . . . . .  72
      10.6.  Use of Compression . . . . . . . . . . . . . . . . . . .  72
@@ -3395,8 +3395,11 @@ Internet-Draft                   HTTP/2                     January 2015
    Promised requests MUST be cacheable (see [RFC7231], Section 4.2.3),
    MUST be safe (see [RFC7231], Section 4.2.1) and MUST NOT include a
    request body.  Clients that receive a promised request that is not
-   cacheable, unsafe or that includes a request body MUST reset the
-   stream with a stream error (Section 5.4.2) of type PROTOCOL_ERROR.
+   cacheable, is not known to be safe or that indicates the presence of
+   a request body MUST reset the promised stream with a stream error
+   (Section 5.4.2) of type PROTOCOL_ERROR.  Note this could result in
+   the promised stream being reset if the client does not recognize a
+   newly defined method as being safe.
 
    Pushed responses that are cacheable (see [RFC7234], Section 3) can be
    stored by the client, if it implements an HTTP cache.  Pushed
@@ -3405,9 +3408,6 @@ Internet-Draft                   HTTP/2                     January 2015
    Section 5.2.2 is present) while the stream identified by the promised
    stream ID is still open.
 
-   Pushed responses that are not cacheable MUST NOT be stored by any
-   HTTP cache.  They MAY be made available to the application
-   separately.
 
 
 
@@ -3417,6 +3417,10 @@ Belshe, et al.            Expires July 31, 2015                [Page 61]
 
 Internet-Draft                   HTTP/2                     January 2015
 
+
+   Pushed responses that are not cacheable MUST NOT be stored by any
+   HTTP cache.  They MAY be made available to the application
+   separately.
 
    An intermediary can receive pushes from the server and choose not to
    forward them on to the client.  In other words, how to make use of
@@ -3461,11 +3465,7 @@ Internet-Draft                   HTTP/2                     January 2015
    avoids a race where clients issue requests prior to receiving any
    PUSH_PROMISE frames.
 
-   For example, if the server receives a request for a document
-   containing embedded links to multiple image files, and the server
-   chooses to push those additional images to the client, sending push
-   promises before the DATA frames that contain the image links ensures
-   that the client is able to see the promises before discovering
+
 
 
 
@@ -3474,6 +3474,11 @@ Belshe, et al.            Expires July 31, 2015                [Page 62]
 Internet-Draft                   HTTP/2                     January 2015
 
 
+   For example, if the server receives a request for a document
+   containing embedded links to multiple image files, and the server
+   chooses to push those additional images to the client, sending push
+   promises before the DATA frames that contain the image links ensures
+   that the client is able to see the promises before discovering
    embedded links.  Similarly, if the server pushes responses referenced
    by the header block (for instance, in Link header fields), sending
    the push promises before sending the header block ensures that
@@ -3517,11 +3522,6 @@ Internet-Draft                   HTTP/2                     January 2015
    Advertising a SETTINGS_MAX_CONCURRENT_STREAMS value of zero disables
    server push by preventing the server from creating the necessary
    streams.  This does not prohibit a server from sending PUSH_PROMISE
-   frames; clients need to reset any promised streams that are not
-   wanted.
-
-   Clients receiving a pushed response MUST validate that either the
-   server is authoritative (see Section 10.1), or the proxy that
 
 
 
@@ -3530,6 +3530,11 @@ Belshe, et al.            Expires July 31, 2015                [Page 63]
 Internet-Draft                   HTTP/2                     January 2015
 
 
+   frames; clients need to reset any promised streams that are not
+   wanted.
+
+   Clients receiving a pushed response MUST validate that either the
+   server is authoritative (see Section 10.1), or the proxy that
    provided the pushed response is configured for the corresponding
    request.  For example, a server that offers a certificate for only
    the "example.com" DNS-ID or Common Name is not permitted to push a
@@ -3574,11 +3579,6 @@ Internet-Draft                   HTTP/2                     January 2015
    frame containing a 2xx series status code to the client, as defined
    in [RFC7231], Section 4.3.6.
 
-   After the initial HEADERS frame sent by each peer, all subsequent
-   DATA frames correspond to data sent on the TCP connection.  The
-   payload of any DATA frames sent by the client is transmitted by the
-   proxy to the TCP server; data received from the TCP server is
-
 
 
 Belshe, et al.            Expires July 31, 2015                [Page 64]
@@ -3586,6 +3586,10 @@ Belshe, et al.            Expires July 31, 2015                [Page 64]
 Internet-Draft                   HTTP/2                     January 2015
 
 
+   After the initial HEADERS frame sent by each peer, all subsequent
+   DATA frames correspond to data sent on the TCP connection.  The
+   payload of any DATA frames sent by the client is transmitted by the
+   proxy to the TCP server; data received from the TCP server is
    assembled into DATA frames by the proxy.  Frame types other than DATA
    or stream management frames (RST_STREAM, WINDOW_UPDATE, and PRIORITY)
    MUST NOT be sent on a connected stream, and MUST be treated as a
@@ -3629,11 +3633,7 @@ Internet-Draft                   HTTP/2                     January 2015
    A client can create additional connections as replacements, either to
    replace connections that are near to exhausting the available stream
    identifier space (Section 5.1.1), to refresh the keying material for
-   a TLS connection, or to replace connections that have encountered
-   errors (Section 5.4.1).
 
-   A client MAY open multiple connections to the same IP address and TCP
-   port using different Server Name Indication [TLS-EXT] values or to
 
 
 
@@ -3642,6 +3642,11 @@ Belshe, et al.            Expires July 31, 2015                [Page 65]
 Internet-Draft                   HTTP/2                     January 2015
 
 
+   a TLS connection, or to replace connections that have encountered
+   errors (Section 5.4.1).
+
+   A client MAY open multiple connections to the same IP address and TCP
+   port using different Server Name Indication [TLS-EXT] values or to
    provide different TLS client certificates, but SHOULD avoid creating
    multiple connections with the same configuration.
 
@@ -3685,11 +3690,6 @@ Internet-Draft                   HTTP/2                     January 2015
    (Misdirected Request) status code in response to the request (see
    Section 9.1.2).
 
-   A client that is configured to use a proxy over HTTP/2 directs
-   requests to that proxy through a single connection.  That is, all
-   requests sent via a proxy reuse the connection to the proxy.
-
-
 
 
 
@@ -3697,6 +3697,10 @@ Belshe, et al.            Expires July 31, 2015                [Page 66]
 
 Internet-Draft                   HTTP/2                     January 2015
 
+
+   A client that is configured to use a proxy over HTTP/2 directs
+   requests to that proxy through a single connection.  That is, all
+   requests sent via a proxy reuse the connection to the proxy.
 
 9.1.2.  The 421 (Misdirected Request) Status Code
 
@@ -3741,11 +3745,7 @@ Internet-Draft                   HTTP/2                     January 2015
    can be used with HTTP/2.  Due to deployment limitations, it might not
    be possible to fail TLS negotiation when these restrictions are not
    met.  An endpoint MAY immediately terminate an HTTP/2 connection that
-   does not meet these TLS requirements with a connection error
-   (Section 5.4.1) of type INADEQUATE_SECURITY.
 
-   A deployment of HTTP/2 over TLS 1.2 MUST disable compression.  TLS
-   compression can lead to the exposure of information that would not
 
 
 
@@ -3754,6 +3754,11 @@ Belshe, et al.            Expires July 31, 2015                [Page 67]
 Internet-Draft                   HTTP/2                     January 2015
 
 
+   does not meet these TLS requirements with a connection error
+   (Section 5.4.1) of type INADEQUATE_SECURITY.
+
+   A deployment of HTTP/2 over TLS 1.2 MUST disable compression.  TLS
+   compression can lead to the exposure of information that would not
    otherwise be revealed [RFC3749].  Generic compression is unnecessary
    since HTTP/2 provides compression features that are more aware of
    context and therefore likely to be more appropriate for use for
@@ -3797,11 +3802,6 @@ Internet-Draft                   HTTP/2                     January 2015
    suite risks triggering a connection error unless the set of potential
    peers is known to accept that cipher suite.
 
-   Implementations MUST NOT generate this error in reaction to the
-   negotiation of a cipher suite that is not in the prohibited list.
-   Consequently, when clients offer a cipher suite that is not
-   prohibited, they have to be prepared to use that cipher suite with
-   HTTP/2.
 
 
 
@@ -3809,6 +3809,12 @@ Belshe, et al.            Expires July 31, 2015                [Page 68]
 
 Internet-Draft                   HTTP/2                     January 2015
 
+
+   Implementations MUST NOT generate this error in reaction to the
+   negotiation of a cipher suite that is not in the prohibited list.
+   Consequently, when clients offer a cipher suite that is not
+   prohibited, they have to be prepared to use that cipher suite with
+   HTTP/2.
 
    The effect of prohibiting these cipher suites is that TLS 1.2
    deployments could have non-intersecting sets of available cipher
@@ -3850,14 +3856,8 @@ Internet-Draft                   HTTP/2                     January 2015
    proceed with HTTP/2, which prevents attacks on other TLS-based
    protocols.
 
-   The encryption in TLS makes it difficult for attackers to control the
-   data which could be used in a cross-protocol attack on a cleartext
-   protocol.
 
-   The cleartext version of HTTP/2 has minimal protection against cross-
-   protocol attacks.  The connection preface (Section 3.5) contains a
-   string that is designed to confuse HTTP/1.1 servers, but no special
-   protection is offered for other protocols.  A server that is willing
+
 
 
 
@@ -3866,6 +3866,14 @@ Belshe, et al.            Expires July 31, 2015                [Page 69]
 Internet-Draft                   HTTP/2                     January 2015
 
 
+   The encryption in TLS makes it difficult for attackers to control the
+   data which could be used in a cross-protocol attack on a cleartext
+   protocol.
+
+   The cleartext version of HTTP/2 has minimal protection against cross-
+   protocol attacks.  The connection preface (Section 3.5) contains a
+   string that is designed to confuse HTTP/1.1 servers, but no special
+   protection is offered for other protocols.  A server that is willing
    to ignore parts of an HTTP/1.1 request containing an Upgrade header
    field in addition to the client connection preface could be exposed
    to a cross-protocol attack.
@@ -3906,14 +3914,6 @@ Internet-Draft                   HTTP/2                     January 2015
    served out of cache, overriding the actual representation that the
    authoritative tenant provides.
 
-   Pushed responses for which an origin server is not authoritative (see
-   Section 10.1) are never cached or used.
-
-10.5.  Denial of Service Considerations
-
-   An HTTP/2 connection can demand a greater commitment of resources to
-   operate than a HTTP/1.1 connection.  The use of header compression
-   and flow control depend on a commitment of resources for storing a
 
 
 
@@ -3922,6 +3922,14 @@ Belshe, et al.            Expires July 31, 2015                [Page 70]
 Internet-Draft                   HTTP/2                     January 2015
 
 
+   Pushed responses for which an origin server is not authoritative (see
+   Section 10.1) are never cached or used.
+
+10.5.  Denial of Service Considerations
+
+   An HTTP/2 connection can demand a greater commitment of resources to
+   operate than a HTTP/1.1 connection.  The use of header compression
+   and flow control depend on a commitment of resources for storing a
    greater amount of state.  Settings for these features ensure that
    memory commitments for these features are strictly bounded.
 
@@ -3962,14 +3970,6 @@ Internet-Draft                   HTTP/2                     January 2015
 
    An endpoint that doesn't monitor this behavior exposes itself to a
    risk of denial of service attack.  Implementations SHOULD track the
-   use of these features and set limits on their use.  An endpoint MAY
-   treat activity that is suspicious as a connection error
-   (Section 5.4.1) of type ENHANCE_YOUR_CALM.
-
-
-
-
-
 
 
 
@@ -3977,6 +3977,10 @@ Belshe, et al.            Expires July 31, 2015                [Page 71]
 
 Internet-Draft                   HTTP/2                     January 2015
 
+
+   use of these features and set limits on their use.  An endpoint MAY
+   treat activity that is suspicious as a connection error
+   (Section 5.4.1) of type ENHANCE_YOUR_CALM.
 
 10.5.1.  Limits on Header Block Size
 
@@ -4021,11 +4025,7 @@ Internet-Draft                   HTTP/2                     January 2015
 
    HTTP/2 enables greater use of compression for both header fields
    (Section 4.3) and entity bodies.  Compression can allow an attacker
-   to recover secret data when it is compressed in the same context as
-   data under attacker control.
 
-   There are demonstrable attacks on compression that exploit the
-   characteristics of the web (e.g., [BREACH]).  The attacker induces
 
 
 
@@ -4034,6 +4034,11 @@ Belshe, et al.            Expires July 31, 2015                [Page 72]
 Internet-Draft                   HTTP/2                     January 2015
 
 
+   to recover secret data when it is compressed in the same context as
+   data under attacker control.
+
+   There are demonstrable attacks on compression that exploit the
+   characteristics of the web (e.g., [BREACH]).  The attacker induces
    multiple requests containing varying plaintext, observing the length
    of the resulting ciphertext in each, which reveals a shorter length
    when a guess about the secret is correct.
@@ -4077,11 +4082,6 @@ Internet-Draft                   HTTP/2                     January 2015
    padding for HEADERS and PUSH_PROMISE frames.  A valid reason for an
    intermediary to change the amount of padding of frames is to improve
    the protections that padding provides.
-
-
-
-
-
 
 
 

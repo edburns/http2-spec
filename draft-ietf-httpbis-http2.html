@@ -3331,8 +3331,9 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.8.2.p.3">
-               <p>Promised requests MUST be cacheable (see <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#cacheable.methods" title="Cacheable Methods">Section 4.2.3</a>), MUST be safe (see <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#safe.methods" title="Safe Methods">Section 4.2.1</a>) and MUST NOT include a request body. Clients that receive a promised request that is not cacheable, unsafe or that includes
-                  a request body MUST reset the stream with a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
+               <p>Promised requests MUST be cacheable (see <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#cacheable.methods" title="Cacheable Methods">Section 4.2.3</a>), MUST be safe (see <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#safe.methods" title="Safe Methods">Section 4.2.1</a>) and MUST NOT include a request body. Clients that receive a promised request that is not cacheable, is not known to be safe
+                  or that indicates the presence of a request body MUST reset the promised stream with a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>. Note this could result in the promised stream being reset if the client does not recognize a newly defined method as being
+                  safe.
                </p>
             </div>
             <div id="rfc.section.8.2.p.4">
