@@ -1412,7 +1412,8 @@ Upgrade: h2c
             <p class="figure">Figure 2: Stream States</p>
             <div id="rfc.section.5.1.p.2">
                <p>Note that this diagram shows stream state transitions and the frames and flags that affect those transitions only. In this
-                  regard, <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames do not result in state transitions; they are effectively part of the <a href="#HEADERS" class="smpl">HEADERS</a> or <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> that they follow. For this purpose, the END_STREAM flag is processed as a separate event to the frame that bears it; a <a href="#HEADERS" class="smpl">HEADERS</a> frame with the END_STREAM flag set can cause two state transitions.
+                  regard, <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames do not result in state transitions; they are effectively part of the <a href="#HEADERS" class="smpl">HEADERS</a> or <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> that they follow. For the purpose of state transitions, the END_STREAM flag is processed as a separate event to the frame
+                  that bears it; a <a href="#HEADERS" class="smpl">HEADERS</a> frame with the END_STREAM flag set can cause two state transitions.
                </p>
             </div>
             <div id="rfc.section.5.1.p.3">

@@ -942,9 +942,9 @@ Internet-Draft                   HTTP/2                    February 2015
    and flags that affect those transitions only.  In this regard,
    CONTINUATION frames do not result in state transitions; they are
    effectively part of the HEADERS or PUSH_PROMISE that they follow.
-   For this purpose, the END_STREAM flag is processed as a separate
-   event to the frame that bears it; a HEADERS frame with the END_STREAM
-   flag set can cause two state transitions.
+   For the purpose of state transitions, the END_STREAM flag is
+   processed as a separate event to the frame that bears it; a HEADERS
+   frame with the END_STREAM flag set can cause two state transitions.
 
 
 
