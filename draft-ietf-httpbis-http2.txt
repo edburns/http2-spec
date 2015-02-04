@@ -185,7 +185,7 @@ Internet-Draft                   HTTP/2                    February 2015
      13.1.  Normative References . . . . . . . . . . . . . . . . . .  79
      13.2.  Informative References . . . . . . . . . . . . . . . . .  81
      13.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  82
-   Appendix A.  Prohibited TLS 1.2 Cipher Suites . . . . . . . . . .  83
+   Appendix A.  TLS 1.2 Cipher Suite Black List  . . . . . . . . . .  83
    Appendix B.  Change Log . . . . . . . . . . . . . . . . . . . . .  87
      B.1.  Since draft-ietf-httpbis-http2-15 . . . . . . . . . . . .  87
      B.2.  Since draft-ietf-httpbis-http2-14 . . . . . . . . . . . .  87
@@ -3794,13 +3794,13 @@ Internet-Draft                   HTTP/2                    February 2015
 9.2.2.  TLS 1.2 Cipher Suites
 
    A deployment of HTTP/2 over TLS 1.2 SHOULD NOT use any of the cipher
-   suites that are listed in Appendix A.
+   suites that are listed in the cipher suite black list (Appendix A).
 
    Endpoints MAY choose to generate a connection error (Section 5.4.1)
-   of type INADEQUATE_SECURITY if one of the prohibited cipher suites
-   are negotiated.  A deployment that chooses to use a prohibited cipher
-   suite risks triggering a connection error unless the set of potential
-   peers is known to accept that cipher suite.
+   of type INADEQUATE_SECURITY if one of the cipher suites from the
+   black list are negotiated.  A deployment that chooses to use a black-
+   listed cipher suite risks triggering a connection error unless the
+   set of potential peers is known to accept that cipher suite.
 
 
 
@@ -3811,25 +3811,24 @@ Internet-Draft                   HTTP/2                    February 2015
 
 
    Implementations MUST NOT generate this error in reaction to the
-   negotiation of a cipher suite that is not in the prohibited list.
-   Consequently, when clients offer a cipher suite that is not
-   prohibited, they have to be prepared to use that cipher suite with
+   negotiation of a cipher suite that is not on the black list.
+   Consequently, when clients offer a cipher suite that is not on the
+   black list, they have to be prepared to use that cipher suite with
    HTTP/2.
 
-   The effect of prohibiting these cipher suites is that TLS 1.2
-   deployments could have non-intersecting sets of available cipher
-   suites, since the prohibited set includes the cipher suite that TLS
-   1.2 makes mandatory.  To avoid this problem, deployments of HTTP/2
-   that use TLS 1.2 MUST support TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-   [TLS-ECDHE] with the P256 elliptic curve [FIPS186].
+   The black list includes the cipher suite that TLS 1.2 makes
+   mandatory, which means that TLS 1.2 deployments could have non-
+   intersecting sets of permitted cipher suites.  To avoid this problem
+   causing TLS handshake failures, deployments of HTTP/2 that use TLS
+   1.2 MUST support TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 [TLS-ECDHE]
+   with the P256 elliptic curve [FIPS186].
 
    Note that clients might advertise support of cipher suites that are
-   prohibited by the above restrictions in order to allow for connection
-   to servers that do not support HTTP/2 and support only prohibited
-   cipher suites.  This allows servers to select HTTP/1.1 with a cipher
-   suite that is prohibited for HTTP/2.  However, this can result in
-   HTTP/2 being negotiated with a prohibited cipher suite if the
-   application protocol and cipher suite are independently selected.
+   on the black list in order to allow for connection to servers that do
+   not support HTTP/2.  This allows servers to select HTTP/1.1 with a
+   cipher suite that is on the HTTP/2 black list.  However, this can
+   result in HTTP/2 being negotiated with a black-listed cipher suite if
+   the application protocol and cipher suite are independently selected.
 
 10.  Security Considerations
 
@@ -3856,8 +3855,9 @@ Internet-Draft                   HTTP/2                    February 2015
    proceed with HTTP/2, which prevents attacks on other TLS-based
    protocols.
 
-
-
+   The encryption in TLS makes it difficult for attackers to control the
+   data which could be used in a cross-protocol attack on a cleartext
+   protocol.
 
 
 
@@ -3865,10 +3865,6 @@ Belshe, et al.           Expires August 8, 2015                [Page 69]
 
 Internet-Draft                   HTTP/2                    February 2015
 
-
-   The encryption in TLS makes it difficult for attackers to control the
-   data which could be used in a cross-protocol attack on a cleartext
-   protocol.
 
    The cleartext version of HTTP/2 has minimal protection against cross-
    protocol attacks.  The connection preface (Section 3.5) contains a
@@ -3914,6 +3910,10 @@ Internet-Draft                   HTTP/2                    February 2015
    served out of cache, overriding the actual representation that the
    authoritative tenant provides.
 
+   Pushed responses for which an origin server is not authoritative (see
+   Section 10.1) are never cached or used.
+
+
 
 
 
@@ -3921,9 +3921,6 @@ Belshe, et al.           Expires August 8, 2015                [Page 70]
 
 Internet-Draft                   HTTP/2                    February 2015
 
-
-   Pushed responses for which an origin server is not authoritative (see
-   Section 10.1) are never cached or used.
 
 10.5.  Denial of Service Considerations
 
@@ -3970,6 +3967,9 @@ Internet-Draft                   HTTP/2                    February 2015
 
    An endpoint that doesn't monitor this behavior exposes itself to a
    risk of denial of service attack.  Implementations SHOULD track the
+   use of these features and set limits on their use.  An endpoint MAY
+   treat activity that is suspicious as a connection error
+   (Section 5.4.1) of type ENHANCE_YOUR_CALM.
 
 
 
@@ -3977,10 +3977,6 @@ Belshe, et al.           Expires August 8, 2015                [Page 71]
 
 Internet-Draft                   HTTP/2                    February 2015
 
-
-   use of these features and set limits on their use.  An endpoint MAY
-   treat activity that is suspicious as a connection error
-   (Section 5.4.1) of type ENHANCE_YOUR_CALM.
 
 10.5.1.  Limits on Header Block Size
 
@@ -4026,6 +4022,10 @@ Internet-Draft                   HTTP/2                    February 2015
    Compression can allow an attacker to recover secret data when it is
    compressed in the same context as data under attacker control.
    HTTP/2 enables compression of header fields (Section 4.3); the
+   following concerns also apply to the use of HTTP compressed content-
+   codings ([RFC7231], Section 3.1.2.1).
+
+
 
 
 
@@ -4033,9 +4033,6 @@ Belshe, et al.           Expires August 8, 2015                [Page 72]
 
 Internet-Draft                   HTTP/2                    February 2015
 
-
-   following concerns also apply to the use of HTTP compressed content-
-   codings ([RFC7231], Section 3.1.2.1).
 
    There are demonstrable attacks on compression that exploit the
    characteristics of the web (e.g., [BREACH]).  The attacker induces
@@ -4082,6 +4079,9 @@ Internet-Draft                   HTTP/2                    February 2015
    padding for HEADERS and PUSH_PROMISE frames.  A valid reason for an
    intermediary to change the amount of padding of frames is to improve
    the protections that padding provides.
+
+
+
 
 
 
@@ -4594,16 +4594,18 @@ Belshe, et al.           Expires August 8, 2015                [Page 82]
 Internet-Draft                   HTTP/2                    February 2015
 
 
-Appendix A.  Prohibited TLS 1.2 Cipher Suites
+Appendix A.  TLS 1.2 Cipher Suite Black List
 
-   The following cipher suites are prohibited for use in HTTP/2 over TLS
-   1.2: TLS_NULL_WITH_NULL_NULL, TLS_RSA_WITH_NULL_MD5,
-   TLS_RSA_WITH_NULL_SHA, TLS_RSA_EXPORT_WITH_RC4_40_MD5,
-   TLS_RSA_WITH_RC4_128_MD5, TLS_RSA_WITH_RC4_128_SHA,
-   TLS_RSA_EXPORT_WITH_RC2_CBC_40_MD5, TLS_RSA_WITH_IDEA_CBC_SHA,
-   TLS_RSA_EXPORT_WITH_DES40_CBC_SHA, TLS_RSA_WITH_DES_CBC_SHA,
-   TLS_RSA_WITH_3DES_EDE_CBC_SHA, TLS_DH_DSS_EXPORT_WITH_DES40_CBC_SHA,
-   TLS_DH_DSS_WITH_DES_CBC_SHA, TLS_DH_DSS_WITH_3DES_EDE_CBC_SHA,
+   An HTTP/2 implementation MAY treat the negotiation of any of the
+   following cipher suites with TLS 1.2 as a connection error
+   (Section 5.4.1) of type INADEQUATE_SECURITY: TLS_NULL_WITH_NULL_NULL,
+   TLS_RSA_WITH_NULL_MD5, TLS_RSA_WITH_NULL_SHA,
+   TLS_RSA_EXPORT_WITH_RC4_40_MD5, TLS_RSA_WITH_RC4_128_MD5,
+   TLS_RSA_WITH_RC4_128_SHA, TLS_RSA_EXPORT_WITH_RC2_CBC_40_MD5,
+   TLS_RSA_WITH_IDEA_CBC_SHA, TLS_RSA_EXPORT_WITH_DES40_CBC_SHA,
+   TLS_RSA_WITH_DES_CBC_SHA, TLS_RSA_WITH_3DES_EDE_CBC_SHA,
+   TLS_DH_DSS_EXPORT_WITH_DES40_CBC_SHA, TLS_DH_DSS_WITH_DES_CBC_SHA,
+   TLS_DH_DSS_WITH_3DES_EDE_CBC_SHA,
    TLS_DH_RSA_EXPORT_WITH_DES40_CBC_SHA, TLS_DH_RSA_WITH_DES_CBC_SHA,
    TLS_DH_RSA_WITH_3DES_EDE_CBC_SHA,
    TLS_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA, TLS_DHE_DSS_WITH_DES_CBC_SHA,
@@ -4640,8 +4642,6 @@ Appendix A.  Prohibited TLS 1.2 Cipher Suites
    TLS_DH_anon_WITH_CAMELLIA_128_CBC_SHA,
    TLS_DHE_RSA_WITH_AES_128_CBC_SHA256,
    TLS_DH_DSS_WITH_AES_256_CBC_SHA256,
-   TLS_DH_RSA_WITH_AES_256_CBC_SHA256,
-   TLS_DHE_DSS_WITH_AES_256_CBC_SHA256,
 
 
 
@@ -4650,6 +4650,8 @@ Belshe, et al.           Expires August 8, 2015                [Page 83]
 Internet-Draft                   HTTP/2                    February 2015
 
 
+   TLS_DH_RSA_WITH_AES_256_CBC_SHA256,
+   TLS_DHE_DSS_WITH_AES_256_CBC_SHA256,
    TLS_DHE_RSA_WITH_AES_256_CBC_SHA256,
    TLS_DH_anon_WITH_AES_128_CBC_SHA256,
    TLS_DH_anon_WITH_AES_256_CBC_SHA256,
@@ -4696,8 +4698,6 @@ Internet-Draft                   HTTP/2                    February 2015
    TLS_EMPTY_RENEGOTIATION_INFO_SCSV, TLS_ECDH_ECDSA_WITH_NULL_SHA,
    TLS_ECDH_ECDSA_WITH_RC4_128_SHA,
    TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA,
-   TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,
-   TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_NULL_SHA,
 
 
 
@@ -4706,6 +4706,8 @@ Belshe, et al.           Expires August 8, 2015                [Page 84]
 Internet-Draft                   HTTP/2                    February 2015
 
 
+   TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,
+   TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_NULL_SHA,
    TLS_ECDHE_ECDSA_WITH_RC4_128_SHA,
    TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA,
    TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,
@@ -4752,8 +4754,6 @@ Internet-Draft                   HTTP/2                    February 2015
    TLS_DH_RSA_WITH_ARIA_128_CBC_SHA256,
    TLS_DH_RSA_WITH_ARIA_256_CBC_SHA384,
    TLS_DHE_DSS_WITH_ARIA_128_CBC_SHA256,
-   TLS_DHE_DSS_WITH_ARIA_256_CBC_SHA384,
-   TLS_DHE_RSA_WITH_ARIA_128_CBC_SHA256,
 
 
 
@@ -4762,6 +4762,8 @@ Belshe, et al.           Expires August 8, 2015                [Page 85]
 Internet-Draft                   HTTP/2                    February 2015
 
 
+   TLS_DHE_DSS_WITH_ARIA_256_CBC_SHA384,
+   TLS_DHE_RSA_WITH_ARIA_128_CBC_SHA256,
    TLS_DHE_RSA_WITH_ARIA_256_CBC_SHA384,
    TLS_DH_anon_WITH_ARIA_128_CBC_SHA256,
    TLS_DH_anon_WITH_ARIA_256_CBC_SHA384,
@@ -4808,8 +4810,6 @@ Internet-Draft                   HTTP/2                    February 2015
    TLS_DH_RSA_WITH_CAMELLIA_256_GCM_SHA384,
    TLS_DH_DSS_WITH_CAMELLIA_128_GCM_SHA256,
    TLS_DH_DSS_WITH_CAMELLIA_256_GCM_SHA384,
-   TLS_DH_anon_WITH_CAMELLIA_128_GCM_SHA256,
-   TLS_DH_anon_WITH_CAMELLIA_256_GCM_SHA384,
 
 
 
@@ -4818,6 +4818,8 @@ Belshe, et al.           Expires August 8, 2015                [Page 86]
 Internet-Draft                   HTTP/2                    February 2015
 
 
+   TLS_DH_anon_WITH_CAMELLIA_128_GCM_SHA256,
+   TLS_DH_anon_WITH_CAMELLIA_256_GCM_SHA384,
    TLS_ECDH_ECDSA_WITH_CAMELLIA_128_GCM_SHA256,
    TLS_ECDH_ECDSA_WITH_CAMELLIA_256_GCM_SHA384,
    TLS_ECDH_RSA_WITH_CAMELLIA_128_GCM_SHA256,
@@ -4863,8 +4865,6 @@ B.2.  Since draft-ietf-httpbis-http2-14
    Renamed Not Authoritative status code to Misdirected Request.
 
    Added HTTP_1_1_REQUIRED error code.
-
-
 
 
 
