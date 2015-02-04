@@ -425,10 +425,6 @@ Internet-Draft                   HTTP/2                    February 2015
    themselves as "h2" or "h2c".  Until such an RFC exists,
    implementations MUST NOT identify themselves using these strings.
 
-   Examples and text throughout the rest of this document use "h2" as a
-   matter of editorial convenience only.  Implementations of draft
-   versions MUST NOT identify using this string.
-
    Implementations of draft versions of the protocol MUST add the string
    "-" and the corresponding draft number to the identifier.  For
    example, draft-ietf-httpbis-http2-11 over TLS is identified using the
@@ -442,6 +438,10 @@ Internet-Draft                   HTTP/2                    February 2015
    syntax defined in Section 3.2.6 of [RFC7230].  Experimenters are
    encouraged to coordinate their experiments on the ietf-http-wg@w3.org
    mailing list.
+
+
+
+
 
 
 
@@ -490,7 +490,7 @@ Internet-Draft                   HTTP/2                    February 2015
    Presence of a token with "h2" implies HTTP/2 over TLS, which is
    instead negotiated as described in Section 3.3.
 
-   A server that supports HTTP/2 can accept the upgrade with a 101
+   A server that supports HTTP/2 accepts the upgrade with a 101
    (Switching Protocols) response.  After the empty line that terminates
    the 101 response, the server can begin sending HTTP/2 frames.  These
    frames MUST include a response to the request that initiated the
@@ -1319,10 +1319,11 @@ Internet-Draft                   HTTP/2                    February 2015
    to continue to process other streams in the same connection.
 
    Deployments that do not require this capability can advertise a flow
-   control window of the maximum size, incrementing the available space
-   when new data is received.  This effectively disables flow control
-   for that receiver.  Conversely, a sender is always subject to the
-   flow control window advertised by the receiver.
+   control window of the maximum size (2^31-1), and by maintaining this
+   window by sending a WINDOW_UPDATE frame when any data is received.
+   This effectively disables flow control for that receiver.
+   Conversely, a sender is always subject to the flow control window
+   advertised by the receiver.
 
    Deployments with constrained resources (for example, memory) can
    employ flow control to limit the amount of memory a peer can consume.
@@ -1335,7 +1336,6 @@ Internet-Draft                   HTTP/2                    February 2015
    control, the receiver MUST read from the TCP receive buffer in a
    timely fashion.  Failure to do so could lead to a deadlock when
    critical frames, such as WINDOW_UPDATE, are not read and acted upon.
-
 
 
 
@@ -2414,7 +2414,7 @@ Internet-Draft                   HTTP/2                    February 2015
    connection.
 
    Endpoints SHOULD always send a GOAWAY frame before closing a
-   connection so that the remote can know whether a stream has been
+   connection so that the remote peer can know whether a stream has been
    partially processed or not.  For example, if an HTTP client sends a
    POST at the same time that a server closes a connection, the client
    cannot know if the server started to process that POST request if the
