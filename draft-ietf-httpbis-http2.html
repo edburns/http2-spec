@@ -843,7 +843,7 @@ ul.toc a:first-child {
          <div id="rfc.section.1.p.2">
             <p>In particular, HTTP/1.0 allowed only one request to be outstanding at a time on a given TCP connection. HTTP/1.1 added request
                pipelining, but this only partially addressed request concurrency and still suffers from head-of-line blocking. Therefore,
-               HTTP/1.1 clients that need to make many requests typically use multiple connections to a server in order to achieve concurrency
+               HTTP/1.0 and HTTP/1.1 clients that need to make many requests use multiple connections to a server in order to achieve concurrency
                and thereby reduce latency.
             </p>
          </div>
@@ -1592,7 +1592,11 @@ Upgrade: h2c
                   </p>
                </div>
                <div id="rfc.section.5.1.2.p.3">
-                  <p>Endpoints MUST NOT exceed the limit set by their peer. An endpoint that receives a <a href="#HEADERS" class="smpl">HEADERS</a> frame that causes their advertised concurrent stream limit to be exceeded MUST treat this as a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a> or <a href="#REFUSED_STREAM" class="smpl">REFUSED_STREAM</a>. An endpoint that wishes to reduce the value of <a href="#SETTINGS_MAX_CONCURRENT_STREAMS" class="smpl">SETTINGS_MAX_CONCURRENT_STREAMS</a> to a value that is below the current number of open streams can either close streams that exceed the new value or allow streams
+                  <p>Endpoints MUST NOT exceed the limit set by their peer. An endpoint that receives a <a href="#HEADERS" class="smpl">HEADERS</a> frame that causes their advertised concurrent stream limit to be exceeded MUST treat this as a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a> or <a href="#REFUSED_STREAM" class="smpl">REFUSED_STREAM</a>. The choice of error code determines whether the endpoint wishes to enable automatic retry, see <a href="#Reliability" title="Request Reliability Mechanisms in HTTP/2">Section&nbsp;8.1.4</a>) for details.
+                  </p>
+               </div>
+               <div id="rfc.section.5.1.2.p.4">
+                  <p>An endpoint that wishes to reduce the value of <a href="#SETTINGS_MAX_CONCURRENT_STREAMS" class="smpl">SETTINGS_MAX_CONCURRENT_STREAMS</a> to a value that is below the current number of open streams can either close streams that exceed the new value or allow streams
                      to complete.
                   </p>
                </div>
@@ -1617,7 +1621,9 @@ Upgrade: h2c
                      Flow control in HTTP/2 has the following characteristics: 
                   </p>
                   <ol>
-                     <li>Flow control is specific to a connection; i.e., it is "hop-by-hop", not "end-to-end".</li>
+                     <li>Flow control is specific to a connection. Both types of flow control are between the endpoints of a single hop, and not over
+                        the entire end-to-end path.
+                     </li>
                      <li>Flow control is based on window update frames. Receivers advertise how many octets they are prepared to receive on a stream
                         and for the entire connection. This is a credit-based scheme.
                      </li>
@@ -2815,16 +2821,10 @@ Upgrade: h2c
                   </p>
                </div>
                <div id="rfc.section.6.9.3.p.2">
-                  <p>After sending a SETTINGS frame that reduces the initial flow control window size, a receiver has two options for handling
-                     streams that exceed flow control limits: 
+                  <p>After sending a SETTINGS frame that reduces the initial flow control window size, a receiver MAY continue to process streams
+                     that exceed flow control limits. Allowing streams to continue does not allow the receiver to immediately reduce the space
+                     it reserves for flow control windows. Progress on these streams can also stall, since <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a> frames are needed to allow the sender to resume sending. The receiver MAY instead send a <a href="#RST_STREAM" class="smpl">RST_STREAM</a> with <a href="#FLOW_CONTROL_ERROR" class="smpl">FLOW_CONTROL_ERROR</a> error code for the affected streams.
                   </p>
-                  <ol>
-                     <li>The receiver can immediately send <a href="#RST_STREAM" class="smpl">RST_STREAM</a> with <a href="#FLOW_CONTROL_ERROR" class="smpl">FLOW_CONTROL_ERROR</a> error code for the affected streams.
-                     </li>
-                     <li>The receiver can accept the streams and tolerate the resulting head of line blocking, sending WINDOW_UPDATE frames as it consumes
-                        data.
-                     </li>
-                  </ol>
                </div>
             </div>
          </div>
