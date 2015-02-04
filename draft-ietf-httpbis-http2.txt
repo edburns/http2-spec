@@ -519,11 +519,12 @@ Internet-Draft                   HTTP/2                    February 2015
    receiving the 101 response, the client MUST send a connection preface
    (Section 3.5), which includes a SETTINGS frame.
 
-   The HTTP/1.1 request that is sent prior to upgrade is assigned stream
-   identifier 1 and is assigned default priority values (Section 5.3.5).
-   Stream 1 is implicitly half closed from the client toward the server,
-   since the request is completed as an HTTP/1.1 request.  After
-   commencing the HTTP/2 connection, stream 1 is used for the response.
+   The HTTP/1.1 request that is sent prior to upgrade is assigned a
+   stream identifier of 1 (see Section 5.1.1) with default priority
+   values (Section 5.3.5).  Stream 1 is implicitly "half closed" from
+   the client toward the server (see Section 5.1), since the request is
+   completed as an HTTP/1.1 request.  After commencing the HTTP/2
+   connection, stream 1 is used for the response.
 
 3.2.1.  HTTP2-Settings Header Field
 
@@ -552,8 +553,7 @@ Internet-Draft                   HTTP/2                    February 2015
    field to prevent it from being forwarded (see Section 6.1 of
    [RFC7230]).
 
-   A server decodes and interprets these values as it would any other
-   SETTINGS frame.  Explicit acknowledgement of these settings
+
 
 
 
@@ -562,6 +562,8 @@ Belshe, et al.           Expires August 8, 2015                [Page 10]
 Internet-Draft                   HTTP/2                    February 2015
 
 
+   A server decodes and interprets these values as it would any other
+   SETTINGS frame.  Explicit acknowledgement of these settings
    (Section 6.5.3) is not necessary, since a 101 response serves as
    implicit acknowledgment.  Providing these values in the Upgrade
    request gives a client an opportunity to provide parameters prior to
@@ -608,8 +610,6 @@ Internet-Draft                   HTTP/2                    February 2015
    a final confirmation of the protocol in use, and to establish the
    initial settings for the HTTP/2 connection.  The client and server
    each send a different connection preface.
-
-
 
 
 
@@ -810,20 +810,19 @@ Internet-Draft                   HTTP/2                    February 2015
    Each header block is processed as a discrete unit.  Header blocks
    MUST be transmitted as a contiguous sequence of frames, with no
    interleaved frames of any other type or from any other stream.  The
-   last frame in a sequence of HEADERS or CONTINUATION frames MUST have
-   the END_HEADERS flag set.  The last frame in a sequence of
-   PUSH_PROMISE or CONTINUATION frames MUST have the END_HEADERS flag
-   set.  This allows a header block to be logically equivalent to a
-   single frame.
+   last frame in a sequence of HEADERS or CONTINUATION frames has the
+   END_HEADERS flag set.  The last frame in a sequence of PUSH_PROMISE
+   or CONTINUATION frames has the END_HEADERS flag set.  This allows a
+   header block to be logically equivalent to a single frame.
 
    Header block fragments can only be sent as the payload of HEADERS,
    PUSH_PROMISE or CONTINUATION frames, because these frames carry data
    that can modify the compression context maintained by a receiver.  An
-   endpoint receiving HEADERS, PUSH_PROMISE or CONTINUATION frames MUST
-   reassemble header blocks and perform decompression even if the frames
-   are to be discarded.  A receiver MUST terminate the connection with a
-   connection error (Section 5.4.1) of type COMPRESSION_ERROR if it does
-   not decompress a header block.
+   endpoint receiving HEADERS, PUSH_PROMISE or CONTINUATION frames needs
+   to reassemble header blocks and perform decompression even if the
+   frames are to be discarded.  A receiver MUST terminate the connection
+   with a connection error (Section 5.4.1) of type COMPRESSION_ERROR if
+   it does not decompress a header block.
 
 5.  Streams and Multiplexing
 
@@ -834,6 +833,7 @@ Internet-Draft                   HTTP/2                    February 2015
    o  A single HTTP/2 connection can contain multiple concurrently open
       streams, with either endpoint interleaving frames from multiple
       streams.
+
 
 
 
@@ -1056,8 +1056,8 @@ Internet-Draft                   HTTP/2                    February 2015
 
    half closed (local):
       A stream that is in the "half closed (local)" state cannot be used
-      for sending frames, with the exception of WINDOW_UPDATE, PRIORITY
-      and RST_STREAM frames.
+      for sending frames other than WINDOW_UPDATE, PRIORITY and
+      RST_STREAM.
 
 
 
@@ -1655,8 +1655,8 @@ Internet-Draft                   HTTP/2                    February 2015
 5.4.3.  Connection Termination
 
    If the TCP connection is closed or reset while streams remain in open
-   or half closed states, then the endpoint MUST assume that those
-   streams were abnormally interrupted and could be incomplete.
+   or half closed states, then the affected streams cannot be
+   automatically retried (see Section 8.1.4 for details).
 
 5.5.  Extending HTTP/2
 
@@ -3061,7 +3061,7 @@ Internet-Draft                   HTTP/2                    February 2015
       accurately, this pseudo-header field MUST be omitted when
       translating from an HTTP/1.1 request that has a request target in
       origin or asterisk form (see [RFC7230], Section 5.3).  Clients
-      that generate HTTP/2 requests directly SHOULD use the _:authority_
+      that generate HTTP/2 requests directly SHOULD use the ":authority"
       pseudo-header field instead of the "Host" header field.  An
       intermediary that converts an HTTP/2 request to HTTP/1.1 MUST
       create a "Host" header field if one is not present in a request by

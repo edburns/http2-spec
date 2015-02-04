@@ -1089,8 +1089,8 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.3.2.p.8">
-               <p>The HTTP/1.1 request that is sent prior to upgrade is assigned stream identifier 1 and is assigned default priority values (<a href="#pri-default" title="Default Priorities">Section&nbsp;5.3.5</a>). Stream 1 is implicitly half closed from the client toward the server, since the request is completed as an HTTP/1.1 request.
-                  After commencing the HTTP/2 connection, stream 1 is used for the response.
+               <p>The HTTP/1.1 request that is sent prior to upgrade is assigned a stream identifier of 1 (see <a href="#StreamIdentifiers" title="Stream Identifiers">Section&nbsp;5.1.1</a>) with default priority values (<a href="#pri-default" title="Default Priorities">Section&nbsp;5.3.5</a>). Stream 1 is implicitly "half closed" from the client toward the server (see <a href="#StreamStates" title="Stream States">Section&nbsp;5.1</a>), since the request is completed as an HTTP/1.1 request. After commencing the HTTP/2 connection, stream 1 is used for the
+                  response.
                </p>
             </div>
             <div id="Http2SettingsHeader">
@@ -1338,12 +1338,12 @@ Upgrade: h2c
             </div>
             <div id="rfc.section.4.3.p.7">
                <p>Each header block is processed as a discrete unit. Header blocks MUST be transmitted as a contiguous sequence of frames, with
-                  no interleaved frames of any other type or from any other stream. The last frame in a sequence of <a href="#HEADERS" class="smpl">HEADERS</a> or <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames MUST have the END_HEADERS flag set. The last frame in a sequence of <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> or <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames MUST have the END_HEADERS flag set. This allows a header block to be logically equivalent to a single frame.
+                  no interleaved frames of any other type or from any other stream. The last frame in a sequence of <a href="#HEADERS" class="smpl">HEADERS</a> or <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames has the END_HEADERS flag set. The last frame in a sequence of <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> or <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames has the END_HEADERS flag set. This allows a header block to be logically equivalent to a single frame.
                </p>
             </div>
             <div id="rfc.section.4.3.p.8">
-               <p>Header block fragments can only be sent as the payload of <a href="#HEADERS" class="smpl">HEADERS</a>, <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> or <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames, because these frames carry data that can modify the compression context maintained by a receiver. An endpoint receiving <a href="#HEADERS" class="smpl">HEADERS</a>, <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> or <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames MUST reassemble header blocks and perform decompression even if the frames are to be discarded. A receiver MUST terminate
-                  the connection with a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#COMPRESSION_ERROR" class="smpl">COMPRESSION_ERROR</a> if it does not decompress a header block.
+               <p>Header block fragments can only be sent as the payload of <a href="#HEADERS" class="smpl">HEADERS</a>, <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> or <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames, because these frames carry data that can modify the compression context maintained by a receiver. An endpoint receiving <a href="#HEADERS" class="smpl">HEADERS</a>, <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> or <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames needs to reassemble header blocks and perform decompression even if the frames are to be discarded. A receiver MUST
+                  terminate the connection with a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#COMPRESSION_ERROR" class="smpl">COMPRESSION_ERROR</a> if it does not decompress a header block.
                </p>
             </div>
          </div>
@@ -1493,7 +1493,7 @@ Upgrade: h2c
                   </dd>
                   <dt>half closed (local):</dt>
                   <dd>
-                     <p><br> A stream that is in the "half closed (local)" state cannot be used for sending frames, with the exception of <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a>, <a href="#PRIORITY" class="smpl">PRIORITY</a> and <a href="#RST_STREAM" class="smpl">RST_STREAM</a> frames.
+                     <p><br> A stream that is in the "half closed (local)" state cannot be used for sending frames other than <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a>, <a href="#PRIORITY" class="smpl">PRIORITY</a> and <a href="#RST_STREAM" class="smpl">RST_STREAM</a>.
                      </p>
                      <p>A stream transitions from this state to "closed" when a frame that contains an END_STREAM flag is received, or when either
                         peer sends a <a href="#RST_STREAM" class="smpl">RST_STREAM</a> frame.
@@ -1937,8 +1937,8 @@ Upgrade: h2c
                <h3 id="rfc.section.5.4.3"><a href="#rfc.section.5.4.3">5.4.3</a>&nbsp;Connection Termination
                </h3>
                <div id="rfc.section.5.4.3.p.1">
-                  <p>If the TCP connection is closed or reset while streams remain in open or half closed states, then the endpoint MUST assume
-                     that those streams were abnormally interrupted and could be incomplete.
+                  <p>If the TCP connection is closed or reset while streams remain in open or half closed states, then the affected streams cannot
+                     be automatically retried (see <a href="#Reliability" title="Request Reliability Mechanisms in HTTP/2">Section&nbsp;8.1.4</a> for details).
                   </p>
                </div>
             </div>
@@ -3099,7 +3099,7 @@ Upgrade: h2c
                            <p>The <tt>:authority</tt> pseudo-header field includes the authority portion of the target URI (<a href="#RFC3986"><cite title="Uniform Resource Identifier (URI): Generic Syntax">[RFC3986]</cite></a>, <a href="https://tools.ietf.org/html/rfc3986#section-3.2">Section 3.2</a>). The authority MUST NOT include the deprecated <tt>userinfo</tt> subcomponent for <tt>http</tt> or <tt>https</tt> schemed URIs.
                            </p>
                            <p>To ensure that the HTTP/1.1 request line can be reproduced accurately, this pseudo-header field MUST be omitted when translating
-                              from an HTTP/1.1 request that has a request target in origin or asterisk form (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#request-target" title="Request Target">Section 5.3</a>). Clients that generate HTTP/2 requests directly SHOULD use the <em>:authority</em> pseudo-header field instead of the <tt>Host</tt> header field. An intermediary that converts an HTTP/2 request to HTTP/1.1 MUST create a <tt>Host</tt> header field if one is not present in a request by copying the value of the <tt>:authority</tt> pseudo-header field.
+                              from an HTTP/1.1 request that has a request target in origin or asterisk form (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#request-target" title="Request Target">Section 5.3</a>). Clients that generate HTTP/2 requests directly SHOULD use the <tt>:authority</tt> pseudo-header field instead of the <tt>Host</tt> header field. An intermediary that converts an HTTP/2 request to HTTP/1.1 MUST create a <tt>Host</tt> header field if one is not present in a request by copying the value of the <tt>:authority</tt> pseudo-header field.
                            </p>
                         </li>
                         <li>
