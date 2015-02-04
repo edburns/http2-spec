@@ -558,8 +558,9 @@ ul.toc a:first-child {
       <link rel="Chapter" title="5 Primitive Type Representations" href="#rfc.section.5">
       <link rel="Chapter" title="6 Binary Format" href="#rfc.section.6">
       <link rel="Chapter" title="7 Security Considerations" href="#rfc.section.7">
-      <link rel="Chapter" title="8 Acknowledgements" href="#rfc.section.8">
-      <link rel="Chapter" href="#rfc.section.9" title="9 References">
+      <link rel="Chapter" title="8 IANA Considerations" href="#rfc.section.8">
+      <link rel="Chapter" title="9 Acknowledgements" href="#rfc.section.9">
+      <link rel="Chapter" href="#rfc.section.10" title="10 References">
       <link rel="Appendix" title="A Static Table Definition" href="#rfc.section.A">
       <link rel="Appendix" title="B Huffman Code" href="#rfc.section.B">
       <link rel="Appendix" title="C Examples" href="#rfc.section.C">
@@ -692,10 +693,11 @@ ul.toc a:first-child {
                   <li><a href="#rfc.section.7.4">7.4</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.7.4">Implementation Limits</a></li>
                </ul>
             </li>
-            <li><a href="#rfc.section.8">8.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.8">Acknowledgements</a></li>
-            <li><a href="#rfc.section.9">9.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.references">References</a><ul>
-                  <li><a href="#rfc.section.9.1">9.1</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.references.1">Normative References</a></li>
-                  <li><a href="#rfc.section.9.2">9.2</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.references.2">Informative References</a></li>
+            <li><a href="#rfc.section.8">8.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.8">IANA Considerations</a></li>
+            <li><a href="#rfc.section.9">9.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.9">Acknowledgements</a></li>
+            <li><a href="#rfc.section.10">10.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.references">References</a><ul>
+                  <li><a href="#rfc.section.10.1">10.1</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.references.1">Normative References</a></li>
+                  <li><a href="#rfc.section.10.2">10.2</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.references.2">Informative References</a></li>
                </ul>
             </li>
             <li><a href="#rfc.section.A">A.</a>&nbsp;&nbsp;&nbsp;<a href="#static.table.definition">Static Table Definition</a></li>
@@ -795,8 +797,8 @@ ul.toc a:first-child {
          </div>
          <div id="rfc.section.1.p.4">
             <p>The HPACK format is intentionally simple and inflexible. Both characteristics reduce the risk of interoperability or security
-               issues based by implementation error. No extensibility mechanisms are defined; changes to the format are only possible by
-               defining a complete replacement.
+               issues due to implementation error. No extensibility mechanisms are defined; changes to the format are only possible by defining
+               a complete replacement.
             </p>
          </div>
          <div>
@@ -854,8 +856,8 @@ ul.toc a:first-child {
                      decoding context.
                   </dd>
                   <dt>Static Table:</dt>
-                  <dd>The static table (see <a href="#static.table" title="Static Table">Section&nbsp;2.3.1</a>) is a table that statically associates header fields with index values. This table is ordered, read-only, always accessible,
-                     and may be shared amongst all encoding or decoding contexts.
+                  <dd>The static table (see <a href="#static.table" title="Static Table">Section&nbsp;2.3.1</a>) is a table that statically associates header fields that occur frequently with index values. This table is ordered, read-only,
+                     always accessible, and may be shared amongst all encoding or decoding contexts.
                   </dd>
                   <dt>Header List:</dt>
                   <dd>A header list is an ordered collection of header fields that are encoded jointly, and can contain duplicate header fields.
@@ -985,7 +987,7 @@ ul.toc a:first-child {
                   <li>A literal representation that does not add the header field to the dynamic table (see <a href="#literal.header.without.indexing" title="Literal Header Field without Indexing">Section&nbsp;6.2.2</a>).
                   </li>
                   <li>A literal representation that does not add the header field to the dynamic table, with the additional stipulation that this
-                     header field always use a literal representation, in particular when re-encoded by an intermediary (see <a href="#literal.header.never.indexed" title="Literal Header Field never Indexed">Section&nbsp;6.2.3</a>).
+                     header field always use a literal representation, in particular when re-encoded by an intermediary (see <a href="#literal.header.never.indexed" title="Literal Header Field never Indexed">Section&nbsp;6.2.3</a>). This representation is intended for protecting header field values that are not to be put at risk by compressing them (see <a href="#compression.based.attacks" title="Probing Dynamic Table State">Section&nbsp;7.1</a> for more details).
                   </li>
                   <li>A literal representation that adds the header field as a new entry at the beginning of the dynamic table (see <a href="#literal.header.with.incremental.indexing" title="Literal Header Field with Incremental Indexing">Section&nbsp;6.2.1</a>).
                   </li>
@@ -1006,11 +1008,16 @@ ul.toc a:first-child {
                <p>A decoder processes a header block sequentially to reconstruct the original header list.</p>
             </div>
             <div id="rfc.section.3.1.p.2">
-               <p>Once a header field is decoded and added to the reconstructed header list, the field cannot be removed. A header field added
-                  to the header list can be safely passed to the application.
+               <p>A header block is the concatenation of header field representations. The different possible header field representations are
+                  described in <a href="#detailed.format" title="Binary Format">Section&nbsp;6</a>.
                </p>
             </div>
             <div id="rfc.section.3.1.p.3">
+               <p>Once a header field is decoded and added to the reconstructed header list, the header field cannot be removed. A header field
+                  added to the header list can be safely passed to the application.
+               </p>
+            </div>
+            <div id="rfc.section.3.1.p.4">
                <p>By passing the resulting header fields to the application, a decoder can be implemented with minimal transitory memory commitment
                   in addition to the dynamic table.
                </p>
@@ -1128,14 +1135,15 @@ ul.toc a:first-child {
                </p>
             </div>
             <div id="rfc.section.4.4.p.2">
-               <p>If the representation of the added entry references the name of an entry in the dynamic table, the referenced name is cached
-                  prior to performing eviction to avoid having the name inadvertently evicted.
-               </p>
-            </div>
-            <div id="rfc.section.4.4.p.3">
                <p>If the size of the new entry is less than or equal to the maximum size, that entry is added to the table. It is not an error
                   to attempt to add an entry that is larger than the maximum size; an attempt to add an entry larger than the entire table causes
                   the table to be emptied of all existing entries, and results in an empty table.
+               </p>
+            </div>
+            <div id="rfc.section.4.4.p.3">
+               <p>A new entry can reference the name of an entry in the dynamic table that will be evicted when adding this new entry into the
+                  dynamic table. Implementations are cautioned to avoid deleting the referenced name if the referenced entry is evicted from
+                  the dynamic table prior to inserting the new entry.
                </p>
             </div>
          </div>
@@ -1148,8 +1156,8 @@ ul.toc a:first-child {
          <div id="integer.representation">
             <h2 id="rfc.section.5.1"><a href="#rfc.section.5.1">5.1</a>&nbsp;<a href="#integer.representation">Integer Representation</a></h2>
             <div id="rfc.section.5.1.p.1">
-               <p>Integers are used to represent name indexes, pair indexes or string lengths. To allow for optimized processing, an integer
-                  representation always finishes at the end of an octet.
+               <p>Integers are used to represent name indexes, pair indexes or string lengths. An integer representation can start anywhere
+                  within an octet. To allow for optimized processing, an integer representation always finishes at the end of an octet.
                </p>
             </div>
             <div id="rfc.section.5.1.p.2">
@@ -1689,9 +1697,16 @@ else
          </div>
       </div>
       <div>
-         <h1 id="rfc.section.8"><a href="#rfc.section.8">8.</a>&nbsp;Acknowledgements
+         <h1 id="rfc.section.8"><a href="#rfc.section.8">8.</a>&nbsp;IANA Considerations
          </h1>
          <div id="rfc.section.8.p.1">
+            <p>This document has no IANA actions.</p>
+         </div>
+      </div>
+      <div>
+         <h1 id="rfc.section.9"><a href="#rfc.section.9">9.</a>&nbsp;Acknowledgements
+         </h1>
+         <div id="rfc.section.9.p.1">
             <p>This specification includes substantial input from the following individuals: </p>
             <ul>
                <li>Mike Bishop, Jeff Pinner, Julian Reschke, Martin Thomson (substantial editorial contributions).</li>
@@ -1699,9 +1714,9 @@ else
             </ul>
          </div>
       </div>
-      <h1 id="rfc.references"><a id="rfc.section.9" href="#rfc.section.9">9.</a> References
+      <h1 id="rfc.references"><a id="rfc.section.10" href="#rfc.section.10">10.</a> References
       </h1>
-      <h2 id="rfc.references.1"><a href="#rfc.section.9.1" id="rfc.section.9.1">9.1</a> Normative References
+      <h2 id="rfc.references.1"><a href="#rfc.section.10.1" id="rfc.section.10.1">10.1</a> Normative References
       </h2>
       <table>
          <tr>
@@ -1720,7 +1735,7 @@ else
             </td>
          </tr>
       </table>
-      <h2 id="rfc.references.2"><a href="#rfc.section.9.2" id="rfc.section.9.2">9.2</a> Informative References
+      <h2 id="rfc.references.2"><a href="#rfc.section.10.2" id="rfc.section.10.2">10.2</a> Informative References
       </h2>
       <table>
          <tr>
