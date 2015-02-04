@@ -89,7 +89,7 @@ Table of Contents
      3.4.  Starting HTTP/2 with Prior Knowledge  . . . . . . . . . .  11
      3.5.  HTTP/2 Connection Preface . . . . . . . . . . . . . . . .  11
    4.  HTTP Frames . . . . . . . . . . . . . . . . . . . . . . . . .  12
-     4.1.  Frame Format  . . . . . . . . . . . . . . . . . . . . . .  12
+     4.1.  Frame Format  . . . . . . . . . . . . . . . . . . . . . .  13
      4.2.  Frame Size  . . . . . . . . . . . . . . . . . . . . . . .  14
      4.3.  Header Compression and Decompression  . . . . . . . . . .  14
    5.  Streams and Multiplexing  . . . . . . . . . . . . . . . . . .  15
@@ -414,6 +414,9 @@ Internet-Draft                   HTTP/2                    February 2015
       cleartext TCP.  This identifier is used in the HTTP/1.1 Upgrade
       header field and in any place where HTTP/2 over TCP is identified.
 
+      The "h2c" string is reserved from the ALPN identifier space, but
+      describes a protocol that does not use TLS.
+
    Negotiating "h2" or "h2c" implies the use of the transport, security,
    framing and message semantics described in this document.
 
@@ -438,9 +441,6 @@ Internet-Draft                   HTTP/2                    February 2015
    syntax defined in Section 3.2.6 of [RFC7230].  Experimenters are
    encouraged to coordinate their experiments on the ietf-http-wg@w3.org
    mailing list.
-
-
-
 
 
 
@@ -570,10 +570,13 @@ Internet-Draft                   HTTP/2                    February 2015
 3.3.  Starting HTTP/2 for "https" URIs
 
    A client that makes a request to an "https" URI uses TLS [TLS12] with
-   the application layer protocol negotiation extension [TLS-ALPN].
+   the application layer protocol negotiation (ALPN) extension
+   [TLS-ALPN].
 
-   HTTP/2 over TLS uses the "h2" application token.  The "h2c" token
-   MUST NOT be sent by a client or selected by a server.
+   HTTP/2 over TLS uses the "h2" protocol identifier.  The "h2c"
+   protocol identifier MUST NOT be sent by a client or selected by a
+   server; the "h2c" protocol identifier describes a protocol that does
+   not use TLS.
 
    Once TLS negotiation is complete, both the client and the server MUST
    send a connection preface (Section 3.5).
@@ -606,10 +609,7 @@ Internet-Draft                   HTTP/2                    February 2015
    initial settings for the HTTP/2 connection.  The client and server
    each send a different connection preface.
 
-   The client connection preface starts with a sequence of 24 octets,
-   which in hex notation are:
 
-     0x505249202a20485454502f322e300d0a0d0a534d0d0a0d0a
 
 
 
@@ -617,6 +617,11 @@ Belshe, et al.           Expires August 8, 2015                [Page 11]
 
 Internet-Draft                   HTTP/2                    February 2015
 
+
+   The client connection preface starts with a sequence of 24 octets,
+   which in hex notation are:
+
+     0x505249202a20485454502f322e300d0a0d0a534d0d0a0d0a
 
    (the string "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n").  This sequence MUST
    be followed by a SETTINGS frame (Section 6.5), which MAY be empty.
@@ -661,11 +666,6 @@ Internet-Draft                   HTTP/2                    February 2015
    Once the HTTP/2 connection is established, endpoints can begin
    exchanging frames.
 
-4.1.  Frame Format
-
-   All frames begin with a fixed 9-octet header followed by a variable-
-   length payload.
-
 
 
 
@@ -673,6 +673,11 @@ Belshe, et al.           Expires August 8, 2015                [Page 12]
 
 Internet-Draft                   HTTP/2                    February 2015
 
+
+4.1.  Frame Format
+
+   All frames begin with a fixed 9-octet header followed by a variable-
+   length payload.
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -717,11 +722,6 @@ Internet-Draft                   HTTP/2                    February 2015
       frames that are associated with the connection as a whole as
       opposed to an individual stream.
 
-   The structure and content of the frame payload is dependent entirely
-   on the frame type.
-
-
-
 
 
 
@@ -729,6 +729,9 @@ Belshe, et al.           Expires August 8, 2015                [Page 13]
 
 Internet-Draft                   HTTP/2                    February 2015
 
+
+   The structure and content of the frame payload is dependent entirely
+   on the frame type.
 
 4.2.  Frame Size
 
@@ -776,15 +779,15 @@ Internet-Draft                   HTTP/2                    February 2015
    payload of HEADERS (Section 6.2), PUSH_PROMISE (Section 6.6) or
    CONTINUATION (Section 6.10) frames.
 
-   The Cookie header field [COOKIE] is treated specially by the HTTP
-   mapping (see Section 8.1.2.5).
-
 
 
 Belshe, et al.           Expires August 8, 2015                [Page 14]
 
 Internet-Draft                   HTTP/2                    February 2015
 
+
+   The Cookie header field [COOKIE] is treated specially by the HTTP
+   mapping (see Section 8.1.2.5).
 
    A receiving endpoint reassembles the header block by concatenating
    its fragments, then decompresses the block to reconstruct the header
@@ -832,15 +835,15 @@ Internet-Draft                   HTTP/2                    February 2015
       streams, with either endpoint interleaving frames from multiple
       streams.
 
-   o  Streams can be established and used unilaterally or shared by
-      either the client or server.
-
 
 
 Belshe, et al.           Expires August 8, 2015                [Page 15]
 
 Internet-Draft                   HTTP/2                    February 2015
 
+
+   o  Streams can be established and used unilaterally or shared by
+      either the client or server.
 
    o  Streams can be closed by either endpoint.
 
@@ -855,9 +858,6 @@ Internet-Draft                   HTTP/2                    February 2015
 5.1.  Stream States
 
    The lifecycle of a stream is shown in Figure 2.
-
-
-
 
 
 

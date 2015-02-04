@@ -1003,6 +1003,7 @@ ul.toc a:first-child {
                      <p>The string "h2c" identifies the protocol where HTTP/2 is run over cleartext TCP. This identifier is used in the HTTP/1.1 Upgrade
                         header field and in any place where HTTP/2 over TCP is identified.
                      </p>
+                     <p>The "h2c" string is reserved from the ALPN identifier space, but describes a protocol that does not use TLS.</p>
                   </li>
                </ul>
             </div>
@@ -1124,11 +1125,13 @@ Upgrade: h2c
          <div id="discover-https">
             <h2 id="rfc.section.3.3"><a href="#rfc.section.3.3">3.3</a>&nbsp;<a href="#discover-https">Starting HTTP/2 for "https" URIs</a></h2>
             <div id="rfc.section.3.3.p.1">
-               <p>A client that makes a request to an "https" URI uses <a href="#TLS12">TLS</a> <cite title="The Transport Layer Security (TLS) Protocol Version 1.2">[TLS12]</cite> with the <a href="#TLS-ALPN">application layer protocol negotiation extension</a> <cite title="Transport Layer Security (TLS) Application-Layer Protocol Negotiation Extension">[TLS-ALPN]</cite>.
+               <p>A client that makes a request to an "https" URI uses <a href="#TLS12">TLS</a> <cite title="The Transport Layer Security (TLS) Protocol Version 1.2">[TLS12]</cite> with the <a href="#TLS-ALPN">application layer protocol negotiation (ALPN) extension</a> <cite title="Transport Layer Security (TLS) Application-Layer Protocol Negotiation Extension">[TLS-ALPN]</cite>.
                </p>
             </div>
             <div id="rfc.section.3.3.p.2">
-               <p>HTTP/2 over TLS uses the "h2" application token. The "h2c" token MUST NOT be sent by a client or selected by a server.</p>
+               <p>HTTP/2 over TLS uses the "h2" protocol identifier. The "h2c" protocol identifier MUST NOT be sent by a client or selected
+                  by a server; the "h2c" protocol identifier describes a protocol that does not use TLS.
+               </p>
             </div>
             <div id="rfc.section.3.3.p.3">
                <p>Once TLS negotiation is complete, both the client and the server MUST send a connection preface (<a href="#ConnectionHeader" title="HTTP/2 Connection Preface">Section&nbsp;3.5</a>).
