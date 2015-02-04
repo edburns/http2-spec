@@ -800,14 +800,18 @@ Internet-Draft                   HTTP/2                    February 2015
       frame has the END_HEADERS flag set.
 
    Header compression is stateful.  One compression context and one
-   decompression context is used for the entire connection.  Each header
-   block is processed as a discrete unit.  Header blocks MUST be
-   transmitted as a contiguous sequence of frames, with no interleaved
-   frames of any other type or from any other stream.  The last frame in
-   a sequence of HEADERS or CONTINUATION frames MUST have the
-   END_HEADERS flag set.  The last frame in a sequence of PUSH_PROMISE
-   or CONTINUATION frames MUST have the END_HEADERS flag set.  This
-   allows a header block to be logically equivalent to a single frame.
+   decompression context is used for the entire connection.  A decoding
+   error in a header block MUST be treated as a connection error
+   (Section 5.4.1) of type COMPRESSION_ERROR.
+
+   Each header block is processed as a discrete unit.  Header blocks
+   MUST be transmitted as a contiguous sequence of frames, with no
+   interleaved frames of any other type or from any other stream.  The
+   last frame in a sequence of HEADERS or CONTINUATION frames MUST have
+   the END_HEADERS flag set.  The last frame in a sequence of
+   PUSH_PROMISE or CONTINUATION frames MUST have the END_HEADERS flag
+   set.  This allows a header block to be logically equivalent to a
+   single frame.
 
    Header block fragments can only be sent as the payload of HEADERS,
    PUSH_PROMISE or CONTINUATION frames, because these frames carry data
@@ -831,16 +835,14 @@ Internet-Draft                   HTTP/2                    February 2015
    o  Streams can be established and used unilaterally or shared by
       either the client or server.
 
-   o  Streams can be closed by either endpoint.
-
-
-
 
 
 Belshe, et al.           Expires August 8, 2015                [Page 15]
 
 Internet-Draft                   HTTP/2                    February 2015
 
+
+   o  Streams can be closed by either endpoint.
 
    o  The order in which frames are sent on a stream is significant.
       Recipients process frames in the order they are received.  In
@@ -853,8 +855,6 @@ Internet-Draft                   HTTP/2                    February 2015
 5.1.  Stream States
 
    The lifecycle of a stream is shown in Figure 2.
-
-
 
 
 
