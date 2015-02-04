@@ -939,7 +939,7 @@ ul.toc a:first-child {
                <p>The following terms are used: </p>
                <dl>
                   <dt>client:</dt>
-                  <dd>The endpoint initiating the HTTP/2 connection.</dd>
+                  <dd>The endpoint that initiates an HTTP/2 connection. Clients send HTTP requests and receive HTTP responses.</dd>
                   <dt>connection:</dt>
                   <dd>A transport-layer connection between two endpoints.</dd>
                   <dt>connection error:</dt>
@@ -959,15 +959,19 @@ ul.toc a:first-child {
                   <dt>sender:</dt>
                   <dd>An endpoint that is transmitting frames.</dd>
                   <dt>server:</dt>
-                  <dd>The endpoint which did not initiate the HTTP/2 connection.</dd>
+                  <dd>The endpoint that accepts an HTTP/2 connection. Servers receive HTTP requests and serve HTTP responses.</dd>
                   <dt>stream:</dt>
-                  <dd>A bi-directional flow of frames across a virtual channel within the HTTP/2 connection.</dd>
+                  <dd>A bi-directional flow of frames within the HTTP/2 connection.</dd>
                   <dt>stream error:</dt>
                   <dd>An error on the individual HTTP/2 stream.</dd>
                </dl>
             </div>
             <div id="rfc.section.2.2.p.4">
-               <p>Finally, the terms "gateway", "intermediary", "proxy", "tunnel", "message body", and "payload body" are defined in <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#intermediaries" title="Intermediaries">Section 2.3</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>.
+               <p>Finally, the terms "gateway", "intermediary", "proxy", and "tunnel" are defined in <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#intermediaries" title="Intermediaries">Section 2.3</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>. Intermediaries act as both client and server at different times.
+               </p>
+            </div>
+            <div id="rfc.section.2.2.p.5">
+               <p>The term "payload body" is defined in <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#message.body" title="Message Body">Section 3.3</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>.
                </p>
             </div>
          </div>
@@ -1089,8 +1093,8 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.3.2.p.8">
-               <p>The HTTP/1.1 request that is sent prior to upgrade is assigned stream identifier 1 and is assigned default priority values (<a href="#pri-default" title="Default Priorities">Section&nbsp;5.3.5</a>). Stream 1 is implicitly half closed from the client toward the server, since the request is completed as an HTTP/1.1 request.
-                  After commencing the HTTP/2 connection, stream 1 is used for the response.
+               <p>The HTTP/1.1 request that is sent prior to upgrade is assigned a stream identifier of 1 (see <a href="#StreamIdentifiers" title="Stream Identifiers">Section&nbsp;5.1.1</a>) with default priority values (<a href="#pri-default" title="Default Priorities">Section&nbsp;5.3.5</a>). Stream 1 is implicitly "half closed" from the client toward the server (see <a href="#StreamStates" title="Stream States">Section&nbsp;5.1</a>), since the request is completed as an HTTP/1.1 request. After commencing the HTTP/2 connection, stream 1 is used for the
+                  response.
                </p>
             </div>
             <div id="Http2SettingsHeader">
@@ -1220,13 +1224,11 @@ Upgrade: h2c
                <p>All frames begin with a fixed 9-octet header followed by a variable-length payload.</p>
             </div>
             <div id="FrameLayout"></div>
-            <div id="rfc.figure.1"><pre class="inline">  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            <div id="rfc.figure.1"><pre class="inline"> +-----------------------------------------------+
  |                 Length (24)                   |
  +---------------+---------------+---------------+
  |   Type (8)    |   Flags (8)   |
- +-+-+-----------+---------------+-------------------------------+
+ +-+-------------+---------------+-------------------------------+
  |R|                 Stream Identifier (31)                      |
  +=+=============================================================+
  |                   Frame Payload (0...)                      ...
@@ -1380,27 +1382,27 @@ Upgrade: h2c
                    /         |        |         \
                   v          +--------+          v
            +----------+          |           +----------+
-           |          |          | send H/   |          |
-     ,-----| reserved |          | recv H    | reserved |-----.
-     |     | (local)  |          |           | (remote) |     |
-     |     +----------+          v           +----------+     |
-     |         |             +--------+             |         |
-     |         |     recv ES |        | send ES     |         |
-     |  send H |     ,-------|  open  |-------.     | recv H  |
-     |         |    /        |        |        \    |         |
-     |         v   v         +--------+         v   v         |
-     |     +----------+          |           +----------+     |
-     |     |   half   |          |           |   half   |     |
-     |     |  closed  |          | send R/   |  closed  |     |
-     |     | (remote) |          | recv R    | (local)  |     |
-     |     +----------+          |           +----------+     |
-     |          |                |                 |          |
-     |          | send ES/       |        recv ES/ |          |
-     |          | send R/        v         send R/ |          |
-     |          | recv R     +--------+    recv R  |          |
-     | send R/  `-----------&gt;|        |&lt;-----------'  send R/ |
-     | recv R                | closed |               recv R  |
-     `----------------------&gt;|        |&lt;----------------------'
+           |          |          | send H /  |          |
+    ,------| reserved |          | recv H    | reserved |------.
+    |      | (local)  |          |           | (remote) |      |
+    |      +----------+          v           +----------+      |
+    |          |             +--------+             |          |
+    |          |     recv ES |        | send ES     |          |
+    |   send H |     ,-------|  open  |-------.     | recv H   |
+    |          |    /        |        |        \    |          |
+    |          v   v         +--------+         v   v          |
+    |      +----------+          |           +----------+      |
+    |      |   half   |          |           |   half   |      |
+    |      |  closed  |          | send R /  |  closed  |      |
+    |      | (remote) |          | recv R    | (local)  |      |
+    |      +----------+          |           +----------+      |
+    |           |                |                 |           |
+    |           | send ES /      |       recv ES / |           |
+    |           | send R /       v        send R / |           |
+    |           | recv R     +--------+   recv R   |           |
+    | send R /  `-----------&gt;|        |&lt;-----------'  send R / |
+    | recv R                 | closed |               recv R   |
+    `-----------------------&gt;|        |&lt;----------------------'
                              +--------+
 
        send:   endpoint sends this frame
@@ -2006,9 +2008,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="DATAFramePayload"></div>
-            <div id="rfc.figure.6"><pre class="inline">  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            <div id="rfc.figure.6"><pre class="inline"> +---------------+
  |Pad Length? (8)|
  +---------------+-----------------------------------------------+
  |                            Data (*)                         ...
@@ -2074,9 +2074,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="HEADERSFramePayload"></div>
-            <div id="rfc.figure.7"><pre class="inline">  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            <div id="rfc.figure.7"><pre class="inline"> +---------------+
  |Pad Length? (8)|
  +-+-------------+-----------------------------------------------+
  |E|                 Stream Dependency? (31)                     |
@@ -2172,9 +2170,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="PRIORITYFramePayload"></div>
-            <div id="rfc.figure.8"><pre class="inline">  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            <div id="rfc.figure.8"><pre class="inline"> +-+-------------------------------------------------------------+
  |E|                  Stream Dependency (31)                     |
  +-+-------------+-----------------------------------------------+
  |   Weight (8)  |
@@ -2228,9 +2224,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="RST_STREAMFramePayload"></div>
-            <div id="rfc.figure.9"><pre class="inline">  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            <div id="rfc.figure.9"><pre class="inline"> +---------------------------------------------------------------+
  |                        Error Code (32)                        |
  +---------------------------------------------------------------+
 </pre></div>
@@ -2320,9 +2314,7 @@ Upgrade: h2c
                   </p>
                </div>
                <div id="SettingFormatFigure"></div>
-               <div id="rfc.figure.10"><pre class="inline">  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+               <div id="rfc.figure.10"><pre class="inline"> +-------------------------------+
  |       Identifier (16)         |
  +-------------------------------+-------------------------------+
  |                        Value (32)                             |
@@ -2421,9 +2413,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="PUSH_PROMISEPayloadFormat"></div>
-            <div id="rfc.figure.11"><pre class="inline">  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            <div id="rfc.figure.11"><pre class="inline"> +---------------+
  |Pad Length? (8)|
  +-+-------------+-----------------------------------------------+
  |R|                  Promised Stream ID (31)                    |
@@ -2519,9 +2509,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="PINGPayloadFormat"></div>
-            <div id="rfc.figure.12"><pre class="inline">  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            <div id="rfc.figure.12"><pre class="inline"> +---------------------------------------------------------------+
  |                                                               |
  |                      Opaque Data (64)                         |
  |                                                               |
@@ -2595,9 +2583,7 @@ Upgrade: h2c
                <p>An endpoint might choose to close a connection without sending GOAWAY for misbehaving peers.</p>
             </div>
             <div id="GOAWAYPayloadFormat"></div>
-            <div id="rfc.figure.13"><pre class="inline">  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            <div id="rfc.figure.13"><pre class="inline"> +-+-------------------------------------------------------------+
  |R|                  Last-Stream-ID (31)                        |
  +-+-------------------------------------------------------------+
  |                      Error Code (32)                          |
@@ -2692,9 +2678,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="WINDOW_UPDATEPayloadFormat"></div>
-            <div id="rfc.figure.14"><pre class="inline">  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            <div id="rfc.figure.14"><pre class="inline"> +-+-------------------------------------------------------------+
  |R|              Window Size Increment (31)                     |
  +-+-------------------------------------------------------------+
 </pre></div>
@@ -2839,9 +2823,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="CONTINUATIONFramePayload"></div>
-            <div id="rfc.figure.15"><pre class="inline">  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            <div id="rfc.figure.15"><pre class="inline"> +---------------------------------------------------------------+
  |                   Header Block Fragment (*)                 ...
  +---------------------------------------------------------------+
 </pre></div>
@@ -3099,7 +3081,7 @@ Upgrade: h2c
                            <p>The <tt>:authority</tt> pseudo-header field includes the authority portion of the target URI (<a href="#RFC3986"><cite title="Uniform Resource Identifier (URI): Generic Syntax">[RFC3986]</cite></a>, <a href="https://tools.ietf.org/html/rfc3986#section-3.2">Section 3.2</a>). The authority MUST NOT include the deprecated <tt>userinfo</tt> subcomponent for <tt>http</tt> or <tt>https</tt> schemed URIs.
                            </p>
                            <p>To ensure that the HTTP/1.1 request line can be reproduced accurately, this pseudo-header field MUST be omitted when translating
-                              from an HTTP/1.1 request that has a request target in origin or asterisk form (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#request-target" title="Request Target">Section 5.3</a>). Clients that generate HTTP/2 requests directly SHOULD use the <em>:authority</em> pseudo-header field instead of the <tt>Host</tt> header field. An intermediary that converts an HTTP/2 request to HTTP/1.1 MUST create a <tt>Host</tt> header field if one is not present in a request by copying the value of the <tt>:authority</tt> pseudo-header field.
+                              from an HTTP/1.1 request that has a request target in origin or asterisk form (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#request-target" title="Request Target">Section 5.3</a>). Clients that generate HTTP/2 requests directly SHOULD use the <tt>:authority</tt> pseudo-header field instead of the <tt>Host</tt> header field. An intermediary that converts an HTTP/2 request to HTTP/1.1 MUST create a <tt>Host</tt> header field if one is not present in a request by copying the value of the <tt>:authority</tt> pseudo-header field.
                            </p>
                         </li>
                         <li>
@@ -3346,12 +3328,16 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.8.2.p.6">
+               <p>The server MUST include a value in the <tt>:authority</tt> header field for which the server is authoritative (see <a href="#authority" title="Server Authority">Section&nbsp;10.1</a>). A client MUST treat a <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> for which the server is not authoritative as a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
+               </p>
+            </div>
+            <div id="rfc.section.8.2.p.7">
                <p>An intermediary can receive pushes from the server and choose not to forward them on to the client. In other words, how to
                   make use of the pushed information is up to that intermediary. Equally, the intermediary might choose to make additional pushes
                   to the client, without any action taken by the server.
                </p>
             </div>
-            <div id="rfc.section.8.2.p.7">
+            <div id="rfc.section.8.2.p.8">
                <p>A client cannot push. Thus, servers MUST treat the receipt of a <a href="#PUSH_PROMISE" class="smpl">PUSH_PROMISE</a> frame as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>. Clients MUST reject any attempt to change the <a href="#SETTINGS_ENABLE_PUSH" class="smpl">SETTINGS_ENABLE_PUSH</a> setting to a value other than 0 by treating the message as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>.
                </p>
             </div>
@@ -3526,26 +3512,31 @@ Upgrade: h2c
                <h3 id="rfc.section.9.1.1"><a href="#rfc.section.9.1.1">9.1.1</a>&nbsp;<a href="#reuse">Connection Reuse</a></h3>
                <div id="rfc.section.9.1.1.p.1">
                   <p>Connections that are made to an origin server, either directly or through a tunnel created using the CONNECT method (<a href="#CONNECT" title="The CONNECT Method">Section&nbsp;8.3</a>) MAY be reused for requests with multiple different URI authority components. A connection can be reused as long as the origin
-                     server is authoritative (<a href="#authority" title="Server Authority">Section&nbsp;10.1</a>). For <tt>http</tt> resources, this depends on the host having resolved to the same IP address.
+                     server is authoritative (<a href="#authority" title="Server Authority">Section&nbsp;10.1</a>). For TCP connections without TLS, this depends on the host having resolved to the same IP address.
                   </p>
                </div>
                <div id="rfc.section.9.1.1.p.2">
-                  <p>For <tt>https</tt> resources, connection reuse additionally depends on having a certificate that is valid for the host in the URI. An origin
-                     server might offer a certificate with multiple <tt>subjectAltName</tt> attributes, or names with wildcards, one of which is valid for the authority in the URI. For example, a certificate with a <tt>subjectAltName</tt> of <tt>*.example.com</tt> might permit the use of the same connection for requests to URIs starting with <tt>https://a.example.com/</tt> and <tt>https://b.example.com/</tt>.
+                  <p>For <tt>https</tt> resources, connection reuse additionally depends on having a certificate that is valid for the host in the URI. The certificate
+                     presented by the server MUST satisfy any checks that the client would perform when forming a new TLS connection for the host
+                     in the URI.
                   </p>
                </div>
                <div id="rfc.section.9.1.1.p.3">
+                  <p>An origin server might offer a certificate with multiple <tt>subjectAltName</tt> attributes, or names with wildcards, one of which is valid for the authority in the URI. For example, a certificate with a <tt>subjectAltName</tt> of <tt>*.example.com</tt> might permit the use of the same connection for requests to URIs starting with <tt>https://a.example.com/</tt> and <tt>https://b.example.com/</tt>.
+                  </p>
+               </div>
+               <div id="rfc.section.9.1.1.p.4">
                   <p>In some deployments, reusing a connection for multiple origins can result in requests being directed to the wrong origin server.
                      For example, TLS termination might be performed by a middlebox that uses the TLS <a href="#TLS-EXT">Server Name Indication (SNI)</a> <cite title="Transport Layer Security (TLS) Extensions: Extension Definitions">[TLS-EXT]</cite> extension to select an origin server. This means that it is possible for clients to send confidential information to servers
                      that might not be the intended target for the request, even though the server is otherwise authoritative.
                   </p>
                </div>
-               <div id="rfc.section.9.1.1.p.4">
+               <div id="rfc.section.9.1.1.p.5">
                   <p>A server that does not wish clients to reuse connections can indicate that it is not authoritative for a request by sending
                      a 421 (Misdirected Request) status code in response to the request (see <a href="#MisdirectedRequest" title="The 421 (Misdirected Request) Status Code">Section&nbsp;9.1.2</a>).
                   </p>
                </div>
-               <div id="rfc.section.9.1.1.p.5">
+               <div id="rfc.section.9.1.1.p.6">
                   <p>A client that is configured to use a proxy over HTTP/2 directs requests to that proxy through a single connection. That is,
                      all requests sent via a proxy reuse the connection to the proxy.
                   </p>
@@ -3738,7 +3729,7 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.10.4.p.4">
-               <p>Pushed responses for which an origin server is not authoritative (see <a href="#authority" title="Server Authority">Section&nbsp;10.1</a>) are never cached or used.
+               <p>Pushed responses for which an origin server is not authoritative (see <a href="#authority" title="Server Authority">Section&nbsp;10.1</a>) MUST NOT be used or cached.
                </p>
             </div>
          </div>
