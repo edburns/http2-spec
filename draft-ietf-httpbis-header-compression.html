@@ -1092,7 +1092,7 @@ ul.toc a:first-child {
             <h2 id="rfc.section.4.2"><a href="#rfc.section.4.2">4.2</a>&nbsp;<a href="#maximum.table.size">Maximum Table Size</a></h2>
             <div id="rfc.section.4.2.p.1">
                <p>Protocols that use HPACK determine the maximum size that the encoder is permitted to use for the dynamic table. In HTTP/2,
-                  this value is determined by the SETTINGS_HEADER_TABLE_SIZE setting (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-16#section-6.5.2" title="Defined SETTINGS Parameters">Section 6.5.2</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
+                  this value is determined by the SETTINGS_HEADER_TABLE_SIZE setting (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingValues' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingValues' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
                </p>
             </div>
             <div id="rfc.section.4.2.p.2">
@@ -1103,7 +1103,7 @@ ul.toc a:first-child {
                <p>The maximum size of the dynamic table can be changed by the protocol at any time other than during the encoding of a header
                   block. After changing the maximum size of the dynamic table used by the encoder, the encoder MUST signal this change via an
                   encoding context update (see <a href="#encoding.context.update" title="Dynamic Table Size Update">Section&nbsp;6.3</a>). This encoding context update MUST occur at the beginning of the first header block following the change to the header table
-                  size. In HTTP/2, this follows a settings acknowledgement (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-16#section-6.5.3" title="Settings Synchronization">Section 6.5.3</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
+                  size. In HTTP/2, this follows a settings acknowledgement (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingsSync' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingsSync' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
                </p>
             </div>
             <div id="rfc.section.4.2.p.4">
@@ -1505,7 +1505,7 @@ else
                </p>
             </div>
             <div id="rfc.section.6.3.p.3">
-               <p>The new maximum size MUST be lower than or equal to the last value of the SETTINGS_HEADER_TABLE_SIZE parameter (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-16#section-6.5.2" title="Defined SETTINGS Parameters">Section 6.5.2</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>) received from the decoder and acknowledged by the encoder (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-16#section-6.5.3" title="Settings Synchronization">Section 6.5.3</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
+               <p>The new maximum size MUST be lower than or equal to the last value of the SETTINGS_HEADER_TABLE_SIZE parameter (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingValues' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingValues' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>) received from the decoder and acknowledged by the encoder (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingsSync' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingsSync' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
                </p>
             </div>
             <div id="rfc.section.6.3.p.4">
@@ -1666,7 +1666,7 @@ else
             </div>
             <div id="rfc.section.7.3.p.2">
                <p>The amount of memory used by the compressor state is limited by the decoder using the value of the HTTP/2 setting parameter
-                  SETTINGS_HEADER_TABLE_SIZE (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-16#section-6.5.2" title="Defined SETTINGS Parameters">Section 6.5.2</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>). This limit takes into account both the size of the data stored in the dynamic table, plus a small allowance for overhead.
+                  SETTINGS_HEADER_TABLE_SIZE (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingValues' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingValues' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>). This limit takes into account both the size of the data stored in the dynamic table, plus a small allowance for overhead.
                </p>
             </div>
             <div id="rfc.section.7.3.p.3">
@@ -1721,7 +1721,7 @@ else
       <table>
          <tr>
             <td class="reference"><b id="HTTP2">[HTTP2]</b></td>
-            <td class="top">Belshe, M., Peon, R., and M. Thomson, Ed., “<a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-16">Hypertext Transfer Protocol version 2</a>”, Internet-Draft&nbsp;draft-ietf-httpbis-http2-16 (work in progress), November&nbsp;2014.
+            <td class="top">Belshe, M., Peon, R., and M. Thomson, Ed., “<a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17">Hypertext Transfer Protocol version 2</a>”, Internet-Draft&nbsp;draft-ietf-httpbis-http2-17 (work in progress), February&nbsp;2015.
             </td>
          </tr>
          <tr>

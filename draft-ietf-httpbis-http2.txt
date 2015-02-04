@@ -3909,7 +3909,7 @@ Internet-Draft                   HTTP/2                    February 2015
    CONTINUATION frame at the end of a stream.
 
    Header compression also offers some opportunities to waste processing
-   resources; see Section 7 of [COMPRESSION] for more details on
+   resources; see Appendix of [COMPRESSION] for more details on
    potential abuses.
 
    Limits in SETTINGS parameters cannot be reduced instantaneously,
@@ -4388,8 +4388,8 @@ Internet-Draft                   HTTP/2                    February 2015
 
    [COMPRESSION]
               Ruellan, H. and R. Peon, "HPACK - Header Compression for
-              HTTP/2", draft-ietf-httpbis-header-compression-10 (work in
-              progress), November 2014.
+              HTTP/2", draft-ietf-httpbis-header-compression-11 (work in
+              progress), February 2015.
 
    [COOKIE]   Barth, A., "HTTP State Management Mechanism", RFC 6265,
               April 2011.

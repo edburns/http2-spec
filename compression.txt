@@ -496,8 +496,8 @@ Internet-Draft                    HPACK                    February 2015
 
    Protocols that use HPACK determine the maximum size that the encoder
    is permitted to use for the dynamic table.  In HTTP/2, this value is
-   determined by the SETTINGS_HEADER_TABLE_SIZE setting (see
-   Section 6.5.2 of [HTTP2]).
+   determined by the SETTINGS_HEADER_TABLE_SIZE setting (see Appendix of
+   [HTTP2]).
 
 
 
@@ -517,7 +517,7 @@ Internet-Draft                    HPACK                    February 2015
    (see Section 6.3).  This encoding context update MUST occur at the
    beginning of the first header block following the change to the
    header table size.  In HTTP/2, this follows a settings
-   acknowledgement (see Section 6.5.3 of [HTTP2]).
+   acknowledgement (see Appendix of [HTTP2]).
 
    Multiple updates to the maximum table size can occur between the
    sending of two header blocks.  In the case that this size is changed
@@ -971,9 +971,9 @@ Internet-Draft                    HPACK                    February 2015
    5-bit prefix (see Section 5.1).
 
    The new maximum size MUST be lower than or equal to the last value of
-   the SETTINGS_HEADER_TABLE_SIZE parameter (see Section 6.5.2 of
-   [HTTP2]) received from the decoder and acknowledged by the encoder
-   (see Section 6.5.3 of [HTTP2]).
+   the SETTINGS_HEADER_TABLE_SIZE parameter (see Appendix of [HTTP2])
+   received from the decoder and acknowledged by the encoder (see
+   Appendix of [HTTP2]).
 
    Reducing the maximum size of the dynamic table can cause entries to
    be evicted (see Section 4.3).
@@ -1147,9 +1147,9 @@ Internet-Draft                    HPACK                    February 2015
 
    The amount of memory used by the compressor state is limited by the
    decoder using the value of the HTTP/2 setting parameter
-   SETTINGS_HEADER_TABLE_SIZE (see Section 6.5.2 of [HTTP2]).  This
-   limit takes into account both the size of the data stored in the
-   dynamic table, plus a small allowance for overhead.
+   SETTINGS_HEADER_TABLE_SIZE (see Appendix of [HTTP2]).  This limit
+   takes into account both the size of the data stored in the dynamic
+   table, plus a small allowance for overhead.
 
    A decoder can limit the amount of state memory used by setting an
    appropriate value for the SETTINGS_HEADER_TABLE_SIZE parameter.  An
@@ -1202,8 +1202,8 @@ Internet-Draft                    HPACK                    February 2015
 10.1.  Normative References
 
    [HTTP2]    Belshe, M., Peon, R., and M. Thomson, Ed., "Hypertext
-              Transfer Protocol version 2", draft-ietf-httpbis-http2-16
-              (work in progress), November 2014.
+              Transfer Protocol version 2", draft-ietf-httpbis-http2-17
+              (work in progress), February 2015.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
