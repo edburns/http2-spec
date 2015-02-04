@@ -439,7 +439,7 @@ ul p {
        content: "Internet-Draft";
   }
   @top-right {
-       content: "January 2015";
+       content: "February 2015";
   }
   @top-center {
        content: "HTTP/2";
@@ -448,7 +448,7 @@ ul p {
        content: "Belshe, et al.";
   }
   @bottom-center {
-       content: "Expires July 31, 2015";
+       content: "Expires August 8, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -573,9 +573,9 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Thomson, M.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-http2-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2015-01-27">
-      <meta name="dct.abstract" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
-      <meta name="description" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
+      <meta name="dct.issued" scheme="ISO8601" content="2015-02-04">
+      <meta name="dct.abstract" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent exchanges on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
+      <meta name="description" content="This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables a more efficient use of network resources and a reduced perception of latency by introducing header field compression and allowing multiple concurrent exchanges on the same connection. It also introduces unsolicited push of representations from servers to clients. This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain unchanged.">
    </head>
    <body onload="initFeedback();">
       <table class="header" id="rfc.headerblock">
@@ -593,7 +593,7 @@ ul.toc a:first-child {
                <td class="right">R. Peon</td>
             </tr>
             <tr>
-               <td class="left">Expires: July 31, 2015</td>
+               <td class="left">Expires: August 8, 2015</td>
                <td class="right">Google, Inc</td>
             </tr>
             <tr>
@@ -606,7 +606,7 @@ ul.toc a:first-child {
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">January 27, 2015</td>
+               <td class="right">February 4, 2015</td>
             </tr>
          </tbody>
       </table>
@@ -614,7 +614,7 @@ ul.toc a:first-child {
       <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
       <p>This specification describes an optimized expression of the semantics of the Hypertext Transfer Protocol (HTTP). HTTP/2 enables
          a more efficient use of network resources and a reduced perception of latency by introducing header field compression and
-         allowing multiple concurrent messages on the same connection. It also introduces unsolicited push of representations from
+         allowing multiple concurrent exchanges on the same connection. It also introduces unsolicited push of representations from
          servers to clients.
       </p>
       <p>This specification is an alternative to, but does not obsolete, the HTTP/1.1 message syntax. HTTP's existing semantics remain
@@ -637,7 +637,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on July 31, 2015.</p>
+         <p>This Internet-Draft will expire on August 8, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -897,7 +897,7 @@ ul.toc a:first-child {
          </div>
          <div id="rfc.section.2.p.6">
             <p>Because HTTP header fields used in a connection can contain large amounts of redundant data, frames that contain them are compressed (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>). This has especially advantageous impact upon request sizes in the common case, allowing many requests to be compressed into
-               one TCP packet.
+               one packet.
             </p>
          </div>
          <div>
@@ -967,7 +967,7 @@ ul.toc a:first-child {
                </dl>
             </div>
             <div id="rfc.section.2.2.p.4">
-               <p>Finally, the terms "gateway", "intermediary", "proxy", and "tunnel" are defined in <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#intermediaries" title="Intermediaries">Section 2.3</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>.
+               <p>Finally, the terms "gateway", "intermediary", "proxy", "tunnel", "message body", and "payload body" are defined in <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#intermediaries" title="Intermediaries">Section 2.3</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>.
                </p>
             </div>
          </div>
@@ -1052,8 +1052,8 @@ HTTP2-Settings: &lt;base64url encoding of HTTP/2 SETTINGS payload&gt;
 
 </pre></div>
             <div id="rfc.section.3.2.p.2">
-               <p>Requests that contain an entity body MUST be sent in their entirety before the client can send HTTP/2 frames. This means that
-                  a large request entity can block the use of the connection until it is completely sent.
+               <p>Requests that contain an payload body MUST be sent in their entirety before the client can send HTTP/2 frames. This means
+                  that a large request can block the use of the connection until it is completely sent.
                </p>
             </div>
             <div id="rfc.section.3.2.p.3">
@@ -1254,18 +1254,19 @@ Upgrade: h2c
                   <dd>
                      <p>An 8-bit field reserved for frame-type specific boolean flags.</p>
                      <p>Flags are assigned semantics specific to the indicated frame type. Flags that have no defined semantics for a particular frame
-                        type MUST be ignored, and MUST be left unset (0) when sending.
+                        type MUST be ignored, and MUST be left unset (0x0) when sending.
                      </p>
                   </dd>
                   <dt>R:</dt>
                   <dd>
-                     <p>A reserved 1-bit field. The semantics of this bit are undefined and the bit MUST remain unset (0) when sending and MUST be
-                        ignored when receiving.
+                     <p>A reserved 1-bit field. The semantics of this bit are undefined and the bit MUST remain unset (0x0) when sending and MUST
+                        be ignored when receiving.
                      </p>
                   </dd>
                   <dt>Stream Identifier:</dt>
                   <dd>
-                     <p>A 31-bit stream identifier (see <a href="#StreamIdentifiers" title="Stream Identifiers">Section&nbsp;5.1.1</a>). The value 0 is reserved for frames that are associated with the connection as a whole as opposed to an individual stream.
+                     <p>A stream identifier (see <a href="#StreamIdentifiers" title="Stream Identifiers">Section&nbsp;5.1.1</a>) expressed as an unsigned 31-bit integer. The value 0x0 is reserved for frames that are associated with the connection as
+                        a whole as opposed to an individual stream.
                      </p>
                   </dd>
                </dl>
@@ -1489,12 +1490,12 @@ Upgrade: h2c
                   </dd>
                   <dt>half closed (local):</dt>
                   <dd>
-                     <p><br> A stream that is in the "half closed (local)" state cannot be used for sending frames. Only <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a>, <a href="#PRIORITY" class="smpl">PRIORITY</a> and <a href="#RST_STREAM" class="smpl">RST_STREAM</a> frames can be sent in this state.
+                     <p><br> A stream that is in the "half closed (local)" state cannot be used for sending frames, with the exception of <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a>, <a href="#PRIORITY" class="smpl">PRIORITY</a> and <a href="#RST_STREAM" class="smpl">RST_STREAM</a> frames.
                      </p>
                      <p>A stream transitions from this state to "closed" when a frame that contains an END_STREAM flag is received, or when either
                         peer sends a <a href="#RST_STREAM" class="smpl">RST_STREAM</a> frame.
                      </p>
-                     <p>A receiver can ignore <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a> frames in this state, which might arrive for a short period after a frame bearing the END_STREAM flag is sent.
+                     <p>An endpoint can receive any type of frame in this state. Providing flow control credit using <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a> frames is necessary to continue receiving flow controlled frames. A receiver can ignore <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a> frames in this state, which might arrive for a short period after a frame bearing the END_STREAM flag is sent.
                      </p>
                      <p><a href="#PRIORITY" class="smpl">PRIORITY</a> frames received in this state are used to reprioritize streams that depend on the identified stream.
                      </p>
@@ -1502,7 +1503,7 @@ Upgrade: h2c
                   <dt>half closed (remote):</dt>
                   <dd>
                      <p><br> A stream that is "half closed (remote)" is no longer being used by the peer to send frames. In this state, an endpoint is
-                        no longer obligated to maintain a receiver flow control window if it performs flow control.
+                        no longer obligated to maintain a receiver flow control window.
                      </p>
                      <p>If an endpoint receives additional frames for a stream that is in this state, other than <a href="#WINDOW_UPDATE" class="smpl">WINDOW_UPDATE</a>, <a href="#PRIORITY" class="smpl">PRIORITY</a> or <a href="#RST_STREAM" class="smpl">RST_STREAM</a>, it MUST respond with a stream error (<a href="#StreamErrorHandler" title="Stream Error Handling">Section&nbsp;5.4.2</a>) of type <a href="#STREAM_CLOSED" class="smpl">STREAM_CLOSED</a>.
                      </p>
@@ -1539,7 +1540,7 @@ Upgrade: h2c
             </div>
             <div id="rfc.section.5.1.p.5">
                <p>In the absence of more specific guidance elsewhere in this document, implementations SHOULD treat the receipt of a frame that
-                  is not expressly permitted in the description of a state as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>. Note that <a href="#PRIORITY" class="smpl">PRIORITY</a> can be sent and received in any stream state. Frame of unknown types are ignored.
+                  is not expressly permitted in the description of a state as a connection error (<a href="#ConnectionErrorHandler" title="Connection Error Handling">Section&nbsp;5.4.1</a>) of type <a href="#PROTOCOL_ERROR" class="smpl">PROTOCOL_ERROR</a>. Note that <a href="#PRIORITY" class="smpl">PRIORITY</a> can be sent and received in any stream state. Frames of unknown types are ignored.
                </p>
             </div>
             <div id="rfc.section.5.1.p.6">
@@ -1992,7 +1993,9 @@ Upgrade: h2c
                </p>
             </div>
             <div id="rfc.section.6.1.p.2">
-               <p>DATA frames MAY also contain arbitrary padding. Padding can be added to DATA frames to obscure the size of messages.</p>
+               <p>DATA frames MAY also contain padding. Padding can be added to DATA frames to obscure the size of messages. Padding is a security
+                  feature; see <a href="#padding" title="Use of Padding">Section&nbsp;10.7</a>.
+               </p>
             </div>
             <div id="DATAFramePayload"></div>
             <div id="rfc.figure.6"><pre class="inline">  0                   1                   2                   3
@@ -2054,10 +2057,6 @@ Upgrade: h2c
                   <dd>A frame can be increased in size by one octet by including a Pad Length field with a value of zero.</dd>
                </dl>
             </div>
-            <div id="rfc.section.6.1.p.8">
-               <p>Padding is a security feature; see <a href="#padding" title="Use of Padding">Section&nbsp;10.7</a>.
-               </p>
-            </div>
          </div>
          <div id="HEADERS">
             <h2 id="rfc.section.6.2"><a href="#rfc.section.6.2">6.2</a>&nbsp;<a href="#HEADERS">HEADERS</a></h2>
@@ -2096,15 +2095,13 @@ Upgrade: h2c
                   <dd>A 31-bit stream identifier for the stream that this stream depends on, see <a href="#StreamPriority" title="Stream priority">Section&nbsp;5.3</a>. This field is only present if the PRIORITY flag is set.
                   </dd>
                   <dt>Weight:</dt>
-                  <dd>An 8-bit weight for the stream, see <a href="#StreamPriority" title="Stream priority">Section&nbsp;5.3</a>. Add one to the value to obtain a weight between 1 and 256. This field is only present if the PRIORITY flag is set.
+                  <dd>An unsigned 8-bit integer representing a priority weight for the stream, see <a href="#StreamPriority" title="Stream priority">Section&nbsp;5.3</a>. Add one to the value to obtain a weight between 1 and 256. This field is only present if the PRIORITY flag is set.
                   </dd>
                   <dt>Header Block Fragment:</dt>
                   <dd>A header block fragment (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>).
                   </dd>
                   <dt>Padding:</dt>
-                  <dd>Padding octets that contain no application semantic value. Padding octets MUST be set to zero when sending and ignored when
-                     receiving.
-                  </dd>
+                  <dd>Padding octets.</dd>
                </dl>
             </div>
             <div id="rfc.section.6.2.p.3">
@@ -2112,7 +2109,7 @@ Upgrade: h2c
                <dl>
                   <dt>END_STREAM (0x1):</dt>
                   <dd>
-                     <p>Bit 0 being set indicates that the header block (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>) is the last that the endpoint will send for the identified stream. Setting this flag causes the stream to enter one of "half closed" states (<a href="#StreamStates" title="Stream States">Section&nbsp;5.1</a>).
+                     <p>Bit 0 being set indicates that the header block (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>) is the last that the endpoint will send for the identified stream.
                      </p>
                      <p>A HEADERS frame carries the END_STREAM flag that signals the end of a stream. However, a HEADERS frame with the END_STREAM
                         flag set can be followed by <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames on the same stream. Logically, the <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames are part of the HEADERS frame.
@@ -2186,7 +2183,7 @@ Upgrade: h2c
                   <dd>A 31-bit stream identifier for the stream that this stream depends on, see <a href="#StreamPriority" title="Stream priority">Section&nbsp;5.3</a>.
                   </dd>
                   <dt>Weight:</dt>
-                  <dd>An 8-bit weight for the identified stream dependency, see <a href="#StreamPriority" title="Stream priority">Section&nbsp;5.3</a>. Add one to the value to obtain a weight between 1 and 256.
+                  <dd>An unsigned 8-bit integer representing a priority weight for the stream, see <a href="#StreamPriority" title="Stream priority">Section&nbsp;5.3</a>. Add one to the value to obtain a weight between 1 and 256.
                   </dd>
                </dl>
             </div>
@@ -2334,7 +2331,7 @@ Upgrade: h2c
                      <dd>
                         <p>Allows the sender to inform the remote endpoint of the maximum size of the header compression table used to decode header
                            blocks, in octets. The encoder can select any size equal to or less than this value by using signaling specific to the header
-                           compression format inside a header block. The initial value is 4,096 octets.
+                           compression format inside a header block, see <a href="#COMPRESSION"><cite title="HPACK - Header Compression for HTTP/2">[COMPRESSION]</cite></a>. The initial value is 4,096 octets.
                         </p>
                      </dd>
                      <dt id="SETTINGS_ENABLE_PUSH">SETTINGS_ENABLE_PUSH (0x2):</dt>
@@ -2961,7 +2958,7 @@ Upgrade: h2c
                   </li>
                   <li>one <a href="#HEADERS" class="smpl">HEADERS</a> frame (followed by zero or more <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames) containing the message headers (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#header.fields" title="Header Fields">Section 3.2</a>), and
                   </li>
-                  <li>zero or more <a href="#DATA" class="smpl">DATA</a> frames containing the message payload (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#message.body" title="Message Body">Section 3.3</a>), and
+                  <li>zero or more <a href="#DATA" class="smpl">DATA</a> frames containing the payload body (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#message.body" title="Message Body">Section 3.3</a>), and
                   </li>
                   <li>optionally, one <a href="#HEADERS" class="smpl">HEADERS</a> frame, followed by zero or more <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames containing the trailer-part, if present (see <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#chunked.trailer.part" title="Chunked Trailer Part">Section 4.1.2</a>).
                   </li>
@@ -3162,7 +3159,7 @@ Upgrade: h2c
                      </p>
                   </div>
                   <div id="rfc.section.8.1.2.6.p.2">
-                     <p>A request or response that includes an entity body can include a <tt>content-length</tt> header field. A request or response is also malformed if the value of a <tt>content-length</tt> header field does not equal the sum of the <a href="#DATA" class="smpl">DATA</a> frame payload lengths that form the body. A response that is defined to have no payload, as described in <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#header.content-length" title="Content-Length">Section 3.3.2</a>, can have a non-zero <tt>content-length</tt> header field, even though no content is included in <a href="#DATA" class="smpl">DATA</a> frames.
+                     <p>A request or response that includes an payload body can include a <tt>content-length</tt> header field. A request or response is also malformed if the value of a <tt>content-length</tt> header field does not equal the sum of the <a href="#DATA" class="smpl">DATA</a> frame payload lengths that form the body. A response that is defined to have no payload, as described in <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7230.html#header.content-length" title="Content-Length">Section 3.3.2</a>, can have a non-zero <tt>content-length</tt> header field, even though no content is included in <a href="#DATA" class="smpl">DATA</a> frames.
                      </p>
                   </div>
                   <div id="rfc.section.8.1.2.6.p.3">
@@ -3185,7 +3182,7 @@ Upgrade: h2c
                   <p>This section shows HTTP/1.1 requests and responses, with illustrations of equivalent HTTP/2 requests and responses.</p>
                </div>
                <div id="rfc.section.8.1.3.p.2">
-                  <p>An HTTP GET request includes request header fields and no body and is therefore transmitted as a single <a href="#HEADERS" class="smpl">HEADERS</a> frame, followed by zero or more <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames containing the serialized block of request header fields. The <a href="#HEADERS" class="smpl">HEADERS</a> frame in the following has both the END_HEADERS and END_STREAM flags set; no <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames are sent:
+                  <p>An HTTP GET request includes request header fields and no payload body and is therefore transmitted as a single <a href="#HEADERS" class="smpl">HEADERS</a> frame, followed by zero or more <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames containing the serialized block of request header fields. The <a href="#HEADERS" class="smpl">HEADERS</a> frame in the following has both the END_HEADERS and END_STREAM flags set; no <a href="#CONTINUATION" class="smpl">CONTINUATION</a> frames are sent:
                   </p>
                </div>
                <div id="rfc.figure.u.7"><pre class="inline">  GET /resource HTTP/1.1           HEADERS
@@ -3526,7 +3523,7 @@ Upgrade: h2c
             <div id="reuse">
                <h3 id="rfc.section.9.1.1"><a href="#rfc.section.9.1.1">9.1.1</a>&nbsp;<a href="#reuse">Connection Reuse</a></h3>
                <div id="rfc.section.9.1.1.p.1">
-                  <p>Connections that are made to an origin servers, either directly or through a tunnel created using the CONNECT method (<a href="#CONNECT" title="The CONNECT Method">Section&nbsp;8.3</a>) MAY be reused for requests with multiple different URI authority components. A connection can be reused as long as the origin
+                  <p>Connections that are made to an origin server, either directly or through a tunnel created using the CONNECT method (<a href="#CONNECT" title="The CONNECT Method">Section&nbsp;8.3</a>) MAY be reused for requests with multiple different URI authority components. A connection can be reused as long as the origin
                      server is authoritative (<a href="#authority" title="Server Authority">Section&nbsp;10.1</a>). For <tt>http</tt> resources, this depends on the host having resolved to the same IP address.
                   </p>
                </div>
@@ -3793,10 +3790,10 @@ Upgrade: h2c
                <h3 id="rfc.section.10.5.1"><a href="#rfc.section.10.5.1">10.5.1</a>&nbsp;<a href="#MaxHeaderBlock">Limits on Header Block Size</a></h3>
                <div id="rfc.section.10.5.1.p.1">
                   <p>A large header block (<a href="#HeaderBlock" title="Header Compression and Decompression">Section&nbsp;4.3</a>) can cause an implementation to commit a large amount of state. Header fields that are critical for routing can appear toward
-                     the end of a header block, which prevents streaming of header fields to their ultimate destination. For this and other reasons,
-                     such as ensuring cache correctness, means that an endpoint might need to buffer the entire header block. Since there is no
-                     hard limit to the size of a header block, some endpoints could be forced to commit a large amount of available memory for
-                     header fields.
+                     the end of a header block, which prevents streaming of header fields to their ultimate destination. This ordering and other
+                     reasons, such as ensuring cache correctness, means that an endpoint might need to buffer the entire header block. Since there
+                     is no hard limit to the size of a header block, some endpoints could be forced to commit a large amount of available memory
+                     for header fields.
                   </p>
                </div>
                <div id="rfc.section.10.5.1.p.2">
