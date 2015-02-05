@@ -25,7 +25,7 @@ Editorial Note (To be removed by RFC Editor)
    Working Group information can be found at [2]; that specific to
    HTTP/2 are at [3].
 
-   The changes in this draft are summarized in Appendix D.1.
+   The changes in this draft are summarized in Appendix D.2.
 
 Status of This Memo
 
@@ -151,17 +151,17 @@ Internet-Draft                    HPACK                    February 2015
        C.6.3.  Third Response  . . . . . . . . . . . . . . . . . . .  52
    Appendix D.  Change Log (to be removed by RFC Editor before
                 publication) . . . . . . . . . . . . . . . . . . . .  54
-     D.1.  Since draft-ietf-httpbis-header-compression-09  . . . . .  55
-     D.2.  Since draft-ietf-httpbis-header-compression-08  . . . . .  55
-     D.3.  Since draft-ietf-httpbis-header-compression-07  . . . . .  55
-     D.4.  Since draft-ietf-httpbis-header-compression-06  . . . . .  55
-     D.5.  Since draft-ietf-httpbis-header-compression-05  . . . . .  56
-     D.6.  Since draft-ietf-httpbis-header-compression-04  . . . . .  56
-     D.7.  Since draft-ietf-httpbis-header-compression-03  . . . . .  56
-     D.8.  Since draft-ietf-httpbis-header-compression-02  . . . . .  57
-     D.9.  Since draft-ietf-httpbis-header-compression-01  . . . . .  57
-     D.10. Since draft-ietf-httpbis-header-compression-00  . . . . .  57
-
+     D.1.  Since draft-ietf-httpbis-header-compression-10  . . . . .  55
+     D.2.  Since draft-ietf-httpbis-header-compression-09  . . . . .  55
+     D.3.  Since draft-ietf-httpbis-header-compression-08  . . . . .  55
+     D.4.  Since draft-ietf-httpbis-header-compression-07  . . . . .  55
+     D.5.  Since draft-ietf-httpbis-header-compression-06  . . . . .  56
+     D.6.  Since draft-ietf-httpbis-header-compression-05  . . . . .  56
+     D.7.  Since draft-ietf-httpbis-header-compression-04  . . . . .  56
+     D.8.  Since draft-ietf-httpbis-header-compression-03  . . . . .  57
+     D.9.  Since draft-ietf-httpbis-header-compression-02  . . . . .  57
+     D.10. Since draft-ietf-httpbis-header-compression-01  . . . . .  57
+     D.11. Since draft-ietf-httpbis-header-compression-00  . . . . .  57
 
 
 
@@ -203,21 +203,21 @@ Internet-Draft                    HPACK                    February 2015
    sequences of octets, and the order of header fields is preserved
    after being compressed and decompressed.
 
-   Encoding is informed by header tables that map name-value pairs to
-   indexed values.  These header tables can be incrementally updated as
-   new pairs are encoded or decoded.
+   Encoding is informed by header field tables that map header fields to
+   indexed values.  These header field tables can be incrementally
+   updated as new header fields are encoded or decoded.
 
    In the encoded form, a header field is represented either literally
-   or as a reference to a name-value pair in one of the header tables.
-   Therefore, a list of header fields can be encoded using a mixture of
-   references and literal values.
+   or as a reference to a header field in one of the header field
+   tables.  Therefore, a list of header fields can be encoded using a
+   mixture of references and literal values.
 
    Literal values are either encoded directly or using a static Huffman
    code.
 
    The encoder is responsible for deciding which header fields to insert
-   as new entries in the header tables.  The decoder executes the
-   modifications to the header tables prescribed by the encoder,
+   as new entries in the header field tables.  The decoder executes the
+   modifications to the header field tables prescribed by the encoder,
 
 
 
@@ -262,7 +262,7 @@ Internet-Draft                    HPACK                    February 2015
 
    Header List:  A header list is an ordered collection of header fields
       that are encoded jointly, and can contain duplicate header fields.
-      A complete list of key-value pairs contained in an HTTP/2 header
+      A complete list of header fields contained in an HTTP/2 header
       block is a header list.
 
    Header Field Representation:  A header field can be represented in
@@ -516,11 +516,11 @@ Internet-Draft                    HPACK                    February 2015
    The size of an entry is calculated using the length of the name and
    value without any Huffman encoding applied.
 
-   NOTE: The additional 32 octets account for an estimated overhead
-   associated with an entry.  For example, an entry structure using two
-   64-bit pointers to reference the name and the value of the entry, and
-   two 64-bit integers for counting the number of references to the name
-   and value would have 32 octets of overhead.
+   Note:  The additional 32 octets account for an estimated overhead
+      associated with an entry.  For example, an entry structure using
+      two 64-bit pointers to reference the name and the value of the
+      entry, and two 64-bit integers for counting the number of
+      references to the name and value would have 32 octets of overhead.
 
 4.2.  Maximum Table Size
 
@@ -539,7 +539,7 @@ Internet-Draft                    HPACK                    February 2015
    the encoder MUST signal this change via an encoding context update
    (see Section 6.3).  This encoding context update MUST occur at the
    beginning of the first header block following the change to the
-   header table size.  In HTTP/2, this follows a settings
+   dynamic table size.  In HTTP/2, this follows a settings
    acknowledgement (see Appendix of [HTTP2]).
 
    Multiple updates to the maximum table size can occur between the
@@ -701,9 +701,9 @@ Internet-Draft                    HPACK                    February 2015
 5.2.  String Literal Representation
 
    Header field names and header field values can be represented as
-   literal string.  A literal string is encoded as a sequence of octets,
-   either by directly encoding the literal string's octets, or by using
-   a Huffman code (see [HUFFMAN]).
+   literal strings.  A literal string is encoded as a sequence of
+   octets, either by directly encoding the literal string's octets, or
+   by using a Huffman code (see [HUFFMAN]).
 
      0   1   2   3   4   5   6   7
    +---+---+---+---+---+---+---+---+
@@ -787,8 +787,8 @@ Internet-Draft                    HPACK                    February 2015
 
 
    An indexed header field starts with the '1' 1-bit pattern, followed
-   by the index of the matching pair, represented as an integer with a
-   7-bit prefix (see Section 5.1).
+   by the index of the matching header field, represented as an integer
+   with a 7-bit prefix (see Section 5.1).
 
    The index value of 0 is not used.  It MUST be treated as a decoding
    error if found in an indexed header field representation.
@@ -3026,7 +3026,22 @@ Peon & Ruellan           Expires August 9, 2015                [Page 54]
 Internet-Draft                    HPACK                    February 2015
 
 
-D.1.  Since draft-ietf-httpbis-header-compression-09
+D.1.  Since draft-ietf-httpbis-header-compression-10
+
+   o  Editorial corrections for taking into account IETF LC comments.
+
+      *  Added links to security sections.
+
+      *  Made spec more independent of HTTP/2.
+
+      *  Expanded security section about never indexed literal usage.
+
+   o  Removed most usages of 'name-value pair' instead instead of header
+      field.
+
+   o  Changed 'header table' to 'header field table'.
+
+D.2.  Since draft-ietf-httpbis-header-compression-09
 
    o  Renamed header table to dynamic table.
 
@@ -3034,7 +3049,7 @@ D.1.  Since draft-ietf-httpbis-header-compression-09
 
    o  Editorial corrections.
 
-D.2.  Since draft-ietf-httpbis-header-compression-08
+D.3.  Since draft-ietf-httpbis-header-compression-08
 
    o  Removed the reference set.
 
@@ -3049,7 +3064,7 @@ D.2.  Since draft-ietf-httpbis-header-compression-08
 
    o  Exchanged header and static table positions.
 
-D.3.  Since draft-ietf-httpbis-header-compression-07
+D.4.  Since draft-ietf-httpbis-header-compression-07
 
    o  Removed old text on index value of 0.
 
@@ -3060,6 +3075,13 @@ D.3.  Since draft-ietf-httpbis-header-compression-07
 
    o  Many editorial clarifications or improvements.
 
+
+
+Peon & Ruellan           Expires August 9, 2015                [Page 55]
+
+Internet-Draft                    HPACK                    February 2015
+
+
    o  Added convention section.
 
    o  Reworked document's outline.
@@ -3068,19 +3090,12 @@ D.3.  Since draft-ietf-httpbis-header-compression-07
 
    o  Updated Huffman table, using data set provided by Google.
 
-D.4.  Since draft-ietf-httpbis-header-compression-06
+D.5.  Since draft-ietf-httpbis-header-compression-06
 
    o  Updated format to include literal headers that must never be
       compressed.
 
    o  Updated security considerations.
-
-
-
-Peon & Ruellan           Expires August 9, 2015                [Page 55]
-
-Internet-Draft                    HPACK                    February 2015
-
 
    o  Moved integer encoding examples to the appendix.
 
@@ -3090,7 +3105,7 @@ Internet-Draft                    HPACK                    February 2015
 
    o  Updated examples.
 
-D.5.  Since draft-ietf-httpbis-header-compression-05
+D.6.  Since draft-ietf-httpbis-header-compression-05
 
    o  Regenerated examples.
 
@@ -3103,7 +3118,7 @@ D.5.  Since draft-ietf-httpbis-header-compression-05
 
    o  Improved examples (removing unnecessary removals).
 
-D.6.  Since draft-ietf-httpbis-header-compression-04
+D.7.  Since draft-ietf-httpbis-header-compression-04
 
    o  Updated examples: take into account changes in the spec, and show
       more features.
@@ -3116,9 +3131,16 @@ D.6.  Since draft-ietf-httpbis-header-compression-04
 
    o  Added "host" header to the static table.
 
+
+
+Peon & Ruellan           Expires August 9, 2015                [Page 56]
+
+Internet-Draft                    HPACK                    February 2015
+
+
    o  Ordering for list of values (either NULL- or comma-separated).
 
-D.7.  Since draft-ietf-httpbis-header-compression-03
+D.8.  Since draft-ietf-httpbis-header-compression-03
 
    o  A large number of editorial changes; changed the description of
       evicting/adding new entries.
@@ -3129,23 +3151,14 @@ D.7.  Since draft-ietf-httpbis-header-compression-03
 
    o  Merged 'request' and 'response' static headers, as per issue #259
 
-
-
-
-
-Peon & Ruellan           Expires August 9, 2015                [Page 56]
-
-Internet-Draft                    HPACK                    February 2015
-
-
    o  Changed text to indicate that new headers are added at index 0 and
       expire from the largest index, as per issue #233
 
-D.8.  Since draft-ietf-httpbis-header-compression-02
+D.9.  Since draft-ietf-httpbis-header-compression-02
 
    o  Corrected error in integer encoding pseudocode.
 
-D.9.  Since draft-ietf-httpbis-header-compression-01
+D.10.  Since draft-ietf-httpbis-header-compression-01
 
    o  Refactored of Header Encoding Section: split definitions and
       processing rule.
@@ -3168,11 +3181,18 @@ D.9.  Since draft-ietf-httpbis-header-compression-01
       also be able to free up memory more quickly.  Added information in
       Security Considerations section.
 
-D.10.  Since draft-ietf-httpbis-header-compression-00
+D.11.  Since draft-ietf-httpbis-header-compression-00
 
       Fixed bug/omission in integer representation algorithm.
 
       Changed the document title.
+
+
+
+Peon & Ruellan           Expires August 9, 2015                [Page 57]
+
+Internet-Draft                    HPACK                    February 2015
+
 
       Header matching text rewritten.
 
@@ -3185,14 +3205,6 @@ D.10.  Since draft-ietf-httpbis-header-compression-00
 
       Corrected erroneous statement about what index can be contained in
       one octet
-
-
-
-
-Peon & Ruellan           Expires August 9, 2015                [Page 57]
-
-Internet-Draft                    HPACK                    February 2015
-
 
       Added descriptions of opcodes
 
@@ -3210,18 +3222,6 @@ Authors' Addresses
    Canon CRF
 
    EMail: herve.ruellan@crf.canon.fr
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
