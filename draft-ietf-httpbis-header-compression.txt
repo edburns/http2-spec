@@ -86,9 +86,9 @@ Table of Contents
      3.1.  Header Block Processing . . . . . . . . . . . . . . . . .   8
      3.2.  Header Field Representation Processing  . . . . . . . . .   9
    4.  Dynamic Table Management  . . . . . . . . . . . . . . . . . .   9
-     4.1.  Calculating Table Size  . . . . . . . . . . . . . . . . .   9
+     4.1.  Calculating Table Size  . . . . . . . . . . . . . . . . .  10
      4.2.  Maximum Table Size  . . . . . . . . . . . . . . . . . . .  10
-     4.3.  Entry Eviction when Dynamic Table Size Changes  . . . . .  10
+     4.3.  Entry Eviction when Dynamic Table Size Changes  . . . . .  11
      4.4.  Entry Eviction when Adding New Entries  . . . . . . . . .  11
    5.  Primitive Type Representations  . . . . . . . . . . . . . . .  11
      5.1.  Integer Representation  . . . . . . . . . . . . . . . . .  11
@@ -186,7 +186,8 @@ Internet-Draft                    HPACK                    February 2015
    This specification defines HPACK, a new compressor for header fields
    which eliminates redundant header fields, limits vulnerability to
    known security attacks, and which has a bounded memory requirement
-   for use in constrained environments.
+   for use in constrained environments.  Potential security concerns for
+   HPACK are described in Section 7.
 
    The HPACK format is intentionally simple and inflexible.  Both
    characteristics reduce the risk of interoperability or security
@@ -217,7 +218,6 @@ Internet-Draft                    HPACK                    February 2015
    The encoder is responsible for deciding which header fields to insert
    as new entries in the header tables.  The decoder executes the
    modifications to the header tables prescribed by the encoder,
-   reconstructing the list of header fields in the process.  This
 
 
 
@@ -226,6 +226,7 @@ Peon & Ruellan           Expires August 9, 2015                 [Page 4]
 Internet-Draft                    HPACK                    February 2015
 
 
+   reconstructing the list of header fields in the process.  This
    enables decoders to remain simple and interoperate with a wide
    variety of encoders.
 
@@ -269,7 +270,6 @@ Internet-Draft                    HPACK                    February 2015
 
    Header Block:  An ordered list of header field representations which,
       when decoded, yields a complete header list.
-
 
 
 
@@ -420,6 +420,10 @@ Internet-Draft                    HPACK                    February 2015
    o  A literal representation that adds the header field as a new entry
       at the beginning of the dynamic table (see Section 6.2.1).
 
+   The selection of one of these literal representations can be guided
+   by security considerations, in order to protect sensitive header
+   field values (see Section 7.1).
+
    The literal representation of a header field name or of a header
    field value can encode the string either directly or using a static
    Huffman code (see Section 5.2).
@@ -439,16 +443,16 @@ Internet-Draft                    HPACK                    February 2015
    The different possible header field representations are described in
    Section 6.
 
-   Once a header field is decoded and added to the reconstructed header
-   list, the header field cannot be removed.  A header field added to
-   the header list can be safely passed to the application.
-
 
 
 Peon & Ruellan           Expires August 9, 2015                 [Page 8]
 
 Internet-Draft                    HPACK                    February 2015
 
+
+   Once a header field is decoded and added to the reconstructed header
+   list, the header field cannot be removed.  A header field added to
+   the header list can be safely passed to the application.
 
    By passing the resulting header fields to the application, a decoder
    can be implemented with minimal transitory memory commitment in
@@ -491,12 +495,8 @@ Internet-Draft                    HPACK                    February 2015
    To limit the memory requirements on the decoder side, the dynamic
    table is constrained in size.
 
-4.1.  Calculating Table Size
 
-   The size of the dynamic table is the sum of the size of its entries.
 
-   The size of an entry is the sum of its name's length in octets (as
-   defined in Section 5.2), its value's length in octets, plus 32.
 
 
 
@@ -505,6 +505,13 @@ Peon & Ruellan           Expires August 9, 2015                 [Page 9]
 
 Internet-Draft                    HPACK                    February 2015
 
+
+4.1.  Calculating Table Size
+
+   The size of the dynamic table is the sum of the size of its entries.
+
+   The size of an entry is the sum of its name's length in octets (as
+   defined in Section 5.2), its value's length in octets, plus 32.
 
    The size of an entry is calculated using the length of the name and
    value without any Huffman encoding applied.
@@ -548,19 +555,18 @@ Internet-Draft                    HPACK                    February 2015
    dynamic table by setting a maximum size of 0, which can subsequently
    be restored.
 
-4.3.  Entry Eviction when Dynamic Table Size Changes
-
-   Whenever the maximum size for the dynamic table is reduced, entries
-   are evicted from the end of the dynamic table until the size of the
-   dynamic table is less than or equal to the maximum size.
-
-
 
 
 Peon & Ruellan           Expires August 9, 2015                [Page 10]
 
 Internet-Draft                    HPACK                    February 2015
 
+
+4.3.  Entry Eviction when Dynamic Table Size Changes
+
+   Whenever the maximum size for the dynamic table is reduced, entries
+   are evicted from the end of the dynamic table until the size of the
+   dynamic table is less than or equal to the maximum size.
 
 4.4.  Entry Eviction when Adding New Entries
 
@@ -601,6 +607,17 @@ Internet-Draft                    HPACK                    February 2015
    If the integer value is small enough, i.e. strictly less than 2^N-1,
    it is encoded within the N-bit prefix.
 
+
+
+
+
+
+
+Peon & Ruellan           Expires August 9, 2015                [Page 11]
+
+Internet-Draft                    HPACK                    February 2015
+
+
      0   1   2   3   4   5   6   7
    +---+---+---+---+---+---+---+---+
    | ? | ? | ? |       Value       |
@@ -610,14 +627,6 @@ Internet-Draft                    HPACK                    February 2015
 
    Otherwise, all the bits of the prefix are set to 1 and the value,
    decreased by 2^N-1, is encoded using a list of one or more octets.
-
-
-
-Peon & Ruellan           Expires August 9, 2015                [Page 11]
-
-Internet-Draft                    HPACK                    February 2015
-
-
    The most significant bit of each octet is used as a continuation
    flag: its value is set to 1 except for the last octet in the list.
    The remaining bits of the octets are used to encode the decreased
@@ -655,15 +664,6 @@ Internet-Draft                    HPACK                    February 2015
             encode (I % 128 + 128) on 8 bits
             I = I / 128
        encode I on 8 bits
-
-
-
-
-
-
-
-
-
 
 
 
