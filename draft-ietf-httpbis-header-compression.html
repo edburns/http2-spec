@@ -806,8 +806,8 @@ ul.toc a:first-child {
             </h2>
             <div id="rfc.section.1.1.p.1">
                <p>The format defined in this specification treats a list of header fields as an ordered collection of name-value pairs that
-                  can include duplicates. Names and values are considered to be opaque sequences of octets, and the order of header fields is
-                  preserved after being compressed and decompressed.
+                  can include duplicate pairs. Names and values are considered to be opaque sequences of octets, and the order of header fields
+                  is preserved after being compressed and decompressed.
                </p>
             </div>
             <div id="rfc.section.1.1.p.2">
@@ -821,12 +821,15 @@ ul.toc a:first-child {
                </p>
             </div>
             <div id="rfc.section.1.1.p.4">
+               <p>Literal values are either encoded directly or using a static Huffman code.</p>
+            </div>
+            <div id="rfc.section.1.1.p.5">
                <p>The encoder is responsible for deciding which header fields to insert as new entries in the header tables. The decoder executes
                   the modifications to the header tables prescribed by the encoder, reconstructing the list of header fields in the process.
                   This enables decoders to remain simple and interoperate with a wide variety of encoders.
                </p>
             </div>
-            <div id="rfc.section.1.1.p.5">
+            <div id="rfc.section.1.1.p.6">
                <p>Examples illustrating the use of these different mechanisms to represent header fields are available in <a href="#examples" title="Examples">Appendix&nbsp;C</a>.
                </p>
             </div>
@@ -928,7 +931,9 @@ ul.toc a:first-child {
                   <p>The dynamic table is initially empty. Entries are added as each header block is decompressed.</p>
                </div>
                <div id="rfc.section.2.3.2.p.3">
-                  <p>The dynamic table can contain duplicate entries. Therefore, duplicate entries MUST NOT be treated as an error by a decoder.</p>
+                  <p>The dynamic table can contain duplicate entries (i.e. entries with the same name and same value). Therefore, duplicate entries
+                     MUST NOT be treated as an error by a decoder.
+                  </p>
                </div>
                <div id="rfc.section.2.3.2.p.4">
                   <p>The encoder decides how to update the dynamic table and as such can control how much memory is used by the dynamic table.
@@ -994,6 +999,11 @@ ul.toc a:first-child {
                </ul>
             </div>
             <div id="rfc.section.2.4.p.4">
+               <p>The literal representation of a header field name or of a header field value can encode the string either directly or using
+                  a static Huffman code (see <a href="#string.literal.representation" title="String Literal Representation">Section&nbsp;5.2</a>).
+               </p>
+            </div>
+            <div id="rfc.section.2.4.p.5">
                <p>An indexed representation defines a header field as a reference to an entry in either the static table or the dynamic table
                   (see <a href="#indexed.header.representation" title="Indexed Header Field Representation">Section&nbsp;6.1</a>).
                </p>
@@ -1075,16 +1085,16 @@ ul.toc a:first-child {
                <p>The size of the dynamic table is the sum of the size of its entries.</p>
             </div>
             <div id="rfc.section.4.1.p.2">
-               <p>The size of an entry is the sum of its name's length in octets (as defined in <a href="#string.literal.representation" title="String Literal Representation">Section&nbsp;5.2</a>), its value's length in octets (see <a href="#string.literal.representation" title="String Literal Representation">Section&nbsp;5.2</a>), plus 32.
+               <p>The size of an entry is the sum of its name's length in octets (as defined in <a href="#string.literal.representation" title="String Literal Representation">Section&nbsp;5.2</a>), its value's length in octets, plus 32.
                </p>
             </div>
             <div id="rfc.section.4.1.p.3">
                <p>The size of an entry is calculated using the length of the name and value without any Huffman encoding applied.</p>
             </div>
             <div id="rfc.section.4.1.p.4">
-               <p>NOTE: The additional 32 octets account for the overhead associated with an entry. For example, an entry structure using two
-                  64-bit pointers to reference the name and the value of the entry, and two 64-bit integers for counting the number of references
-                  to the name and value would have 32 octets of overhead.
+               <p>NOTE: The additional 32 octets account for an estimated overhead associated with an entry. For example, an entry structure
+                  using two 64-bit pointers to reference the name and the value of the entry, and two 64-bit integers for counting the number
+                  of references to the name and value would have 32 octets of overhead.
                </p>
             </div>
          </div>
@@ -1156,7 +1166,7 @@ ul.toc a:first-child {
          <div id="integer.representation">
             <h2 id="rfc.section.5.1"><a href="#rfc.section.5.1">5.1</a>&nbsp;<a href="#integer.representation">Integer Representation</a></h2>
             <div id="rfc.section.5.1.p.1">
-               <p>Integers are used to represent name indexes, pair indexes or string lengths. An integer representation can start anywhere
+               <p>Integers are used to represent name indexes, header field indexes or string lengths. An integer representation can start anywhere
                   within an octet. To allow for optimized processing, an integer representation always finishes at the end of an octet.
                </p>
             </div>
@@ -1233,9 +1243,9 @@ else
             </div>
             <div id="rfc.section.5.1.p.8">
                <p>This integer representation allows for values of indefinite size. It is also possible for an encoder to send a large number
-                  of zero values, which can waste octets and could be used to overflow integer values. Excessively large integer encodings -
-                  in value or octet length - MUST be treated as a decoding error. Different limits can be set for each of the different uses
-                  of integers, based on implementation constraints.
+                  of zero values, which can waste octets and could be used to overflow integer values. Integer encodings that exceed an implementation
+                  limits - in value or octet length - MUST be treated as a decoding error. Different limits can be set for each of the different
+                  uses of integers, based on implementation constraints.
                </p>
             </div>
          </div>
@@ -1505,7 +1515,9 @@ else
                </p>
             </div>
             <div id="rfc.section.6.3.p.3">
-               <p>The new maximum size MUST be lower than or equal to the last value of the SETTINGS_HEADER_TABLE_SIZE parameter (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingValues' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingValues' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>) received from the decoder and acknowledged by the encoder (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingsSync' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingsSync' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
+               <p>The new maximum size MUST be lower than or equal to the last value of the maximum size of the dynamic table. A value that
+                  exceeds this limit MUST be treated as a decoding error. In HTTP/2, this limit is the last value of the SETTINGS_HEADER_TABLE_SIZE
+                  parameter (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingValues' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingValues' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>) received from the decoder and acknowledged by the encoder (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingsSync' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingsSync' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
                </p>
             </div>
             <div id="rfc.section.6.3.p.4">
@@ -1540,8 +1552,8 @@ else
                </p>
             </div>
             <div id="rfc.section.7.1.p.3">
-               <p>This is possible even over TLS, because while TLS provides confidentiality protection for content, it only provides a limited
-                  amount of protection for the length of that content. 
+               <p>This is possible even over the Transport Layer Security Protocol (TLS, see <a href="#TLS12"><cite title="The Transport Layer Security (TLS) Protocol Version 1.2">[TLS12]</cite></a>), because while TLS provides confidentiality protection for content, it only provides a limited amount of protection for
+                  the length of that content. 
                </p>
                <dl>
                   <dt>Note:</dt>
@@ -1691,13 +1703,15 @@ else
                </p>
             </div>
             <div id="rfc.section.7.3.p.2">
-               <p>The amount of memory used by the compressor state is limited by the decoder using the value of the HTTP/2 setting parameter
-                  SETTINGS_HEADER_TABLE_SIZE (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingValues' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingValues' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>). This limit takes into account both the size of the data stored in the dynamic table, plus a small allowance for overhead.
+               <p>The amount of memory used by the compressor is limited by the protocol using HPACK through the definition of the maximum size
+                  of the dynamic table. In HTTP/2, this value is controlled by the decoder through the setting parameter SETTINGS_HEADER_TABLE_SIZE
+                  (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingValues' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingValues' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>). This limit takes into account both the size of the data stored in the dynamic table, plus a small allowance for overhead.
                </p>
             </div>
             <div id="rfc.section.7.3.p.3">
-               <p>A decoder can limit the amount of state memory used by setting an appropriate value for the SETTINGS_HEADER_TABLE_SIZE parameter.
-                  An encoder can limit the amount of state memory it uses by signalling lower dynamic table size than the decoder allows (see <a href="#encoding.context.update" title="Dynamic Table Size Update">Section&nbsp;6.3</a>).
+               <p>A decoder can limit the amount of state memory used by setting an appropriate value for the maximum size of the dynamic table.
+                  In HTTP/2, this is realized by setting an appropriate value for the SETTINGS_HEADER_TABLE_SIZE parameter. An encoder can limit
+                  the amount of state memory it uses by signalling lower dynamic table size than the decoder allows (see <a href="#encoding.context.update" title="Dynamic Table Size Update">Section&nbsp;6.3</a>).
                </p>
             </div>
             <div id="rfc.section.7.3.p.4">
@@ -1771,7 +1785,7 @@ else
          </tr>
          <tr>
             <td class="reference"><b id="CRIME">[CRIME]</b></td>
-            <td class="top">Rizzo, J. and T. Duong, “<a href="https://docs.google.com/a/twist.com/presentation/d/11eBmGiHbYcHR9gL5nDyZChu_-lCa2GizeuOfaLU2HOU/edit#slide=id.g1eb6c1b5_3_6">The CRIME Attack</a>”, September&nbsp;2012, &lt;<a href="https://docs.google.com/a/twist.com/presentation/d/11eBmGiHbYcHR9gL5nDyZChu_-lCa2GizeuOfaLU2HOU/edit#slide=id.g1eb6c1b5_3_6">https://docs.google.com/a/twist.com/presentation/d/11eBmGiHbYcHR9gL5nDyZChu_-lCa2GizeuOfaLU2HOU/edit#slide=id.g1eb6c1b5_3_6</a>&gt;.
+            <td class="top">Rizzo, J. and T. Duong, “<a href="https://docs.google.com/a/twist.com/presentation/d/11eBmGiHbYcHR9gL5nDyZChu_-lCa2GizeuOfaLU2HOU">The CRIME Attack</a>”, September&nbsp;2012, &lt;<a href="https://docs.google.com/a/twist.com/presentation/d/11eBmGiHbYcHR9gL5nDyZChu_-lCa2GizeuOfaLU2HOU">https://docs.google.com/a/twist.com/presentation/d/11eBmGiHbYcHR9gL5nDyZChu_-lCa2GizeuOfaLU2HOU</a>&gt;.
             </td>
          </tr>
          <tr>
@@ -1781,7 +1795,7 @@ else
          </tr>
          <tr>
             <td class="reference"><b id="HUFFMAN">[HUFFMAN]</b></td>
-            <td class="top">Huffman, D., “<a href="https://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=4051119">A Method for the Construction of Minimum Redundancy Codes</a>”, Proceedings of the Institute of Radio Engineers&nbsp;Volume 40, Number 9, pp. 1098-1101, September&nbsp;1952, &lt;<a href="https://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=4051119">https://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=4051119</a>&gt;.
+            <td class="top">Huffman, D., “<a href="http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=4051119">A Method for the Construction of Minimum Redundancy Codes</a>”, Proceedings of the Institute of Radio Engineers&nbsp;Volume 40, Number 9, pp. 1098-1101, September&nbsp;1952, &lt;<a href="http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=4051119">http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=4051119</a>&gt;.
             </td>
          </tr>
          <tr>
@@ -1799,11 +1813,16 @@ else
             <td class="top">Belshe, M. and R. Peon, “<a href="https://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00">SPDY Protocol</a>”, Internet-Draft&nbsp;draft-mbelshe-httpbis-spdy-00 (work in progress), February&nbsp;2012.
             </td>
          </tr>
+         <tr>
+            <td class="reference"><b id="TLS12">[TLS12]</b></td>
+            <td class="top">Dierks, T. and E. Rescorla, “<a href="https://tools.ietf.org/html/rfc5246">The Transport Layer Security (TLS) Protocol Version 1.2</a>”, RFC&nbsp;5246, August&nbsp;2008.
+            </td>
+         </tr>
       </table>
       <div id="static.table.definition">
          <h1 id="rfc.section.A" class="np"><a href="#rfc.section.A">A.</a>&nbsp;<a href="#static.table.definition">Static Table Definition</a></h1>
          <div id="rfc.section.A.p.1">
-            <p>The static table (see <a href="#static.table" title="Static Table">Section&nbsp;2.3.1</a>) consists of a predefined and unchangeable list of header fields.
+            <p>The static table (see <a href="#static.table" title="Static Table">Section&nbsp;2.3.1</a>) consists in a predefined and unchangeable list of header fields.
             </p>
          </div>
          <div id="rfc.section.A.p.2">
@@ -2168,7 +2187,7 @@ else
          </div>
          <div id="rfc.section.B.p.4">
             <p>As an example, the code for the symbol 47 (corresponding to the ASCII character "/") consists in the 6 bits "0", "1", "1",
-               "0", "0", "0". This corresponds to the value 0x18 (in hexadecimal) encoded on 6 bits.
+               "0", "0", "0". This corresponds to the value 0x18 (in hexadecimal) encoded in 6 bits.
             </p>
          </div>
          <div id="rfc.figure.u.3"><pre>                                                     code
@@ -2488,7 +2507,7 @@ EOS (256)  |11111111|11111111|11111111|111111      3fffffff  [30]
                                  <li>I is no longer greater than or equal to 128, the while loop terminates.</li>
                               </ul> 
                            </li>
-                           <li>I, now 10, is encoded on 8 bits as: 00001010.</li>
+                           <li>I, now 10, is encoded in 8 bits as: 00001010.</li>
                         </ul> 
                      </li>
                      <li>The process ends.</li>
