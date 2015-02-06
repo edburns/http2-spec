@@ -548,7 +548,7 @@ Internet-Draft                    HPACK                    February 2015
    occurs in that interval MUST be sent in an encoding context update.
    The final maximum size is always sent, resulting in at most two
    encoding context updates.  This ensures that the decoder is able to
-   perform eviction based on reductions in decoder table size (see
+   perform eviction based on reductions in dynamic table size (see
    Section 4.3).
 
    This mechanism can be used to completely clear entries from the
