@@ -1120,17 +1120,15 @@ ul.toc a:first-child {
                </p>
             </div>
             <div id="rfc.section.4.2.p.3">
-               <p>The maximum size of the dynamic table can be changed at any time other than during the encoding of a header block. After changing
-                  the maximum size of the dynamic table used by the encoder, the encoder MUST signal this change via an encoding context update
-                  (see <a href="#encoding.context.update" title="Dynamic Table Size Update">Section&nbsp;6.3</a>). This encoding context update MUST occur at the beginning of the first header block following the change to the dynamic
+               <p>A change in the maximum size of the dynamic table is signalled via an encoding context update (see <a href="#encoding.context.update" title="Dynamic Table Size Update">Section&nbsp;6.3</a>). This encoding context update MUST occur at the beginning of the first header block following the change to the dynamic
                   table size. In HTTP/2, this follows a settings acknowledgement (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingsSync' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingsSync' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
                </p>
             </div>
             <div id="rfc.section.4.2.p.4">
-               <p>Multiple updates to the maximum table size can occur between the sending of two header blocks. In the case that this size
-                  is changed more than once in this interval, the smallest maximum table size that occurs in that interval MUST be sent in an
-                  encoding context update. The final maximum size is always sent, resulting in at most two encoding context updates. This ensures
-                  that the decoder is able to perform eviction based on reductions in dynamic table size (see <a href="#entry.eviction" title="Entry Eviction when Dynamic Table Size Changes">Section&nbsp;4.3</a>).
+               <p>Multiple updates to the maximum table size can occur between the transmission of two header blocks. In the case that this
+                  size is changed more than once in this interval, the smallest maximum table size that occurs in that interval MUST be signalled
+                  in an encoding context update. The final maximum size is always signalled, resulting in at most two encoding context updates.
+                  This ensures that the decoder is able to perform eviction based on reductions in dynamic table size (see <a href="#entry.eviction" title="Entry Eviction when Dynamic Table Size Changes">Section&nbsp;4.3</a>).
                </p>
             </div>
             <div id="rfc.section.4.2.p.5">
