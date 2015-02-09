@@ -448,7 +448,7 @@ ul p {
        content: "Peon & Ruellan";
   }
   @bottom-center {
-       content: "Expires August 11, 2015";
+       content: "Expires August 13, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -559,7 +559,7 @@ ul.toc a:first-child {
       <link rel="Chapter" title="6 Binary Format" href="#rfc.section.6">
       <link rel="Chapter" title="7 Security Considerations" href="#rfc.section.7">
       <link rel="Chapter" title="8 IANA Considerations" href="#rfc.section.8">
-      <link rel="Chapter" title="9 Acknowledgements" href="#rfc.section.9">
+      <link rel="Chapter" title="9 Acknowledgments" href="#rfc.section.9">
       <link rel="Chapter" href="#rfc.section.10" title="10 References">
       <link rel="Appendix" title="A Static Table Definition" href="#rfc.section.A">
       <link rel="Appendix" title="B Huffman Code" href="#rfc.section.B">
@@ -571,7 +571,7 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Ruellan, H.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-header-compression-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2015-02-07">
+      <meta name="dct.issued" scheme="ISO8601" content="2015-02-09">
       <meta name="dct.abstract" content="This specification defines HPACK, a compression format for efficiently representing HTTP header fields, to be used in HTTP/2.">
       <meta name="description" content="This specification defines HPACK, a compression format for efficiently representing HTTP header fields, to be used in HTTP/2.">
    </head>
@@ -591,12 +591,12 @@ ul.toc a:first-child {
                <td class="right">H. Ruellan</td>
             </tr>
             <tr>
-               <td class="left">Expires: August 11, 2015</td>
+               <td class="left">Expires: August 13, 2015</td>
                <td class="right">Canon CRF</td>
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">February 7, 2015</td>
+               <td class="right">February 9, 2015</td>
             </tr>
          </tbody>
       </table>
@@ -620,7 +620,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on August 11, 2015.</p>
+         <p>This Internet-Draft will expire on August 13, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -694,7 +694,7 @@ ul.toc a:first-child {
                </ul>
             </li>
             <li><a href="#rfc.section.8">8.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.8">IANA Considerations</a></li>
-            <li><a href="#rfc.section.9">9.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.9">Acknowledgements</a></li>
+            <li><a href="#rfc.section.9">9.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.9">Acknowledgments</a></li>
             <li><a href="#rfc.section.10">10.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.references">References</a><ul>
                   <li><a href="#rfc.section.10.1">10.1</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.references.1">Normative References</a></li>
                   <li><a href="#rfc.section.10.2">10.2</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.references.2">Informative References</a></li>
@@ -1120,14 +1120,14 @@ ul.toc a:first-child {
                </p>
             </div>
             <div id="rfc.section.4.2.p.3">
-               <p>A change in the maximum size of the dynamic table is signalled via an encoding context update (see <a href="#encoding.context.update" title="Dynamic Table Size Update">Section&nbsp;6.3</a>). This encoding context update MUST occur at the beginning of the first header block following the change to the dynamic
-                  table size. In HTTP/2, this follows a settings acknowledgement (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingsSync' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingsSync' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
+               <p>A change in the maximum size of the dynamic table is signaled via an encoding context update (see <a href="#encoding.context.update" title="Dynamic Table Size Update">Section&nbsp;6.3</a>). This encoding context update MUST occur at the beginning of the first header block following the change to the dynamic
+                  table size. In HTTP/2, this follows a settings acknowledgment (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingsSync' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingsSync' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
                </p>
             </div>
             <div id="rfc.section.4.2.p.4">
                <p>Multiple updates to the maximum table size can occur between the transmission of two header blocks. In the case that this
-                  size is changed more than once in this interval, the smallest maximum table size that occurs in that interval MUST be signalled
-                  in an encoding context update. The final maximum size is always signalled, resulting in at most two encoding context updates.
+                  size is changed more than once in this interval, the smallest maximum table size that occurs in that interval MUST be signaled
+                  in an encoding context update. The final maximum size is always signaled, resulting in at most two encoding context updates.
                   This ensures that the decoder is able to perform eviction based on reductions in dynamic table size (see <a href="#entry.eviction" title="Entry Eviction when Dynamic Table Size Changes">Section&nbsp;4.3</a>).
                </p>
             </div>
@@ -1580,7 +1580,7 @@ else
                <h3 id="rfc.section.7.1.1"><a href="#rfc.section.7.1.1">7.1.1</a>&nbsp;Applicability to HPACK and HTTP
                </h3>
                <div id="rfc.section.7.1.1.p.1">
-                  <p>HPACK mitigates but does not completely prevent attacks modelled on <a href="#CRIME">CRIME</a> <cite title="The CRIME Attack">[CRIME]</cite> by forcing a guess to match an entire header field value, rather than individual characters. An attacker can only learn whether
+                  <p>HPACK mitigates but does not completely prevent attacks modeled on <a href="#CRIME">CRIME</a> <cite title="The CRIME Attack">[CRIME]</cite> by forcing a guess to match an entire header field value, rather than individual characters. An attacker can only learn whether
                      a guess is correct or not, so is reduced to a brute force guess for the header field values.
                   </p>
                </div>
@@ -1718,7 +1718,7 @@ else
             <div id="rfc.section.7.3.p.3">
                <p>A decoder can limit the amount of state memory used by setting an appropriate value for the maximum size of the dynamic table.
                   In HTTP/2, this is realized by setting an appropriate value for the SETTINGS_HEADER_TABLE_SIZE parameter. An encoder can limit
-                  the amount of state memory it uses by signalling lower dynamic table size than the decoder allows (see <a href="#encoding.context.update" title="Dynamic Table Size Update">Section&nbsp;6.3</a>).
+                  the amount of state memory it uses by signaling lower dynamic table size than the decoder allows (see <a href="#encoding.context.update" title="Dynamic Table Size Update">Section&nbsp;6.3</a>).
                </p>
             </div>
             <div id="rfc.section.7.3.p.4">
@@ -1751,7 +1751,7 @@ else
          </div>
       </div>
       <div>
-         <h1 id="rfc.section.9"><a href="#rfc.section.9">9.</a>&nbsp;Acknowledgements
+         <h1 id="rfc.section.9"><a href="#rfc.section.9">9.</a>&nbsp;Acknowledgments
          </h1>
          <div id="rfc.section.9.p.1">
             <p>This specification includes substantial input from the following individuals: </p>
@@ -1839,7 +1839,7 @@ else
             </p>
          </div>
          <div id="rfc.section.A.p.3">
-            <p>The following table lists the pre-defined header fields that make-up the static table.</p>
+            <p>The following table lists the predefined header fields that make-up the static table.</p>
          </div>
          <div id="rfc.table.1">
             <div id="static.table.entries"></div>
