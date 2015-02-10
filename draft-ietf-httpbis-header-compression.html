@@ -448,7 +448,7 @@ ul p {
        content: "Peon & Ruellan";
   }
   @bottom-center {
-       content: "Expires August 13, 2015";
+       content: "Expires August 14, 2015";
   }
   @bottom-right {
        content: "[Page " counter(page) "]";
@@ -571,7 +571,7 @@ ul.toc a:first-child {
       <meta name="dct.creator" content="Peon, R.">
       <meta name="dct.creator" content="Ruellan, H.">
       <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-httpbis-header-compression-latest">
-      <meta name="dct.issued" scheme="ISO8601" content="2015-02-09">
+      <meta name="dct.issued" scheme="ISO8601" content="2015-02-10">
       <meta name="dct.abstract" content="This specification defines HPACK, a compression format for efficiently representing HTTP header fields, to be used in HTTP/2.">
       <meta name="description" content="This specification defines HPACK, a compression format for efficiently representing HTTP header fields, to be used in HTTP/2.">
    </head>
@@ -591,12 +591,12 @@ ul.toc a:first-child {
                <td class="right">H. Ruellan</td>
             </tr>
             <tr>
-               <td class="left">Expires: August 13, 2015</td>
+               <td class="left">Expires: August 14, 2015</td>
                <td class="right">Canon CRF</td>
             </tr>
             <tr>
                <td class="left"></td>
-               <td class="right">February 9, 2015</td>
+               <td class="right">February 10, 2015</td>
             </tr>
          </tbody>
       </table>
@@ -620,7 +620,7 @@ ul.toc a:first-child {
             documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work
             in progress”.
          </p>
-         <p>This Internet-Draft will expire on August 13, 2015.</p>
+         <p>This Internet-Draft will expire on August 14, 2015.</p>
       </div>
       <div id="rfc.copyrightnotice">
          <h1><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
@@ -1112,7 +1112,7 @@ ul.toc a:first-child {
             <h2 id="rfc.section.4.2"><a href="#rfc.section.4.2">4.2</a>&nbsp;<a href="#maximum.table.size">Maximum Table Size</a></h2>
             <div id="rfc.section.4.2.p.1">
                <p>Protocols that use HPACK determine the maximum size that the encoder is permitted to use for the dynamic table. In HTTP/2,
-                  this value is determined by the SETTINGS_HEADER_TABLE_SIZE setting (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingValues' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingValues' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
+                  this value is determined by the SETTINGS_HEADER_TABLE_SIZE setting (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17#section-6.5.2" title="Defined SETTINGS Parameters">Section 6.5.2</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
                </p>
             </div>
             <div id="rfc.section.4.2.p.2">
@@ -1121,7 +1121,7 @@ ul.toc a:first-child {
             </div>
             <div id="rfc.section.4.2.p.3">
                <p>A change in the maximum size of the dynamic table is signaled via an encoding context update (see <a href="#encoding.context.update" title="Dynamic Table Size Update">Section&nbsp;6.3</a>). This encoding context update MUST occur at the beginning of the first header block following the change to the dynamic
-                  table size. In HTTP/2, this follows a settings acknowledgment (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingsSync' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingsSync' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
+                  table size. In HTTP/2, this follows a settings acknowledgment (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17#section-6.5.3" title="Settings Synchronization">Section 6.5.3</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
                </p>
             </div>
             <div id="rfc.section.4.2.p.4">
@@ -1525,7 +1525,7 @@ else
             <div id="rfc.section.6.3.p.3">
                <p>The new maximum size MUST be lower than or equal to the last value of the maximum size of the dynamic table. A value that
                   exceeds this limit MUST be treated as a decoding error. In HTTP/2, this limit is the last value of the SETTINGS_HEADER_TABLE_SIZE
-                  parameter (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingValues' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingValues' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>) received from the decoder and acknowledged by the encoder (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingsSync' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingsSync' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
+                  parameter (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17#section-6.5.2" title="Defined SETTINGS Parameters">Section 6.5.2</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>) received from the decoder and acknowledged by the encoder (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17#section-6.5.3" title="Settings Synchronization">Section 6.5.3</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>).
                </p>
             </div>
             <div id="rfc.section.6.3.p.4">
@@ -1712,7 +1712,7 @@ else
             <div id="rfc.section.7.3.p.2">
                <p>The amount of memory used by the compressor is limited by the protocol using HPACK through the definition of the maximum size
                   of the dynamic table. In HTTP/2, this value is controlled by the decoder through the setting parameter SETTINGS_HEADER_TABLE_SIZE
-                  (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17" title="ERROR: Anchor 'SettingValues' not found in refs/draft-ietf-httpbis-http2-17.xml.">Appendix ERROR: Anchor 'SettingValues' in HTTP2 not found in source file 'refs/draft-ietf-httpbis-http2-17.xml'.</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>). This limit takes into account both the size of the data stored in the dynamic table, plus a small allowance for overhead.
+                  (see <a href="https://tools.ietf.org/html/draft-ietf-httpbis-http2-17#section-6.5.2" title="Defined SETTINGS Parameters">Section 6.5.2</a> of <a href="#HTTP2"><cite title="Hypertext Transfer Protocol version 2">[HTTP2]</cite></a>). This limit takes into account both the size of the data stored in the dynamic table, plus a small allowance for overhead.
                </p>
             </div>
             <div id="rfc.section.7.3.p.3">
